@@ -1,4 +1,4 @@
-package hr.kristiankliskovic.devcontrol.ui.components
+package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,7 +51,7 @@ data class RGBFieldInputViewState(
 @Composable
 fun RGBFieldInput(
     item: RGBFieldInputViewState,
-    selectValue: (RGBValue) -> Unit,
+    emitValue: (RGBValue) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier
@@ -74,7 +73,7 @@ fun RGBFieldInput(
                     .clickable {
 
                     }) {
-                RGBDialog(selectValue = selectValue)
+                RGBDialog(selectValue = emitValue)
             }
         }
     }
@@ -150,8 +149,9 @@ fun RGBDialog(
 fun PreviewRGBFieldInput() {
     val state = RGBFieldInputViewState(fieldId = 0,
         name = "RGB field 1",
-        currentValue = RGBValue(255, 255, 255))
-    RGBFieldInput(item = state, selectValue = {
+        currentValue = RGBValue(255, 255, 255)
+    )
+    RGBFieldInput(item = state, emitValue = {
         Log.i("rgbDebug", it.displayColorString())
     }, modifier = Modifier
         .fillMaxWidth()

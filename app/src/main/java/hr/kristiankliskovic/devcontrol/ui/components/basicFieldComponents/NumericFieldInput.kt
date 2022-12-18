@@ -33,7 +33,7 @@ data class NumericFieldInputViewState(
 fun NumericFieldInput(
     item: NumericFieldInputViewState,
     modifier: Modifier = Modifier,
-    changeValue: (Float) -> Unit,
+    emitValue: (Float) -> Unit,
 ) {
     val nstepsSkip = ((item.maxValue - item.minValue) / item.valueStep / 10).toInt()
     val multipleStepsValue = nstepsSkip * item.valueStep
@@ -57,7 +57,7 @@ fun NumericFieldInput(
             ChangeValueButton(
                 text = "-\n$multipleStepsValueText",
                 onClick = {
-                    changeValue(item.localValue + it)
+                    emitValue(item.localValue + it)
                 },
                 valueDiff = -1 * multipleStepsValue,
                 modifier = Modifier
@@ -66,7 +66,7 @@ fun NumericFieldInput(
             ChangeValueButton(
                 text = "-\n${item.valueStep}",
                 onClick = {
-                    changeValue(item.localValue + it)
+                    emitValue(item.localValue + it)
                 },
                 valueDiff = -1 * item.valueStep,
                 modifier = Modifier
@@ -79,7 +79,7 @@ fun NumericFieldInput(
             ChangeValueButton(
                 text = "+\n${item.valueStep}",
                 onClick = {
-                    changeValue(item.localValue + it)
+                    emitValue(item.localValue + it)
                 },
                 valueDiff = item.valueStep,
                 modifier = Modifier
@@ -88,7 +88,7 @@ fun NumericFieldInput(
             ChangeValueButton(
                 text = "+\n$multipleStepsValueText",
                 onClick = {
-                    changeValue(item.localValue + it)
+                    emitValue(item.localValue + it)
                 },
                 valueDiff = multipleStepsValue,
                 modifier = Modifier
@@ -179,7 +179,7 @@ fun PreviewNumericFieldInput() {
     )
     NumericFieldInput(
         item = viewState,
-        changeValue = { value ->
+        emitValue = { value ->
             if (value < viewState.minValue) {
                 viewState.currentValue = viewState.minValue
                 viewState.localValue = viewState.currentValue
