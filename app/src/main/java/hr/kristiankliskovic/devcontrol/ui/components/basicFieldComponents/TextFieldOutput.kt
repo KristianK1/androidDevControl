@@ -1,4 +1,4 @@
-package hr.kristiankliskovic.devcontrol.ui.components
+package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package hr.kristiankliskovic.devcontrol.ui.components
+package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents
 
 import android.util.Log
 import androidx.compose.foundation.border
