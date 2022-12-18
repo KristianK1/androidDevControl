@@ -31,7 +31,7 @@ data class TextFieldInputViewState(
     val fieldId: Int,
     val name: String,
     val currentValue: String,
-)
+) : BasicFieldComponentViewState()
 
 @Composable
 fun TextFieldInput(

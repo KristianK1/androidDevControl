@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +28,7 @@ data class MultipleChoiceFieldInputViewState(
     val name: String,
     val choices: List<String>,
     val currentChoice: Int,
-)
+) : BasicFieldComponentViewState()
 
 @Composable
 fun MultipleChoiceFieldInput(

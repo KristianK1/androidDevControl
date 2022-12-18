@@ -19,7 +19,7 @@ data class ButtonFieldOutputViewState(
     val fieldId: Int,
     val name: String,
     val currentValue: Boolean,
-)
+) : BasicFieldComponentViewState()
 
 @Composable
 fun ButtonFieldOutput(

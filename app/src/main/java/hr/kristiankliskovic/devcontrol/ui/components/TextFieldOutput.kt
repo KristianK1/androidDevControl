@@ -17,7 +17,7 @@ data class TextFieldOutputViewState(
     val fieldId: Int,
     val name: String,
     val currentValue: String,
-)
+) : BasicFieldComponentViewState()
 
 @Composable
 fun TextFieldOutput(

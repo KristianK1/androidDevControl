@@ -47,7 +47,7 @@ data class RGBFieldInputViewState(
     val fieldId: Int,
     val name: String,
     val currentValue: RGBValue,
-)
+) : BasicFieldComponentViewState()
 
 @Composable
 fun RGBFieldInput(
@@ -55,27 +55,17 @@ fun RGBFieldInput(
     selectValue: (RGBValue) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier
-            .height(30.dp)
-            .border(2.dp, Color.Black)
-            .padding(5.dp)
-            .fillMaxWidth()
-    ) {
-        FieldTitle(
-            item.name
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = item.currentValue.displayColorString(),
+    Column(modifier = modifier
+        .height(30.dp)
+        .border(2.dp, Color.Black)
+        .padding(5.dp)
+        .fillMaxWidth()) {
+        FieldTitle(item.name)
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text(text = item.currentValue.displayColorString(),
                 color = Color(item.currentValue.R, item.currentValue.G, item.currentValue.B),
-                fontSize = 38.sp
-            )
-            Box(
-                contentAlignment = Alignment.Center,
+                fontSize = 38.sp)
+            Box(contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(2.dp)
@@ -83,11 +73,8 @@ fun RGBFieldInput(
                     .background(Color.LightGray)
                     .clickable {
 
-                    }
-            ) {
-                RGBDialog(
-                    selectValue = selectValue
-                )
+                    }) {
+                RGBDialog(selectValue = selectValue)
             }
         }
     }
@@ -103,32 +90,25 @@ fun RGBDialog(
     }
 
     if (dialogOpen) {
-        AlertDialog(
-            onDismissRequest = {
-                // Dismiss the dialog when the user clicks outside the dialog or on the back
-                // button. If you want to disable that functionality,
-                // simply leave this block empty.
-                dialogOpen = false
-            },
+        AlertDialog(onDismissRequest = {
+            // Dismiss the dialog when the user clicks outside the dialog or on the back
+            // button. If you want to disable that functionality,
+            // simply leave this block empty.
+            dialogOpen = false
+        },
             buttons = {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(5.dp),
-                    verticalArrangement = Arrangement.SpaceAround
-                ) {
-                    ClassicColorPicker(
-                        onColorChanged = {
-                            val color = it.toColor()
-                            Log.i("rgbDebug", "${color.blue}|${color.blue.toInt()}")
-                            selectValue(RGBValue(color.red.toInt(),
-                                color.green.toInt(),
-                                color.blue.toInt()))
-                        },
-                        modifier = Modifier.weight(0.8f)
-                    )
-                    Text(
-                        text = stringResource(id = R.string.RGBFieldInput_choose_value_confirm_buttonText),
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(5.dp),
+                    verticalArrangement = Arrangement.SpaceAround) {
+                    ClassicColorPicker(onColorChanged = {
+                        val color = it.toColor()
+                        Log.i("rgbDebug", "${color.blue}|${color.blue.toInt()}")
+                        selectValue(RGBValue(color.red.toInt(),
+                            color.green.toInt(),
+                            color.blue.toInt()))
+                    }, modifier = Modifier.weight(0.8f))
+                    Text(text = stringResource(id = R.string.RGBFieldInput_choose_value_confirm_buttonText),
                         modifier = Modifier
                             .background(Color.LightGray)
                             .clickable {
@@ -136,8 +116,7 @@ fun RGBDialog(
                             }
                             .align(Alignment.CenterHorizontally)
                             .fillMaxWidth()
-                            .padding(20.dp)
-                    )
+                            .padding(20.dp))
                 }
 
             },
@@ -149,15 +128,10 @@ fun RGBDialog(
                 .padding(32.dp),
             shape = RoundedCornerShape(5.dp),
             backgroundColor = Color.White,
-            properties = DialogProperties(
-                dismissOnBackPress = true,
-                dismissOnClickOutside = true
-            )
-        )
+            properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true))
     }
 
-    Box(
-        contentAlignment = Alignment.Center,
+    Box(contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxHeight()
             .padding(2.dp)
@@ -165,31 +139,21 @@ fun RGBDialog(
             .background(Color.LightGray)
             .clickable {
                 dialogOpen = true
-            }
-    ) {
-        Text(
-            text = stringResource(id = R.string.RGBFieldInput_open_dialog),
-            modifier = Modifier
-                .padding(12.dp)
-        )
+            }) {
+        Text(text = stringResource(id = R.string.RGBFieldInput_open_dialog),
+            modifier = Modifier.padding(12.dp))
     }
 }
 
 @Preview
 @Composable
 fun PreviewRGBFieldInput() {
-    val state = RGBFieldInputViewState(
-        fieldId = 0,
+    val state = RGBFieldInputViewState(fieldId = 0,
         name = "RGB field 1",
-        currentValue = RGBValue(255, 255, 255)
-    )
-    RGBFieldInput(
-        item = state,
-        selectValue = {
-            Log.i("rgbDebug", it.displayColorString())
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp)
-    )
+        currentValue = RGBValue(255, 255, 255))
+    RGBFieldInput(item = state, selectValue = {
+        Log.i("rgbDebug", it.displayColorString())
+    }, modifier = Modifier
+        .fillMaxWidth()
+        .height(100.dp))
 }

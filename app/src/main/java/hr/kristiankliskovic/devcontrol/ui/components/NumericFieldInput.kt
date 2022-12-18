@@ -27,7 +27,7 @@ data class NumericFieldInputViewState(
     val valueStep: Float,
     var currentValue: Float,
     var localValue: Float,
-)
+) : BasicFieldComponentViewState()
 
 @Composable
 fun NumericFieldInput(
