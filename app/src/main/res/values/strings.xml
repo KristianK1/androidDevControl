@@ -6,5 +6,11 @@
     <string name="textFieldInput_enter_text_title">Type in value</string>
     <string name="textFieldInput_confirm_text_buttonText">Confirm</string>
 
+    <string name="buttonField_ON_text">ON</string>
+    <string name="buttonField_OFF_text">OFF</string>
+    <string name="buttonField_change_to_ON_text">Change to ON</string>
+    <string name="buttonField_change_to_OFF_text">Change to OFF</string>
+
+
 
 </resources>
