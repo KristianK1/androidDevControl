@@ -8,34 +8,36 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
 import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
+import androidx.compose.material.TextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
+import kotlin.math.log
 
-data class MultipleChoiceFieldInputViewState(
+data class TextFieldInputViewState(
     val fieldId: Int,
     val name: String,
-    val choices: List<String>,
-    val currentChoice: Int,
+    val currentValue: String,
 )
 
 @Composable
-fun MultipleChoiceFieldInput(
-    item: MultipleChoiceFieldInputViewState,
+fun TextFieldInput(
+    item: TextFieldInputViewState,
+    emitValue: (String) -> Unit,
     modifier: Modifier = Modifier,
-    emitValue: (Int) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -52,35 +54,18 @@ fun MultipleChoiceFieldInput(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = item.choices[item.currentChoice],
+                text = item.currentValue,
                 fontSize = 38.sp
             )
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(2.dp)
-                    .clip(Shapes.small)
-                    .background(Color.LightGray)
-                    .clickable {
+            TextInputDialog(emitValue = emitValue)
 
-                    }
-            ) {
-
-                MultipleChoiceSelector(
-                    choices = item.choices,
-                    selectValue = {
-                        emitValue(it)
-                    })
-            }
         }
     }
 }
 
 @Composable
-fun MultipleChoiceSelector(
-    choices: List<String>,
-    selectValue: (Int) -> Unit,
+fun TextInputDialog(
+    emitValue: (String) -> Unit,
 ) {
 
     var dialogOpen by remember {
@@ -96,28 +81,31 @@ fun MultipleChoiceSelector(
                 dialogOpen = false
             },
             buttons = {
-                LazyColumn(
+                Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    itemsIndexed(
-                        items = choices
-                    ) { index, item ->
-                        Text(
-                            text = item,
-                            fontSize = 20.sp,
-                            modifier = Modifier
-                                .padding(15.dp)
-                                .clickable {
-                                    selectValue(index)
-                                    dialogOpen = false
-                                }
-                        )
-                    }
+                    var text by remember { mutableStateOf(TextFieldValue("")) }
+                    TextField(
+                        value = text,
+                        onValueChange = { newText ->
+                            text = newText
+                        }
+                    )
+                    Text(
+                        text = stringResource(id = R.string.textFieldInput_confirm_text_buttonText),
+                        fontSize = 20.sp,
+                        modifier = Modifier
+                            .padding(15.dp)
+                            .clickable {
+                                emitValue(text.text)
+                                dialogOpen = false
+                            }
+                    )
                 }
             },
             title = {
-                Text(text = stringResource(id = R.string.multipleChoiceFieldInput_choose_value_title))
+                Text(text = stringResource(id = R.string.textFieldInput_enter_text_title))
             },
             modifier = Modifier // Set the width and padding
                 .fillMaxWidth()
@@ -130,31 +118,43 @@ fun MultipleChoiceSelector(
             )
         )
     }
-
-    Text(
-        text = stringResource(id = R.string.multipleChoiceFieldInput_open_selector),
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
-            .padding(12.dp)
-            .clickable { dialogOpen = true }
-    )
+            .fillMaxHeight()
+            .padding(2.dp)
+            .clip(Shapes.small)
+            .background(Color.LightGray)
+            .clickable {
+                dialogOpen = true
+            }
+    ) {
+        Text(
+            text = stringResource(id = R.string.multipleChoiceFieldInput_open_selector),
+            modifier = Modifier
+                .padding(12.dp)
+        )
+    }
+
 }
+
 
 @Preview
 @Composable
-fun PreviewMultipleChoiceFieldInput() {
-    val state = MultipleChoiceFieldInputViewState(
+fun PreviewTextFieldInput() {
+    val state = TextFieldInputViewState(
         fieldId = 0,
-        name = "MC field 1",
-        choices = listOf("Choice1", "Choice2", "Choice3", "Choice4"),
-        currentChoice = 1,
+        name = "Text field input 7",
+        currentValue = "Hello1",
     )
-    MultipleChoiceFieldInput(
+
+    TextFieldInput(
         item = state,
+        emitValue = {
+            Log.i("TFdebug", it)
+        },
         modifier = Modifier
             .fillMaxWidth()
             .height(100.dp),
-        emitValue = {
-            Log.i("MCfield", "" + it)
-        }
     )
 }
