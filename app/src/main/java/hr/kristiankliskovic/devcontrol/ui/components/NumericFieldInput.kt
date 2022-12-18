@@ -45,9 +45,8 @@ fun NumericFieldInput(
             .padding(5.dp)
             .fillMaxWidth()
     ) {
-        Text(
-            text = item.name,
-            fontSize = 35.sp
+        FieldTitle(
+            item.name
         )
         Row(
             modifier = Modifier
