@@ -14,4 +14,9 @@
     <string name="RGBFieldInput_open_dialog">Change</string>
     <string name="RGBFieldInput_choose_value_title">Choose value</string>
     <string name="RGBFieldInput_choose_value_confirm_buttonText">Choose value</string>
+
+    <string name="complexGroup_stateChooser_title">Current\nstate:</string>
+    <string name="complexGroup_stateChooser_button">Change\nstate</string>
+    <string name="complexGroup_stateChooser_dialog_title">Choose state</string>
+
 </resources>
