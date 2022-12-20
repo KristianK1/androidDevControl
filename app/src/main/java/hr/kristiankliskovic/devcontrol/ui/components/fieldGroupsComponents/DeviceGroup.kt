@@ -40,7 +40,9 @@ fun DeviceGroup(
     ) {
         GroupTitle(
             name = item.groupName,
-            modifier = Modifier.fillMaxWidth().padding(5.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(5.dp)
         )
         for (fieldViewState in item.fields) {
             BasicField(
@@ -142,9 +144,13 @@ fun BasicField(
 @Preview
 @Composable
 fun PreviewDeviceGroup() {
-    DeviceGroup(
-        item = getMockDeviceGroupViewState(),
-        onChange = { groupId, fieldId, value ->
+    LazyColumn {
+        items(1) {
+            DeviceGroup(
+                item = getMockDeviceGroupViewState(),
+                onChange = { groupId, fieldId, value ->
+                }
+            )
         }
-    )
+    }
 }

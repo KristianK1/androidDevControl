@@ -2,6 +2,7 @@ package hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,7 +27,7 @@ data class DeviceComplexGroupViewState(
 )
 
 @Composable
-fun ComplexGroup(
+fun DeviceComplexGroup(
     item: DeviceComplexGroupViewState,
     changeComplexGroupState: (Int, Int) -> Unit,
     onChange: (Int, Int, Int, Any) -> Unit,
@@ -49,7 +50,9 @@ fun ComplexGroup(
             changeState = {
                 changeComplexGroupState(item.complexGroupId, it)
             },
-            modifier = Modifier.fillMaxWidth().height(60.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
         )
         for (fieldViewState in item.states[item.currentState].fields) {
             BasicField(
@@ -67,14 +70,19 @@ fun ComplexGroup(
 @Preview
 @Composable
 fun PreviewComplexGroup() {
-    ComplexGroup(
-        item = getMockDeviceComplexGroupViewState(),
-        changeComplexGroupState = { _, _ ->
+    LazyColumn {
+        items(1) {
+            DeviceComplexGroup(
+                item = getMockDeviceComplexGroupViewState(),
+                changeComplexGroupState = { _, _ ->
 
-        },
-        onChange = { _, _, _, _ ->
+                },
+                onChange = { _, _, _, _ ->
 
+                }
+            )
         }
-    )
+    }
+
 
 }
