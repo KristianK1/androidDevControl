@@ -1,4 +1,4 @@
-package hr.kristiankliskovic.devcontrol.ui.login
+package hr.kristiankliskovic.devcontrol.ui.register
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -23,17 +23,17 @@ import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
 
 @Composable
-fun LoginRoute(
-    login: (String, String) -> Unit,
+fun RegisterRoute(
+    register: (String, String) -> Unit,
 ) {
-    LoginScreen(
-        login = login
+    RegisterScreen(
+        register = register
     )
 }
 
 @Composable
-fun LoginScreen(
-    login: (String, String) -> Unit,
+fun RegisterScreen(
+    register: (String, String) -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -43,6 +43,7 @@ fun LoginScreen(
     ) {
         var username by remember { mutableStateOf(TextFieldValue("")) }
         var password by remember { mutableStateOf(TextFieldValue("")) }
+        var passwordAgain by remember { mutableStateOf(TextFieldValue("")) }
 
         Text(
             text = stringResource(id = R.string.login_register_screen_app_name),
@@ -58,7 +59,7 @@ fun LoginScreen(
         )
 
         Text(
-            text = stringResource(id = R.string.loginScreen_title),
+            text = stringResource(id = R.string.registerScreen_title),
             fontSize = 40.sp,
             modifier = Modifier
                 .padding(
@@ -116,9 +117,33 @@ fun LoginScreen(
                     end = 0.dp
                 )
         )
+        OutlinedTextField(
+            value = password,
+            onValueChange = { newText: TextFieldValue ->
+                password = newText
+            },
+            visualTransformation = PasswordVisualTransformation(),
+            placeholder = {
+                Text(
+                    text = stringResource(id = R.string.registerScreen_passwordAgainText),
+                )
+            },
+            label = {
+                Text(
+                    text = stringResource(id = R.string.registerScreen_passwordAgainHint)
+                )
+            },
+            modifier = Modifier
+                .padding(
+                    top = 5.dp,
+                    bottom = 0.dp,
+                    start = 0.dp,
+                    end = 0.dp
+                )
+        )
 
         Text(
-            text = stringResource(id = R.string.loginScreen_login_button),
+            text = stringResource(id = R.string.registerScreen_register_button),
             fontSize = 20.sp,
             modifier = Modifier
                 .padding(20.dp)
@@ -127,7 +152,11 @@ fun LoginScreen(
                     shape = RoundedCornerShape(5.dp)
                 )
                 .clickable {
-                    login(username.text, password.text)
+                    if (password.text == passwordAgain.text) {
+                        register(username.text, password.text)
+                    } else {
+                        //toast
+                    }
                 }
                 .padding(
                     horizontal = 20.dp,
@@ -139,8 +168,8 @@ fun LoginScreen(
 
 @Preview
 @Composable
-fun PreviewLoginScreen() {
-    LoginScreen(login = { u, p ->
-        Log.i("login", "$u|$p")
+fun PreviewRegisterScreen() {
+    RegisterScreen(register = { u, p ->
+        Log.i("register", "$u|$p")
     })
 }

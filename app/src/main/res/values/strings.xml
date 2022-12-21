@@ -23,13 +23,19 @@
     <string name="login_register_screen_app_name">devControl</string>
 
     <string name="loginScreen_title">Login</string>
-    <string name="loginScreen_usernameText">Username:</string>
-    <string name="loginScreen_passwordText">Password:</string>
-
-    <string name="loginScreen_usernameHint">Enter username:</string>
-    <string name="loginScreen_passwordHint">Enter password:</string>
+    <string name="loginRegisterScreen_usernameText">Username:</string>
+    <string name="loginRegisterScreen_passwordText">Password:</string>
+    <string name="loginRegisterScreen_usernameHint">Enter username:</string>
+    <string name="loginRegisterScreen_passwordHint">Enter password:</string>
+    <string name="registerScreen_passwordAgainText">Repeat Password:</string>
+    <string name="registerScreen_passwordAgainHint">Enter password again:</string>
 
     <string name="loginScreen_login_button">Login</string>
+
+    <string name="registerScreen_title">Register</string>
+
+    <string name="registerScreen_register_button">Register</string>
+
 
 
 </resources>
