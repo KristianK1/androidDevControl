@@ -36,6 +36,7 @@
 
     <string name="registerScreen_register_button">Register</string>
 
-
+    <string name="deviceStatusComponent_online_statusText">Online</string>
+    <string name="deviceStatusComponent_offline_statusText">Offline</string>
 
 </resources>

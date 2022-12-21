@@ -8,8 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-
     <color name="buttonField_ON">#5000FF00</color>
     <color name="buttonField_OFF">#50FF0000</color>
 
+    <color name="deviceStatusOnline">#7800FF00</color>
+    <color name="deviceStatusOffline">#70FF0000</color>
 </resources>

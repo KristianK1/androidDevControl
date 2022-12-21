@@ -4,6 +4,8 @@ import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.*
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupStateViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceGroupViewState
+import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.DeviceNameAndStatusViewState
+import hr.kristiankliskovic.devcontrol.ui.myDevices.MyDevicesScreenViewState
 
 fun getMockDeviceGroupViewState(): DeviceGroupViewState {
     val list: List<BasicFieldComponentViewState> = listOf(
@@ -216,6 +218,49 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
         groupName = "RGB control",
         states = listOf(state1, state2, state3),
         currentState = 2,
+    )
+}
+
+
+fun getDeviceListMockData(): MyDevicesScreenViewState {
+    return MyDevicesScreenViewState(
+        devices = listOf(
+            DeviceNameAndStatusViewState(
+                deviceId = 0,
+                deviceName = "deviceName1",
+                deviceStatus = true
+            ),
+            DeviceNameAndStatusViewState(
+                deviceId = 1,
+                deviceName = "deviceName2",
+                deviceStatus = false
+            ),
+            DeviceNameAndStatusViewState(
+                deviceId = 7,
+                deviceName = "deviceName7",
+                deviceStatus = true
+            ),
+            DeviceNameAndStatusViewState(
+                deviceId = 11,
+                deviceName = "deviceName11",
+                deviceStatus = false
+            ),
+            DeviceNameAndStatusViewState(
+                deviceId = 16,
+                deviceName = "deviceName16",
+                deviceStatus = false
+            ),
+            DeviceNameAndStatusViewState(
+                deviceId = 99,
+                deviceName = "deviceName99",
+                deviceStatus = true
+            ),
+            DeviceNameAndStatusViewState(
+                deviceId = 118,
+                deviceName = "deviceName118",
+                deviceStatus = false
+            ),
+        )
     )
 }
 
