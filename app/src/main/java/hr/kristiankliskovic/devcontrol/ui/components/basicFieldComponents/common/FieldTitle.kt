@@ -1,4 +1,4 @@
-package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents
+package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.common
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
