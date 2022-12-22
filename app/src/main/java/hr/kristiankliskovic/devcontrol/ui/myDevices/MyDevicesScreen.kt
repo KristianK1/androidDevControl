@@ -17,11 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hr.kristiankliskovic.devcontrol.mock.getDeviceListMockData
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.DeviceNameAndStatus
-import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.DeviceNameAndStatusViewState
-
-data class MyDevicesScreenViewState(
-    val devices: List<DeviceNameAndStatusViewState>,
-)
 
 @Composable
 fun MyDevicesRoute() {

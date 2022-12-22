@@ -2,6 +2,7 @@ package hr.kristiankliskovic.devcontrol.mock
 
 import hr.kristiankliskovic.devcontrol.model.RGBValue
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.*
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.BasicFieldComponentViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupStateViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceGroupViewState

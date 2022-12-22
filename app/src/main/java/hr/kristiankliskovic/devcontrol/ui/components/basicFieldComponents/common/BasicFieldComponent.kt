@@ -1,3 +1,0 @@
-package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents
-
-sealed class BasicFieldComponentViewState

@@ -1,6 +1,5 @@
-package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents
+package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields
 
-import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -13,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.FieldTitle
 
 
 data class ButtonFieldOutputViewState(

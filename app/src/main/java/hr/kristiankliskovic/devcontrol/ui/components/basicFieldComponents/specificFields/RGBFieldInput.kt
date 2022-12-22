@@ -1,4 +1,4 @@
-package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents
+package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -21,6 +21,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.godaddy.android.colorpicker.ClassicColorPicker
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.model.RGBValue
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.FieldTitle
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 
 data class RGBFieldInputViewState(

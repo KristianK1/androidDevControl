@@ -10,8 +10,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hr.kristiankliskovic.devcontrol.mock.getMockDeviceComplexGroupViewState
-import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.BasicFieldComponentViewState
-import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.NumericFieldInput
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.BasicFieldComponentViewState
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.common.BasicField
 
 data class DeviceComplexGroupStateViewState(
     val stateId: Int,

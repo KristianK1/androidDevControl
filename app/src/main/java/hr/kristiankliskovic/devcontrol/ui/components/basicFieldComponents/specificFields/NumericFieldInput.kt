@@ -1,4 +1,4 @@
-package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents
+package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 import kotlin.math.round
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.FieldTitle
 
 data class NumericFieldInputViewState(
     val fieldId: Int,

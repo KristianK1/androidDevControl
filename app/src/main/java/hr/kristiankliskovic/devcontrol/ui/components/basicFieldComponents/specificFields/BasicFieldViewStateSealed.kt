@@ -1,0 +1,3 @@
+package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields
+
+sealed class BasicFieldComponentViewState

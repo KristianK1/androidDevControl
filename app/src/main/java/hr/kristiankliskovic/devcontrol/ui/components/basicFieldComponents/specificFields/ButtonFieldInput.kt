@@ -1,4 +1,4 @@
-package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents
+package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.FieldTitle
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 
 data class ButtonFieldInputViewState(

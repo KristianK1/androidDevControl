@@ -1,24 +1,17 @@
 package hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.FlingBehavior
-import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.mock.getMockDeviceGroupViewState
-import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.*
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.common.BasicField
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.BasicFieldComponentViewState
 
 data class DeviceGroupViewState(
     val groupId: Int,
@@ -56,88 +49,6 @@ fun DeviceGroup(
 
     }
 
-}
-
-
-@Composable
-fun BasicField(
-    item: BasicFieldComponentViewState,
-    onChange: (Int, Any) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    when (item) {
-        is ButtonFieldInputViewState -> {
-            ButtonFieldInput(
-                item = item,
-                emitValue = { value ->
-                    onChange(item.fieldId, value)
-                },
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-            )
-        }
-        is ButtonFieldOutputViewState -> {
-            ButtonFieldOutput(
-                item = item,
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-            )
-        }
-        is TextFieldInputViewState -> {
-            TextFieldInput(
-                item = item,
-                emitValue = { value ->
-                    onChange(item.fieldId, value)
-                },
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-            )
-        }
-        is TextFieldOutputViewState -> {
-            TextFieldOutput(
-                item = item,
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-            )
-        }
-        is MultipleChoiceFieldInputViewState -> {
-            MultipleChoiceFieldInput(
-                item = item,
-                emitValue = { value ->
-                    onChange(item.fieldId, value)
-                },
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-            )
-        }
-        is RGBFieldInputViewState -> {
-            RGBFieldInput(
-                item = item,
-                emitValue = { value ->
-                    onChange(item.fieldId, value)
-                },
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-            )
-        }
-        is NumericFieldInputViewState -> {
-            NumericFieldInput(
-                item = item,
-                emitValue = { value ->
-                    onChange(item.fieldId, value)
-                },
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-            )
-        }
-    }
 }
 
 
