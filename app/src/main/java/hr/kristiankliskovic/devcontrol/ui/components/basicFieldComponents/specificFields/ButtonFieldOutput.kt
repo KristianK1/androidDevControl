@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.common.FieldTitle
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.common.FieldTitle
 
 
 data class ButtonFieldOutputViewState(

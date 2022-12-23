@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.common.FieldTitle
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.common.FieldTitle
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 
 data class MultipleChoiceFieldInputViewState(

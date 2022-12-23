@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 import kotlin.math.round
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.common.FieldTitle
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.common.FieldTitle
 
 data class NumericFieldInputViewState(
     val fieldId: Int,

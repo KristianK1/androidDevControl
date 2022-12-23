@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hr.kristiankliskovic.devcontrol.mock.getMockDeviceGroupViewState
-import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.common.BasicField
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.common.BasicField
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.BasicFieldComponentViewState
 
 data class DeviceGroupViewState(
