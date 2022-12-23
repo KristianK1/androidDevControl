@@ -83,7 +83,7 @@ fun BasicField(
                 },
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(100.dp)
+                    .height(130.dp)
             )
         }
     }

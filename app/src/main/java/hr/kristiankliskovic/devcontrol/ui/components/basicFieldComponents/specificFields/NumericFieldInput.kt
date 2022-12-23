@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -48,15 +49,25 @@ fun NumericFieldInput(
             .padding(5.dp)
             .fillMaxWidth()
     ) {
-        FieldTitle(
-            item.name
-        )
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            FieldTitle(
+                item.name
+            )
+            Text(
+                text = "[ ${"%.1f".format(item.minValue)}, ${"%.1f".format(item.maxValue)} ]",
+                fontSize = 20.sp,
+            )
+        }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
             ChangeValueButton(
-                text = "-\n$multipleStepsValueText",
+                text = "-$multipleStepsValueText",
                 onClick = {
                     emitValue(item.localValue + it)
                 },
@@ -65,7 +76,7 @@ fun NumericFieldInput(
                     .weight(1f, true)
             )
             ChangeValueButton(
-                text = "-\n${item.valueStep}",
+                text = "-${item.valueStep}",
                 onClick = {
                     emitValue(item.localValue + it)
                 },
@@ -78,7 +89,7 @@ fun NumericFieldInput(
                 currentValue = "%.2f".format(item.currentValue),
             )
             ChangeValueButton(
-                text = "+\n${item.valueStep}",
+                text = "+${item.valueStep}",
                 onClick = {
                     emitValue(item.localValue + it)
                 },
@@ -87,7 +98,7 @@ fun NumericFieldInput(
                     .weight(1f, true)
             )
             ChangeValueButton(
-                text = "+\n$multipleStepsValueText",
+                text = "+$multipleStepsValueText",
                 onClick = {
                     emitValue(item.localValue + it)
                 },
@@ -107,8 +118,7 @@ fun ChangeValueButton(
     onClick: (Float) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Text(
-        text = "$text",
+    Box(
         modifier = modifier
             .fillMaxHeight()
             .padding(2.dp)
@@ -117,9 +127,15 @@ fun ChangeValueButton(
             .clickable {
                 onClick(valueDiff)
             },
-        textAlign = TextAlign.Center,
-        fontSize = 22.sp
-    )
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = text,
+            textAlign = TextAlign.Center,
+            fontSize = 22.sp,
+        )
+    }
+
 }
 
 @Composable
@@ -150,7 +166,7 @@ fun FieldValues(
 fun LocalValue(
     localValue: String,
     modifier: Modifier = Modifier
-        .fillMaxSize()
+        .fillMaxSize(),
 ) {
     Text(
         text = stringResource(id = R.string.numericFieldInput_local_value),
@@ -195,7 +211,7 @@ fun PreviewNumericFieldInput() {
             }
         },
         modifier = Modifier
-            .height(120.dp)
+            .height(130.dp)
             .fillMaxWidth()
     )
 }

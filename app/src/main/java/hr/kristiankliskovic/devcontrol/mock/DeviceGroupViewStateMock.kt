@@ -1,8 +1,7 @@
 package hr.kristiankliskovic.devcontrol.mock
 
 import hr.kristiankliskovic.devcontrol.model.RGBValue
-import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.*
-import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.BasicFieldComponentViewState
+import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.*
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupStateViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceGroupViewState
@@ -93,23 +92,23 @@ fun getMockDeviceGroupViewState(): DeviceGroupViewState {
         ),
         RGBFieldInputViewState(fieldId = 0,
             name = "RGB field 1",
-            currentValue = RGBValue(255, 255, 255)
+            currentValue = RGBValue(54, 26, 165)
         ),
         RGBFieldInputViewState(fieldId = 0,
             name = "RGB field 1",
-            currentValue = RGBValue(255, 255, 255)
+            currentValue = RGBValue(25, 55, 25)
         ),
         RGBFieldInputViewState(fieldId = 0,
             name = "RGB field 1",
-            currentValue = RGBValue(255, 255, 255)
+            currentValue = RGBValue(255, 205, 155)
         ),
         RGBFieldInputViewState(fieldId = 0,
             name = "RGB field 1",
-            currentValue = RGBValue(255, 255, 255)
+            currentValue = RGBValue(55, 255, 195)
         ),
         RGBFieldInputViewState(fieldId = 0,
             name = "RGB field 1",
-            currentValue = RGBValue(255, 255, 255)
+            currentValue = RGBValue(25, 100, 115)
         ),
         TextFieldInputViewState(
             fieldId = 0,
@@ -160,7 +159,7 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
         NumericFieldInputViewState(
             fieldId = 0,
             name = "Red",
-            minValue = -1f,
+            minValue = 0f,
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
@@ -169,7 +168,7 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
         NumericFieldInputViewState(
             fieldId = 1,
             name = "Green",
-            minValue = -1f,
+            minValue = 0f,
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
@@ -178,7 +177,7 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
         NumericFieldInputViewState(
             fieldId = 2,
             name = "Blue",
-            minValue = -1f,
+            minValue = 0f,
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
@@ -194,8 +193,8 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
         MultipleChoiceFieldInputViewState(
             fieldId = 0,
             name = "Animations",
-            choices = listOf("OFF", "A1", "A2", "A3"),
-            currentChoice = 0,
+            choices = listOf("OFF", "Animation 1", "Animation 2", "Animation 3"),
+            currentChoice = 1,
         ),
     )
     val state2 = DeviceComplexGroupStateViewState(
@@ -207,7 +206,7 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
         RGBFieldInputViewState(
             fieldId = 0,
             name = "RGB field 1",
-            currentValue = RGBValue(255, 255, 255)
+            currentValue = RGBValue(70, 66, 104)
         ),
     )
     val state3 = DeviceComplexGroupStateViewState(

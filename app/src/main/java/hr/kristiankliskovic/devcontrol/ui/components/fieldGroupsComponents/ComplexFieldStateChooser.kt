@@ -41,7 +41,7 @@ fun ComplexGroupStateChooser(
         Box(
             modifier = Modifier
                 .fillMaxHeight()
-                .padding(5.dp,0.dp),
+                .padding(5.dp, 0.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
@@ -134,7 +134,6 @@ fun ComplexStateChooserDialog(
     Box(contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxHeight()
-            .padding(2.dp)
             .clip(Shapes.small)
             .background(Color.LightGray)
             .clickable {
@@ -142,7 +141,10 @@ fun ComplexStateChooserDialog(
             }) {
         Text(
             text = stringResource(id = R.string.complexGroup_stateChooser_button),
-            modifier = Modifier.padding(12.dp)
+            modifier = Modifier.padding(
+                horizontal = 10.dp,
+                vertical = 0.dp
+            )
         )
     }
 }

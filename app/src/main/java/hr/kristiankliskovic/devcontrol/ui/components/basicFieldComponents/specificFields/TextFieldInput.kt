@@ -93,11 +93,11 @@ fun TextInputDialog(
                         text = stringResource(id = R.string.textFieldInput_confirm_text_buttonText),
                         fontSize = 20.sp,
                         modifier = Modifier
-                            .padding(15.dp)
                             .clickable {
                                 emitValue(text.text)
                                 dialogOpen = false
                             }
+                            .padding(15.dp)
                     )
                 }
             },
