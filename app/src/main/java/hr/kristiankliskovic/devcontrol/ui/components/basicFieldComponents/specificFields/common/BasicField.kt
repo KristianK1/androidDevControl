@@ -75,6 +75,14 @@ fun BasicField(
                     .height(100.dp)
             )
         }
+        is RGBFieldOutputViewState -> {
+            RGBFieldOutput(
+                item = item,
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+            )
+        }
         is NumericFieldInputViewState -> {
             NumericFieldInput(
                 item = item,

@@ -61,9 +61,7 @@ fun TextFieldInput(
                     fontSize = 40.sp,
                 )
             }
-
             TextInputDialog(emitValue = emitValue)
-
         }
     }
 }

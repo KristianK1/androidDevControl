@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -13,6 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,26 +37,31 @@ fun RGBFieldInput(
     emitValue: (RGBValue) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier
-        .border(2.dp, Color.Black)
-        .padding(5.dp)
-        .fillMaxWidth()) {
+    Column(
+        modifier = modifier
+            .border(
+                width = dimensionResource(id = R.dimen.fieldComponent_borderThickness),
+                color = colorResource(id = R.color.fieldComponent_border)
+            )
+            .padding(dimensionResource(id = R.dimen.fieldComponent_padding))
+            .fillMaxWidth()
+    ) {
         FieldTitle(item.name)
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(text = item.currentValue.displayColorString(),
-                color = Color(item.currentValue.R, item.currentValue.G, item.currentValue.B),
-                fontSize = 38.sp)
-            Box(contentAlignment = Alignment.Center,
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(2.dp)
-                    .clip(Shapes.small)
-                    .background(Color.LightGray)
-                    .clickable {
-
-                    }) {
-                RGBDialog(selectValue = emitValue)
+                    .align(Alignment.CenterVertically)
+            ) {
+                Text(
+                    text = item.currentValue.displayColorString(),
+                    color = Color(item.currentValue.R, item.currentValue.G, item.currentValue.B),
+                    fontSize = 40.sp,
+                )
             }
+            RGBDialog(selectValue = emitValue)
         }
     }
 }
@@ -64,64 +70,90 @@ fun RGBFieldInput(
 fun RGBDialog(
     selectValue: (RGBValue) -> Unit,
 ) {
-
     var dialogOpen by remember {
         mutableStateOf(false)
     }
 
     if (dialogOpen) {
         AlertDialog(onDismissRequest = {
-            // Dismiss the dialog when the user clicks outside the dialog or on the back
-            // button. If you want to disable that functionality,
-            // simply leave this block empty.
             dialogOpen = false
         },
             buttons = {
-                Column(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(5.dp),
-                    verticalArrangement = Arrangement.SpaceAround) {
-                    ClassicColorPicker(onColorChanged = {
-                        val color = it.toColor()
-                        Log.i("rgbDebug", "${color.blue}|${color.blue.toInt()}")
-                        selectValue(RGBValue(color.red.toInt(),
-                            color.green.toInt(),
-                            color.blue.toInt()))
-                    }, modifier = Modifier.weight(0.8f))
-                    Text(text = stringResource(id = R.string.RGBFieldInput_choose_value_confirm_buttonText),
+                Column(
+//                    modifier = Modifier
+//                        .fillMaxWidth(),
+//                        .padding(5.dp),
+                    verticalArrangement = Arrangement.SpaceAround
+                ) {
+                    ClassicColorPicker(
+                        onColorChanged = {
+                            val color = it.toColor()
+                            Log.i("rgbDebug", "${color.blue}|${color.blue.toInt()}")
+                            selectValue(
+                                RGBValue(
+                                    color.red.toInt(),
+                                    color.green.toInt(),
+                                    color.blue.toInt()
+                                )
+                            )
+                        },
                         modifier = Modifier
-                            .background(Color.LightGray)
-                            .clickable {
-                                dialogOpen = false
-                            }
-                            .align(Alignment.CenterHorizontally)
-                            .fillMaxWidth()
-                            .padding(20.dp))
+                            .weight(0.8f)
+                    )
+
+                    Box(
+                        modifier = Modifier
+                            .padding(dimensionResource(id = R.dimen.dialog_confirm_button_margin))
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier
+                                .clip(Shapes.small)
+                                .clickable {
+                                    dialogOpen = false
+                                }
+                                .background(colorResource(id = R.color.fieldComponent_button_background))
+                                .padding(dimensionResource(id = R.dimen.dialog_confirm_button_padding))
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.RGBFieldInput_dialog_close_button),
+                                fontSize = 20.sp
+                            )
+                        }
+                    }
                 }
 
             },
-            title = {
-                Text(text = stringResource(id = R.string.RGBFieldInput_choose_value_title))
-            },
-            modifier = Modifier // Set the width and padding
+            modifier = Modifier
                 .fillMaxWidth()
-                .padding(32.dp),
-            shape = RoundedCornerShape(5.dp),
+                .padding(dimensionResource(id = R.dimen.fieldComponent_dialog_padding)),
+            shape = Shapes.small,
             backgroundColor = Color.White,
             properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true))
     }
 
-    Box(contentAlignment = Alignment.Center,
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxHeight()
-            .padding(2.dp)
+            .padding(dimensionResource(id = R.dimen.fieldComponent_button_padding))
             .clip(Shapes.small)
-            .background(Color.LightGray)
+            .background(colorResource(id = R.color.fieldComponent_button_background))
             .clickable {
                 dialogOpen = true
-            }) {
-        Text(text = stringResource(id = R.string.RGBFieldInput_open_dialog),
-            modifier = Modifier.padding(12.dp))
+            }
+    ) {
+        Text(
+            text = stringResource(id = R.string.RGBFieldInput_open_dialog),
+            fontSize = 20.sp,
+            modifier = Modifier
+                .padding(
+                    horizontal = dimensionResource(id = R.dimen.fieldComponent_button_text_padding),
+                    vertical = 0.dp
+                )
+        )
     }
 }
 
@@ -130,7 +162,7 @@ fun RGBDialog(
 fun PreviewRGBFieldInput() {
     val state = RGBFieldInputViewState(fieldId = 0,
         name = "RGB field 1",
-        currentValue = RGBValue(255, 255, 255)
+        currentValue = RGBValue(55, 55, 155)
     )
     RGBFieldInput(item = state, emitValue = {
         Log.i("rgbDebug", it.displayColorString())
