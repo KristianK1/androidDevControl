@@ -16,11 +16,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,15 +34,18 @@ import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineText
 @Composable
 fun LoginRoute(
     login: (String, String) -> Unit,
+    registerInstead: () -> Unit,
 ) {
     LoginScreen(
-        login = login
+        login = login,
+        registerInstead = registerInstead,
     )
 }
 
 @Composable
 fun LoginScreen(
     login: (String, String) -> Unit,
+    registerInstead: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -56,7 +63,7 @@ fun LoginScreen(
             fontFamily = FontFamily.Cursive,
             modifier = Modifier
                 .padding(
-                    top = 30.dp,
+                    top = dimensionResource(id = R.dimen.login_register_screen_app_name_topPadding),
                     bottom = 0.dp,
                     start = 0.dp,
                     end = 0.dp
@@ -68,7 +75,7 @@ fun LoginScreen(
             fontSize = 40.sp,
             modifier = Modifier
                 .padding(
-                    top = 30.dp,
+                    top = dimensionResource(id = R.dimen.login_register_screen_title_top_padding),
                     bottom = 0.dp,
                     start = 0.dp,
                     end = 0.dp
@@ -83,7 +90,7 @@ fun LoginScreen(
             },
             modifier = Modifier
                 .padding(
-                    top = 5.dp,
+                    top = dimensionResource(id = R.dimen.login_register_screen_paddingAbove_text_input),
                     bottom = 0.dp,
                     start = 0.dp,
                     end = 0.dp
@@ -99,7 +106,7 @@ fun LoginScreen(
             },
             modifier = Modifier
                 .padding(
-                    top = 5.dp,
+                    top = dimensionResource(id = R.dimen.login_register_screen_paddingAbove_text_input),
                     bottom = 0.dp,
                     start = 0.dp,
                     end = 0.dp
@@ -111,7 +118,7 @@ fun LoginScreen(
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
-                .padding(20.dp)
+                .padding(dimensionResource(id = R.dimen.login_register_screen_padding_outside_button))
                 .clip(RoundedCornerShape(20.dp))
                 .background(
                     color = Color.LightGray,
@@ -120,10 +127,24 @@ fun LoginScreen(
                     login(username, password)
                 }
                 .padding(
-                    horizontal = 60.dp,
-                    vertical = 10.dp
+                    horizontal = dimensionResource(id = R.dimen.login_register_screen_padding_outside_button_horizontal),
+                    vertical = dimensionResource(id = R.dimen.login_register_screen_padding_outside_button_vertical)
                 )
+        )
 
+        Text(
+            text = stringResource(id = R.string.loginScreen_register_instead),
+            color = colorResource(id = R.color.text_link_color),
+            fontStyle = FontStyle.Italic,
+            textDecoration = TextDecoration.Underline,
+            modifier = Modifier
+                .padding(
+                    horizontal = 0.dp,
+                    vertical = dimensionResource(id = R.dimen.login_register_screen_linkToOtherScreen_padding_vertical)
+                )
+                .clickable {
+                    registerInstead()
+                }
         )
     }
 }
@@ -131,7 +152,12 @@ fun LoginScreen(
 @Preview
 @Composable
 fun PreviewLoginScreen() {
-    LoginScreen(login = { u, p ->
-        Log.i("login", "$u|$p")
-    })
+    LoginScreen(
+        login = { u, p ->
+            Log.i("login", "$u|$p")
+        },
+        registerInstead = {
+            Log.i("login", "register")
+        }
+    )
 }

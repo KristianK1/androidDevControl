@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="login_register_screen_app_name_topPadding">100.dp</dimen>
+    <dimen name="login_register_screen_title_top_padding">30.dp</dimen>
+    <dimen name="login_register_screen_paddingAbove_text_input">5.dp</dimen>
+    <dimen name="login_register_screen_padding_outside_button">20.dp</dimen>
+    <dimen name="login_register_screen_padding_outside_button_vertical">10.dp</dimen>
+    <dimen name="login_register_screen_padding_outside_button_horizontal">60.dp</dimen>
+    <dimen name="login_register_screen_linkToOtherScreen_padding_vertical">10.dp</dimen>
+</resources>

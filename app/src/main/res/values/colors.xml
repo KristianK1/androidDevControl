@@ -13,4 +13,6 @@
 
     <color name="deviceStatusOnline">#7800FF00</color>
     <color name="deviceStatusOffline">#70FF0000</color>
+
+    <color name="text_link_color">#FF0000FF</color>
 </resources>

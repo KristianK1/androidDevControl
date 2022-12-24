@@ -29,12 +29,12 @@
     <string name="loginRegisterScreen_passwordHint">Enter password:</string>
     <string name="registerScreen_passwordAgainText">Repeat Password:</string>
     <string name="registerScreen_passwordAgainHint">Enter password again:</string>
-
     <string name="loginScreen_login_button">Login</string>
-
     <string name="registerScreen_title">Register</string>
-
     <string name="registerScreen_register_button">Register</string>
+    <string name="loginScreen_register_instead">Register instead</string>
+    <string name="registerScreen_login_instead">Login instead</string>
+
 
     <string name="deviceStatusComponent_online_statusText">Online</string>
     <string name="deviceStatusComponent_offline_statusText">Offline</string>
