@@ -24,4 +24,8 @@
 
     <dimen name="dialog_confirm_button_padding">15.dp</dimen>
     <dimen name="dialog_confirm_button_margin">20.dp</dimen>
+
+    <dimen name="numericField_changeValueButton_padding">2.dp</dimen>
+    <dimen name="numericField_middleColumn_padding">2.dp</dimen>
+    <dimen name="numericField_localValue_padding_top">2.dp</dimen>
 </resources>

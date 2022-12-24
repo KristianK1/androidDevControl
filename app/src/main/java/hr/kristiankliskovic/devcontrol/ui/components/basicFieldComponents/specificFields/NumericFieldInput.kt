@@ -11,6 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,23 +46,33 @@ fun NumericFieldInput(
 
     Column(
         modifier = modifier
-            .border(2.dp, Color.Black)
-            .padding(5.dp)
+            .border(
+                width = dimensionResource(id = R.dimen.fieldComponent_borderThickness),
+                color = colorResource(id = R.color.fieldComponent_border)
+            )
+            .padding(dimensionResource(id = R.dimen.fieldComponent_padding))
             .fillMaxWidth()
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min),
         ) {
             FieldTitle(
                 item.name
             )
-            Text(
-                text = "[ ${"%.1f".format(item.minValue)}, ${"%.1f".format(item.maxValue)} ]",
-                fontSize = 20.sp,
-            )
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "[ ${"%.1f".format(item.minValue)}, ${"%.1f".format(item.maxValue)} ]",
+                    fontSize = 20.sp,
+                )
+            }
         }
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -120,9 +132,9 @@ fun ChangeValueButton(
     Box(
         modifier = modifier
             .fillMaxHeight()
-            .padding(2.dp)
+            .padding(dimensionResource(id = R.dimen.numericField_changeValueButton_padding))
             .clip(Shapes.small)
-            .background(Color.LightGray)
+            .background(colorResource(id = R.color.fieldComponent_button_background))
             .clickable {
                 onClick(valueDiff)
             },
@@ -134,7 +146,6 @@ fun ChangeValueButton(
             fontSize = 22.sp,
         )
     }
-
 }
 
 @Composable
@@ -145,7 +156,7 @@ fun FieldValues(
 ) {
     Column(
         modifier = modifier
-            .padding(2.dp)
+            .padding(dimensionResource(id = R.dimen.numericField_middleColumn_padding))
             .width(IntrinsicSize.Max)
     ) {
         Text(
@@ -156,7 +167,12 @@ fun FieldValues(
         LocalValue(
             localValue,
             modifier = Modifier
-                .padding(2.dp)
+                .padding(
+                    top = dimensionResource(id = R.dimen.numericField_localValue_padding_top),
+                    bottom = 0.dp,
+                    start = 0.dp,
+                    end = 0.dp
+                )
         )
     }
 }
