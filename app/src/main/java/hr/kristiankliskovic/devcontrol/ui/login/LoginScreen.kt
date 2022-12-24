@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.AppNameCursive
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineTextWrapper
 
 @Composable
@@ -57,18 +58,7 @@ fun LoginScreen(
         var username by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
 
-        Text(
-            text = stringResource(id = R.string.login_register_screen_app_name),
-            fontSize = 80.sp,
-            fontFamily = FontFamily.Cursive,
-            modifier = Modifier
-                .padding(
-                    top = dimensionResource(id = R.dimen.login_register_screen_app_name_topPadding),
-                    bottom = 0.dp,
-                    start = 0.dp,
-                    end = 0.dp
-                ),
-        )
+        AppNameCursive()
 
         Text(
             text = stringResource(id = R.string.loginScreen_title),
@@ -83,6 +73,7 @@ fun LoginScreen(
         )
 
         OutlineTextWrapper(
+            initValue = username,
             label = stringResource(id = R.string.loginRegisterScreen_usernameText),
             placeholder = stringResource(id = R.string.loginRegisterScreen_usernameHint),
             onChange = {
@@ -98,6 +89,7 @@ fun LoginScreen(
         )
 
         OutlineTextWrapper(
+            initValue = password,
             label = stringResource(id = R.string.loginRegisterScreen_passwordText),
             placeholder = stringResource(id = R.string.loginRegisterScreen_passwordHint),
             hidden = true,

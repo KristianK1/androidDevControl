@@ -14,13 +14,14 @@ import hr.kristiankliskovic.devcontrol.R
 
 @Composable
 fun OutlineTextWrapper(
+    initValue: String = "",
     hidden: Boolean = false,
     label: String,
     placeholder: String = "",
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var str by remember { mutableStateOf(TextFieldValue("")) }
+    var str by remember { mutableStateOf(TextFieldValue(initValue)) }
     OutlinedTextField(
         value = str,
         onValueChange = { newText: TextFieldValue ->
