@@ -1,17 +1,18 @@
 package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.common.FieldTitle
 
 data class TextFieldOutputViewState(
@@ -27,17 +28,30 @@ fun TextFieldOutput(
 ) {
     Column(
         modifier = modifier
-            .border(2.dp, Color.Black)
-            .padding(5.dp)
+            .border(
+                width = dimensionResource(id = R.dimen.fieldComponent_borderThickness),
+                color = colorResource(id = R.color.fieldComponent_border)
+            )
+            .padding(dimensionResource(id = R.dimen.fieldComponent_padding))
             .fillMaxWidth()
     ) {
         FieldTitle(
             item.name
         )
-        Text(
-            text = item.currentValue,
-            fontSize = 38.sp
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+            ) {
+                Text(
+                    text = item.currentValue,
+                    fontSize = 40.sp,
+                )
+            }
+        }
     }
 }
 

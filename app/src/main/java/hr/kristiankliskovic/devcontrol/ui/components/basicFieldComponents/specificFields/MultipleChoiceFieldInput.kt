@@ -116,7 +116,7 @@ fun MultipleChoiceSelector(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(dimensionResource(id = R.dimen.fieldComponent_dialog_padding)),
-            shape = RoundedCornerShape(5.dp),
+            shape = Shapes.small,
             backgroundColor = Color.White,
             properties = DialogProperties(
                 dismissOnBackPress = true,
@@ -130,7 +130,7 @@ fun MultipleChoiceSelector(
             .fillMaxHeight()
             .padding(dimensionResource(id = R.dimen.fieldComponent_button_padding))
             .clip(Shapes.small)
-            .background(Color.LightGray)
+            .background(colorResource(id = R.color.fieldComponent_button_background))
             .clickable { dialogOpen = true }
     ) {
         Text(
