@@ -6,7 +6,7 @@ import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.Devic
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceGroupViewState
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.DeviceNameAndStatusViewState
-import hr.kristiankliskovic.devcontrol.ui.myDevices.MyDevicesScreenViewState
+import hr.kristiankliskovic.devcontrol.ui.myDevices.MyDevicesViewState
 
 fun getMockDeviceGroupViewState(): DeviceGroupViewState {
     val list: List<BasicFieldComponentViewState> = listOf(
@@ -223,8 +223,8 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
 }
 
 
-fun getDeviceListMockData(): MyDevicesScreenViewState {
-    return MyDevicesScreenViewState(
+fun getDeviceListMockData(): MyDevicesViewState {
+    return MyDevicesViewState(
         devices = listOf(
             DeviceNameAndStatusViewState(
                 deviceId = 0,

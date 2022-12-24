@@ -8,6 +8,7 @@ data class Device(
     val deviceKey: String, //TODO remove?
     val groups: List<DeviceGroup>,
     val complexGroups: Int,
+    val isActive: Boolean,
 )
 
 data class DeviceGroup(
