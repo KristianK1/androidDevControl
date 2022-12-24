@@ -8,8 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
+import hr.kristiankliskovic.devcontrol.R
 
 data class DeviceNameAndStatusViewState(
     val deviceId: Int,
@@ -31,8 +33,8 @@ fun DeviceNameAndStatus(
                 onClick(item.deviceId)
             }
             .padding(
-                horizontal = 15.dp,
-                vertical = 10.dp
+                horizontal = dimensionResource(id = R.dimen.deviceNameAndStatusComponent_Row_padding_horizontal),
+                vertical = dimensionResource(id = R.dimen.deviceNameAndStatusComponent_Row_padding_vertical)
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -42,7 +44,14 @@ fun DeviceNameAndStatus(
             modifier = Modifier
                 .height(IntrinsicSize.Max)
         )
-        DeviceStatus(state = item.deviceStatus)
+        DeviceStatus(
+            state = item.deviceStatus,
+            modifier = Modifier
+                .size(
+                    width = dimensionResource(id = R.dimen.DeviceStatusComponent_width),
+                    height = dimensionResource(id = R.dimen.DeviceStatusComponent_height)
+                )
+        )
     }
 }
 

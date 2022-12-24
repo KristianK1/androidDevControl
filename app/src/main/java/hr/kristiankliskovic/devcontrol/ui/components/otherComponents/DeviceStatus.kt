@@ -25,9 +25,7 @@ fun DeviceStatus(
 ) {
     Box(
         modifier = modifier
-            .width(110.dp)
-            .height(40.dp)
-            .clip(RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(100.dp))
             .background(colorResource(id = if(state) R.color.deviceStatusOnline else R.color.deviceStatusOffline)),
         contentAlignment = Alignment.Center
     ) {

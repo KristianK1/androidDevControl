@@ -13,8 +13,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.mock.getDeviceListMockData
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.DeviceNameAndStatus
 
@@ -23,10 +26,12 @@ fun MyDevicesRoute() {
     val myDevices by remember {
         mutableStateOf(getDeviceListMockData())
     }
-    MyDevicesScreen(state = myDevices, navigateToDevice = {
+    MyDevicesScreen(
+        state = myDevices,
+        navigateToDevice = {
 
-    })
-
+        }
+    )
 }
 
 @Composable
@@ -47,8 +52,8 @@ fun MyDevicesScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(2.dp)
-                    .background(Color.LightGray)
+                    .height(dimensionResource(id = R.dimen.myDevicesScreen_list_line_thickness))
+                    .background(colorResource(id = R.color.myDevicesScreen_list_line))
             )
         }
     }
@@ -58,7 +63,10 @@ fun MyDevicesScreen(
 @Preview
 @Composable
 fun PreviewMyDeviceScreen() {
-    MyDevicesScreen(state = getDeviceListMockData(), navigateToDevice = {
-        Log.i("myDevicesScreen_click", "$it")
-    })
+    MyDevicesScreen(
+        state = getDeviceListMockData(),
+        navigateToDevice = {
+            Log.i("myDevicesScreen_click", "$it")
+        }
+    )
 }

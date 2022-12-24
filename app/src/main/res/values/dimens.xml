@@ -7,4 +7,12 @@
     <dimen name="login_register_screen_padding_outside_button_vertical">10.dp</dimen>
     <dimen name="login_register_screen_padding_outside_button_horizontal">60.dp</dimen>
     <dimen name="login_register_screen_linkToOtherScreen_padding_vertical">10.dp</dimen>
+
+    <dimen name="myDevicesScreen_list_line_thickness">2.dp</dimen>
+    <dimen name="deviceNameAndStatusComponent_Row_padding_horizontal">15.dp</dimen>
+    <dimen name="deviceNameAndStatusComponent_Row_padding_vertical">10.dp</dimen>
+    <dimen name="DeviceStatusComponent_height">40.dp</dimen>
+    <dimen name="DeviceStatusComponent_width">110.dp</dimen>
+
+
 </resources>

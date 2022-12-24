@@ -15,4 +15,6 @@
     <color name="deviceStatusOffline">#70FF0000</color>
 
     <color name="text_link_color">#FF0000FF</color>
+
+    <color name="myDevicesScreen_list_line">#FFCCCCCC</color>
 </resources>
