@@ -15,7 +15,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,40 +42,34 @@ fun MultipleChoiceFieldInput(
 ) {
     Column(
         modifier = modifier
-            .height(30.dp)
-            .border(2.dp, Color.Black)
-            .padding(5.dp)
+            .border(
+                width = dimensionResource(id = R.dimen.fieldComponent_borderThickness),
+                color = colorResource(id = R.color.fieldComponent_border)
+            )
+            .padding(dimensionResource(id = R.dimen.fieldComponent_padding))
             .fillMaxWidth()
     ) {
-        FieldTitle(
-            item.name
-        )
+        FieldTitle(item.name)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
-                text = item.choices[item.currentChoice],
-                fontSize = 38.sp
-            )
             Box(
-                contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(2.dp)
-                    .clip(Shapes.small)
-                    .background(Color.LightGray)
-                    .clickable {
-
-                    }
+                    .align(Alignment.CenterVertically)
             ) {
-
-                MultipleChoiceSelector(
-                    choices = item.choices,
-                    selectValue = {
-                        emitValue(it)
-                    })
+                Text(
+                    text = item.choices[item.currentChoice],
+                    fontSize = 38.sp,
+                    fontWeight = FontWeight.Bold,
+                )
             }
+            MultipleChoiceSelector(
+                choices = item.choices,
+                selectValue = {
+                    emitValue(it)
+                }
+            )
         }
     }
 }
@@ -90,9 +87,6 @@ fun MultipleChoiceSelector(
     if (dialogOpen) {
         AlertDialog(
             onDismissRequest = {
-                // Dismiss the dialog when the user clicks outside the dialog or on the back
-                // button. If you want to disable that functionality,
-                // simply leave this block empty.
                 dialogOpen = false
             },
             buttons = {
@@ -107,7 +101,7 @@ fun MultipleChoiceSelector(
                             text = item,
                             fontSize = 20.sp,
                             modifier = Modifier
-                                .padding(15.dp)
+                                .padding(dimensionResource(id = R.dimen.Multiple_choice_field_dialog_choices_padding))
                                 .clickable {
                                     selectValue(index)
                                     dialogOpen = false
@@ -119,9 +113,9 @@ fun MultipleChoiceSelector(
             title = {
                 Text(text = stringResource(id = R.string.multipleChoiceFieldInput_choose_value_title))
             },
-            modifier = Modifier // Set the width and padding
+            modifier = Modifier
                 .fillMaxWidth()
-                .padding(32.dp),
+                .padding(dimensionResource(id = R.dimen.fieldComponent_dialog_padding)),
             shape = RoundedCornerShape(5.dp),
             backgroundColor = Color.White,
             properties = DialogProperties(
@@ -130,13 +124,25 @@ fun MultipleChoiceSelector(
             )
         )
     }
-
-    Text(
-        text = stringResource(id = R.string.multipleChoiceFieldInput_open_selector),
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
-            .padding(12.dp)
+            .fillMaxHeight()
+            .padding(dimensionResource(id = R.dimen.fieldComponent_button_padding))
+            .clip(Shapes.small)
+            .background(Color.LightGray)
             .clickable { dialogOpen = true }
-    )
+    ) {
+        Text(
+            text = stringResource(id = R.string.multipleChoiceFieldInput_open_selector),
+            fontSize = 20.sp,
+            modifier = Modifier
+                .padding(
+                    horizontal = dimensionResource(id = R.dimen.fieldComponent_button_text_padding),
+                    vertical = 0.dp
+                )
+        )
+    }
 }
 
 @Preview

@@ -37,7 +37,6 @@ fun ButtonFieldInput(
 ) {
     Column(
         modifier = modifier
-            .height(30.dp)
             .border(
                 width = dimensionResource(id = R.dimen.fieldComponent_borderThickness),
                 color = colorResource(id = R.color.fieldComponent_border)

@@ -38,7 +38,6 @@ fun TextFieldInput(
 ) {
     Column(
         modifier = modifier
-            .height(30.dp)
             .border(2.dp, Color.Black)
             .padding(5.dp)
             .fillMaxWidth()

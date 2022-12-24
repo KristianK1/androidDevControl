@@ -18,5 +18,7 @@
     <dimen name="fieldComponent_borderThickness">1.dp</dimen>
     <dimen name="fieldComponent_button_padding">2.dp</dimen>
     <dimen name="fieldComponent_button_text_padding">20.dp</dimen>
+    <dimen name="fieldComponent_dialog_padding">30.dp</dimen>
 
+    <dimen name="Multiple_choice_field_dialog_choices_padding">15.dp</dimen>
 </resources>
