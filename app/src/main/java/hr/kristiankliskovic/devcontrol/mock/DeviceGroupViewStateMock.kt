@@ -218,7 +218,7 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
         complexGroupId = 0,
         groupName = "RGB control",
         states = listOf(state1, state2, state3),
-        currentState = 2,
+        currentState = 1,
     )
 }
 

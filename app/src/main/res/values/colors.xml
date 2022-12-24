@@ -22,4 +22,5 @@
     <color name="fieldComponent_border">#60000000</color>
     <color name="fieldComponent_button_background">#FFB0B0B0</color>
 
+    <color name="deviceGroup_border">#FF505050</color>
 </resources>

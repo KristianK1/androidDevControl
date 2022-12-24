@@ -7,11 +7,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.mock.getMockDeviceComplexGroupViewState
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.BasicFieldComponentViewState
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.common.BasicField
+import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 
 data class DeviceComplexGroupStateViewState(
     val stateId: Int,
@@ -34,15 +38,20 @@ fun DeviceComplexGroup(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(5.dp),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.deviceGroup_fields_spaced_by)),
         modifier = modifier
-            .border(5.dp, Color.Gray, RoundedCornerShape(5.dp))
+            .border(
+                dimensionResource(id = R.dimen.deviceGroup_border_thickness),
+                colorResource(id = R.color.deviceGroup_border),
+                Shapes.small
+            )
+            .padding(dimensionResource(id = R.dimen.deviceGroup_padding))
     ) {
         GroupTitle(
             name = item.groupName,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(5.dp)
+                .padding(dimensionResource(id = R.dimen.deviceGroup_title_padding))
         )
         ComplexGroupStateChooser(
             items = item.states,
@@ -59,8 +68,7 @@ fun DeviceComplexGroup(
                 item = fieldViewState,
                 onChange = { fieldId, value ->
                     onChange(item.complexGroupId, item.currentState, fieldId, value)
-                },
-                modifier = Modifier.padding(10.dp, 3.dp)
+                }
             )
         }
     }
