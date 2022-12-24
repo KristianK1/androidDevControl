@@ -35,7 +35,6 @@
     <string name="loginScreen_register_instead">Register instead</string>
     <string name="registerScreen_login_instead">Login instead</string>
 
-
     <string name="deviceStatusComponent_online_statusText">Online</string>
     <string name="deviceStatusComponent_offline_statusText">Offline</string>
 

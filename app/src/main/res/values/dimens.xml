@@ -14,5 +14,9 @@
     <dimen name="DeviceStatusComponent_height">40.dp</dimen>
     <dimen name="DeviceStatusComponent_width">110.dp</dimen>
 
+    <dimen name="fieldComponent_padding">5.dp</dimen>
+    <dimen name="fieldComponent_borderThickness">1.dp</dimen>
+    <dimen name="fieldComponent_button_padding">2.dp</dimen>
+    <dimen name="fieldComponent_button_text_padding">20.dp</dimen>
 
 </resources>

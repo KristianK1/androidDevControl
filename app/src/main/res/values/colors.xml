@@ -8,8 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="buttonField_ON">#5000FF00</color>
-    <color name="buttonField_OFF">#50FF0000</color>
+    <color name="buttonField_ON">#FF00BB00</color>
+    <color name="buttonField_OFF">#FFBB0000</color>
 
     <color name="deviceStatusOnline">#7800FF00</color>
     <color name="deviceStatusOffline">#70FF0000</color>
@@ -17,4 +17,9 @@
     <color name="text_link_color">#FF0000FF</color>
 
     <color name="myDevicesScreen_list_line">#FFCCCCCC</color>
+
+    <color name="fieldComponent_title">#FF000000</color>
+    <color name="fieldComponent_border">#60000000</color>
+    <color name="fieldComponent_button_background">#FFB0B0B0</color>
+
 </resources>
