@@ -9,6 +9,7 @@
     <dimen name="login_register_screen_linkToOtherScreen_padding_vertical">10.dp</dimen>
 
     <dimen name="myDevicesScreen_list_line_thickness">2.dp</dimen>
+    <dimen name="myDevicesScreen_spacer_height_between_groups">5.dp</dimen>
     <dimen name="deviceNameAndStatusComponent_Row_padding_horizontal">15.dp</dimen>
     <dimen name="deviceNameAndStatusComponent_Row_padding_vertical">10.dp</dimen>
     <dimen name="DeviceStatusComponent_height">40.dp</dimen>
@@ -34,4 +35,6 @@
 
     <dimen name="deviceGroup_padding">10.dp</dimen>
     <dimen name="deviceGroup_fields_spaced_by">5.dp</dimen>
+    <dimen name="complexGroup_state_chooser_height">60.dp</dimen>
+
 </resources>

@@ -61,7 +61,7 @@ fun DeviceComplexGroup(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp)
+                .height(dimensionResource(id = R.dimen.complexGroup_state_chooser_height))
         )
         for (fieldViewState in item.states[item.currentState].fields) {
             BasicField(

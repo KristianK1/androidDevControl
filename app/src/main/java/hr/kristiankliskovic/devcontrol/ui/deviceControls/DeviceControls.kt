@@ -1,16 +1,14 @@
 package hr.kristiankliskovic.devcontrol.ui.deviceControls
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -18,9 +16,9 @@ import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.mock.getMockDeviceComplexGroupViewState
 import hr.kristiankliskovic.devcontrol.mock.getMockDeviceGroupViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroup
-import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupStateViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceGroup
-import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceGroupViewState
+import hr.kristiankliskovic.devcontrol.R
+
 
 
 @Composable
@@ -44,13 +42,14 @@ fun DeviceControlsScreen(
                 .height(2.dp)
                 .background(Color.Black)
         )
-        LazyColumn {
+        LazyColumn{
             items(item.groupsViewStates) { groupViewState ->
                 DeviceGroup(
                     item = groupViewState,
                     onChange = { _, _, _ ->
 
                     })
+                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.myDevicesScreen_spacer_height_between_groups)))
             }
             items(item.complexGroupsViewStates) { complexGroupViewState ->
                 DeviceComplexGroup(
@@ -62,6 +61,7 @@ fun DeviceControlsScreen(
 
                     }
                 )
+                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.myDevicesScreen_spacer_height_between_groups)))
             }
         }
     }
