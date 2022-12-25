@@ -6,6 +6,7 @@ import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.Devic
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceGroupViewState
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.DeviceNameAndStatusViewState
+import hr.kristiankliskovic.devcontrol.ui.deviceControls.DeviceControlsViewState
 import hr.kristiankliskovic.devcontrol.ui.myDevices.MyDevicesViewState
 
 fun getMockDeviceGroupViewState(): DeviceGroupViewState {
@@ -219,6 +220,7 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
         groupName = "RGB control",
         states = listOf(state1, state2, state3),
         currentState = 1,
+        readOnly = !true,
     )
 }
 
@@ -265,3 +267,18 @@ fun getDeviceListMockData(): MyDevicesViewState {
     )
 }
 
+fun getDevControlsMock(): DeviceControlsViewState{
+    return DeviceControlsViewState(
+        deviceId = 0,
+        deviceName = "dEV1",
+        groupsViewStates = listOf(
+            getMockDeviceGroupViewState(),
+            getMockDeviceGroupViewState(),
+            getMockDeviceGroupViewState()),
+        complexGroupsViewStates = listOf(
+            getMockDeviceComplexGroupViewState(),
+            getMockDeviceComplexGroupViewState(),
+            getMockDeviceComplexGroupViewState()),
+        deviceOnline = true,
+    )
+}

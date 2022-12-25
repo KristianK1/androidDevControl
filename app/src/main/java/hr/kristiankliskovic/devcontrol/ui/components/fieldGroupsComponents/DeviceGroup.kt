@@ -26,7 +26,6 @@ fun DeviceGroup(
     onChange: (Int, Int, Any) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     Column(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.deviceGroup_fields_spaced_by)),
         modifier = modifier

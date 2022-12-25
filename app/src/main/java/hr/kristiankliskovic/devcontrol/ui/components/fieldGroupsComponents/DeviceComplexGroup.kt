@@ -28,6 +28,7 @@ data class DeviceComplexGroupViewState(
     val groupName: String,
     val states: List<DeviceComplexGroupStateViewState>,
     val currentState: Int,
+    val readOnly: Boolean,
 )
 
 @Composable
@@ -55,6 +56,7 @@ fun DeviceComplexGroup(
         )
         ComplexGroupStateChooser(
             items = item.states,
+            readOnly = item.readOnly,
             currentState = item.currentState,
             changeState = {
                 changeComplexGroupState(item.complexGroupId, it)

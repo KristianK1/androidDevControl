@@ -7,13 +7,27 @@ data class Device(
     val userAdminId: Int,
     val deviceKey: String, //TODO remove?
     val groups: List<DeviceGroup>,
-    val complexGroups: Int,
+    val complexGroups: List<DeviceComplexGroup>,
     val isActive: Boolean,
 )
 
 data class DeviceGroup(
     val groupId: Int,
     val groupName: String,
+    val fields: List<BasicDeviceField>,
+)
+
+data class DeviceComplexGroup(
+    val complexGroupId: Int,
+    val groupName: String,
+    val states: List<DeviceComplexGroupState>,
+    val currentState: Int,
+    val readOnly: Boolean,
+)
+
+data class DeviceComplexGroupState(
+    val stateId: Int,
+    val stateName: String,
     val fields: List<BasicDeviceField>,
 )
 
@@ -32,7 +46,7 @@ data class NumericDeviceField(
 data class TextDeviceField(
     val fieldId: Int,
     val fieldName: String,
-    val currentValue: Float,
+    val currentValue: String,
     val readOnly: Boolean,
 ) : BasicDeviceField()
 

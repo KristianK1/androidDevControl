@@ -6,6 +6,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
@@ -13,17 +16,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import hr.kristiankliskovic.devcontrol.mock.getMockDeviceComplexGroupViewState
-import hr.kristiankliskovic.devcontrol.mock.getMockDeviceGroupViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroup
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceGroup
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.mock.getDevControlsMock
 
-
+@Composable
+fun DeviceControlsRoute(){
+    val data by remember {
+        mutableStateOf(getDevControlsMock())
+    }
+    DeviceControlsScreen(item = data)
+}
 
 @Composable
 fun DeviceControlsScreen(
-    item: DeviceControlsScreenViewState,
+    item: DeviceControlsViewState,
 ) {
     Column {
         Text(
@@ -49,7 +57,7 @@ fun DeviceControlsScreen(
                     onChange = { _, _, _ ->
 
                     })
-                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.myDevicesScreen_spacer_height_between_groups)))
+                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.deviceControlsScreen_spacer_height_between_groups)))
             }
             items(item.complexGroupsViewStates) { complexGroupViewState ->
                 DeviceComplexGroup(
@@ -61,7 +69,7 @@ fun DeviceControlsScreen(
 
                     }
                 )
-                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.myDevicesScreen_spacer_height_between_groups)))
+                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.deviceControlsScreen_spacer_height_between_groups)))
             }
         }
     }
@@ -70,19 +78,6 @@ fun DeviceControlsScreen(
 @Preview
 @Composable
 fun PreviewDeviceControlsScreen() {
-    val item = DeviceControlsScreenViewState(
-        deviceId = 0,
-        deviceName = "dEV1",
-        groupsViewStates = listOf(
-            getMockDeviceGroupViewState(),
-            getMockDeviceGroupViewState(),
-            getMockDeviceGroupViewState()),
-        complexGroupsViewStates = listOf(
-            getMockDeviceComplexGroupViewState(),
-            getMockDeviceComplexGroupViewState(),
-            getMockDeviceComplexGroupViewState()),
-        deviceOnline = true,
-    )
-    DeviceControlsScreen(item = item)
+    DeviceControlsScreen(item = getDevControlsMock())
 }
 

@@ -14,6 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,23 +28,23 @@ import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 @Composable
 fun ComplexGroupStateChooser(
     items: List<DeviceComplexGroupStateViewState>,
+    readOnly: Boolean,
     currentState: Int,
     changeState: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Row(
+    Box(
         modifier = modifier
             .border(
                 2.dp,
                 Color.Gray,
             ),
-        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Box(
             modifier = Modifier
                 .fillMaxHeight()
                 .padding(5.dp, 0.dp),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.CenterStart
         ) {
             Text(
                 text = stringResource(id = R.string.complexGroup_stateChooser_title),
@@ -53,6 +55,7 @@ fun ComplexGroupStateChooser(
         Box(
             modifier = Modifier
                 .fillMaxHeight()
+                .fillMaxWidth()
                 .padding(5.dp, 0.dp),
             contentAlignment = Alignment.Center
         ) {
@@ -61,22 +64,20 @@ fun ComplexGroupStateChooser(
                 fontSize = 30.sp
             )
         }
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .fillMaxHeight()
-                .padding(2.dp)
-                .clip(Shapes.small)
-                .background(Color.LightGray)
-                .clickable {
-
-                }
-        ) {
-            ComplexStateChooserDialog(
-                items = items,
-                selectValue = {
-                    changeState(it)
-                })
+        if (!readOnly) {
+            Box(
+                contentAlignment = Alignment.CenterEnd,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+                    .padding(2.dp)
+            ) {
+                ComplexStateChooserDialog(
+                    items = items,
+                    selectValue = {
+                        changeState(it)
+                    })
+            }
         }
     }
 }
@@ -131,22 +132,32 @@ fun ComplexStateChooserDialog(
             properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true))
     }
 
-    Box(contentAlignment = Alignment.Center,
+
+    Box(
         modifier = Modifier
-            .fillMaxHeight()
-            .clip(Shapes.small)
-            .background(Color.LightGray)
-            .clickable {
-                dialogOpen = true
-            }) {
-        Text(
-            text = stringResource(id = R.string.complexGroup_stateChooser_button),
-            modifier = Modifier.padding(
-                horizontal = 10.dp,
-                vertical = 0.dp
+            .padding(5.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .clip(Shapes.small)
+                .clickable {
+                    dialogOpen = false
+                }
+                .background(colorResource(id = R.color.fieldComponent_button_background))
+                .padding(5.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.complexGroup_stateChooser_button),
+                modifier = Modifier.padding(
+                    horizontal = 10.dp,
+                    vertical = 0.dp
+                )
             )
-        )
+        }
     }
+
 }
 
 @Preview
@@ -176,6 +187,7 @@ fun PreviewComplexGroupStateChooser() {
     )
     ComplexGroupStateChooser(
         items = states,
+        readOnly = false,
         currentState = 0,
         changeState = {
 
