@@ -37,4 +37,7 @@
     <dimen name="deviceGroup_fields_spaced_by">5.dp</dimen>
     <dimen name="complexGroup_state_chooser_height">60.dp</dimen>
 
+    <dimen name="userSettings_dividerLine_height">2.dp</dimen>
+    <dimen name="userSettings_option_padding">15.dp</dimen>
+
 </resources>

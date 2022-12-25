@@ -7,14 +7,28 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.ScreenTitle
-import kotlin.math.log
+import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOption
 
+@Composable
+fun UserProfileSettingsRoute() {
+    UserProfileSettingsScreen(
+        navigateToChangePasswordScreen = {
+
+        },
+        deleteUserProfile = {
+
+        },
+        logout = {
+
+        }
+    )
+}
 
 @Composable
 fun UserProfileSettingsScreen(
@@ -26,52 +40,25 @@ fun UserProfileSettingsScreen(
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        ScreenTitle(
-            screenTitle = "User profile settings"
-        )
-        fText(
-            text = "Change password",
+//        ScreenTitle(
+//            screenTitle = "User profile settings"
+//        )
+        TextListOption(
+            text = stringResource(id = R.string.userSettings_changePassword_button),
             func = navigateToChangePasswordScreen
         )
         Line()
-        fText(
-            text = "Logout",
+        TextListOption(
+            text = stringResource(id = R.string.userSettings_logout_button),
             func = logout
         )
         Line()
-        fText(
-            text = "delete User profile",
+        TextListOption(
+            text = stringResource(id = R.string.userSettings_deleteProfile_button),
             func = deleteUserProfile
         )
         Line()
     }
-}
-
-@Composable
-fun fText(
-    text: String,
-    func: () -> Unit,
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(50.dp)
-            .clickable {
-                func()
-            }
-            .padding(
-                vertical = 0.dp,
-                horizontal = 10.dp
-            ),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = text,
-            fontSize = 25.sp,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
-
 }
 
 @Composable
@@ -81,8 +68,8 @@ fun Line(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(2.dp)
-            .background(Color.Black)
+            .height(dimensionResource(id = R.dimen.userSettings_dividerLine_height))
+            .background(colorResource(id = R.color.userSettings_dividerLine))
     )
 }
 

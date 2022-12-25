@@ -38,4 +38,8 @@
     <string name="deviceStatusComponent_offline_statusText">Offline</string>
 
     <string name="textInputComponent_open_dialog_button">Change value</string>
+
+    <string name="userSettings_changePassword_button">Change password</string>
+    <string name="userSettings_logout_button">Logout</string>
+    <string name="userSettings_deleteProfile_button">Delete user profile</string>
 </resources>
