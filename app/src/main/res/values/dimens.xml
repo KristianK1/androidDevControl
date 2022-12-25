@@ -40,7 +40,12 @@
     <dimen name="userSettings_dividerLine_height">2.dp</dimen>
     <dimen name="userSettings_option_padding">15.dp</dimen>
 
-    <dimen name="changePasswordScreen_padding">30.dp</dimen>
-    <dimen name="changePasswordScreen_spacer_height">10.dp</dimen>
+    <dimen name="changePasswordScreen_top_bottom_spacer_height">50.dp</dimen>
+    <dimen name="changePasswordScreen_textbox_spacer_height">10.dp</dimen>
+    <dimen name="changePasswordScreen_logout_padding">15.dp</dimen>
+    <dimen name="changePasswordScreen_checkbox_spacer_width">5.dp</dimen>
+    <dimen name="changePasswordScreen_button_margin">20.dp</dimen>
+    <dimen name="changePasswordScreen_button_padding_vertical">10.dp</dimen>
+    <dimen name="changePasswordScreen_button_padding_horizontal">20.dp</dimen>
 
 </resources>

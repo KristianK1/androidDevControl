@@ -3,9 +3,9 @@ package hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Checkbox
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,27 +13,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineTextWrapper
-import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.ScreenSubtitle
-import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.ScreenTitle
-import kotlin.math.log
+import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
+
+@Composable
+fun ChangePasswordRoute() {
+    ChangePasswordScreen(
+        changePassword = { _, _ ->
+
+        }
+    )
+}
 
 @Composable
 fun ChangePasswordScreen(
     changePassword: (String, String) -> Unit,
 ) {
+    val scrollState = rememberScrollState()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(50.dp)
             .fillMaxWidth()
+            .verticalScroll(state = scrollState)
     ) {
         var oldPassword by remember { mutableStateOf("") }
         var newPassword by remember { mutableStateOf("") }
@@ -42,7 +46,9 @@ fun ChangePasswordScreen(
 
 //        ScreenTitle(screenTitle = "User profile settings")
 //        ScreenSubtitle(subtitle = "Change password")
-
+        Spacer(modifier = Modifier
+            .height(dimensionResource(id = R.dimen.changePasswordScreen_top_bottom_spacer_height))
+        )
         OutlineTextWrapper(
             label = stringResource(id = R.string.changePasswordScreen_oldPassword_label),
             onChange = {
@@ -50,7 +56,7 @@ fun ChangePasswordScreen(
             }
         )
         Spacer(modifier = Modifier
-            .height(dimensionResource(id = R.dimen.changePasswordScreen_spacer_height))
+            .height(dimensionResource(id = R.dimen.changePasswordScreen_textbox_spacer_height))
         )
         OutlineTextWrapper(
             label = stringResource(id = R.string.changePasswordScreen_newPassword_label),
@@ -59,7 +65,7 @@ fun ChangePasswordScreen(
             }
         )
         Spacer(modifier = Modifier
-            .height(dimensionResource(id = R.dimen.changePasswordScreen_spacer_height))
+            .height(dimensionResource(id = R.dimen.changePasswordScreen_textbox_spacer_height))
         )
         OutlineTextWrapper(
             label = stringResource(id = R.string.changePasswordScreen_newPasswordAgain_label),
@@ -68,11 +74,11 @@ fun ChangePasswordScreen(
             }
         )
         Spacer(modifier = Modifier
-            .height(dimensionResource(id = R.dimen.changePasswordScreen_spacer_height))
+            .height(dimensionResource(id = R.dimen.changePasswordScreen_textbox_spacer_height))
         )
         Row(
             modifier = Modifier
-                .padding(15.dp)
+                .padding(dimensionResource(id = R.dimen.changePasswordScreen_logout_padding))
                 .clickable {
                     logoutCheckboxState = !logoutCheckboxState
                 },
@@ -81,6 +87,10 @@ fun ChangePasswordScreen(
             Checkbox(
                 checked = logoutCheckboxState,
                 onCheckedChange = null
+            )
+            Spacer(
+                modifier = Modifier
+                    .width(dimensionResource(id = R.dimen.changePasswordScreen_checkbox_spacer_width))
             )
             Text(
                 text = stringResource(id = R.string.changePasswordScreen_logout_from_other_devices_checkbox),
@@ -91,10 +101,10 @@ fun ChangePasswordScreen(
             text = stringResource(id = R.string.changePasswordScreen_changePasswordButton),
             fontSize = 20.sp,
             modifier = Modifier
-                .padding(20.dp)
+                .padding(dimensionResource(id = R.dimen.changePasswordScreen_button_margin))
                 .background(
                     color = Color.LightGray,
-                    shape = RoundedCornerShape(5.dp)
+                    shape = Shapes.small,
                 )
                 .clickable {
                     if (newPassword == newPasswordAgain) {
@@ -104,9 +114,12 @@ fun ChangePasswordScreen(
                     }
                 }
                 .padding(
-                    horizontal = 20.dp,
-                    vertical = 10.dp
+                    horizontal = dimensionResource(id = R.dimen.changePasswordScreen_button_padding_horizontal),
+                    vertical = dimensionResource(id = R.dimen.changePasswordScreen_button_padding_vertical)
                 )
+        )
+        Spacer(modifier = Modifier
+            .height(dimensionResource(id = R.dimen.changePasswordScreen_top_bottom_spacer_height))
         )
     }
 }
