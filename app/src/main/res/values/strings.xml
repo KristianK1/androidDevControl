@@ -42,4 +42,10 @@
     <string name="userSettings_changePassword_button">Change password</string>
     <string name="userSettings_logout_button">Logout</string>
     <string name="userSettings_deleteProfile_button">Delete user profile</string>
+
+    <string name="changePasswordScreen_oldPassword_label">Old password</string>
+    <string name="changePasswordScreen_newPassword_label">New password</string>
+    <string name="changePasswordScreen_newPasswordAgain_label">Repeat new password</string>
+    <string name="changePasswordScreen_logout_from_other_devices_checkbox">Logout from all other devices</string>
+    <string name="changePasswordScreen_changePasswordButton">Change password</string>
 </resources>

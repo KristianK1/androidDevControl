@@ -2,16 +2,16 @@ package hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Checkbox
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -20,8 +20,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineTextWrapper
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.ScreenSubtitle
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.ScreenTitle
+import kotlin.math.log
 
 @Composable
 fun ChangePasswordScreen(
@@ -30,77 +32,63 @@ fun ChangePasswordScreen(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(5.dp)
+            .padding(50.dp)
             .fillMaxWidth()
     ) {
-        var oldPassword by remember { mutableStateOf(TextFieldValue("")) }
-        var newPassword by remember { mutableStateOf(TextFieldValue("")) }
-        var newPasswordAgain by remember { mutableStateOf(TextFieldValue("")) }
+        var oldPassword by remember { mutableStateOf("") }
+        var newPassword by remember { mutableStateOf("") }
+        var newPasswordAgain by remember { mutableStateOf("") }
+        var logoutCheckboxState by remember { mutableStateOf(false) }
 
-        ScreenTitle(screenTitle = "User profile settings")
-        ScreenSubtitle(subtitle = "Change password")
-        
-        OutlinedTextField(
-            value = oldPassword,
-            onValueChange = { newText: TextFieldValue ->
-                oldPassword = newText
-            },
-            label = {
-                Text(
-                    text = "Old password"
-                )
-            },
-            modifier = Modifier
-                .padding(
-                    top = 5.dp,
-                    bottom = 0.dp,
-                    start = 0.dp,
-                    end = 0.dp
-                )
+//        ScreenTitle(screenTitle = "User profile settings")
+//        ScreenSubtitle(subtitle = "Change password")
+
+        OutlineTextWrapper(
+            label = stringResource(id = R.string.changePasswordScreen_oldPassword_label),
+            onChange = {
+                oldPassword = it
+            }
         )
-        OutlinedTextField(
-            value = newPassword,
-            onValueChange = { newText: TextFieldValue ->
-                newPassword = newText
-            },
-            visualTransformation = PasswordVisualTransformation(),
-
-            label = {
-                Text(
-                    text = stringResource(id = R.string.loginRegisterScreen_passwordText)
-                )
-            },
-            modifier = Modifier
-                .padding(
-                    top = 5.dp,
-                    bottom = 0.dp,
-                    start = 0.dp,
-                    end = 0.dp
-                )
+        Spacer(modifier = Modifier
+            .height(dimensionResource(id = R.dimen.changePasswordScreen_spacer_height))
         )
-        OutlinedTextField(
-            value = newPasswordAgain,
-            onValueChange = { newText: TextFieldValue ->
-                newPasswordAgain = newText
-            },
-            visualTransformation = PasswordVisualTransformation(),
-
-            label = {
-                Text(
-                    text = "Repeat new password"
-                )
-            },
-            modifier = Modifier
-                .padding(
-                    top = 5.dp,
-                    bottom = 0.dp,
-                    start = 0.dp,
-                    end = 0.dp
-                )
+        OutlineTextWrapper(
+            label = stringResource(id = R.string.changePasswordScreen_newPassword_label),
+            onChange = {
+                oldPassword = it
+            }
         )
-
+        Spacer(modifier = Modifier
+            .height(dimensionResource(id = R.dimen.changePasswordScreen_spacer_height))
+        )
+        OutlineTextWrapper(
+            label = stringResource(id = R.string.changePasswordScreen_newPasswordAgain_label),
+            onChange = {
+                oldPassword = it
+            }
+        )
+        Spacer(modifier = Modifier
+            .height(dimensionResource(id = R.dimen.changePasswordScreen_spacer_height))
+        )
+        Row(
+            modifier = Modifier
+                .padding(15.dp)
+                .clickable {
+                    logoutCheckboxState = !logoutCheckboxState
+                },
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Checkbox(
+                checked = logoutCheckboxState,
+                onCheckedChange = null
+            )
+            Text(
+                text = stringResource(id = R.string.changePasswordScreen_logout_from_other_devices_checkbox),
+                fontSize = 15.sp
+            )
+        }
         Text(
-            text = "Change password",
+            text = stringResource(id = R.string.changePasswordScreen_changePasswordButton),
             fontSize = 20.sp,
             modifier = Modifier
                 .padding(20.dp)
@@ -109,8 +97,8 @@ fun ChangePasswordScreen(
                     shape = RoundedCornerShape(5.dp)
                 )
                 .clickable {
-                    if (newPassword.text == newPasswordAgain.text) {
-                        changePassword(oldPassword.text, newPassword.text)
+                    if (newPassword == newPasswordAgain) {
+                        changePassword(oldPassword, newPassword)
                     } else {
                         //toast
                     }
