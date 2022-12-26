@@ -53,4 +53,12 @@
     <string name="addNewDeviceScreen_autoGenerateKey">Autogenerate device key</string>
     <string name="addNewDeviceScreen_deviceKeyHint">Enter device key:</string>
     <string name="addNewDeviceScreen_addDevice_button">Add device</string>
+
+    <string name="addPermissionScreen_userSearchHint">Search user</string>
+    <string name="addPermissionScreen_UserButton_startText">Select user</string>
+
+    <string name="addPermissionScreen_permission_category_device">Device</string>
+    <string name="addPermissionScreen_permission_category_group">Group</string>
+    <string name="addPermissionScreen_permission_category_field">Field</string>
+    <string name="addPermissionScreen_permission_category_complexGroup">Complex group</string>
 </resources>

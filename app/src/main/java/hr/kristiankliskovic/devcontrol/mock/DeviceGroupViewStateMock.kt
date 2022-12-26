@@ -1,6 +1,9 @@
 package hr.kristiankliskovic.devcontrol.mock
 
+import hr.kristiankliskovic.devcontrol.model.Device
+import hr.kristiankliskovic.devcontrol.model.DeviceComplexGroup
 import hr.kristiankliskovic.devcontrol.model.RGBValue
+import hr.kristiankliskovic.devcontrol.model.User
 import hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.AdminPanelHomeDeviceViewState
 import hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.AdminPanelHomeViewState
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.*
@@ -269,7 +272,7 @@ fun getDeviceListMockData(): MyDevicesViewState {
     )
 }
 
-fun getDevControlsMock(): DeviceControlsViewState{
+fun getDevControlsMock(): DeviceControlsViewState {
     return DeviceControlsViewState(
         deviceId = 0,
         deviceName = "dEV1",
@@ -309,5 +312,58 @@ fun getAdminPanelHomeMock(): AdminPanelHomeViewState {
                 deviceId = 5,
             ),
         )
+    )
+}
+
+fun getMockUsers(): List<User> {
+    return listOf(
+        User(
+            userId = 0,
+            username = "Kristian"
+        ),
+        User(
+            userId = 1,
+            username = "DFDDDDDDDDDDDDDDD"
+        ),
+        User(
+            userId = 2,
+            username = "hhhhhhhhhhhhh"
+        ),
+        User(
+            userId = 3,
+            username = "gggggggggggggg"
+        ),
+        User(
+            userId = 4,
+            username = "fffffffffff"
+        ),
+        User(
+            userId = 5,
+            username = "qqqqqqqqq"
+        ),
+        User(
+            userId = 6,
+            username = "aaaaaaaaa"
+        ),
+    )
+}
+
+fun getDeviceMock(): Device{
+    return Device(
+        deviceId = 0,
+        deviceName = "DEVICE NAMEEEEE",
+        userAdminId = 88,
+        deviceKey = "wertzuiolknbvfdrtzuiop",
+        isActive = true,
+        complexGroups = listOf(
+            DeviceComplexGroup(
+                complexGroupId = 0,
+                groupName = "sdfg",
+                states = listOf(),
+                currentState = 0,
+                readOnly = false
+            ),
+        ),
+        groups = listOf(),
     )
 }

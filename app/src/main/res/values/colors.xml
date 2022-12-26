@@ -26,4 +26,6 @@
 
     <color name="userSettings_dividerLine">#FF000000</color>
     <color name="adminPanelHomeScreen_dividerLine">#FF000000</color>
+
+    <color name="addPermissionScreen_user_button">#FFB0B0B0</color>
 </resources>
