@@ -25,4 +25,5 @@
     <color name="deviceGroup_border">#FF505050</color>
 
     <color name="userSettings_dividerLine">#FF000000</color>
+    <color name="adminPanelHomeScreen_dividerLine">#FF000000</color>
 </resources>

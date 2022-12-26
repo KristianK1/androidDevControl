@@ -48,4 +48,7 @@
     <dimen name="changePasswordScreen_button_padding_vertical">10.dp</dimen>
     <dimen name="changePasswordScreen_button_padding_horizontal">20.dp</dimen>
 
+    <dimen name="adminPanelHomeScreen_dividerLine_height">2.dp</dimen>
+
+    <dimen name="fabPadding">20.dp</dimen>
 </resources>

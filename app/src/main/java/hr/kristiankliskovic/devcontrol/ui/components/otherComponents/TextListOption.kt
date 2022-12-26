@@ -15,13 +15,13 @@ import hr.kristiankliskovic.devcontrol.R
 @Composable
 fun TextListOption(
     text: String,
-    func: () -> Unit,
+    onClick: () -> Unit,
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                func()
+                onClick()
             }
             .padding(dimensionResource(id = R.dimen.userSettings_option_padding)),
         contentAlignment = Alignment.Center

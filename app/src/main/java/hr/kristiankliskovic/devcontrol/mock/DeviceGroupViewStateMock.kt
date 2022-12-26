@@ -1,6 +1,8 @@
 package hr.kristiankliskovic.devcontrol.mock
 
 import hr.kristiankliskovic.devcontrol.model.RGBValue
+import hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.AdminPanelHomeDeviceViewState
+import hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.AdminPanelHomeViewState
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.*
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupStateViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupViewState
@@ -280,5 +282,32 @@ fun getDevControlsMock(): DeviceControlsViewState{
             getMockDeviceComplexGroupViewState(),
             getMockDeviceComplexGroupViewState()),
         deviceOnline = true,
+    )
+}
+
+fun getAdminPanelHomeMock(): AdminPanelHomeViewState {
+    return AdminPanelHomeViewState(
+        listOf(
+            AdminPanelHomeDeviceViewState(
+                deviceName = "DEV1",
+                deviceId = 19,
+            ),
+            AdminPanelHomeDeviceViewState(
+                deviceName = "DEV2",
+                deviceId = 2,
+            ),
+            AdminPanelHomeDeviceViewState(
+                deviceName = "DEV3",
+                deviceId = 3,
+            ),
+            AdminPanelHomeDeviceViewState(
+                deviceName = "DEV4",
+                deviceId = 4,
+            ),
+            AdminPanelHomeDeviceViewState(
+                deviceName = "DEV5",
+                deviceId = 5,
+            ),
+        )
     )
 }

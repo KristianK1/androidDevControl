@@ -1,5 +1,12 @@
 package hr.kristiankliskovic.devcontrol.model
 
+data class AllUserRightsToDevice(
+    val deviceId: Int,
+    val deviceRights: List<UserRightToDevice>,
+    val groupRights: List<UserRightToGroup>,
+    val fieldRights: List<UserRightToField>,
+    val complexGroupRights: List<UserRightToComplexGroup>,
+)
 
 data class UserRightToDevice(
     val deviceId: Int,
