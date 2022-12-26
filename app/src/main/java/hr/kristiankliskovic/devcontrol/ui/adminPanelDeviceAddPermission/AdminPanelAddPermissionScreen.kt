@@ -7,9 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.RadioButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,19 +16,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.mock.getDeviceListMockData
 import hr.kristiankliskovic.devcontrol.mock.getDeviceMock
 import hr.kristiankliskovic.devcontrol.mock.getMockUsers
+import hr.kristiankliskovic.devcontrol.model.BasicDeviceField
 import hr.kristiankliskovic.devcontrol.model.PermissionCategory
 import hr.kristiankliskovic.devcontrol.model.User
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineTextWrapper
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOption
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
-import kotlinx.coroutines.selects.select
 
 @Composable
 fun AddPermissionScreen(
@@ -39,6 +37,10 @@ fun AddPermissionScreen(
     val scrollState = rememberScrollState()
     var userSelected by remember { mutableStateOf<User?>(null) }
     var permissionCategorySelected by remember { mutableStateOf(PermissionCategory.DEVICE) }
+    var groupSelected by remember { mutableStateOf<Int?>(null) }
+    var fieldSelected by remember { mutableStateOf<Int?>(null) }
+    var complexGroupSelected by remember { mutableStateOf<Int?>(null) }
+    var availableFields by remember { mutableStateOf<List<BasicDeviceField>>(listOf()) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -64,6 +66,72 @@ fun AddPermissionScreen(
                 permissionCategorySelected = it;
             }
         )
+
+        if (permissionCategorySelected == PermissionCategory.GROUP) {
+            DropdownMenu(
+                expanded = false,
+                onDismissRequest = {
+
+                }
+            ) {
+                for (group in state.device.groups) {
+                    DropdownMenuItem(
+                        onClick = {
+                            groupSelected = group.groupId;
+                        }
+                    ) {
+                        Text(
+                            text = "${group.groupName}(id:${group.groupId}"
+                        )
+                    }
+                }
+            }
+        }
+        if (permissionCategorySelected == PermissionCategory.FIELD) {
+            DropdownMenu(
+                expanded = false,
+                onDismissRequest = {
+
+                }
+            ) {
+                for (group in state.device.groups) {
+                    DropdownMenuItem(
+                        onClick = {
+                            if (groupSelected != group.groupId) {
+                                groupSelected = group.groupId;
+                                fieldSelected = null
+                            }
+                        }
+                    ) {
+                        Text(
+                            text = "${group.groupName}(id:${group.groupId}"
+                        )
+                    }
+                }
+            }
+//            DropdownMenu(
+//                expanded = false,
+//                onDismissRequest = {
+//
+//                }
+//            ) {
+//                if (groupSelected != null) {
+//                    for (field in state.device.groups.find { it.groupId == groupSelected }?.fields!!) {
+//                        DropdownMenuItem(
+//                            onClick = {
+//                                fieldSelected = field;
+//                            }
+//                        ) {
+//                            Text(
+//                                text = "${group.groupName}(id:${group.groupId}"
+//                            )
+//                        }
+//                    }
+//                }
+//            }
+        }
+
+
     }
 
     Spacer(modifier = Modifier
