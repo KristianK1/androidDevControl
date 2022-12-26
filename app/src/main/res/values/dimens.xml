@@ -71,5 +71,6 @@
     <dimen name="addPermissionScreen_addPermission_text_padding">20.dp</dimen>
     <dimen name="addPermissionScreen_readWrite_radioButtons_margin">20.dp</dimen>
 
+    <dimen name="seeAllPermissionScreen_rights_borders">2.dp</dimen>
 
 </resources>

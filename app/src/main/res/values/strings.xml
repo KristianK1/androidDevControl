@@ -69,4 +69,12 @@
     <string name="addPermissionScreen_read_permission_label">Read</string>
     <string name="addPermissionScreen_write_permission_label">Write</string>
     <string name="addPermissionScreen_addPermission">Add permission</string>
+
+    <string name="seeAllPermissions_devicePermissions_title">Full permissions:</string>
+    <string name="seeAllPermissions_groupPermissions_title">Group permissions</string>
+    <string name="seeAllPermissions_fieldPermissions_title">Field permissions</string>
+    <string name="seeAllPermissions_complexGroupPermissions_title">Complex group permissions</string>
+    <string name="seeAllPermissions_read_permission_label">Read</string>
+    <string name="seeAllPermissions_write_permission_label">Write</string>
+
 </resources>

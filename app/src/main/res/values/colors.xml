@@ -32,4 +32,5 @@
     <color name="addPermissionScreen_SelectedItem_background">#FFB0B0B0</color>
     <color name="addPermissionScreen_addPermission_button_background">#FFC0C0C0</color>
 
+    <color name="seeAllPermissionScreen_rights_borders">#FF303030</color>
 </resources>

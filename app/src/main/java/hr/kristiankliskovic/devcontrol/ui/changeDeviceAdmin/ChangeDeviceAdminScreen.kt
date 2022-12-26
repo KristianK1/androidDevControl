@@ -20,7 +20,7 @@ fun ChangeDeviceAdminRoute() {
             myUserId = 0,
         ),
         selectNewAdmin = { _ ->
-            
+
         }
     )
 }
