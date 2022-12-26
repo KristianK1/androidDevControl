@@ -48,4 +48,9 @@
     <string name="changePasswordScreen_newPasswordAgain_label">Repeat new password</string>
     <string name="changePasswordScreen_logout_from_other_devices_checkbox">Logout from all other devices</string>
     <string name="changePasswordScreen_changePasswordButton">Change password</string>
+
+    <string name="addNewDeviceScreen_deviceNameHint">Enter device name:</string>
+    <string name="addNewDeviceScreen_autoGenerateKey">Autogenerate device key</string>
+    <string name="addNewDeviceScreen_deviceKeyHint">Enter device key:</string>
+    <string name="addNewDeviceScreen_addDevice_button">Add device</string>
 </resources>

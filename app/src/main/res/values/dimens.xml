@@ -51,4 +51,11 @@
     <dimen name="adminPanelHomeScreen_dividerLine_height">2.dp</dimen>
 
     <dimen name="fabPadding">20.dp</dimen>
+
+    <dimen name="addNewDeviceScreen_top_bottom_screen_padding">50.dp</dimen>
+    <dimen name="addNewDeviceScreen_autoGenerateKeyBox_padding">15.dp</dimen>
+    <dimen name="addNewDeviceScreen_checkbox_spacer_width">5.dp</dimen>
+    <dimen name="addNewDeviceScreen_addDevice_button_margin">20.dp</dimen>
+    <dimen name="addNewDeviceScreen_addDevice_button_padding_vertical">10.dp</dimen>
+    <dimen name="addNewDeviceScreen_addDevice_button_padding_horizontal">20.dp</dimen>
 </resources>
