@@ -28,4 +28,8 @@
     <color name="adminPanelHomeScreen_dividerLine">#FF000000</color>
 
     <color name="addPermissionScreen_user_button">#FFB0B0B0</color>
+
+    <color name="addPermissionScreen_SelectedItem_background">#FFB0B0B0</color>
+    <color name="addPermissionScreen_addPermission_button_background">#FFC0C0C0</color>
+
 </resources>

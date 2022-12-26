@@ -61,4 +61,12 @@
     <string name="addPermissionScreen_permission_category_group">Group</string>
     <string name="addPermissionScreen_permission_category_field">Field</string>
     <string name="addPermissionScreen_permission_category_complexGroup">Complex group</string>
+
+    <string name="addPermissionScreen_no_group_selected_text">Select group</string>
+    <string name="addPermissionScreen_no_field_selected_text">Select field</string>
+    <string name="addPermissionScreen_no_complex_group_selected_text">Select complex group</string>
+    <string name="addPermissionScreen_no_field_selected_warning">Select group first</string>
+    <string name="addPermissionScreen_read_permission_label">Read</string>
+    <string name="addPermissionScreen_write_permission_label">Write</string>
+    <string name="addPermissionScreen_addPermission">Add permission</string>
 </resources>

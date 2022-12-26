@@ -1,9 +1,7 @@
 package hr.kristiankliskovic.devcontrol.mock
 
-import hr.kristiankliskovic.devcontrol.model.Device
-import hr.kristiankliskovic.devcontrol.model.DeviceComplexGroup
-import hr.kristiankliskovic.devcontrol.model.RGBValue
-import hr.kristiankliskovic.devcontrol.model.User
+import androidx.compose.material.Button
+import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.AdminPanelHomeDeviceViewState
 import hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.AdminPanelHomeViewState
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.*
@@ -323,32 +321,32 @@ fun getMockUsers(): List<User> {
         ),
         User(
             userId = 1,
-            username = "DFDDDDDDDDDDDDDDD"
+            username = "Sviki"
         ),
         User(
             userId = 2,
-            username = "hhhhhhhhhhhhh"
+            username = "Filip"
         ),
         User(
             userId = 3,
-            username = "gggggggggggggg"
+            username = "Marija"
         ),
         User(
             userId = 4,
-            username = "fffffffffff"
+            username = "Petar kjhgf"
         ),
         User(
             userId = 5,
-            username = "qqqqqqqqq"
+            username = "aeiuo"
         ),
         User(
             userId = 6,
-            username = "aaaaaaaaa"
+            username = "qaswed"
         ),
     )
 }
 
-fun getDeviceMock(): Device{
+fun getDeviceMock(): Device {
     return Device(
         deviceId = 0,
         deviceName = "DEVICE NAMEEEEE",
@@ -358,12 +356,108 @@ fun getDeviceMock(): Device{
         complexGroups = listOf(
             DeviceComplexGroup(
                 complexGroupId = 0,
-                groupName = "sdfg",
+                groupName = "CG1",
+                states = listOf(),
+                currentState = 0,
+                readOnly = false
+            ),
+            DeviceComplexGroup(
+                complexGroupId = 1,
+                groupName = "CG2",
+                states = listOf(),
+                currentState = 0,
+                readOnly = false
+            ),
+            DeviceComplexGroup(
+                complexGroupId = 2,
+                groupName = "CG3",
                 states = listOf(),
                 currentState = 0,
                 readOnly = false
             ),
         ),
-        groups = listOf(),
+        groups = listOf(
+            DeviceGroup(
+                groupId = 0,
+                groupName = "G1",
+                fields = listOf(
+                    NumericDeviceField(
+                        fieldId = 0,
+                        fieldName = "G1_F1",
+                        minValue = 0f,
+                        maxValue = 25f,
+                        valueStep = 0.1f,
+                        currentValue = 2f,
+                        readOnly = false,
+                    ),
+                    NumericDeviceField(
+                        fieldId = 1,
+                        fieldName = "G1_F2",
+                        minValue = 0f,
+                        maxValue = 25f,
+                        valueStep = 0.1f,
+                        currentValue = 2f,
+                        readOnly = false,
+                    ),
+                    NumericDeviceField(
+                        fieldId = 2,
+                        fieldName = "G1_F3",
+                        minValue = 0f,
+                        maxValue = 25f,
+                        valueStep = 0.1f,
+                        currentValue = 2f,
+                        readOnly = false,
+                    ),
+                    NumericDeviceField(
+                        fieldId = 3,
+                        fieldName = "G1_F2",
+                        minValue = 0f,
+                        maxValue = 25f,
+                        valueStep = 0.1f,
+                        currentValue = 2f,
+                        readOnly = false,
+                    ),
+                    NumericDeviceField(
+                        fieldId = 4,
+                        fieldName = "G1_F3",
+                        minValue = 0f,
+                        maxValue = 25f,
+                        valueStep = 0.1f,
+                        currentValue = 2f,
+                        readOnly = false,
+                    )
+                ),
+            ),
+            DeviceGroup(
+                groupId = 1,
+                groupName = "G2",
+                fields = listOf(
+                    ButtonDeviceField(
+                        fieldId = 0,
+                        fieldName = "GrupaGrupaGrupa_G2_F1",
+                        currentValue = false,
+                        readOnly = false,
+                    ),
+                    ButtonDeviceField(
+                        fieldId = 1,
+                        fieldName = "G2_F2",
+                        currentValue = false,
+                        readOnly = false,
+                    ),
+                    ButtonDeviceField(
+                        fieldId = 2,
+                        fieldName = "G2_F3",
+                        currentValue = false,
+                        readOnly = false,
+                    ),
+                    ButtonDeviceField(
+                        fieldId = 3,
+                        fieldName = "G2_F4",
+                        currentValue = false,
+                        readOnly = false,
+                    ),
+                ),
+            )
+        )
     )
 }

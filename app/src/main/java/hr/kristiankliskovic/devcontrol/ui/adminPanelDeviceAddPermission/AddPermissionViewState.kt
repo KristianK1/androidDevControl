@@ -1,9 +1,32 @@
 package hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission
 
-import hr.kristiankliskovic.devcontrol.model.Device
-import hr.kristiankliskovic.devcontrol.model.User
-
 data class AddPermissionViewState(
-    val device: Device,
-    val users: List<User>,
+    val device: AddPermissionDeviceViewState,
+    val users: List<AddPermissionUserViewState>,
+)
+
+data class AddPermissionDeviceViewState(
+    val groups: List<AddPermissionGroupViewState>,
+    val complexGroups: List<AddPermissionComplexGroupViewState>,
+)
+
+data class AddPermissionGroupViewState(
+    val groupId: Int,
+    val groupName: String,
+    val fields: List<AddPermissionFieldViewState>,
+)
+
+data class AddPermissionFieldViewState(
+    val fieldId: Int,
+    val fieldName: String,
+)
+
+data class AddPermissionComplexGroupViewState(
+    val complexGroupId: Int,
+    val complexGroupName: String,
+)
+
+data class AddPermissionUserViewState(
+    val userId: Int,
+    val username: String,
 )
