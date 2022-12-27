@@ -20,20 +20,27 @@ import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOpt
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 
 @Composable
-fun AdminPanelDeviceRoute() {
+fun AdminPanelDeviceRoute(
+    navigateToChangeDeviceAdmin: () -> Unit,
+    navigateToSeeAllPermissions: () -> Unit,
+    navigateToAddNewPermission: () -> Unit,
+) {
     AdminPanelDeviceScreen(
-        changeDeviceAdmin = { },
-        seeAllPermissions = { },
-        deleteDevice = { }) {
-    }
+        navigateToChangeDeviceAdmin = navigateToChangeDeviceAdmin,
+        navigateToSeeAllPermissions = navigateToSeeAllPermissions,
+        navigateToAddNewPermission = navigateToAddNewPermission,
+        deleteDevice = {
+
+        }
+    )
 }
 
 @Composable
 fun AdminPanelDeviceScreen(
-    changeDeviceAdmin: () -> Unit,
-    seeAllPermissions: () -> Unit,
+    navigateToChangeDeviceAdmin: () -> Unit,
+    navigateToSeeAllPermissions: () -> Unit,
     deleteDevice: () -> Unit,
-    addNewPermission: () -> Unit,
+    navigateToAddNewPermission: () -> Unit,
 ) {
 
     Column(
@@ -42,17 +49,17 @@ fun AdminPanelDeviceScreen(
     ) {
         TextListOption(
             text = stringResource(id = R.string.adminPanelDevice_changeAdmin),
-            onClick = changeDeviceAdmin
+            onClick = navigateToChangeDeviceAdmin
         )
         Line()
         TextListOption(
             text = stringResource(id = R.string.adminPanelDevice_seeAllPermissions),
-            onClick = seeAllPermissions
+            onClick = navigateToSeeAllPermissions
         )
         Line()
         TextListOption(
             text = stringResource(id = R.string.adminPanelDevice_addPermission),
-            onClick = addNewPermission
+            onClick = navigateToAddNewPermission
         )
         Line()
         TextListOption(

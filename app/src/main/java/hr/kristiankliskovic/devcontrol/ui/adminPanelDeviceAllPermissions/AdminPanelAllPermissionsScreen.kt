@@ -6,7 +6,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +16,15 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import hr.kristiankliskovic.devcontrol.R
+
+@Composable
+fun SeeAllPermissionsRoute(){
+    val state = SeeAllPermissionsViewState(
+        rights = listOf(),
+        groupRights = listOf(),
+        complexGroupRights = listOf()
+    )
+}
 
 @Composable
 fun SeeAllPermissionsScreen(

@@ -12,11 +12,11 @@ import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOption
 
 @Composable
-fun UserProfileSettingsRoute() {
+fun UserProfileSettingsRoute(
+    navigateToChangePasswordScreen: () -> Unit,
+) {
     UserProfileSettingsScreen(
-        navigateToChangePasswordScreen = {
-
-        },
+        navigateToChangePasswordScreen = navigateToChangePasswordScreen,
         deleteUserProfile = {
 
         },

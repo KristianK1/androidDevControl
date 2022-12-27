@@ -17,28 +17,27 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.mock.getAdminPanelHomeMock
+import hr.kristiankliskovic.devcontrol.navigation.AdminPanelDeviceDestination
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOption
 
 @Composable
 fun AdminPanelHomeRoute(
 //    viewState: AdminPanelHomeViewState,
+    navigateToAdminPanelDevice: (String) -> Unit,
+    navigateToAddNewDevice: () -> Unit,
 ) {
     AdminPanelHomeScreen(
         viewState = getAdminPanelHomeMock(),
-        onClick = {
-
-        },
-        addNew = {
-
-        }
+        navigateToAdminPanelDevice = navigateToAdminPanelDevice,
+        navigateToAddNewDevice = navigateToAddNewDevice
     )
 }
 
 @Composable
 fun AdminPanelHomeScreen(
     viewState: AdminPanelHomeViewState,
-    onClick: (Int) -> Unit,
-    addNew: () -> Unit,
+    navigateToAdminPanelDevice: (String) -> Unit,
+    navigateToAddNewDevice: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
     Box(
@@ -54,14 +53,15 @@ fun AdminPanelHomeScreen(
                 TextListOption(
                     text = device.deviceName,
                     onClick = {
-                        onClick(device.deviceId)
+                        navigateToAdminPanelDevice(AdminPanelDeviceDestination.createNavigationRoute(
+                            device.deviceId))
                     }
                 )
                 Line()
             }
         }
         FloatingActionButton(
-            onClick = addNew,
+            onClick = navigateToAddNewDevice,
             modifier = Modifier
                 .padding(dimensionResource(id = R.dimen.fabPadding)),
         ) {
@@ -87,10 +87,10 @@ fun Line(
 fun PreviewAdminPanelHomeScreen() {
     AdminPanelHomeScreen(
         viewState = getAdminPanelHomeMock(),
-        onClick = {
+        navigateToAdminPanelDevice = {
 
         },
-        addNew = {
+        navigateToAddNewDevice = {
 
         }
     )
