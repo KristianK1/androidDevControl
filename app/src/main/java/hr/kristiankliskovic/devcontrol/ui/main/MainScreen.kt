@@ -5,6 +5,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -42,7 +43,7 @@ fun MainScreen() {
 
                     },
                     registerInstead = {
-
+                        navController.navigate(REGISTER_ROUTE)
                     }
                 )
             }
@@ -52,7 +53,11 @@ fun MainScreen() {
 
                     },
                     loginInstead = {
-
+                        navController.navigate(LOGIN_ROUTE){
+                            popUpTo(LOGIN_ROUTE){
+                                inclusive = true
+                            }
+                        }
                     }
                 )
             }
