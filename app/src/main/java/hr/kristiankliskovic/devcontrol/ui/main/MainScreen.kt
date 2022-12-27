@@ -1,6 +1,5 @@
 package hr.kristiankliskovic.devcontrol.ui.main
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
