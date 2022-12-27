@@ -7,21 +7,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -125,12 +122,13 @@ fun RegisterScreen(
         Text(
             text = stringResource(id = R.string.registerScreen_register_button),
             fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier
-                .padding(20.dp)
+                .padding(dimensionResource(id = R.dimen.login_register_screen_padding_outside_button))
+                .clip(CircleShape)
                 .background(
-                    color = Color.LightGray,
-                    shape = RoundedCornerShape(5.dp)
-                )
+                    color = colorResource(id = R.color.loginRegisterScreen_button_color),
+                    )
                 .clickable {
                     if (password == passwordAgain) {
                         register(username, password)
@@ -139,8 +137,8 @@ fun RegisterScreen(
                     }
                 }
                 .padding(
-                    horizontal = 20.dp,
-                    vertical = 10.dp
+                    horizontal = dimensionResource(id = R.dimen.login_register_screen_padding_outside_button_horizontal),
+                    vertical = dimensionResource(id = R.dimen.login_register_screen_padding_outside_button_vertical)
                 )
         )
 
