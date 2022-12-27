@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import hr.kristiankliskovic.devcontrol.navigation.*
 import hr.kristiankliskovic.devcontrol.ui.addNewDevice.AddNewDeviceRoute
+import hr.kristiankliskovic.devcontrol.ui.adminPanelDevice.AdminPanelDeviceRoute
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission.AddPermissionRoute
 import hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.AdminPanelHomeRoute
 import hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.ChangeDeviceAdminRoute
@@ -60,8 +61,8 @@ fun MainScreen() {
             }
             composable(
                 route = DeviceControlsDestination.route,
-                arguments = listOf(navArgument(DEVICE_CONTROLS_ID_KEY) { type = NavType.IntType})
-            ){
+                arguments = listOf(navArgument(DEVICE_CONTROLS_ID_KEY) { type = NavType.IntType })
+            ) {
                 DeviceControlsRoute()
             }
             composable(ADMIN_PANEL_ROUTE) {
@@ -69,9 +70,11 @@ fun MainScreen() {
             }
             composable(
                 route = AdminPanelDeviceDestination.route,
-                arguments = listOf(navArgument(ADMIN_PANEL_DEVICE_ID_KEY){ type = NavType.IntType})
-            ){
-                //TODO FALI CIJELI SCREEN
+                arguments = listOf(navArgument(ADMIN_PANEL_DEVICE_ID_KEY) {
+                    type = NavType.IntType
+                })
+            ) {
+                AdminPanelDeviceRoute()
             }
             composable(ADD_NEW_DEVICE_ROUTE) {
                 AddNewDeviceRoute()

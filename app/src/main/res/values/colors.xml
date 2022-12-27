@@ -33,4 +33,9 @@
     <color name="addPermissionScreen_addPermission_button_background">#FFC0C0C0</color>
 
     <color name="seeAllPermissionScreen_rights_borders">#FF303030</color>
+
+    <color name="adminPanelDevice_dividerLine">#FF000000</color>
+
+    <color name="adminPanelDevice_deleteDeviceButton_background">#FFB0B0B0</color>
+
 </resources>

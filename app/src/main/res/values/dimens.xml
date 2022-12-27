@@ -73,4 +73,10 @@
 
     <dimen name="seeAllPermissionScreen_rights_borders">2.dp</dimen>
 
+    <dimen name="adminPanelDevice_dividerLine_height">2.dp</dimen>
+    <dimen name="adminPanelDevice_confirmDialog_padding">25.dp</dimen>
+
+    <dimen name="adminPanelDevice_deleteDeviceButton_padding">10.dp</dimen>
+
+
 </resources>

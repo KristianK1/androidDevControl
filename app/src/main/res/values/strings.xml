@@ -77,4 +77,14 @@
     <string name="seeAllPermissions_read_permission_label">Read</string>
     <string name="seeAllPermissions_write_permission_label">Write</string>
 
+    <string name="adminPanelDevice_changeAdmin">Change device admin</string>
+    <string name="adminPanelDevice_deleteDevice">Delete device</string>
+    <string name="adminPanelDevice_seeAllPermissions">See all permissions</string>
+    <string name="adminPanelDevice_addPermission">Add permission</string>
+
+    <string name="adminPanelDevice_deleteDeviceConfirm">Delete</string>
+    <string name="adminPanelDevice_deleteDeviceCancel">Cancel</string>
+
+
+
 </resources>
