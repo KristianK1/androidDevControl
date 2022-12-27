@@ -21,10 +21,10 @@ import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOpt
 
 @Composable
 fun AdminPanelHomeRoute(
-    viewState: AdminPanelHomeViewState,
+//    viewState: AdminPanelHomeViewState,
 ) {
     AdminPanelHomeScreen(
-        viewState = viewState,
+        viewState = getAdminPanelHomeMock(),
         onClick = {
 
         },

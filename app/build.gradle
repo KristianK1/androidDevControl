@@ -66,5 +66,7 @@ dependencies {
     def compose_color_picker_version = "0.5.1"
     implementation "com.godaddy.android.colorpicker:compose-color-picker:$compose_color_picker_version"
     implementation "com.godaddy.android.colorpicker:compose-color-picker-android:$compose_color_picker_version"
-//    implementation "com.godaddy.android.colorpicker:compose-color-picker-jvm:$compose_color_picker_version"
+
+    def nav_version = "2.5.3"
+    implementation "androidx.navigation:navigation-compose:$nav_version"
 }
