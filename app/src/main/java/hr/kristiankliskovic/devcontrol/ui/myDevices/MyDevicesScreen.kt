@@ -17,25 +17,26 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.mock.getDeviceListMockData
+import hr.kristiankliskovic.devcontrol.navigation.DeviceControlsDestination
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.DeviceNameAndStatus
 
 @Composable
-fun MyDevicesRoute() {
+fun MyDevicesRoute(
+    navigateToDevice: (String) -> Unit,
+) {
     val myDevices by remember {
         mutableStateOf(getDeviceListMockData())
     }
     MyDevicesScreen(
         state = myDevices,
-        navigateToDevice = {
-
-        }
+        navigateToDevice = navigateToDevice
     )
 }
 
 @Composable
 fun MyDevicesScreen(
     state: MyDevicesViewState,
-    navigateToDevice: (Int) -> Unit,
+    navigateToDevice: (String) -> Unit,
 ) {
     LazyColumn {
         items(
@@ -44,7 +45,7 @@ fun MyDevicesScreen(
             DeviceNameAndStatus(
                 item = item,
                 onClick = {
-                    navigateToDevice(item.deviceId)
+                    navigateToDevice(DeviceControlsDestination.createNavigationRoute(it))
                 }
             )
             Box(
@@ -64,7 +65,7 @@ fun PreviewMyDeviceScreen() {
     MyDevicesScreen(
         state = getDeviceListMockData(),
         navigateToDevice = {
-            Log.i("myDevicesScreen_click", "$it")
+            Log.i("myDevicesScreen_click", it)
         }
     )
 }
