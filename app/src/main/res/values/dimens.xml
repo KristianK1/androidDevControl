@@ -81,4 +81,12 @@
     <dimen name="topBarHeight">40.dp</dimen>
     <dimen name="topBarSecundaryHeight">30.dp</dimen>
 
+    <dimen name="buttonFieldInputComponent_height">100.dp</dimen>
+    <dimen name="buttonFieldOutputComponent_height">100.dp</dimen>
+    <dimen name="textFieldInputComponent_height">100.dp</dimen>
+    <dimen name="textFieldOutputComponent_height">100.dp</dimen>
+    <dimen name="rgbFieldInputComponent_height">100.dp</dimen>
+    <dimen name="rgbFieldOutputComponent_height">100.dp</dimen>
+    <dimen name="numericFieldInputComponent_height">130.dp</dimen>
+
 </resources>

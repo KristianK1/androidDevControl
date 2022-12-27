@@ -80,9 +80,6 @@ fun RGBDialog(
         },
             buttons = {
                 Column(
-//                    modifier = Modifier
-//                        .fillMaxWidth(),
-//                        .padding(5.dp),
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
                     ClassicColorPicker(

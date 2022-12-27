@@ -80,4 +80,3 @@ fun DeviceControlsScreen(
 fun PreviewDeviceControlsScreen() {
     DeviceControlsScreen(item = getDevControlsMock())
 }
-

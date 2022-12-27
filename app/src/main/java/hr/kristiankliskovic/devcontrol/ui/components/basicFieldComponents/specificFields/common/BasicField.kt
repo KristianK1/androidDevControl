@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
+import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.*
 
 @Composable
@@ -22,7 +24,7 @@ fun BasicField(
                 },
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(100.dp)
+                    .height(dimensionResource(id = R.dimen.buttonFieldInputComponent_height))
             )
         }
         is ButtonFieldOutputViewState -> {
@@ -30,7 +32,7 @@ fun BasicField(
                 item = item,
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(100.dp)
+                    .height(dimensionResource(id = R.dimen.buttonFieldOutputComponent_height))
             )
         }
         is TextFieldInputViewState -> {
@@ -41,7 +43,7 @@ fun BasicField(
                 },
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(100.dp)
+                    .height(dimensionResource(id = R.dimen.textFieldInputComponent_height))
             )
         }
         is TextFieldOutputViewState -> {
@@ -49,7 +51,7 @@ fun BasicField(
                 item = item,
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(100.dp)
+                    .height(dimensionResource(id = R.dimen.textFieldOutputComponent_height))
             )
         }
         is MultipleChoiceFieldInputViewState -> {
@@ -71,7 +73,7 @@ fun BasicField(
                 },
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(100.dp)
+                    .height(dimensionResource(id = R.dimen.rgbFieldInputComponent_height))
             )
         }
         is RGBFieldOutputViewState -> {
@@ -79,7 +81,7 @@ fun BasicField(
                 item = item,
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(100.dp)
+                    .height(dimensionResource(id = R.dimen.rgbFieldOutputComponent_height))
             )
         }
         is NumericFieldInputViewState -> {
@@ -90,7 +92,7 @@ fun BasicField(
                 },
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(130.dp)
+                    .height(dimensionResource(id = R.dimen.numericFieldInputComponent_height))
             )
         }
     }

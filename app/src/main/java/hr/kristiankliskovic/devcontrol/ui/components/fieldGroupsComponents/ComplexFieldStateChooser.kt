@@ -93,9 +93,6 @@ fun ComplexStateChooserDialog(
 
     if (dialogOpen) {
         AlertDialog(onDismissRequest = {
-            // Dismiss the dialog when the user clicks outside the dialog or on the back
-            // button. If you want to disable that functionality,
-            // simply leave this block empty.
             dialogOpen = false
         },
             buttons = {
