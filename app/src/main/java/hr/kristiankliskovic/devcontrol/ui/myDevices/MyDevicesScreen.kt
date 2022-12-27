@@ -1,6 +1,5 @@
 package hr.kristiankliskovic.devcontrol.ui.myDevices
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -65,7 +64,6 @@ fun PreviewMyDeviceScreen() {
     MyDevicesScreen(
         state = getDeviceListMockData(),
         navigateToDevice = {
-            Log.i("myDevicesScreen_click", it)
         }
     )
 }

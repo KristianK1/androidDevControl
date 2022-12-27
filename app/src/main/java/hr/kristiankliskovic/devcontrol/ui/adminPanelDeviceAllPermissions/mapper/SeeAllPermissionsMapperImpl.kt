@@ -1,6 +1,5 @@
 package hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.mapper
 
-import androidx.compose.ui.node.modifierElementOf
 import hr.kristiankliskovic.devcontrol.model.AllUserRightsToDevice
 import hr.kristiankliskovic.devcontrol.model.Device
 import hr.kristiankliskovic.devcontrol.model.User

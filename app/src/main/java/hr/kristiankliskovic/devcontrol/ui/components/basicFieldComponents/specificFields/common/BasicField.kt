@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.*
 
-
 @Composable
 fun BasicField(
     item: BasicFieldComponentViewState,
