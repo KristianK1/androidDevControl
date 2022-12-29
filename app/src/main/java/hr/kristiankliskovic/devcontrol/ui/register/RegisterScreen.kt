@@ -29,11 +29,11 @@ import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineText
 
 @Composable
 fun RegisterRoute(
-    register: (String, String) -> Unit,
+    registerViewModel: RegisterViewModel,
     loginInstead: () -> Unit,
 ) {
     RegisterScreen(
-        register = register,
+        register = registerViewModel::register,
         loginInstead = loginInstead
     )
 }

@@ -1,5 +1,6 @@
 package hr.kristiankliskovic.devcontrol.ui.main
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -36,7 +37,14 @@ import hr.kristiankliskovic.devcontrol.ui.register.RegisterRoute
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.UserProfileSettingsRoute
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword.ChangePasswordRoute
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.data.repository.user.UserRepository
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsRoute
+import hr.kristiankliskovic.devcontrol.ui.login.LoginViewModel
+import hr.kristiankliskovic.devcontrol.ui.register.RegisterViewModel
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
+import org.koin.androidx.compose.get
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun MainScreen() {
@@ -47,6 +55,7 @@ fun MainScreen() {
             navBackStackEntry?.destination?.route == MY_DEVICES_ROUTE
         }
     }
+
     Scaffold(
         topBar = {
             TopBar(
@@ -68,14 +77,12 @@ fun MainScreen() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = MY_DEVICES_ROUTE,
+                startDestination = LOGIN_ROUTE,
                 modifier = Modifier.padding(padding)
             ) {
                 composable(LOGIN_ROUTE) {
                     LoginRoute(
-                        login = { _, _ ->
-
-                        },
+                        loginViewModel = getViewModel<LoginViewModel>(),
                         registerInstead = {
                             navController.navigate(REGISTER_ROUTE)
                         }
@@ -83,9 +90,7 @@ fun MainScreen() {
                 }
                 composable(REGISTER_ROUTE) {
                     RegisterRoute(
-                        register = { _, _ ->
-
-                        },
+                        registerViewModel = getViewModel<RegisterViewModel>(),
                         loginInstead = {
                             navController.navigate(LOGIN_ROUTE) {
                                 popUpTo(LOGIN_ROUTE) {

@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="deploymentTargetDropDown">
-    <runningDeviceTargetsSelectedWithDialog>
+    <targetSelectedWithDropDown>
       <Target>
-        <type value="RUNNING_DEVICE_TARGET" />
+        <type value="QUICK_BOOT_TARGET" />
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\Kristian-PC\.android\avd\Pixel_3_API_30.avd" />
+            <value value="C:\Users\Kristian-PC\.android\avd\Wear_OS_Large_Round_API_30.avd" />
           </Key>
         </deviceKey>
       </Target>
-      <Target>
-        <type value="RUNNING_DEVICE_TARGET" />
-        <deviceKey>
-          <Key>
-            <type value="SERIAL_NUMBER" />
-            <value value="adb-RFCR60K0Z6H-5RjvOd._adb-tls-connect._tcp" />
-          </Key>
-        </deviceKey>
-      </Target>
-    </runningDeviceTargetsSelectedWithDialog>
+    </targetSelectedWithDropDown>
+    <timeTargetWasSelectedWithDropDown value="2022-12-29T21:46:16.634994400Z" />
   </component>
 </project>

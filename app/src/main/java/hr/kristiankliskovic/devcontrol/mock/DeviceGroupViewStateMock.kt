@@ -460,3 +460,9 @@ fun getDeviceMock(): Device {
         )
     )
 }
+
+fun getLoggedInUserMock(): LoggedInUser = LoggedInUser(
+    userId = 987,
+    username = "LoggedInUser",
+    token = "TOKEN_FAKE_1"
+)
