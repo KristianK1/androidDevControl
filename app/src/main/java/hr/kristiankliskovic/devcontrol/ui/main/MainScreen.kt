@@ -69,7 +69,9 @@ fun MainScreen() {
                 }
             }
         false ->
-            navController.navigate(LOGIN_ROUTE)
+            navController.navigate(LOGIN_ROUTE) {
+                launchSingleTop = true
+            }
         null -> {
 
         }
