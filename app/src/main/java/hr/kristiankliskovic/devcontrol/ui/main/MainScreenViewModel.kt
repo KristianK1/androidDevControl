@@ -9,10 +9,11 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 
 class MainScreenViewModel(
-    private val userRepository: UserRepository,
+    userRepository: UserRepository,
 ) : ViewModel() {
 
     val loggedInUser: StateFlow<Boolean?> = userRepository.loggedInUser.mapLatest {
         it != null
     }.stateIn(viewModelScope, SharingStarted.Lazily, null)
+
 }

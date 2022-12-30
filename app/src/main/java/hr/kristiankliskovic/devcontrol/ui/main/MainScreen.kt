@@ -48,7 +48,18 @@ import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun MainScreen() {
+fun MainRoute(
+    viewModel: MainScreenViewModel,
+) {
+    val loggedIn: Boolean? by viewModel.loggedInUser.collectAsState()
+
+    MainScreen(loggedIn = loggedIn)
+}
+
+@Composable
+fun MainScreen(
+    loggedIn: Boolean?,
+) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val showIcons by remember {
@@ -56,30 +67,6 @@ fun MainScreen() {
             navBackStackEntry?.destination?.route == MY_DEVICES_ROUTE
         }
     }
-
-    val mainScreenViewModel: MainScreenViewModel = get()
-
-    val loggedIn = mainScreenViewModel.loggedInUser.collectAsState(initial = null)
-
-    when (loggedIn.value) {
-        true ->
-            navController.navigate(MY_DEVICES_ROUTE) {
-                popUpTo(LOGIN_ROUTE) {
-                    inclusive = true
-                }
-            }
-        false ->
-            navController.navigate(LOGIN_ROUTE) {
-                launchSingleTop = true
-                popUpTo(MY_DEVICES_ROUTE){
-                    inclusive = true
-                }
-            }
-        null -> {
-
-        }
-    }
-
 
     Scaffold(
         topBar = {
@@ -102,12 +89,12 @@ fun MainScreen() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = LOGIN_ROUTE,
+                startDestination = if (loggedIn == true) MY_DEVICES_ROUTE else LOGIN_ROUTE,
                 modifier = Modifier.padding(padding)
             ) {
                 composable(LOGIN_ROUTE) {
                     LoginRoute(
-                        loginViewModel = getViewModel<LoginViewModel>(),
+                        loginViewModel = get(),
                         registerInstead = {
                             navController.navigate(REGISTER_ROUTE)
                         }
@@ -227,11 +214,15 @@ fun TopBar(
                         .fillMaxWidth()
                         .height(dimensionResource(id = R.dimen.topBarHeight))
                 ) {
-                    Row {
+                    Row(
+                        modifier = Modifier.fillMaxHeight()
+                    ) {
                         Icon(
                             Icons.Filled.AccountBox,
                             contentDescription = null,
                             modifier = Modifier
+                                .fillMaxHeight()
+                                .width(dimensionResource(id = R.dimen.topBarHeight))
                                 .clickable {
                                     navigateToAdminPanel()
                                 }
@@ -240,6 +231,8 @@ fun TopBar(
                             Icons.Filled.Settings,
                             contentDescription = null,
                             modifier = Modifier
+                                .fillMaxHeight()
+                                .width(dimensionResource(id = R.dimen.topBarHeight))
                                 .clickable {
                                     navigateToUserSettings()
                                 }

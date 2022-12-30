@@ -78,7 +78,7 @@
 
     <dimen name="adminPanelDevice_deleteDeviceButton_padding">10.dp</dimen>
 
-    <dimen name="topBarHeight">60.dp</dimen>
+    <dimen name="topBarHeight">40.dp</dimen>
     <dimen name="topBarSecundaryHeight">30.dp</dimen>
 
     <dimen name="buttonFieldInputComponent_height">100.dp</dimen>

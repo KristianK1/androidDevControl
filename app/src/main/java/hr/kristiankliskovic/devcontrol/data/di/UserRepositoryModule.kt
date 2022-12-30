@@ -9,9 +9,8 @@ val userRepositoryModule = module {
     single<UserRepository> {
         UserRepositoryImpl(
             userService = get(),
-            loggedInUserDao = get(),
             authTokenRepository = get(),
-            bgDispatcher = Dispatchers.IO,
+            ioDispatcher = Dispatchers.IO,
         )
     }
 }

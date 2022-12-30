@@ -6,13 +6,16 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import hr.kristiankliskovic.devcontrol.ui.theme.DevControlTheme
+import org.koin.androidx.compose.get
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             DevControlTheme {
-                MainScreen()
+                MainRoute(
+                    viewModel = get()
+                )
             }
         }
     }
@@ -22,6 +25,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     DevControlTheme {
-        MainScreen()
+        MainRoute(
+            viewModel = get()
+        )
     }
 }

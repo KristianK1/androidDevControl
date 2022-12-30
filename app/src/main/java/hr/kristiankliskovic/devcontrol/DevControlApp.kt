@@ -4,7 +4,6 @@ import android.app.Application
 import hr.kristiankliskovic.devcontrol.data.di.authTokenRepositoryModule
 import hr.kristiankliskovic.devcontrol.data.di.deviceRepositoryModule
 import hr.kristiankliskovic.devcontrol.data.encrpytedPreferences.di.preferencesModule
-import hr.kristiankliskovic.devcontrol.data.memory_db.di.InMemoryDbModule
 import hr.kristiankliskovic.devcontrol.data.network.networkModule
 import hr.kristiankliskovic.devcontrol.data.di.userRepositoryModule
 import hr.kristiankliskovic.devcontrol.ui.login.di.loginModule
@@ -24,7 +23,7 @@ class DevControlApp: Application() {
                 userRepositoryModule,
                 preferencesModule,
                 deviceRepositoryModule,
-                InMemoryDbModule,
+//                InMemoryDbModule,
                 authTokenRepositoryModule,
                 loginModule,
                 registerModule,
