@@ -107,7 +107,7 @@ fun RegisterScreen(
             placeholder = stringResource(id = R.string.registerScreen_passwordAgainText),
             hidden = true,
             onChange = {
-                password = it
+                passwordAgain = it
             },
             modifier = Modifier
                 .padding(
@@ -128,12 +128,12 @@ fun RegisterScreen(
                 .clip(CircleShape)
                 .background(
                     color = colorResource(id = R.color.loginRegisterScreen_button_color),
-                    )
+                )
                 .clickable {
                     if (password == passwordAgain) {
                         register(username, password)
                     } else {
-                        //toast
+                        //TODO toast?
                     }
                 }
                 .padding(

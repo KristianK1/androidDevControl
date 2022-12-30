@@ -179,7 +179,8 @@ fun MainScreen() {
                     UserProfileSettingsRoute(
                         navigateToChangePasswordScreen = {
                             navController.navigate(CHANGE_PASSWORD_ROUTE)
-                        }
+                        },
+                        userProfileSettingsViewModel = get()
                     )
                 }
                 composable(CHANGE_PASSWORD_ROUTE) {

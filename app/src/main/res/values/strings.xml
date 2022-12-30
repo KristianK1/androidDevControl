@@ -41,6 +41,7 @@
 
     <string name="userSettings_changePassword_button">Change password</string>
     <string name="userSettings_logout_button">Logout</string>
+    <string name="userSettings_logout_all_sessions_button">Logout all sessions</string>
     <string name="userSettings_deleteProfile_button">Delete user profile</string>
 
     <string name="changePasswordScreen_oldPassword_label">Old password</string>

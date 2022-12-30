@@ -40,6 +40,7 @@ class UserRepositoryImpl(
     }
 
     override suspend fun loginByCreds(username: String, password: String) {
+        Log.i("login", "loginByCreds")
         val loginResponse = userService.loginUserByCreds(username, password)
         if (loginResponse != null) {
             addUser(loginResponse)
@@ -56,8 +57,9 @@ class UserRepositoryImpl(
         }
     }
 
-    override fun logoutUser(token: String, logoutAllSessions: Boolean) {
-        runBlocking(bgDispatcher) {
+    override suspend fun logoutUser(logoutAllSessions: Boolean) {
+        val token = authTokenRepository.getAuthToken()
+        if (token != null) {
             val logoutWorked = userService.logoutUser(token, logoutAllSessions)
             if (logoutWorked) {
                 removeUser()
@@ -65,30 +67,36 @@ class UserRepositoryImpl(
         }
     }
 
-    override fun registerUser(username: String, password: String) {
-        runBlocking(bgDispatcher) {
-            val loginResponse = userService.registerUser(username, password)
-            if (loginResponse != null) {
-                addUser(loginResponse)
-            }
+    override suspend fun registerUser(username: String, password: String) {
+        val loginResponse = userService.registerUser(username, password)
+        if (loginResponse != null) {
+            addUser(loginResponse)
         }
     }
 
-    override fun changePassword(
+    override suspend fun changePassword(
         oldPassword: String,
         newPassword: String,
         logoutOtherSessions: Boolean,
     ) {
-        runBlocking(bgDispatcher) {
-            val user = loggedInUser.lastOrNull()
-            if (user != null) {
-                val chPassSuccess = userService.changePassword(
-                    userId = user.userId,
-                    oldPassword = oldPassword,
-                    newPassword = newPassword,
-                    logoutOtherSessions = logoutOtherSessions,
-                    dontLogoutToken = user.token,
-                )
+        val user = loggedInUser.value
+        if (user != null) {
+            val chPassSuccess = userService.changePassword(
+                userId = user.userId,
+                oldPassword = oldPassword,
+                newPassword = newPassword,
+                logoutOtherSessions = logoutOtherSessions,
+                dontLogoutToken = user.token,
+            )
+        }
+    }
+
+    override suspend fun deleteUser() {
+        val user = loggedInUser.value
+        if (user != null) {
+            val deleted = userService.deleteUser(user.token)
+            if (deleted) {
+                removeUser()
             }
         }
     }

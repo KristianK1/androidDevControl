@@ -10,6 +10,7 @@ import hr.kristiankliskovic.devcontrol.data.di.userRepositoryModule
 import hr.kristiankliskovic.devcontrol.ui.login.di.loginModule
 import hr.kristiankliskovic.devcontrol.ui.main.di.mainScreenModule
 import hr.kristiankliskovic.devcontrol.ui.register.di.registerModule
+import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.di.userProfileSettingsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -27,7 +28,8 @@ class DevControlApp: Application() {
                 authTokenRepositoryModule,
                 loginModule,
                 registerModule,
-                mainScreenModule
+                mainScreenModule,
+                userProfileSettingsModule
             )
         }
     }

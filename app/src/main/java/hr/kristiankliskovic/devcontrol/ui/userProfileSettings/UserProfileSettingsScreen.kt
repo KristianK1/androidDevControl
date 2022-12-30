@@ -10,19 +10,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOption
+import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.di.userProfileSettingsModule
 
 @Composable
 fun UserProfileSettingsRoute(
     navigateToChangePasswordScreen: () -> Unit,
+    userProfileSettingsViewModel: UserProfileSettingsViewModel,
 ) {
     UserProfileSettingsScreen(
         navigateToChangePasswordScreen = navigateToChangePasswordScreen,
-        deleteUserProfile = {
-
-        },
-        logout = {
-
-        }
+        deleteUserProfile = userProfileSettingsViewModel::deleteUser,
+        logout = userProfileSettingsViewModel::logout,
+        logoutAllSessions = userProfileSettingsViewModel::logoutAllSessions
     )
 }
 
@@ -31,6 +30,7 @@ fun UserProfileSettingsScreen(
     navigateToChangePasswordScreen: () -> Unit,
     deleteUserProfile: () -> Unit,
     logout: () -> Unit,
+    logoutAllSessions: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -47,6 +47,11 @@ fun UserProfileSettingsScreen(
         TextListOption(
             text = stringResource(id = R.string.userSettings_logout_button),
             onClick = logout
+        )
+        Line()
+        TextListOption(
+            text = stringResource(id = R.string.userSettings_logout_all_sessions_button),
+            onClick = logoutAllSessions
         )
         Line()
         TextListOption(
@@ -80,6 +85,9 @@ fun PreviewUserProfileSettingsScreen() {
 
         },
         logout = {
+
+        },
+        logoutAllSessions = {
 
         }
     )
