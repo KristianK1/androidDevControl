@@ -21,7 +21,7 @@ class UserRepositoryImpl(
     private val authTokenRepository: AuthTokenRepository,
     private val bgDispatcher: CoroutineDispatcher,
 ) : UserRepository {
-    override val loggedInUser: Flow<LoggedInUser?> = loggedInUserDao.loggedInUser
+    override val loggedInUser: StateFlow<LoggedInUser?> = loggedInUserDao.loggedInUser
 
     private fun addUser(loginResponse: LoginResponse) {
         Log.i("loginX", loginResponse.authToken)
@@ -40,17 +40,16 @@ class UserRepositoryImpl(
         authTokenRepository.deleteAuthToken()
     }
 
-    override fun loginByCreds(username: String, password: String) {
-        runBlocking(bgDispatcher) {
-            val loginResponse = userService.loginUserByCreds(username, password)
-            if (loginResponse != null) {
-                addUser(loginResponse)
-            }
+    override suspend fun loginByCreds(username: String, password: String) {
+        val loginResponse = userService.loginUserByCreds(username, password)
+        if (loginResponse != null) {
+            addUser(loginResponse)
         }
     }
 
-    override fun loginByToken(token: String) {
-        runBlocking(bgDispatcher) {
+    override suspend fun loginByToken() {
+        val token = authTokenRepository.getAuthToken()
+        if (token != null) {
             val loginResponse = userService.loginUserByToken(token)
             if (loginResponse != null) {
                 addUser(loginResponse)
@@ -61,7 +60,7 @@ class UserRepositoryImpl(
     override fun logoutUser(token: String, logoutAllSessions: Boolean) {
         runBlocking(bgDispatcher) {
             val logoutWorked = userService.logoutUser(token, logoutAllSessions)
-            if(logoutWorked){
+            if (logoutWorked) {
                 removeUser()
             }
         }

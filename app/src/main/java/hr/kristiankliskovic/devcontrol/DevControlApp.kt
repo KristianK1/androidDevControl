@@ -6,7 +6,7 @@ import hr.kristiankliskovic.devcontrol.data.di.deviceRepositoryModule
 import hr.kristiankliskovic.devcontrol.data.encrpytedPreferences.di.preferencesModule
 import hr.kristiankliskovic.devcontrol.data.memory_db.di.InMemoryDbModule
 import hr.kristiankliskovic.devcontrol.data.network.networkModule
-import hr.kristiankliskovic.devcontrol.data.repository.user.di.userRepositoryModule
+import hr.kristiankliskovic.devcontrol.data.di.userRepositoryModule
 import hr.kristiankliskovic.devcontrol.ui.login.di.loginModule
 import hr.kristiankliskovic.devcontrol.ui.register.di.registerModule
 import org.koin.android.ext.koin.androidContext

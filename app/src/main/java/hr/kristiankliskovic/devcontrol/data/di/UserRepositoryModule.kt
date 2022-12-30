@@ -1,4 +1,4 @@
-package hr.kristiankliskovic.devcontrol.data.repository.user.di
+package hr.kristiankliskovic.devcontrol.data.di
 
 import hr.kristiankliskovic.devcontrol.data.repository.user.UserRepository
 import hr.kristiankliskovic.devcontrol.data.repository.user.UserRepositoryImpl

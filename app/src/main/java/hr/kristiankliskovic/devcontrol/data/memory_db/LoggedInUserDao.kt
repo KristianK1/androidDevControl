@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
 interface LoggedInUserDao {
-    val loggedInUser: Flow<LoggedInUser?>
+    val loggedInUser: StateFlow<LoggedInUser?>
     fun loginUser(user: LoggedInUser)
     fun logoutUser()
 }

@@ -5,15 +5,17 @@ import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.lang.Thread.State
 
 class InMemoryDb(
     private val ioDispatcher: CoroutineDispatcher,
 ) : LoggedInUserDao {
     private var loggedInUserInternal = MutableStateFlow<LoggedInUser?>(null)
 
-    override val loggedInUser: Flow<LoggedInUser?> = this.loggedInUserInternal
-    
+    override val loggedInUser: StateFlow<LoggedInUser?> = this.loggedInUserInternal
+
     override fun loginUser(user: LoggedInUser) {
         Log.i("fakeMainRouter", "ide1")
         Log.i("fakeMainRouter", "${loggedInUserInternal.value != null}")

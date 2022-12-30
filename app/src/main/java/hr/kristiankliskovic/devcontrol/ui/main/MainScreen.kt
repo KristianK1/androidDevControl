@@ -11,10 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -38,9 +35,12 @@ import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.UserProfileSetting
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword.ChangePasswordRoute
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.data.repository.user.UserRepository
+import hr.kristiankliskovic.devcontrol.model.LoggedInUser
+import hr.kristiankliskovic.devcontrol.model.User
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsRoute
 import hr.kristiankliskovic.devcontrol.ui.login.LoginViewModel
 import hr.kristiankliskovic.devcontrol.ui.register.RegisterViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import org.koin.androidx.compose.get
@@ -167,6 +167,18 @@ fun MainScreen() {
                 }
             }
         }
+    }
+    val userRepository: UserRepository = get()
+    val loggedInUser: State<LoggedInUser?> =
+        userRepository.loggedInUser.collectAsState(initial = null)
+    if (loggedInUser.value != null) {
+        navController.navigate(MY_DEVICES_ROUTE){
+            popUpTo(LOGIN_ROUTE) {
+                inclusive = true
+            }
+        }
+    } else {
+//        navController.navigate(LOGIN_ROUTE)
     }
 }
 
