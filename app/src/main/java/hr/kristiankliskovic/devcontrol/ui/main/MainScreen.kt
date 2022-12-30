@@ -71,6 +71,9 @@ fun MainScreen() {
         false ->
             navController.navigate(LOGIN_ROUTE) {
                 launchSingleTop = true
+                popUpTo(MY_DEVICES_ROUTE){
+                    inclusive = true
+                }
             }
         null -> {
 
