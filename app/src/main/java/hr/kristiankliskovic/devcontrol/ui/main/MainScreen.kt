@@ -48,23 +48,33 @@ import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun MainRoute(
-    viewModel: MainScreenViewModel,
-) {
-    val loggedIn: Boolean? by viewModel.loggedInUser.collectAsState()
-
-    MainScreen(loggedIn = loggedIn)
-}
-
-@Composable
-fun MainScreen(
-    loggedIn: Boolean?,
-) {
+fun MainScreen() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val showIcons by remember {
         derivedStateOf {
             navBackStackEntry?.destination?.route == MY_DEVICES_ROUTE
+        }
+    }
+
+    val viewModel: MainScreenViewModel = getViewModel()
+    val loggedIn =  viewModel.loggedInUser.collectAsState()
+
+    when (loggedIn.value) {
+        true ->
+            navController.navigate(MY_DEVICES_ROUTE) {
+                popUpTo(LOGIN_ROUTE) {
+                    inclusive = true
+                }
+            }
+        false ->
+            navController.navigate(LOGIN_ROUTE) {
+                launchSingleTop = true
+                popUpTo(MY_DEVICES_ROUTE){
+                    inclusive = true
+                }
+            }
+        null -> {
         }
     }
 
@@ -89,12 +99,12 @@ fun MainScreen(
         ) {
             NavHost(
                 navController = navController,
-                startDestination = if (loggedIn == true) MY_DEVICES_ROUTE else LOGIN_ROUTE,
+                startDestination = LOGIN_ROUTE,
                 modifier = Modifier.padding(padding)
             ) {
                 composable(LOGIN_ROUTE) {
                     LoginRoute(
-                        loginViewModel = get(),
+                        loginViewModel = getViewModel(),
                         registerInstead = {
                             navController.navigate(REGISTER_ROUTE)
                         }
@@ -102,7 +112,7 @@ fun MainScreen(
                 }
                 composable(REGISTER_ROUTE) {
                     RegisterRoute(
-                        registerViewModel = getViewModel<RegisterViewModel>(),
+                        registerViewModel = getViewModel(),
                         loginInstead = {
                             navController.navigate(LOGIN_ROUTE) {
                                 popUpTo(LOGIN_ROUTE) {
