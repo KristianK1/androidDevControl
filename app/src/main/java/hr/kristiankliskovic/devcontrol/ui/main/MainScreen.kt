@@ -39,6 +39,7 @@ import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import hr.kristiankliskovic.devcontrol.model.User
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsRoute
 import hr.kristiankliskovic.devcontrol.ui.login.LoginViewModel
+import hr.kristiankliskovic.devcontrol.ui.main.di.mainScreenModule
 import hr.kristiankliskovic.devcontrol.ui.register.RegisterViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
@@ -55,6 +56,25 @@ fun MainScreen() {
             navBackStackEntry?.destination?.route == MY_DEVICES_ROUTE
         }
     }
+
+    val mainScreenViewModel: MainScreenViewModel = get()
+
+    val loggedIn = mainScreenViewModel.loggedInUser.collectAsState(initial = null)
+
+    when (loggedIn.value) {
+        true ->
+            navController.navigate(MY_DEVICES_ROUTE) {
+                popUpTo(LOGIN_ROUTE) {
+                    inclusive = true
+                }
+            }
+        false ->
+            navController.navigate(LOGIN_ROUTE)
+        null -> {
+
+        }
+    }
+
 
     Scaffold(
         topBar = {
@@ -167,18 +187,6 @@ fun MainScreen() {
                 }
             }
         }
-    }
-    val userRepository: UserRepository = get()
-    val loggedInUser: State<LoggedInUser?> =
-        userRepository.loggedInUser.collectAsState(initial = null)
-    if (loggedInUser.value != null) {
-        navController.navigate(MY_DEVICES_ROUTE){
-            popUpTo(LOGIN_ROUTE) {
-                inclusive = true
-            }
-        }
-    } else {
-//        navController.navigate(LOGIN_ROUTE)
     }
 }
 

@@ -24,7 +24,6 @@ class UserRepositoryImpl(
     override val loggedInUser: StateFlow<LoggedInUser?> = loggedInUserDao.loggedInUser
 
     private fun addUser(loginResponse: LoginResponse) {
-        Log.i("loginX", loginResponse.authToken)
         loggedInUserDao.loginUser(
             LoggedInUser(
                 userId = loginResponse.id,

@@ -8,6 +8,7 @@ import hr.kristiankliskovic.devcontrol.data.memory_db.di.InMemoryDbModule
 import hr.kristiankliskovic.devcontrol.data.network.networkModule
 import hr.kristiankliskovic.devcontrol.data.di.userRepositoryModule
 import hr.kristiankliskovic.devcontrol.ui.login.di.loginModule
+import hr.kristiankliskovic.devcontrol.ui.main.di.mainScreenModule
 import hr.kristiankliskovic.devcontrol.ui.register.di.registerModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -26,6 +27,7 @@ class DevControlApp: Application() {
                 authTokenRepositoryModule,
                 loginModule,
                 registerModule,
+                mainScreenModule
             )
         }
     }
