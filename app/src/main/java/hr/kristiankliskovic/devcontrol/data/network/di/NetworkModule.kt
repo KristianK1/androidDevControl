@@ -17,10 +17,13 @@ import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 val networkModule = module {
-    single<UserService> { UserServiceImpl(client = get()) }
+    single<UserService> {
+        UserServiceImpl(
+            client = get(),
+        )
+    }
     single<WebsocketServiceImpl> {
         WebsocketServiceImpl(
-            client = get(),
             ioDispatcher = Dispatchers.IO
         )
     }

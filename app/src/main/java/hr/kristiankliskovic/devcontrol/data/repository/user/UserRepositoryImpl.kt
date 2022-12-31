@@ -9,6 +9,7 @@ import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenReposi
 import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
+import kotlin.math.log
 
 class UserRepositoryImpl(
     private val userService: UserService,
@@ -18,6 +19,22 @@ class UserRepositoryImpl(
 ) : UserRepository {
     override val loggedInUser: Flow<LoggedInUser?> = InMemoryDb.loggedInUser.mapLatest {
         it
+    }.flowOn(ioDispatcher)
+
+    val connectedToWs = websocketService.connectedToWSS.mapLatest { connected ->
+        Log.i("websocket", "userRepo_mapLaters_${connected}")
+        if(!connected){
+            Log.i("websocket", "userRepo_mapLaters_222_${connected}")
+            if(loggedInUser.last() != null){
+                Log.i("websocket", "userRepo_mapLater_dalje")
+                websocketService.connect()
+            }
+        }
+        connected
+    }.flowOn(ioDispatcher)
+
+    val userMessages = websocketService.userMessages.mapLatest {
+        Log.i("websocket", "repository:_${it}")
     }.flowOn(ioDispatcher)
 
     private fun addUser(loginResponse: LoginResponse) {
