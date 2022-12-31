@@ -7,7 +7,7 @@ import hr.kristiankliskovic.devcontrol.data.network.model.LoginResponse
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebsocketServiceImpl
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
 import hr.kristiankliskovic.devcontrol.model.LoggedInUser
-import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlin.math.log
 
@@ -17,25 +17,29 @@ class UserRepositoryImpl(
     private val websocketService: WebsocketServiceImpl,
     private val ioDispatcher: CoroutineDispatcher,
 ) : UserRepository {
-    override val loggedInUser: Flow<LoggedInUser?> = InMemoryDb.loggedInUser.mapLatest {
-        it
-    }.flowOn(ioDispatcher)
+    override val loggedInUser: Flow<LoggedInUser?> =
+        InMemoryDb.loggedInUser.mapLatest { //ovo ne treba, ali tako je u MovieApp-u
+            it
+        }.flowOn(ioDispatcher)
 
-    val connectedToWs = websocketService.connectedToWSS.mapLatest { connected ->
-        Log.i("websocket", "userRepo_mapLaters_${connected}")
-        if(!connected){
-            Log.i("websocket", "userRepo_mapLaters_222_${connected}")
-            if(loggedInUser.last() != null){
-                Log.i("websocket", "userRepo_mapLater_dalje")
-                websocketService.connect()
+    override suspend fun connectToWs() {
+        Log.i("websocket", "userRepo_connect_to_ws_start")
+//        websocketService.connect()
+        Log.i("websocket", "userRepo_connect_to_ws_start2")
+        while (true) {
+            Log.i("websocket", "userRepo_connect_to_ws_start3")
+            val connected = websocketService.connectedToWSS.value
+            Log.i("websocket", "yy_${connected}")
+            if (!connected) {
+                if (InMemoryDb.loggedInUser.value != null) {
+                    Log.i("websocket", "userRepo_connect")
+                    websocketService.connect()
+                    Log.i("websocket", "userRepo-f")
+                }
             }
         }
-        connected
-    }.flowOn(ioDispatcher)
+    }
 
-    val userMessages = websocketService.userMessages.mapLatest {
-        Log.i("websocket", "repository:_${it}")
-    }.flowOn(ioDispatcher)
 
     private fun addUser(loginResponse: LoginResponse) {
         InMemoryDb.loginUser(
@@ -115,9 +119,5 @@ class UserRepositoryImpl(
                 removeUser()
             }
         }
-    }
-
-    override suspend fun connectToWs(){
-        websocketService.connect()
     }
 }

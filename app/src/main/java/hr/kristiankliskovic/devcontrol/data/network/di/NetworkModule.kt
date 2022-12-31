@@ -6,6 +6,7 @@ import hr.kristiankliskovic.devcontrol.data.network.userService.UserServiceImpl
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebsocketServiceImpl
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
+import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.plugins.websocket.*
@@ -24,7 +25,8 @@ val networkModule = module {
     }
     single<WebsocketServiceImpl> {
         WebsocketServiceImpl(
-            ioDispatcher = Dispatchers.IO
+            ioDispatcher = Dispatchers.IO,
+            client = get()
         )
     }
     single {
@@ -43,7 +45,6 @@ val networkModule = module {
                     ignoreUnknownKeys = true
                 })
             }
-            install(WebSockets)
         }
     }
 }

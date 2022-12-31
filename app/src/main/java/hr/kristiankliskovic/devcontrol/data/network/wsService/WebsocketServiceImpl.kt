@@ -16,37 +16,31 @@ import java.util.BitSet
 
 class WebsocketServiceImpl(
     private val ioDispatcher: CoroutineDispatcher,
+    private val client: HttpClient,
 ) {
+    private val httpClientForWS: HttpClient =
+        HttpClient(CIO) {
+            install(WebSockets) {
+                pingInterval = 20_000
+            }
+        }
+
     private val connectedToWSSInternal: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val connectedToWSS: StateFlow<Boolean> = connectedToWSSInternal.asStateFlow()
-
-//    private suspend fun DefaultClientWebSocketSession.inputMessages() {
-//        while (true) {
-//            for (message in incoming) {
-//                message as? Frame.Text ?: continue
-//                val receivedText = message.readText()
-//                Log.i("websocket", receivedText)
-//            }
-//        }
-//    }
 
     suspend fun connect() {
         Log.i("websocket", "wsServer_connect_start")
         if (!connectedToWSS.value) {
-            val client = HttpClient(CIO) {
-                install(WebSockets) {
-                    pingInterval = 20_000
-                }
-            }
             Log.i("websocket", "wsServer_connect_before_try")
             try {
-                client.webSocket(
+                httpClientForWS.webSocket(
                     method = HttpMethod.Get,
                     host = HTTPSERVER.wsServer,
                     port = 8000,
 //                    path = "/"
                 ) {
                     connectedToWSSInternal.emit(true)
+                    Log.i("websocket","value_emit_${connectedToWSSInternal.value}")
                     while (true) {
                         val othersMessage = incoming.receive() as? Frame.Text
                         val message = othersMessage?.readText()
@@ -56,7 +50,9 @@ class WebsocketServiceImpl(
                     }
                 }
             } catch (e: Throwable) {
+//                connectedToWSSInternal.value = false
                 connectedToWSSInternal.emit(false)
+                Log.i("websocket","value_emit_${connectedToWSSInternal.value}")
                 Log.i("websocket", "error")
             }
         }
