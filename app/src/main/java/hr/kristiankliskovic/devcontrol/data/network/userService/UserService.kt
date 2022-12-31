@@ -1,4 +1,4 @@
-package hr.kristiankliskovic.devcontrol.data.network
+package hr.kristiankliskovic.devcontrol.data.network.userService
 
 import hr.kristiankliskovic.devcontrol.data.network.model.LoginResponse
 

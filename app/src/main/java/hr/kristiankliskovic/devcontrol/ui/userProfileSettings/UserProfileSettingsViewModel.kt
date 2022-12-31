@@ -29,4 +29,10 @@ class UserProfileSettingsViewModel(
             userRepository.deleteUser()
         }
     }
+
+    fun strayFunction(){
+        viewModelScope.launch {
+            userRepository.connectToWs()
+        }
+    }
 }

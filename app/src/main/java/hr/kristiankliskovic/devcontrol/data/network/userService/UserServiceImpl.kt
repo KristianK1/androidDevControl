@@ -1,18 +1,12 @@
-package hr.kristiankliskovic.devcontrol.data.network
+package hr.kristiankliskovic.devcontrol.data.network.userService
 
+import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
 import hr.kristiankliskovic.devcontrol.data.network.model.*
-import hr.kristiankliskovic.devcontrol.navigation.USER_PROFILE_ROUTE
+import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-
-const val SLAV_BROD_PC_WiFi = "http://192.168.1.150:8000"
-const val SLAV_BROD_PC_LAN = "http://192.168.1.70:8000"
-const val OSIJEK_PC_WiFI = "http://192.168.1.103:8000"
-const val RENDER_HOSTING = "https://devcontrol-backend.onrender.com"
-const val HEROKU_HOSTING = "X"
-const val HTTPSERVER = SLAV_BROD_PC_LAN
 
 const val userAuth_routerPath = "/api/userAuth"
 
@@ -25,7 +19,7 @@ const val changePassword_routerPath = "/changePassword"
 
 class UserServiceImpl(private val client: HttpClient) : UserService {
     override suspend fun loginUserByCreds(username: String, password: String): LoginResponse? {
-        val httpResponse = client.post("$HTTPSERVER$userAuth_routerPath$loginByCreds_routerPath") {
+        val httpResponse = client.post("${HTTPSERVER.httpServer}$userAuth_routerPath$loginByCreds_routerPath") {
             contentType(ContentType.Application.Json)
             setBody(LoginByCredsRequest(
                 username = username,
@@ -40,7 +34,7 @@ class UserServiceImpl(private val client: HttpClient) : UserService {
     }
 
     override suspend fun loginUserByToken(token: String): LoginResponse? {
-        val httpResponse = client.post("$HTTPSERVER$userAuth_routerPath$loginByToken_routerPath") {
+        val httpResponse = client.post("${HTTPSERVER.httpServer}$userAuth_routerPath$loginByToken_routerPath") {
             contentType(ContentType.Application.Json)
             setBody(LoginByTokenRequest(
                 authToken = token,
@@ -54,7 +48,7 @@ class UserServiceImpl(private val client: HttpClient) : UserService {
     }
 
     override suspend fun logoutUser(token: String, logoutOtherSessions: Boolean): Boolean {
-        val httpResponse = client.post("$HTTPSERVER$userAuth_routerPath$logout_routerPath") {
+        val httpResponse = client.post("${HTTPSERVER.httpServer}$userAuth_routerPath$logout_routerPath") {
             contentType(ContentType.Application.Json)
             setBody(LogoutRequest(
                 authToken = token,
@@ -66,7 +60,7 @@ class UserServiceImpl(private val client: HttpClient) : UserService {
 
     override suspend fun deleteUser(token: String): Boolean {
         val httpResponse =
-            client.post("$HTTPSERVER$userAuth_routerPath$deleteUser_routerPath") {
+            client.post("${HTTPSERVER.httpServer}$userAuth_routerPath$deleteUser_routerPath") {
                 contentType(ContentType.Application.Json)
                 setBody(DeleteUserRequest(
                     authToken = token,
@@ -83,7 +77,7 @@ class UserServiceImpl(private val client: HttpClient) : UserService {
         dontLogoutToken: String,
     ): Boolean {
         val httpResponse =
-            client.post("$HTTPSERVER$userAuth_routerPath$changePassword_routerPath") {
+            client.post("${HTTPSERVER.httpServer}$userAuth_routerPath$changePassword_routerPath") {
                 contentType(ContentType.Application.Json)
                 setBody(ChangePasswordRequest(
                     userId = userId,
@@ -97,7 +91,7 @@ class UserServiceImpl(private val client: HttpClient) : UserService {
     }
 
     override suspend fun registerUser(username: String, password: String): LoginResponse? {
-        val httpResponse = client.post("$HTTPSERVER$userAuth_routerPath$register_routerPath") {
+        val httpResponse = client.post("${HTTPSERVER.httpServer}$userAuth_routerPath$register_routerPath") {
             contentType(ContentType.Application.Json)
             setBody(RegisterRequest(
                 username = username,

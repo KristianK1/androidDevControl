@@ -2,8 +2,9 @@ package hr.kristiankliskovic.devcontrol.data.repository.user
 
 import android.util.Log
 import hr.kristiankliskovic.devcontrol.data.memory_db.InMemoryDb
-import hr.kristiankliskovic.devcontrol.data.network.UserService
+import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
 import hr.kristiankliskovic.devcontrol.data.network.model.LoginResponse
+import hr.kristiankliskovic.devcontrol.data.network.wsService.WebsocketServiceImpl
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
 import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import kotlinx.coroutines.CoroutineDispatcher
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.*
 class UserRepositoryImpl(
     private val userService: UserService,
     private val authTokenRepository: AuthTokenRepository,
+    private val websocketService: WebsocketServiceImpl,
     private val ioDispatcher: CoroutineDispatcher,
 ) : UserRepository {
     override val loggedInUser: Flow<LoggedInUser?> = InMemoryDb.loggedInUser.mapLatest {
@@ -96,5 +98,9 @@ class UserRepositoryImpl(
                 removeUser()
             }
         }
+    }
+
+    override suspend fun connectToWs(){
+        websocketService.connect()
     }
 }

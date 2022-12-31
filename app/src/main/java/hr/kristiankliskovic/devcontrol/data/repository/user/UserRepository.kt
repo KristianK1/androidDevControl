@@ -16,4 +16,5 @@ interface UserRepository {
         logoutOtherSessions: Boolean,
     )
     suspend fun deleteUser()
+    suspend fun connectToWs()
 }

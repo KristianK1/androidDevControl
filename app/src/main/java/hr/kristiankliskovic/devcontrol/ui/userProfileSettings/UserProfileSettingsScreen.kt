@@ -21,7 +21,8 @@ fun UserProfileSettingsRoute(
         navigateToChangePasswordScreen = navigateToChangePasswordScreen,
         deleteUserProfile = userProfileSettingsViewModel::deleteUser,
         logout = userProfileSettingsViewModel::logout,
-        logoutAllSessions = userProfileSettingsViewModel::logoutAllSessions
+        logoutAllSessions = userProfileSettingsViewModel::logoutAllSessions,
+        strayFunction = userProfileSettingsViewModel::strayFunction
     )
 }
 
@@ -31,6 +32,7 @@ fun UserProfileSettingsScreen(
     deleteUserProfile: () -> Unit,
     logout: () -> Unit,
     logoutAllSessions: () -> Unit,
+    strayFunction: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -57,6 +59,11 @@ fun UserProfileSettingsScreen(
         TextListOption(
             text = stringResource(id = R.string.userSettings_deleteProfile_button),
             onClick = deleteUserProfile
+        )
+        Line()
+        TextListOption(
+            text = "Stray function",
+            onClick = strayFunction
         )
         Line()
     }
@@ -88,6 +95,9 @@ fun PreviewUserProfileSettingsScreen() {
 
         },
         logoutAllSessions = {
+
+        },
+        strayFunction = {
 
         }
     )
