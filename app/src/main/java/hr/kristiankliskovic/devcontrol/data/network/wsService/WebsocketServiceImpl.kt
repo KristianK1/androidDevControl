@@ -31,18 +31,25 @@ class WebsocketServiceImpl(
                 pingInterval = 20_000
             }
         }
-        client.webSocket(
-            method = HttpMethod.Get,
-            host = HTTPSERVER.wsServer,
-            port = 8000
-        ) {
-            while (true) {
-                val othersMessage = incoming.receive() as? Frame.Text
-                val message = othersMessage?.readText()
-                if (message != null) {
-                    Log.i("websocket", message)
+        try {
+
+            client.webSocket(
+                method = HttpMethod.Get,
+                host = HTTPSERVER.wsServer,
+//                port = 10000,
+                path = "/"
+            ) {
+                while (true) {
+                    val othersMessage = incoming.receive() as? Frame.Text
+                    val message = othersMessage?.readText()
+                    if (message != null) {
+                        Log.i("websocket", message)
+                    }
                 }
             }
+        } catch (e: Throwable) {
+            throw e
+            Log.i("websocket", "error")
         }
     }
 }
