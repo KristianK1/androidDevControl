@@ -1,12 +1,10 @@
 package hr.kristiankliskovic.devcontrol.ui.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hr.kristiankliskovic.devcontrol.data.repository.user.UserRepository
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 
 class MainScreenViewModel(
     userRepository: UserRepository,
@@ -16,4 +14,12 @@ class MainScreenViewModel(
         it != null
     }.stateIn(viewModelScope, SharingStarted.Lazily, null)
 
+    val userMessages = userRepository.userMessages.mapLatest {
+        Log.i("websocket", "mainVM_${it}")
+        if (it.contains("logout")) {
+            Log.i("websocket", "mainScreen_VM_logout")
+            userRepository.logoutUser(false)
+        }
+        it
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, "")
 }

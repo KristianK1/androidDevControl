@@ -1,6 +1,7 @@
 package hr.kristiankliskovic.devcontrol.data.repository.user
 
 import android.util.Log
+import androidx.compose.runtime.collectAsState
 import hr.kristiankliskovic.devcontrol.data.memory_db.InMemoryDb
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
 import hr.kristiankliskovic.devcontrol.data.network.model.LoginResponse
@@ -21,6 +22,8 @@ class UserRepositoryImpl(
         InMemoryDb.loggedInUser.mapLatest { //ovo ne treba, ali tako je u MovieApp-u
             it
         }.flowOn(ioDispatcher)
+
+    override val userMessages: Flow<String> = websocketService.userMessages
 
     override suspend fun connectToWs() {
         Log.i("websocket", "userRepo_connect_to_ws_start")

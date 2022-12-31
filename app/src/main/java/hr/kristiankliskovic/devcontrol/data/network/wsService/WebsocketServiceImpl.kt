@@ -28,6 +28,12 @@ class WebsocketServiceImpl(
     private val connectedToWSSInternal: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val connectedToWSS: StateFlow<Boolean> = connectedToWSSInternal.asStateFlow()
 
+    private val userMessagesInternal: MutableStateFlow<String> = MutableStateFlow("")
+    val userMessages: StateFlow<String> = userMessagesInternal.asStateFlow()
+
+    private val deviceMessagesInternal: MutableStateFlow<String> = MutableStateFlow("")
+    val deviceMessages: StateFlow<String> = deviceMessagesInternal.asStateFlow()
+
     suspend fun connect() {
         Log.i("websocket", "wsServer_connect_start")
         if (!connectedToWSS.value) {
@@ -46,6 +52,13 @@ class WebsocketServiceImpl(
                         val message = othersMessage?.readText()
                         if (message != null) {
                             Log.i("websocket", message)
+                            if(message.contains("user")){
+                                Log.i("websocket", "user_messages")
+                                userMessagesInternal.emit(message)
+                            }
+                            else if(message.contains("device")){
+                                deviceMessagesInternal.emit(message)
+                            }
                         }
                     }
                 }
