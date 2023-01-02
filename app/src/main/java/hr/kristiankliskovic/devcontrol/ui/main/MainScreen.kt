@@ -57,6 +57,9 @@ fun MainScreen() {
         }
     }
 
+    val viewModel: MainScreenViewModel = getViewModel()
+    val loggedIn = viewModel.loggedInUser.collectAsState()
+    viewModel.startWS()
     Scaffold(
         topBar = {
             TopBar(
@@ -169,25 +172,26 @@ fun MainScreen() {
                 }
             }
         }
-
-        val viewModel: MainScreenViewModel = getViewModel()
-        val loggedIn =  viewModel.loggedInUser.collectAsState()
-
         when (loggedIn.value) {
-            true ->
+            true -> {
+                Log.i("mainScreen", "Qtrue")
                 navController.navigate(MY_DEVICES_ROUTE) {
                     popUpTo(LOGIN_ROUTE) {
                         inclusive = true
                     }
                 }
-            false ->
+            }
+            false -> {
+                Log.i("mainScreen", "Qfalse")
                 navController.navigate(LOGIN_ROUTE) {
                     launchSingleTop = true
-                    popUpTo(MY_DEVICES_ROUTE){
+                    popUpTo(MY_DEVICES_ROUTE) {
                         inclusive = true
                     }
                 }
+            }
             null -> {
+                Log.i("mainScreen", "Qnull")
             }
         }
     }

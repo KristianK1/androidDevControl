@@ -20,5 +20,5 @@ interface UserRepository {
     )
 
     suspend fun deleteUser()
-    suspend fun connectToWs(token: String)
+    suspend fun stayConnectedToWs()
 }

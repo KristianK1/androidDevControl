@@ -6,11 +6,11 @@ import androidx.lifecycle.viewModelScope
 import hr.kristiankliskovic.devcontrol.data.repository.user.UserRepository
 import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 class MainScreenViewModel(
-    userRepository: UserRepository,
+    val userRepository: UserRepository,
 ) : ViewModel() {
-
     val loggedInUser: StateFlow<Boolean?> = userRepository.loggedInUser.mapLatest {
         it != null
     }.stateIn(viewModelScope, SharingStarted.Lazily, null)
@@ -24,18 +24,10 @@ class MainScreenViewModel(
         it
     }.stateIn(viewModelScope, SharingStarted.Lazily, "")
 
-    val connectedToWSS = userRepository.connectedToWSS
-        .stateIn(viewModelScope, SharingStarted.Lazily, false)
-
-//    suspend fun x() {
-//        combine(loggedInUser, connectedToWSS) { user: Boolean?, connectedToWS: Boolean ->
-//            "${user != null}_${connectedToWS}"
-//        }.collect() {
-//            Log.i("combine", "f")
-//        }
-//    }
-//
-//    fun f(user: LoggedInUser?, connectedToWS: Boolean): String {
-//        return "d";
-//    }
+    fun startWS(){
+        viewModelScope.launch {
+            Log.i("websocket", "started stay conn")
+            userRepository.stayConnectedToWs()
+        }
+    }
 }

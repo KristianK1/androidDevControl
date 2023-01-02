@@ -1,67 +1,44 @@
 package hr.kristiankliskovic.devcontrol.data.repository.user
 
 import android.util.Log
-import androidx.compose.runtime.collectAsState
 import hr.kristiankliskovic.devcontrol.data.memory_db.InMemoryDb
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
 import hr.kristiankliskovic.devcontrol.data.network.model.LoginResponse
 import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReasonResponse
-import hr.kristiankliskovic.devcontrol.data.network.wsService.WebsocketServiceImpl
+import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
 import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import org.koin.core.component.getScopeId
-import kotlin.math.log
 
 class UserRepositoryImpl(
     private val userService: UserService,
     private val authTokenRepository: AuthTokenRepository,
-    private val websocketService: WebsocketServiceImpl,
+    private val websocketService: WebSocketService,
     private val ioDispatcher: CoroutineDispatcher,
 ) : UserRepository {
+
     override val loggedInUser: Flow<LoggedInUser?> =
-        InMemoryDb.loggedInUser.mapLatest { //ovo ne treba, ali tako je u MovieApp-u
-            if (it != null) {
-                Log.i("websocket", "Q1")
-                connectToWs(it.token)
-                Log.i("websocket", "Q2")
-            }
-            it
-        }.flowOn(ioDispatcher)
+        InMemoryDb.loggedInUser.mapLatest { it }.flowOn(ioDispatcher)
 
     override val connectedToWSS: Flow<Boolean> = websocketService.connectedToWSS
 
     override val userMessages: Flow<WssLogoutReasonResponse?> = websocketService.userMessages
 
-//    suspend fun stayConnectedToWs(){
-//        combine(loggedInUser, connectedToWSS) { user: LoggedInUser?, connectedToWS: Boolean ->
-//            "${user != null}_${connectedToWS}"
-//        }.collect() {
-//            Log.i("combine", "f")
-//        }
-//    }
-
-    override suspend fun connectToWs(token: String) {
-        Log.i("websocket", "userRepo_connect_to_ws_start")
-//        websocketService.connect()
-        Log.i("websocket", "userRepo_connect_to_ws_start2")
-        if (!websocketService.connectedToWSS.value) {
-            while (true) {
-                Log.i("websocket", "userRepo_connect_to_ws_start3")
-                val connected = websocketService.connectedToWSS.value
-                Log.i("websocket", "yy_${connected}")
-                if (!connected) {
-                    if (InMemoryDb.loggedInUser.value != null) {
-                        Log.i("websocket", "userRepo_connect")
-                        websocketService.connect(authTokenRepository.getAuthToken()!!)
-                        Log.i("websocket", "userRepo-f")
-                    }
-                }
+    override suspend fun stayConnectedToWs() {
+        combine(loggedInUser, connectedToWSS) { user: LoggedInUser?, connectedToWS: Boolean ->
+            Log.i("websocket", "collect_token_${user != null}")
+            Log.i("websocket", "collect_connected_${connectedToWS}")
+            if (user != null && !connectedToWS) user.token else null
+        }.mapLatest {
+            it
+        }.collect { token ->
+            Log.i("websocket", "collect_${token != null}")
+            if (token != null) {
+                websocketService.connect(token)
             }
         }
     }
-
 
     private fun addUser(loginResponse: LoginResponse) {
         InMemoryDb.loginUser(

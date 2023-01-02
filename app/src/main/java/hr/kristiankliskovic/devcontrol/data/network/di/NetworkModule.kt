@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserServiceImpl
+import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebsocketServiceImpl
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
@@ -27,10 +28,9 @@ val networkModule = module {
             client = get(),
         )
     }
-    single<WebsocketServiceImpl> {
+    single<WebSocketService> {
         WebsocketServiceImpl(
             ioDispatcher = Dispatchers.IO,
-            client = get(),
             gson = get(),
         )
     }
