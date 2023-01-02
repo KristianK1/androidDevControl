@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hr.kristiankliskovic.devcontrol.data.repository.user.UserRepository
+import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import kotlinx.coroutines.flow.*
 
 class MainScreenViewModel(
@@ -21,5 +22,20 @@ class MainScreenViewModel(
             userRepository.logoutUser(false)
         }
         it
-    }.stateIn(viewModelScope, SharingStarted.Eagerly, "")
+    }.stateIn(viewModelScope, SharingStarted.Lazily, "")
+
+    val connectedToWSS = userRepository.connectedToWSS
+        .stateIn(viewModelScope, SharingStarted.Lazily, false)
+
+//    suspend fun x() {
+//        combine(loggedInUser, connectedToWSS) { user: Boolean?, connectedToWS: Boolean ->
+//            "${user != null}_${connectedToWS}"
+//        }.collect() {
+//            Log.i("combine", "f")
+//        }
+//    }
+//
+//    fun f(user: LoggedInUser?, connectedToWS: Boolean): String {
+//        return "d";
+//    }
 }

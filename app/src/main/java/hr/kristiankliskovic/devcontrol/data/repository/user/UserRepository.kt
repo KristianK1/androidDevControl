@@ -3,11 +3,11 @@ package hr.kristiankliskovic.devcontrol.data.repository.user
 import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReasonResponse
 import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 
 interface UserRepository {
     val loggedInUser: Flow<LoggedInUser?>
     val userMessages: Flow<WssLogoutReasonResponse?>
+    val connectedToWSS: Flow<Boolean>
 
     suspend fun loginByCreds(username: String, password: String)
     suspend fun loginByToken()
@@ -18,6 +18,7 @@ interface UserRepository {
         newPassword: String,
         logoutOtherSessions: Boolean,
     )
+
     suspend fun deleteUser()
-    suspend fun connectToWs()
+    suspend fun connectToWs(token: String)
 }

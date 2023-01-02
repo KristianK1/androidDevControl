@@ -11,6 +11,7 @@ import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenReposi
 import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import org.koin.core.component.getScopeId
 import kotlin.math.log
 
 class UserRepositoryImpl(
@@ -21,24 +22,41 @@ class UserRepositoryImpl(
 ) : UserRepository {
     override val loggedInUser: Flow<LoggedInUser?> =
         InMemoryDb.loggedInUser.mapLatest { //ovo ne treba, ali tako je u MovieApp-u
+            if (it != null) {
+                Log.i("websocket", "Q1")
+                connectToWs(it.token)
+                Log.i("websocket", "Q2")
+            }
             it
         }.flowOn(ioDispatcher)
 
+    override val connectedToWSS: Flow<Boolean> = websocketService.connectedToWSS
+
     override val userMessages: Flow<WssLogoutReasonResponse?> = websocketService.userMessages
 
-    override suspend fun connectToWs() {
+//    suspend fun stayConnectedToWs(){
+//        combine(loggedInUser, connectedToWSS) { user: LoggedInUser?, connectedToWS: Boolean ->
+//            "${user != null}_${connectedToWS}"
+//        }.collect() {
+//            Log.i("combine", "f")
+//        }
+//    }
+
+    override suspend fun connectToWs(token: String) {
         Log.i("websocket", "userRepo_connect_to_ws_start")
 //        websocketService.connect()
         Log.i("websocket", "userRepo_connect_to_ws_start2")
-        while (true) {
-            Log.i("websocket", "userRepo_connect_to_ws_start3")
-            val connected = websocketService.connectedToWSS.value
-            Log.i("websocket", "yy_${connected}")
-            if (!connected) {
-                if (InMemoryDb.loggedInUser.value != null) {
-                    Log.i("websocket", "userRepo_connect")
-                    websocketService.connect(authTokenRepository.getAuthToken()!!)
-                    Log.i("websocket", "userRepo-f")
+        if (!websocketService.connectedToWSS.value) {
+            while (true) {
+                Log.i("websocket", "userRepo_connect_to_ws_start3")
+                val connected = websocketService.connectedToWSS.value
+                Log.i("websocket", "yy_${connected}")
+                if (!connected) {
+                    if (InMemoryDb.loggedInUser.value != null) {
+                        Log.i("websocket", "userRepo_connect")
+                        websocketService.connect(authTokenRepository.getAuthToken()!!)
+                        Log.i("websocket", "userRepo-f")
+                    }
                 }
             }
         }
