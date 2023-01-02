@@ -48,8 +48,7 @@ class WebsocketServiceImpl(
                     connectedToWSSInternal.value = true
                     Log.i("websocket", "value_emit_${connectedToWSSInternal.value}")
 
-                    val data = constructFirstMessage(authToken)
-                    Log.i("websocket_firstMessage", data)
+                    send(constructFirstMessage(authToken))
 
                     while (true) {
                         Log.i("websocket_message", "while");
