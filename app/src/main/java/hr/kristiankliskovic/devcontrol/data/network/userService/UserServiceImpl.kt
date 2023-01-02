@@ -1,5 +1,6 @@
 package hr.kristiankliskovic.devcontrol.data.network.userService
 
+import android.util.Log
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
 import hr.kristiankliskovic.devcontrol.data.network.model.*
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
@@ -7,7 +8,9 @@ import hr.kristiankliskovic.devcontrol.data.network.wsService.WebsocketServiceIm
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.server.util.*
 import kotlinx.coroutines.flow.map
 
 const val userAuth_routerPath = "/api/userAuth"
@@ -24,15 +27,16 @@ class UserServiceImpl(
 ) : UserService {
 
     override suspend fun loginUserByCreds(username: String, password: String): LoginResponse? {
-        val httpResponse =
-            client.post("${HTTPSERVER.httpServer}$userAuth_routerPath$loginByCreds_routerPath") {
-                contentType(ContentType.Application.Json)
-                setBody(LoginByCredsRequest(
-                    username = username,
-                    password = password,
-                ))
-            }
-        return if (httpResponse.status.value in 200..299) {
+
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userAuth_routerPath$loginByCreds_routerPath",
+            body = LoginByCredsRequest(
+                username = username,
+                password = password,
+            )
+        )
+        Log.i("login", "finished")
+        return if (httpResponse != null && httpResponse.status.value in 200..299) {
             httpResponse.body<LoginResponse>()
         } else {
             null
@@ -40,14 +44,13 @@ class UserServiceImpl(
     }
 
     override suspend fun loginUserByToken(token: String): LoginResponse? {
-        val httpResponse =
-            client.post("${HTTPSERVER.httpServer}$userAuth_routerPath$loginByToken_routerPath") {
-                contentType(ContentType.Application.Json)
-                setBody(LoginByTokenRequest(
-                    authToken = token,
-                ))
-            }
-        return if (httpResponse.status.value in 200..299) {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userAuth_routerPath$loginByToken_routerPath",
+            body = LoginByTokenRequest(
+                authToken = token,
+            ),
+        )
+        return if (httpResponse != null && httpResponse.status.value in 200..299) {
             httpResponse.body<LoginResponse>()
         } else {
             null
@@ -55,26 +58,24 @@ class UserServiceImpl(
     }
 
     override suspend fun logoutUser(token: String, logoutOtherSessions: Boolean): Boolean {
-        val httpResponse =
-            client.post("${HTTPSERVER.httpServer}$userAuth_routerPath$logout_routerPath") {
-                contentType(ContentType.Application.Json)
-                setBody(LogoutRequest(
-                    authToken = token,
-                    logoutOtherSessions = logoutOtherSessions,
-                ))
-            }
-        return httpResponse.status.value in 200..299
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userAuth_routerPath$logout_routerPath",
+            body = LogoutRequest(
+                authToken = token,
+                logoutOtherSessions = logoutOtherSessions,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
     }
 
     override suspend fun deleteUser(token: String): Boolean {
-        val httpResponse =
-            client.post("${HTTPSERVER.httpServer}$userAuth_routerPath$deleteUser_routerPath") {
-                contentType(ContentType.Application.Json)
-                setBody(DeleteUserRequest(
-                    authToken = token,
-                ))
-            }
-        return httpResponse.status.value in 200..299
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userAuth_routerPath$deleteUser_routerPath",
+            body = DeleteUserRequest(
+                authToken = token,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
     }
 
     override suspend fun changePassword(
@@ -84,33 +85,43 @@ class UserServiceImpl(
         logoutOtherSessions: Boolean,
         dontLogoutToken: String,
     ): Boolean {
-        val httpResponse =
-            client.post("${HTTPSERVER.httpServer}$userAuth_routerPath$changePassword_routerPath") {
-                contentType(ContentType.Application.Json)
-                setBody(ChangePasswordRequest(
-                    userId = userId,
-                    oldPassword = oldPassword,
-                    newPassword = newPassword,
-                    logoutOtherSessions = logoutOtherSessions,
-                    dontLogoutToken = dontLogoutToken
-                ))
-            }
-        return httpResponse.status.value in 200..299
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userAuth_routerPath$changePassword_routerPath",
+            body = ChangePasswordRequest(
+                userId = userId,
+                oldPassword = oldPassword,
+                newPassword = newPassword,
+                logoutOtherSessions = logoutOtherSessions,
+                dontLogoutToken = dontLogoutToken
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
     }
 
     override suspend fun registerUser(username: String, password: String): LoginResponse? {
-        val httpResponse =
-            client.post("${HTTPSERVER.httpServer}$userAuth_routerPath$register_routerPath") {
-                contentType(ContentType.Application.Json)
-                setBody(RegisterRequest(
-                    username = username,
-                    password = password,
-                ))
-            }
-        return if (httpResponse.status.value in 200..299) {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userAuth_routerPath$register_routerPath",
+            body = RegisterRequest(
+                username = username,
+                password = password,
+            )
+        )
+        return if (httpResponse != null && httpResponse.status.value in 200..299) {
             httpResponse.body<LoginResponse>()
         } else {
             null
         }
+    }
+
+    private suspend fun httpPostRequest(url: String, body: Any): HttpResponse? {
+        return try {
+            client.post(url) {
+                contentType(ContentType.Application.Json)
+                setBody(body)
+            }
+        } catch (e: Throwable) {
+            null
+        }
+
     }
 }

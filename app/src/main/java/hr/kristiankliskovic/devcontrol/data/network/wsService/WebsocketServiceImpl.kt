@@ -107,7 +107,6 @@ class WebsocketServiceImpl(
                 )
             )
         )
-//        return "{\"data\":{\"authToken\":\"${authToken}\",\"frontendType\":2},\"messageType\":\"connectUser\"}"
     }
 
     override suspend fun resetUserMessages(){
