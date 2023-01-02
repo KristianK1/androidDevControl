@@ -9,4 +9,5 @@ interface WebSocketService {
     val deviceMessages: StateFlow<String>
 
     suspend fun connect(authToken: String)
+    suspend fun resetUserMessages()
 }

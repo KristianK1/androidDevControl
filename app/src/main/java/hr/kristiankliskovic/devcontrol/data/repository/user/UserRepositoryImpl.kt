@@ -24,11 +24,11 @@ class UserRepositoryImpl(
     override val connectedToWSS: Flow<Boolean> = websocketService.connectedToWSS
 
     override val userMessages: Flow<WssLogoutReason?> = websocketService.userMessages.mapLatest {
-        Log.i("websocket", "mainScreen_VM_logout1")
-        if (it != null) {
-            Log.i("websocket", "mainScreen_VM_logout2")
-            logoutUser(false)
-        }
+//        Log.i("websocket", "mainScreen_VM_logout1")
+//        if (it != null) {
+//            Log.i("websocket", "mainScreen_VM_logout2")
+//            logoutUser(false)
+//        }
         it
     }.flowOn(ioDispatcher)
 
@@ -42,11 +42,13 @@ class UserRepositoryImpl(
             Log.i("websocket", "collect_connected_${connectedToWS}")
             Log.i("websocket", "collect_logoutmessage_${userMessage != null}")
 
-            if (userMessage != null) {
+            if (user == null) {
+                websocketService.resetUserMessages()
+            } else if (userMessage != null) {
+                Log.i("websocket", "logoutUserQQQQQQQQQQQQQQQQQQ")
                 logoutUser(false)
             }
-
-            if (user != null && !connectedToWS) user.token else null
+            if (user != null && !connectedToWS && userMessage == null) user.token else null
         }.mapLatest {
             it
         }.collect { token ->
@@ -94,12 +96,13 @@ class UserRepositoryImpl(
     }
 
     override suspend fun logoutUser(logoutAllSessions: Boolean) {
+        Log.i("websocket_logout", "logoutUser")
         val token = authTokenRepository.getAuthToken()
+        Log.i("websocket_logout", "token_${token != null}")
         if (token != null) {
             val logoutWorked = userService.logoutUser(token, logoutAllSessions)
-            if (logoutWorked) {
-                removeUser()
-            }
+            Log.i("websocket_logout", "worked_${logoutWorked}")
+            removeUser()
         }
     }
 

@@ -76,7 +76,7 @@ class WebsocketServiceImpl(
         }
     }
 
-    private suspend fun deserializeData(data: String) {
+    private fun deserializeData(data: String) {
         try {
             Log.i("websocket_parser", "parsed1")
             val parsed = gson.fromJson(data, WssLogoutReasonResponse::class.java)
@@ -84,7 +84,7 @@ class WebsocketServiceImpl(
             when(parsed.logoutReason){
                 0 -> userMessagesInternal.value = WssLogoutReason.DeletedUser
                 1 -> userMessagesInternal.value = WssLogoutReason.ChangedPassword
-                2 -> userMessagesInternal.emit(WssLogoutReason.LogoutAll)
+                2 -> userMessagesInternal.value = WssLogoutReason.LogoutAll
                 3 -> userMessagesInternal.value = WssLogoutReason.LogoutMyself
             }
             Log.i("websocket_parser", "parsed3")
@@ -108,5 +108,9 @@ class WebsocketServiceImpl(
             )
         )
 //        return "{\"data\":{\"authToken\":\"${authToken}\",\"frontendType\":2},\"messageType\":\"connectUser\"}"
+    }
+
+    override suspend fun resetUserMessages(){
+        userMessagesInternal.emit(null)
     }
 }
