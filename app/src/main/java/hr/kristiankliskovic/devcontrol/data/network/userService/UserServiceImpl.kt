@@ -27,7 +27,6 @@ class UserServiceImpl(
 ) : UserService {
 
     override suspend fun loginUserByCreds(username: String, password: String): LoginResponse? {
-
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$userAuth_routerPath$loginByCreds_routerPath",
             body = LoginByCredsRequest(
@@ -35,7 +34,6 @@ class UserServiceImpl(
                 password = password,
             )
         )
-        Log.i("login", "finished")
         return if (httpResponse != null && httpResponse.status.value in 200..299) {
             httpResponse.body<LoginResponse>()
         } else {

@@ -32,26 +32,29 @@ class UserRepositoryImpl(
         it
     }.flowOn(ioDispatcher)
 
-    override suspend fun stayConnectedToWs() {
-        combine(
-            loggedInUser,
-            connectedToWSS,
-            userMessages
-        ) { user: LoggedInUser?, connectedToWS: Boolean, userMessage: WssLogoutReason? ->
-            Log.i("websocket", "collect_token_${user != null}")
-            Log.i("websocket", "collect_connected_${connectedToWS}")
-            Log.i("websocket", "collect_logoutmessage_${userMessage != null}")
 
-            if (user == null) {
-                websocketService.resetUserMessages()
-            } else if (userMessage != null) {
-                Log.i("websocket", "logoutUserQQQQQQQQQQQQQQQQQQ")
-                logoutUser(false)
-            }
-            if (user != null && !connectedToWS && userMessage == null) user.token else null
-        }.mapLatest {
-            it
-        }.collect { token ->
+    val needToReconnectToWSS: Flow<String?> = combine(
+        loggedInUser,
+        connectedToWSS,
+        userMessages
+    ) { user: LoggedInUser?, connectedToWS: Boolean, userMessage: WssLogoutReason? ->
+        Log.i("websocket", "collect_token_${user != null}")
+        Log.i("websocket", "collect_connected_${connectedToWS}")
+        Log.i("websocket", "collect_logoutmessage_${userMessage != null}")
+
+        if (user == null) {
+            websocketService.resetUserMessages()
+        } else if (userMessage != null) {
+            Log.i("websocket", "logoutUserQQQQQQQQQQQQQQQQQQ")
+            logoutUser(false)
+        }
+        if (user != null && !connectedToWS && userMessage == null) user.token else null
+    }.mapLatest {
+        it
+    }
+
+    override suspend fun stayConnectedToWs() {
+        needToReconnectToWSS.collect { token ->
             Log.i("websocket", "collect_${token != null}")
             if (token != null) {
                 websocketService.connect(token)
