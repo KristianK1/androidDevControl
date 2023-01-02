@@ -57,27 +57,6 @@ fun MainScreen() {
         }
     }
 
-    val viewModel: MainScreenViewModel = getViewModel()
-    val loggedIn =  viewModel.loggedInUser.collectAsState()
-
-    when (loggedIn.value) {
-        true ->
-            navController.navigate(MY_DEVICES_ROUTE) {
-                popUpTo(LOGIN_ROUTE) {
-                    inclusive = true
-                }
-            }
-        false ->
-            navController.navigate(LOGIN_ROUTE) {
-                launchSingleTop = true
-                popUpTo(MY_DEVICES_ROUTE){
-                    inclusive = true
-                }
-            }
-        null -> {
-        }
-    }
-
     Scaffold(
         topBar = {
             TopBar(
@@ -188,6 +167,27 @@ fun MainScreen() {
                 composable(CHANGE_PASSWORD_ROUTE) {
                     ChangePasswordRoute()
                 }
+            }
+        }
+
+        val viewModel: MainScreenViewModel = getViewModel()
+        val loggedIn =  viewModel.loggedInUser.collectAsState()
+
+        when (loggedIn.value) {
+            true ->
+                navController.navigate(MY_DEVICES_ROUTE) {
+                    popUpTo(LOGIN_ROUTE) {
+                        inclusive = true
+                    }
+                }
+            false ->
+                navController.navigate(LOGIN_ROUTE) {
+                    launchSingleTop = true
+                    popUpTo(MY_DEVICES_ROUTE){
+                        inclusive = true
+                    }
+                }
+            null -> {
             }
         }
     }

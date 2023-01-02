@@ -16,7 +16,7 @@ class MainScreenViewModel(
 
     val userMessages = userRepository.userMessages.mapLatest {
         Log.i("websocket", "mainVM_${it}")
-        if (it.contains("logout")) {
+        if (it != null) {
             Log.i("websocket", "mainScreen_VM_logout")
             userRepository.logoutUser(false)
         }

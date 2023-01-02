@@ -5,6 +5,7 @@ import androidx.compose.runtime.collectAsState
 import hr.kristiankliskovic.devcontrol.data.memory_db.InMemoryDb
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
 import hr.kristiankliskovic.devcontrol.data.network.model.LoginResponse
+import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReasonResponse
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebsocketServiceImpl
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
 import hr.kristiankliskovic.devcontrol.model.LoggedInUser
@@ -23,7 +24,7 @@ class UserRepositoryImpl(
             it
         }.flowOn(ioDispatcher)
 
-    override val userMessages: Flow<String> = websocketService.userMessages
+    override val userMessages: Flow<WssLogoutReasonResponse?> = websocketService.userMessages
 
     override suspend fun connectToWs() {
         Log.i("websocket", "userRepo_connect_to_ws_start")
@@ -36,7 +37,7 @@ class UserRepositoryImpl(
             if (!connected) {
                 if (InMemoryDb.loggedInUser.value != null) {
                     Log.i("websocket", "userRepo_connect")
-                    websocketService.connect()
+                    websocketService.connect(authTokenRepository.getAuthToken()!!)
                     Log.i("websocket", "userRepo-f")
                 }
             }

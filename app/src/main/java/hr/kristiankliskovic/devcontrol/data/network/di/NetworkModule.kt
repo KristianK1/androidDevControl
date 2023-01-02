@@ -1,6 +1,7 @@
 package hr.kristiankliskovic.devcontrol.data.network
 
 import android.util.Log
+import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserServiceImpl
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebsocketServiceImpl
@@ -18,6 +19,9 @@ import java.time.Duration
 import java.util.concurrent.TimeUnit
 
 val networkModule = module {
+    single{
+        Gson()
+    }
     single<UserService> {
         UserServiceImpl(
             client = get(),
@@ -26,7 +30,8 @@ val networkModule = module {
     single<WebsocketServiceImpl> {
         WebsocketServiceImpl(
             ioDispatcher = Dispatchers.IO,
-            client = get()
+            client = get(),
+            gson = get(),
         )
     }
     single {
