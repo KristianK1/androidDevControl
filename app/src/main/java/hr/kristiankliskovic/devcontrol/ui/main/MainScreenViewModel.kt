@@ -16,11 +16,6 @@ class MainScreenViewModel(
     }.stateIn(viewModelScope, SharingStarted.Lazily, null)
 
     val userMessages = userRepository.userMessages.mapLatest {
-        Log.i("websocket", "mainVM_${it}")
-        if (it != null) {
-            Log.i("websocket", "mainScreen_VM_logout")
-            userRepository.logoutUser(false)
-        }
         it
     }.stateIn(viewModelScope, SharingStarted.Lazily, "")
 

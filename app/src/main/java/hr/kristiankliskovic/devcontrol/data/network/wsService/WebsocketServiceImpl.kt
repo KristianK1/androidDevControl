@@ -2,7 +2,11 @@ package hr.kristiankliskovic.devcontrol.data.network.wsService
 
 import android.util.Log
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
+import hr.kristiankliskovic.devcontrol.data.network.model.WssConnectUserMessage
+import hr.kristiankliskovic.devcontrol.data.network.model.WssConnectUserMessageData
+import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReason
 import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReasonResponse
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -26,10 +30,9 @@ class WebsocketServiceImpl(
     private val connectedToWSSInternal: MutableStateFlow<Boolean> = MutableStateFlow(false)
     override val connectedToWSS: StateFlow<Boolean> = connectedToWSSInternal.asStateFlow()
 
-    private val userMessagesInternal: MutableStateFlow<WssLogoutReasonResponse?> =
+    private val userMessagesInternal: MutableStateFlow<WssLogoutReason?> =
         MutableStateFlow(null)
-    override val userMessages: StateFlow<WssLogoutReasonResponse?> =
-        userMessagesInternal.asStateFlow()
+    override val userMessages: StateFlow<WssLogoutReason?> = userMessagesInternal.asStateFlow()
 
     private val deviceMessagesInternal: MutableStateFlow<String> = MutableStateFlow("")
     override val deviceMessages: StateFlow<String> = deviceMessagesInternal.asStateFlow()
@@ -73,26 +76,37 @@ class WebsocketServiceImpl(
         }
     }
 
-    private fun deserializeData(data: String) {
-//        try {
-//            val parsed = gson.fromJson(data, WssLogoutReasonResponse::class.java)
-//            userMessagesInternal.value = parsed
-//        } catch (e: JsonSyntaxException) {
-//            Log.i("websocket_parser", "not a user logout message")
-//        } catch (e: Throwable){
-//            Log.i("websocket_parser", "jebo te otac")
-//        }
+    private suspend fun deserializeData(data: String) {
+        try {
+            Log.i("websocket_parser", "parsed1")
+            val parsed = gson.fromJson(data, WssLogoutReasonResponse::class.java)
+            Log.i("websocket_parser", "parsed2")
+            when(parsed.logoutReason){
+                0 -> userMessagesInternal.value = WssLogoutReason.DeletedUser
+                1 -> userMessagesInternal.value = WssLogoutReason.ChangedPassword
+                2 -> userMessagesInternal.emit(WssLogoutReason.LogoutAll)
+                3 -> userMessagesInternal.value = WssLogoutReason.LogoutMyself
+            }
+            Log.i("websocket_parser", "parsed3")
+            Log.i("websocket_parser", "parsed3_${parsed}")
+            Log.i("websocket_parser", "parsed3_${userMessagesInternal.value}")
+
+        } catch (e: JsonSyntaxException) {
+            Log.i("websocket_parser", "not a user logout message")
+        } catch (e: Throwable) {
+            Log.i("websocket_parser", "jebo te otac")
+        }
         //another try for device messages or other
     }
 
     private fun constructFirstMessage(authToken: String): String {
-//        return gson.toJson(
-//            WssConnectUserMessage(
-//                data = WssConnectUserMessageData(
-//                    authToken = authToken
-//                )
-//            )
-//        )
-        return "{\"data\":{\"authToken\":\"${authToken}\",\"frontendType\":2},\"messageType\":\"connectUser\"}"
+        return gson.toJson(
+            WssConnectUserMessage(
+                data = WssConnectUserMessageData(
+                    authToken = authToken
+                )
+            )
+        )
+//        return "{\"data\":{\"authToken\":\"${authToken}\",\"frontendType\":2},\"messageType\":\"connectUser\"}"
     }
 }

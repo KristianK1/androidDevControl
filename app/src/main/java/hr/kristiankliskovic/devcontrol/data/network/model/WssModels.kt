@@ -16,11 +16,12 @@ data class WssConnectUserMessage(
 
 @Serializable
 data class WssLogoutReasonResponse(
-    val logoutReason: WssLogoutReason,
+    val logoutReason: Int,
 )
 
 enum class WssLogoutReason {
     DeletedUser,
     ChangedPassword,
     LogoutAll,
+    LogoutMyself,
 }

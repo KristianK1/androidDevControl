@@ -1,12 +1,12 @@
 package hr.kristiankliskovic.devcontrol.data.repository.user
 
-import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReasonResponse
+import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReason
 import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
     val loggedInUser: Flow<LoggedInUser?>
-    val userMessages: Flow<WssLogoutReasonResponse?>
+    val userMessages: Flow<WssLogoutReason?>
     val connectedToWSS: Flow<Boolean>
 
     suspend fun loginByCreds(username: String, password: String)
