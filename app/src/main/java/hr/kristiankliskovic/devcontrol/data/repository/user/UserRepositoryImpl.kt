@@ -4,7 +4,7 @@ import android.util.Log
 import hr.kristiankliskovic.devcontrol.data.memory_db.InMemoryDb
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
 import hr.kristiankliskovic.devcontrol.data.network.model.LoginResponse
-import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReasonResponse
+import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReason
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
 import hr.kristiankliskovic.devcontrol.model.LoggedInUser
@@ -23,12 +23,29 @@ class UserRepositoryImpl(
 
     override val connectedToWSS: Flow<Boolean> = websocketService.connectedToWSS
 
-    override val userMessages: Flow<WssLogoutReasonResponse?> = websocketService.userMessages
+    override val userMessages: Flow<WssLogoutReason?> = websocketService.userMessages.mapLatest {
+        Log.i("websocket", "mainScreen_VM_logout1")
+        if (it != null) {
+            Log.i("websocket", "mainScreen_VM_logout2")
+            logoutUser(false)
+        }
+        it
+    }.flowOn(ioDispatcher)
 
     override suspend fun stayConnectedToWs() {
-        combine(loggedInUser, connectedToWSS) { user: LoggedInUser?, connectedToWS: Boolean ->
+        combine(
+            loggedInUser,
+            connectedToWSS,
+            userMessages
+        ) { user: LoggedInUser?, connectedToWS: Boolean, userMessage: WssLogoutReason? ->
             Log.i("websocket", "collect_token_${user != null}")
             Log.i("websocket", "collect_connected_${connectedToWS}")
+            Log.i("websocket", "collect_logoutmessage_${userMessage != null}")
+
+            if (userMessage != null) {
+                logoutUser(false)
+            }
+
             if (user != null && !connectedToWS) user.token else null
         }.mapLatest {
             it
