@@ -41,7 +41,6 @@ class WebsocketServiceImpl(
 
     override suspend fun connect(token: String) {
         authToken = token
-        Log.i("websocket", "wsServer_connect_start")
         if (!connectedToWSSInternal.value) {
             while (true) {
                 Log.i("websocket", "qw1")
@@ -80,6 +79,7 @@ class WebsocketServiceImpl(
                     Log.i("websocket", "error")
                 }
             }
+            Log.i("websocket", "escaped while true")
         }
     }
 
@@ -102,6 +102,7 @@ class WebsocketServiceImpl(
                 2 -> userMessagesInternal.value = WssLogoutReason.LogoutAll
                 3 -> userMessagesInternal.value = WssLogoutReason.LogoutMyself
             }
+            authToken = null
             Log.i("websocket_parser", "parsed3_${parsed}")
             Log.i("websocket_parser", "parsed3_${userMessagesInternal.value}")
         } catch (e: JsonSyntaxException) {

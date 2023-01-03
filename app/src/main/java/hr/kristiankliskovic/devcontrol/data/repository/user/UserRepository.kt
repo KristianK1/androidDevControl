@@ -20,5 +20,5 @@ interface UserRepository {
     suspend fun deleteUser()
 
     suspend fun connectToWS()
-    suspend fun disWS()
+    suspend fun disconnectWS()
 }

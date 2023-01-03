@@ -50,6 +50,7 @@ fun MainScreen() {
 
     val viewModel: MainScreenViewModel = getViewModel()
     val loggedIn = viewModel.loggedInUser.collectAsState()
+    val userMessages = viewModel.userMessages.collectAsState()
     viewModel.startWS()
     Scaffold(
         topBar = {
@@ -171,6 +172,7 @@ fun MainScreen() {
                         inclusive = true
                     }
                 }
+                viewModel.startWS()
             }
             false -> {
                 Log.i("mainScreen", "Qfalse")
@@ -180,10 +182,14 @@ fun MainScreen() {
                         inclusive = true
                     }
                 }
+                viewModel.stopWS()
             }
             null -> {
                 Log.i("mainScreen", "Qnull")
             }
+        }
+        if (userMessages.value != null) {
+            viewModel.logout()
         }
     }
 }
