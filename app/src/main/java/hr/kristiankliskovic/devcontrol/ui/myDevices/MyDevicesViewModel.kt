@@ -6,4 +6,5 @@ import hr.kristiankliskovic.devcontrol.data.repository.device.DeviceRepository
 class MyDevicesViewModel(
     deviceRepository: DeviceRepository
 ): ViewModel() {
+
 }

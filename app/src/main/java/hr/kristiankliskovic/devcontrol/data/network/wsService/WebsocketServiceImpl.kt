@@ -86,11 +86,20 @@ class WebsocketServiceImpl(
                 3 -> userMessagesInternal.value = WssLogoutReason.LogoutMyself
             }
             authToken = null
-            
+            return
         } catch (e: JsonSyntaxException) {
+
         } catch (e: Throwable) {
+
         }
 
+        try {
+            val parsed = 3
+        } catch (e: JsonSyntaxException) {
+
+        } catch (e: Throwable) {
+
+        }
         //another try for device messages or other
     }
 
