@@ -25,16 +25,16 @@ class UserProfileSettingsViewModel(
         }
     }
 
-    fun deleteUser(){
+    fun deleteUser() {
         viewModelScope.launch {
             userRepository.deleteUser()
         }
     }
 
-    fun strayFunction(){
+    fun strayFunction() {
         viewModelScope.launch {
-            Log.i("websocket","strayFunction_connect_to_ws_start")
-//            userRepository.connectToWs()
+            Log.i("websocket", "strayFunction_connect_to_ws_start")
+            userRepository.disconnectWS()
         }
     }
 }

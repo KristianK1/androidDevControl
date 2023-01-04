@@ -93,7 +93,10 @@ class UserServiceImpl(
                 dontLogoutToken = dontLogoutToken
             )
         )
-        return (httpResponse != null && httpResponse.status.value in 200..299)
+        val x =  (httpResponse != null && httpResponse.status.value in 200..299)
+
+        Log.i("chpas_service", "$x")
+        return x
     }
 
     override suspend fun registerUser(username: String, password: String): LoginResponse? {

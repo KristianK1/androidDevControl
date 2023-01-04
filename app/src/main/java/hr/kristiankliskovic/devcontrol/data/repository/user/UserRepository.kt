@@ -17,8 +17,8 @@ interface UserRepository {
         oldPassword: String,
         newPassword: String,
         logoutOtherSessions: Boolean,
-    )
-
+    ): Boolean
     suspend fun deleteUser()
-    suspend fun stayConnectedToWs()
+    suspend fun connectToWS()
+    suspend fun disconnectWS()
 }

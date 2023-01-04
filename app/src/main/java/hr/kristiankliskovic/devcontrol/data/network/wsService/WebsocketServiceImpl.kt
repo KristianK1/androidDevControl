@@ -40,29 +40,24 @@ class WebsocketServiceImpl(
     override suspend fun connect(authToken: String) {
         Log.i("websocket", "wsServer_connect_start")
         if (!connectedToWSSInternal.value) {
-            Log.i("websocket", "wsServer_connect_before_try")
-            try {
-                httpClientForWS.webSocket(
-                    method = HttpMethod.Get,
-                    host = HTTPSERVER.wsServer,
-                    port = 8000,
-//                    path = "/"
-                ) {
-                    connectedToWSSInternal.value = true
-                    Log.i("websocket", "value_emit_${connectedToWSSInternal.value}")
-
-                    send(constructFirstMessage(authToken))
-
-                    while (true) {
-                        Log.i("websocket_message", "while");
-                        val othersMessage = incoming.receive() as? Frame.Text
-                        Log.i("websocket_message", "while1");
-                        val message = othersMessage?.readText()
-                        Log.i("websocket_message", "while2");
-                        if (message != null) {
-                            Log.i("websocket_message", message)
-                            deserializeData(message)
-                            Log.i("websocket_message", "after")
+            while (true) {
+                if (authToken == null) break;
+                try {
+                    httpClientForWS.webSocket(
+                        method = HttpMethod.Get,
+                        host = HTTPSERVER.wsServer,
+                        port = 8000,
+//                        path = "/"
+                    ) {
+                        currentWSSclient = this
+                        connectedToWSSInternal.value = true
+                        send(constructFirstMessage(authToken!!)) //!! is kinda okey here
+                        while (true) {
+                            val othersMessage = incoming.receive() as? Frame.Text
+                            val message = othersMessage?.readText()
+                            if (message != null) {
+                                deserializeData(message)
+                            }
                         }
                         Log.i("websocket_message", "while3");
                     }

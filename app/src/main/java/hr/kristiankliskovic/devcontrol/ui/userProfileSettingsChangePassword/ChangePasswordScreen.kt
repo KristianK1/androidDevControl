@@ -1,5 +1,6 @@
 package hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,17 +21,23 @@ import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineText
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 
 @Composable
-fun ChangePasswordRoute() {
-    ChangePasswordScreen(
-        changePassword = { _, _ ->
+fun ChangePasswordRoute(
+    viewModel: ChangePasswordViewModel,
+    navigateBackToUserSettings: () -> Unit,
+) {
+//    val navigateBack = viewModel.navBack.collectAsState()
+//
+//    if(navigateBack.value){
+//    }
 
-        }
+    ChangePasswordScreen(
+        changePassword = viewModel::changePassword,
     )
 }
 
 @Composable
 fun ChangePasswordScreen(
-    changePassword: (String, String) -> Unit,
+    changePassword: (String, String, Boolean) -> Unit,
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -61,7 +68,7 @@ fun ChangePasswordScreen(
         OutlineTextWrapper(
             label = stringResource(id = R.string.changePasswordScreen_newPassword_label),
             onChange = {
-                oldPassword = it
+                newPassword = it
             }
         )
         Spacer(modifier = Modifier
@@ -70,7 +77,7 @@ fun ChangePasswordScreen(
         OutlineTextWrapper(
             label = stringResource(id = R.string.changePasswordScreen_newPasswordAgain_label),
             onChange = {
-                oldPassword = it
+                newPasswordAgain = it
             }
         )
         Spacer(modifier = Modifier
@@ -108,7 +115,7 @@ fun ChangePasswordScreen(
                 )
                 .clickable {
                     if (newPassword == newPasswordAgain) {
-                        changePassword(oldPassword, newPassword)
+                        changePassword(oldPassword, newPassword, logoutCheckboxState)
                     } else {
                         //toast
                     }
@@ -128,7 +135,8 @@ fun ChangePasswordScreen(
 @Composable
 fun PreviewChangePasswordScreen() {
     ChangePasswordScreen(
-        changePassword = { _, _ ->
-
-        })
+        changePassword = { _, _, _ ->
+            
+        },
+    )
 }

@@ -19,7 +19,17 @@ class MainScreenViewModel(
         it
     }.stateIn(viewModelScope, SharingStarted.Lazily, "")
 
-    fun startWS(){
+    fun onPause(){
+        Log.i("sviki", "onPause2")
+
+    }
+
+    fun onResume(){
+        Log.i("sviki", "onResume2")
+
+    }
+
+    fun startWS() {
         viewModelScope.launch {
             Log.i("websocket", "started stay conn")
             userRepository.stayConnectedToWs()
