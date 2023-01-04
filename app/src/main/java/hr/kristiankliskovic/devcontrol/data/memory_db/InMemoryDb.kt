@@ -15,15 +15,10 @@ object InMemoryDb {
     val loggedInUser: StateFlow<LoggedInUser?> = this.loggedInUserInternal.asStateFlow()
 
     fun loginUser(user: LoggedInUser) {
-        Log.i("fakeMainRouter", "ide1")
-        Log.i("fakeMainRouter", "${loggedInUserInternal.value != null}")
         loggedInUserInternal.value = user
-        Log.i("fakeMainRouter", "${loggedInUserInternal.value != null}")
     }
 
     fun logoutUser() {
-        Log.i("fakeMainRouter", "ide2")
         loggedInUserInternal.value = null
-        Log.i("fakeMainRouter", "ide2_${loggedInUserInternal.value != null}")
     }
 }

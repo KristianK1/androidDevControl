@@ -6,9 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
     val loggedInUser: Flow<LoggedInUser?>
-    val userMessages: Flow<WssLogoutReason?>
     val connectedToWSS: Flow<Boolean>
-
+    val userMessages: Flow<WssLogoutReason?>
     suspend fun loginByCreds(username: String, password: String)
     suspend fun loginByToken()
     suspend fun logoutUser(logoutAllSessions: Boolean)
@@ -17,7 +16,7 @@ interface UserRepository {
         oldPassword: String,
         newPassword: String,
         logoutOtherSessions: Boolean,
-    ): Boolean
+    )
     suspend fun deleteUser()
     suspend fun connectToWS()
     suspend fun disconnectWS()

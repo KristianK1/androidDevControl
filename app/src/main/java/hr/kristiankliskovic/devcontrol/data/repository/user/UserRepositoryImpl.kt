@@ -15,21 +15,18 @@ class UserRepositoryImpl(
     private val userService: UserService,
     private val authTokenRepository: AuthTokenRepository,
     private val websocketService: WebSocketService,
-    private val ioDispatcher: CoroutineDispatcher,
+    ioDispatcher: CoroutineDispatcher,
 ) : UserRepository {
 
     override val loggedInUser: Flow<LoggedInUser?> =
-        InMemoryDb.loggedInUser.mapLatest { it }.flowOn(ioDispatcher)
+        InMemoryDb.loggedInUser.mapLatest { it }
 
     override val connectedToWSS: Flow<Boolean> = websocketService.connectedToWSS
 
     override val userMessages: Flow<WssLogoutReason?> = websocketService.userMessages.mapLatest {
         if (it != null) {
-            Log.i("websocket_logout", "he who removes is I")
             removeUser()
         }
-        if (user != null && !connectedToWS && userMessage == null) user.token else null
-    }.mapLatest {
         it
     }
 
@@ -41,7 +38,13 @@ class UserRepositoryImpl(
         }
     }
 
+    override suspend fun disconnectWS() {
+        websocketService.disconnect()
+        websocketService.resetUserMessages()
+    }
+
     private fun addUser(loginResponse: LoginResponse) {
+        authTokenRepository.saveAuthToken(loginResponse.authToken)
         InMemoryDb.loginUser(
             LoggedInUser(
                 userId = loginResponse.id,
@@ -49,16 +52,14 @@ class UserRepositoryImpl(
                 token = loginResponse.authToken
             )
         )
-        authTokenRepository.saveAuthToken(loginResponse.authToken)
     }
 
-    private fun removeUser() {
+    private suspend fun removeUser() {
         InMemoryDb.logoutUser()
         authTokenRepository.deleteAuthToken()
     }
 
     override suspend fun loginByCreds(username: String, password: String) {
-        Log.i("login", "UserRepositoryImpl_loginByCreds_start")
         val loginResponse = userService.loginUserByCreds(username, password)
         if (loginResponse != null) {
             addUser(loginResponse)
@@ -66,7 +67,6 @@ class UserRepositoryImpl(
     }
 
     override suspend fun loginByToken() {
-        Log.i("login", "UserRepositoryImpl_loginByToken_start")
         val token = authTokenRepository.getAuthToken()
         if (token != null) {
             val loginResponse = userService.loginUserByToken(token)
@@ -74,14 +74,12 @@ class UserRepositoryImpl(
                 addUser(loginResponse)
             }
         }
-        Log.i("login", "UserRepositoryImpl_loginByToken_end")
     }
 
     override suspend fun logoutUser(logoutAllSessions: Boolean) {
         val token = authTokenRepository.getAuthToken()
         if (token != null) {
             val logoutWorked = userService.logoutUser(token, logoutAllSessions)
-            Log.i("websocket_logout", "worked_${logoutWorked}")
             removeUser()
         }
     }

@@ -34,16 +34,7 @@ import hr.kristiankliskovic.devcontrol.ui.register.RegisterRoute
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.UserProfileSettingsRoute
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword.ChangePasswordRoute
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.data.repository.user.UserRepository
-import hr.kristiankliskovic.devcontrol.model.LoggedInUser
-import hr.kristiankliskovic.devcontrol.model.User
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsRoute
-import hr.kristiankliskovic.devcontrol.ui.login.LoginViewModel
-import hr.kristiankliskovic.devcontrol.ui.main.di.mainScreenModule
-import hr.kristiankliskovic.devcontrol.ui.register.RegisterViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapLatest
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 
@@ -59,6 +50,7 @@ fun MainScreen() {
 
     val viewModel: MainScreenViewModel = getViewModel()
     val loggedIn = viewModel.loggedInUser.collectAsState()
+    val userMessages = viewModel.userMessages.collectAsState()
     viewModel.startWS()
     Scaffold(
         topBar = {
@@ -187,6 +179,7 @@ fun MainScreen() {
                         inclusive = true
                     }
                 }
+                viewModel.startWS()
             }
             false -> {
                 Log.i("mainScreen", "Qfalse")
@@ -196,10 +189,14 @@ fun MainScreen() {
                         inclusive = true
                     }
                 }
+                viewModel.stopWS()
             }
             null -> {
                 Log.i("mainScreen", "Qnull")
             }
+        }
+        if (userMessages.value != null) {
+            viewModel.logout()
         }
     }
 }

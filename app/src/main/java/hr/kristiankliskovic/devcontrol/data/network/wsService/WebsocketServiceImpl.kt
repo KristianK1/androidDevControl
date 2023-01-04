@@ -26,6 +26,8 @@ class WebsocketServiceImpl(
                 pingInterval = 20_000
             }
         }
+    var authToken: String? = null
+    private var currentWSSclient: DefaultClientWebSocketSession? = null
 
     private val connectedToWSSInternal: MutableStateFlow<Boolean> = MutableStateFlow(false)
     override val connectedToWSS: StateFlow<Boolean> = connectedToWSSInternal.asStateFlow()
@@ -37,8 +39,8 @@ class WebsocketServiceImpl(
     private val deviceMessagesInternal: MutableStateFlow<String> = MutableStateFlow("")
     override val deviceMessages: StateFlow<String> = deviceMessagesInternal.asStateFlow()
 
-    override suspend fun connect(authToken: String) {
-        Log.i("websocket", "wsServer_connect_start")
+    override suspend fun connect(token: String) {
+        authToken = token
         if (!connectedToWSSInternal.value) {
             while (true) {
                 if (authToken == null) break;
@@ -59,38 +61,35 @@ class WebsocketServiceImpl(
                                 deserializeData(message)
                             }
                         }
-                        Log.i("websocket_message", "while3");
                     }
+                } catch (e: Throwable) {
+                    connectedToWSSInternal.emit(false)
                 }
-            } catch (e: Throwable) {
-//                connectedToWSSInternal.value = false
-                connectedToWSSInternal.emit(false)
-                Log.i("websocket", "value_emit_${connectedToWSSInternal.value}")
-                Log.i("websocket", "error")
             }
         }
     }
 
-    private fun deserializeData(data: String) {
+    override suspend fun disconnect() {
+        authToken = null
+        currentWSSclient?.close()
+        currentWSSclient = null
+        connectedToWSSInternal.emit(false)
+    }
+
+    private suspend fun deserializeData(data: String) {
         try {
-            Log.i("websocket_parser", "parsed1")
             val parsed = gson.fromJson(data, WssLogoutReasonResponse::class.java)
-            Log.i("websocket_parser", "parsed2")
-            when(parsed.logoutReason){
+            when (parsed.logoutReason) {
                 0 -> userMessagesInternal.value = WssLogoutReason.DeletedUser
                 1 -> userMessagesInternal.value = WssLogoutReason.ChangedPassword
                 2 -> userMessagesInternal.value = WssLogoutReason.LogoutAll
                 3 -> userMessagesInternal.value = WssLogoutReason.LogoutMyself
             }
-            Log.i("websocket_parser", "parsed3")
-            Log.i("websocket_parser", "parsed3_${parsed}")
-            Log.i("websocket_parser", "parsed3_${userMessagesInternal.value}")
-
+            authToken = null
         } catch (e: JsonSyntaxException) {
-            Log.i("websocket_parser", "not a user logout message")
         } catch (e: Throwable) {
-            Log.i("websocket_parser", "jebo te otac")
         }
+
         //another try for device messages or other
     }
 
@@ -104,7 +103,7 @@ class WebsocketServiceImpl(
         )
     }
 
-    override suspend fun resetUserMessages(){
+    override suspend fun resetUserMessages() {
         userMessagesInternal.emit(null)
     }
 }

@@ -33,7 +33,7 @@ class UserProfileSettingsViewModel(
 
     fun strayFunction() {
         viewModelScope.launch {
-            Log.i("websocket", "strayFunction_connect_to_ws_start")
+            Log.i("websocket","strayFunction_connect_to_ws_start")
             userRepository.disconnectWS()
         }
     }
