@@ -1,5 +1,7 @@
 package hr.kristiankliskovic.devcontrol.data.network.deviceService
 
+import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
+import hr.kristiankliskovic.devcontrol.data.network.model.*
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
@@ -16,11 +18,6 @@ class DeviceServiceImpl(
     private val client: HttpClient,
 ) : DeviceService {
 
-
-    //5 F change
-    //5 CGF change
-    //1 CGS change
-
     private suspend fun httpPostRequest(url: String, body: Any): HttpResponse? {
         return try {
             client.post(url) {
@@ -31,4 +28,186 @@ class DeviceServiceImpl(
             null
         }
     }
+
+    override suspend fun changeNumericField(
+        authToken: String,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+        fieldValue: Float,
+    ): Boolean {
+        val httpResponse =
+            httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeFieldValue_routerPath",
+                body = ChangeNumericField(authToken, deviceId, groupId, fieldId, fieldValue))
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+
+    }
+
+    override suspend fun changeTextField(
+        authToken: String,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+        fieldValue: String,
+    ): Boolean {
+        val httpResponse =
+            httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeFieldValue_routerPath",
+                body = ChangeTextField(authToken, deviceId, groupId, fieldId, fieldValue))
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun changeButtonField(
+        authToken: String,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+        fieldValue: Boolean,
+    ): Boolean {
+        val httpResponse =
+            httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeFieldValue_routerPath",
+                body = ChangeButtonField(authToken, deviceId, groupId, fieldId, fieldValue))
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun changeMCField(
+        authToken: String,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+        fieldValue: Int,
+    ): Boolean {
+        val httpResponse =
+            httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeFieldValue_routerPath",
+                body = ChangeMCField(authToken, deviceId, groupId, fieldId, fieldValue))
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun changeRGBField(
+        authToken: String,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+        fieldValueR: Int,
+        fieldValueG: Int,
+        fieldValueB: Int,
+    ): Boolean {
+        val httpResponse =
+            httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeFieldValue_routerPath",
+                body = ChangeRGBField(authToken,
+                    deviceId,
+                    groupId,
+                    fieldId,
+                    RGBvalue(fieldValueR, fieldValueG, fieldValueB)))
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun changeNumericFieldInComplexGroup(
+        authToken: String,
+        deviceId: Int,
+        groupId: Int,
+        stateId: Int,
+        fieldId: Int,
+        fieldValue: Float,
+    ): Boolean {
+        val httpResponse =
+            httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeFieldInComplexGroupValue_routerPath",
+                body = ChangeNumericFieldInCG(authToken,
+                    deviceId,
+                    groupId,
+                    stateId,
+                    fieldId,
+                    fieldValue))
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun changeTextFieldInComplexGroup(
+        authToken: String,
+        deviceId: Int,
+        groupId: Int,
+        stateId: Int,
+        fieldId: Int,
+        fieldValue: String,
+    ): Boolean {
+        val httpResponse =
+            httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeFieldInComplexGroupValue_routerPath",
+                body = ChangeTextFieldInCG(authToken,
+                    deviceId,
+                    groupId,
+                    stateId,
+                    fieldId,
+                    fieldValue))
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun changeButtonFieldInComplexGroup(
+        authToken: String,
+        deviceId: Int,
+        groupId: Int,
+        stateId: Int,
+        fieldId: Int,
+        fieldValue: Boolean,
+    ): Boolean {
+        val httpResponse =
+            httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeFieldInComplexGroupValue_routerPath",
+                body = ChangeButtonFieldInCG(authToken,
+                    deviceId,
+                    groupId,
+                    stateId,
+                    fieldId,
+                    fieldValue))
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun changeMCFieldInComplexGroup(
+        authToken: String,
+        deviceId: Int,
+        groupId: Int,
+        stateId: Int,
+        fieldId: Int,
+        fieldValue: Int,
+    ): Boolean {
+        val httpResponse =
+            httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeFieldInComplexGroupValue_routerPath",
+                body = ChangeMCFieldInCG(authToken,
+                    deviceId,
+                    groupId,
+                    stateId,
+                    fieldId,
+                    fieldValue))
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun changeRGBFieldInComplexGroup(
+        authToken: String,
+        deviceId: Int,
+        groupId: Int,
+        stateId: Int,
+        fieldId: Int,
+        fieldValueR: Int,
+        fieldValueG: Int,
+        fieldValueB: Int,
+    ): Boolean {
+        val httpResponse =
+            httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeFieldInComplexGroupValue_routerPath",
+                body = ChangeRGBFieldInCG(authToken,
+                    deviceId,
+                    groupId,
+                    stateId,
+                    fieldId,
+                    RGBvalue(fieldValueR, fieldValueG, fieldValueB)))
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun changeComplexGroupState(
+        authToken: String,
+        deviceId: Int,
+        groupId: Int,
+        state: Int,
+    ): Boolean {
+        val httpResponse =
+            httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeComplexGroupStateValue_routerPath",
+                body = ChangeComplexGroupState(authToken, deviceId, groupId, state))
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
 }
