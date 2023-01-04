@@ -13,14 +13,14 @@ import io.ktor.http.*
 import io.ktor.server.util.*
 import kotlinx.coroutines.flow.map
 
-const val userAuth_routerPath = "/api/userAuth"
+private const val userAuth_routerPath = "/api/userAuth"
 
-const val loginByCreds_routerPath = "/login/creds"
-const val loginByToken_routerPath = "/login/token"
-const val logout_routerPath = "/logout"
-const val register_routerPath = "/register"
-const val deleteUser_routerPath = "/delete"
-const val changePassword_routerPath = "/changePassword"
+private const val loginByCreds_routerPath = "/login/creds"
+private const val loginByToken_routerPath = "/login/token"
+private const val logout_routerPath = "/logout"
+private const val register_routerPath = "/register"
+private const val deleteUser_routerPath = "/delete"
+private const val changePassword_routerPath = "/changePassword"
 
 class UserServiceImpl(
     private val client: HttpClient,
@@ -123,6 +123,5 @@ class UserServiceImpl(
         } catch (e: Throwable) {
             null
         }
-
     }
 }
