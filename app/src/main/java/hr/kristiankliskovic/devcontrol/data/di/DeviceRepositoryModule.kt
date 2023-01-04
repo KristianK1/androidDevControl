@@ -6,6 +6,9 @@ import org.koin.dsl.module
 
 val deviceRepositoryModule = module {
     single<DeviceRepository>{
-        DeviceRepositoryImpl()
+        DeviceRepositoryImpl(
+            deviceService = get(),
+            websocketService = get(),
+        )
     }
 }

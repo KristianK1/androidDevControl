@@ -21,6 +21,7 @@ import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.DeviceNameA
 
 @Composable
 fun MyDevicesRoute(
+    viewModel: MyDevicesViewModel,
     navigateToDevice: (String) -> Unit,
 ) {
     val myDevices by remember {

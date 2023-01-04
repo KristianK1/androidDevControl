@@ -98,6 +98,7 @@ fun MainScreen() {
                 }
                 composable(MY_DEVICES_ROUTE) {
                     MyDevicesRoute(
+                        viewModel = getViewModel(),
                         navigateToDevice = { route ->
                             navController.navigate(route)
                         }
