@@ -136,7 +136,7 @@ fun ChangePasswordScreen(
 fun PreviewChangePasswordScreen() {
     ChangePasswordScreen(
         changePassword = { _, _, _ ->
-            
+
         },
     )
 }
