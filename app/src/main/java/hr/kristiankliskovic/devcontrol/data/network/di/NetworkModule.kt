@@ -8,21 +8,19 @@ import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserServiceImpl
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebsocketServiceImpl
+import hr.kristiankliskovic.devcontrol.data.network.wsService.parser.deviceData.WSDataParser
+import hr.kristiankliskovic.devcontrol.data.network.wsService.parser.deviceData.WSDataParserImpl
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
-import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
-import io.ktor.client.plugins.websocket.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
-import java.time.Duration
-import java.util.concurrent.TimeUnit
 
 val networkModule = module {
-    single{
+    single {
         Gson()
     }
     single<UserService> {
@@ -30,7 +28,7 @@ val networkModule = module {
             client = get(),
         )
     }
-    single<DeviceService>{
+    single<DeviceService> {
         DeviceServiceImpl(
             client = get()
         )
@@ -39,6 +37,7 @@ val networkModule = module {
         WebsocketServiceImpl(
             ioDispatcher = Dispatchers.IO,
             gson = get(),
+            wsDataParser = get()
         )
     }
     single {
@@ -58,5 +57,10 @@ val networkModule = module {
                 })
             }
         }
+    }
+    single<WSDataParser> {
+        WSDataParserImpl(
+            gson = get()
+        )
     }
 }

@@ -30,7 +30,6 @@ class UserRepositoryImpl(
         it
     }
 
-
     override suspend fun connectToWS() {
         val token = authTokenRepository.getAuthToken()
         if (token != null) {

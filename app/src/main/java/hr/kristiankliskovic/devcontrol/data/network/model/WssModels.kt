@@ -2,11 +2,6 @@ package hr.kristiankliskovic.devcontrol.data.network.model
 
 import kotlinx.serialization.Serializable
 
-@Serializable
-data class WssConnectUserMessageData(
-    val authToken: String,
-    val frontendType: Int = 2,  // AndroidApp = 2
-)
 
 @Serializable
 data class WssConnectUserMessage(
@@ -15,9 +10,35 @@ data class WssConnectUserMessage(
 )
 
 @Serializable
+data class WssConnectUserMessageData(
+    val authToken: String,
+    val frontendType: Int = 2,  // AndroidApp = 2
+)
+
+
+data class WssReceivingMessage(
+    val messageType: String,
+    val data: Any,
+)
+
+enum class WSSReceivingMessageTypes {
+    DeviceData,
+    UserMessage,
+    DeviceDeleted,
+    LostRights,
+}
+
+val WssReceivingMessageType_DeviceData = "deviceData"
+val WssReceivingMessageType_UserMessage = "userMessage"
+val WssReceivingMessageType_DeviceDeleted = "deviceDeleted"
+val WssReceivingMessageType_lostRights = "lostRightsToDevice"
+
+sealed class WSSReceivingMessageData()
+
+@Serializable
 data class WssLogoutReasonResponse(
     val logoutReason: Int,
-)
+) : WSSReceivingMessageData()
 
 enum class WssLogoutReason {
     DeletedUser,
@@ -34,7 +55,8 @@ data class WSSDeviceData(
     val deviceFieldComplexGroups: List<WSSComplexGroup>,
     val userAdminId: Int,
     val updateTimeStamp: Long,
-)
+    val isActive: Boolean,
+) : WSSReceivingMessageData()
 
 data class WSSGroup(
     val id: Int,
@@ -123,5 +145,5 @@ data class WSSRGBField(
     val R: Int,
     val G: Int,
     val B: Int,
-    val fieldDirection: String
+    val fieldDirection: String,
 )

@@ -4,4 +4,10 @@ import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.DeviceNameA
 
 data class MyDevicesViewState(
     val devices: List<DeviceNameAndStatusViewState>,
-)
+) {
+    companion object {
+        fun empty(): MyDevicesViewState {
+            return MyDevicesViewState(devices = listOf())
+        }
+    }
+}

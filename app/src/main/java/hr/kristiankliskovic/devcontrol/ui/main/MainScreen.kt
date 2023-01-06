@@ -37,6 +37,7 @@ import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsRoute
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun MainScreen() {
@@ -110,7 +111,15 @@ fun MainScreen() {
                         type = NavType.IntType
                     })
                 ) {
-                    DeviceControlsRoute()
+                    DeviceControlsRoute(
+                        viewModel = getViewModel {
+                            parametersOf(
+                                navBackStackEntry?.arguments?.getInt(DEVICE_CONTROLS_ID_KEY)
+                                    ?: throw IllegalStateException("no deviceId sent")
+                            )
+                        }
+                    )
+
                 }
                 composable(ADMIN_PANEL_ROUTE) {
                     AdminPanelHomeRoute(
@@ -164,7 +173,7 @@ fun MainScreen() {
                     ChangePasswordRoute(
                         viewModel = getViewModel(),
                         navigateBackToUserSettings = {
-                            navController.navigate(USER_PROFILE_ROUTE){
+                            navController.navigate(USER_PROFILE_ROUTE) {
                                 popUpTo(USER_PROFILE_ROUTE)
                             }
                         }
