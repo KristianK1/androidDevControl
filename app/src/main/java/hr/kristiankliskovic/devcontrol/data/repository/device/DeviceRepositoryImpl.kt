@@ -22,22 +22,27 @@ class DeviceRepositoryImpl(
 
     override val devices: Flow<List<Device>> = flow {
         websocketService.deviceMessages.collect { device ->
-            Log.i("deviceData", "devRepo_devices_collect")
             if (device != null) {
-                val index = devicesInternal.indexOfLast { it.deviceId == device.deviceId }
-                devicesInternal.removeIf { it.deviceId == device.deviceId }
-                if (index != -1) {
-                    devicesInternal.add(index, device)
-                } else {
-                    devicesInternal.add(device)
+                for ((index, _) in devicesInternal.withIndex()) {
+                    if (devicesInternal[index].deviceId == device.deviceId) {
+                        devicesInternal.removeAt(index)
+                        break
+                    }
                 }
+                devicesInternal.add(device)
                 emit(devicesInternal)
+            } else {
+                Log.i("QdeviceData", "no device")
             }
         }
     }.flowOn(bgDispatcher)
 
     override fun getDevice(deviceId: Int): Flow<Device> = flow {
-        devices.collect(){
+        devices.collect {
+            Log.i("deviceData", "getDeviceFlow in devrepo")
+            for (device in it) {
+                Log.i("deviceData", "getDeviceFlow in devrepo__${device.deviceId}")
+            }
             emit(devicesInternal.find { it.deviceId == deviceId }!!)
         }
     }.flowOn(bgDispatcher)

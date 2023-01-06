@@ -24,7 +24,9 @@ class DeviceControlsViewModel(
             Log.i("deviceData", "devControlViewModel")
             Log.i("deviceData", Gson().toJson(deviceData))
 
-            deviceControlsMapper.toDeviceControlsViewState(deviceData)
+            val x = deviceControlsMapper.toDeviceControlsViewState(deviceData)
+            Log.i("deviceData_mapEnd", Gson().toJson(x))
+            x
         }.stateIn(viewModelScope, SharingStarted.Lazily, DeviceControlsViewState.empty())
 
 

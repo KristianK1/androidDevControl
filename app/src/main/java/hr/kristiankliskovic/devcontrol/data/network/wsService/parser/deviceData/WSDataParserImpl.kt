@@ -27,16 +27,18 @@ class WSDataParserImpl(
 
         val wssMessage = gson.fromJson(data, WssReceivingMessage::class.java)
         val deviceDataJSON = gson.toJson(wssMessage.data)
-        Log.i("deviceData", "parsing")
-        Log.i("deviceData", deviceDataJSON)
+        Log.i("parsingData", "parsing")
+        Log.i("parsingData", deviceDataJSON)
 
         val deviceData = gson.fromJson(deviceDataJSON, WSSDeviceData::class.java)
-
+        Log.i("parsingData", "parsing2")
         val groups: MutableList<DeviceGroup> = mutableListOf()
         for (group in deviceData.deviceFieldGroups) {
             val fields: MutableList<BasicDeviceField> = mutableListOf()
             for (field in group.fields) {
+                Log.i("parsingData", "parsing21")
                 fields.add(parseFieldInGroup(field)!!) //ako je null nek pukne
+                Log.i("parsingData", "parsing22")
             }
             val mappedGroup = DeviceGroup(
                 groupId = group.id,
@@ -52,7 +54,9 @@ class WSDataParserImpl(
             for (state in complexGroup.fieldGroupStates) {
                 val fields: MutableList<BasicDeviceField> = mutableListOf()
                 for (field in state.fields) {
+                    Log.i("parsingData", "parsing23")
                     fields.add(parseFieldInComplexGroup(field)!!) //ako je null nek pukne
+                    Log.i("parsingData", "parsing24")
                 }
                 val fullState = DeviceComplexGroupState(
                     stateId = state.id,
@@ -70,8 +74,7 @@ class WSDataParserImpl(
             )
             complexGroups.add(fullComplexGroup)
         }
-        Log.i("deviceData", "${deviceData.isActive}")
-        Log.i("deviceData", "${deviceData.updateTimeStamp}")
+        Log.i("parsingData", "${deviceData.updateTimeStamp}")
 
         return Device(
             deviceId = deviceData.id,
@@ -87,11 +90,11 @@ class WSDataParserImpl(
     override fun parseUserMessages(data: String): WssLogoutReasonResponse {
         val parsed = gson.fromJson(data, WssLogoutReasonResponse::class.java)
         val b = parsed == null
-        Log.i("deviceData", "b_$b")
+        Log.i("parsingData", "b_$b")
 
         var int = parsed.logoutReason //magic
         int += 1
-        Log.i("deviceData", "$int")
+        Log.i("parsingData", "$int")
         return parsed
     }
 
