@@ -10,25 +10,70 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroup
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceGroup
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.mock.getDevControlsMock
+import hr.kristiankliskovic.devcontrol.model.RGBValue
 
 @Composable
 fun DeviceControlsRoute(
     viewModel: DeviceControlsViewModel,
-){
+) {
     val viewState by viewModel.deviceControlsViewState.collectAsState()
-    DeviceControlsScreen(item = viewState)
+    DeviceControlsScreen(
+        item = viewState,
+        onChangeNumeric = { deviceId, groupId, fieldId, value ->
+            viewModel.onChangeNumeric(deviceId, groupId, fieldId, value)
+        },
+        onChangeText = { deviceId, groupId, fieldId, value ->
+            viewModel.onChangeText(deviceId, groupId, fieldId, value)
+        },
+        onChangeButton = { deviceId, groupId, fieldId, value ->
+            viewModel.onChangeButton(deviceId, groupId, fieldId, value)
+        },
+        onChangeMultipleChoice = { deviceId, groupId, fieldId, value ->
+            viewModel.onChangeMultipleChoice(deviceId, groupId, fieldId, value)
+        },
+        onChangeRGB = { deviceId, groupId, fieldId, value ->
+            viewModel.onChangeRGB(deviceId, groupId, fieldId, value)
+        },
+        changeComplexGroupState= { deviceId, groupId, stateId ->
+            viewModel.changeComplexGroupState(deviceId, groupId, stateId)
+        },
+        onChangeNumericInCG = { deviceId, groupId, stateId, fieldId, value ->
+            viewModel.onChangeNumericInCG(deviceId, groupId, stateId, fieldId, value)
+        },
+        onChangeTextInCG = { deviceId, groupId, stateId, fieldId, value ->
+            viewModel.onChangeTextInCG(deviceId, groupId, stateId, fieldId, value)
+        },
+        onChangeButtonInCG = { deviceId, groupId, stateId, fieldId, value ->
+            viewModel.onChangeButtonInCG(deviceId, groupId, stateId, fieldId, value)
+        },
+        onChangeMultipleChoiceInCG = { deviceId, groupId, stateId, fieldId, value ->
+            viewModel.onChangeMultipleChoiceInCG(deviceId, groupId, stateId, fieldId, value)
+        },
+        onChangeRGBInCG = { deviceId, groupId, stateId, fieldId, value ->
+            viewModel.onChangeRGBInCG(deviceId, groupId, stateId, fieldId, value)
+        },
+    )
 }
 
 @Composable
 fun DeviceControlsScreen(
     item: DeviceControlsViewState,
+    onChangeNumeric: (Int, Int, Int, Float) -> Unit,
+    onChangeText: (Int, Int, Int, String) -> Unit,
+    onChangeButton: (Int, Int, Int, Boolean) -> Unit,
+    onChangeMultipleChoice: (Int, Int, Int, Int) -> Unit,
+    onChangeRGB: (Int, Int, Int, RGBValue) -> Unit,
+    changeComplexGroupState: (Int, Int, Int) -> Unit,
+    onChangeNumericInCG: (Int, Int, Int, Int, Float) -> Unit,
+    onChangeTextInCG: (Int, Int, Int, Int, String) -> Unit,
+    onChangeButtonInCG: (Int, Int, Int, Int, Boolean) -> Unit,
+    onChangeMultipleChoiceInCG: (Int, Int, Int, Int, Int) -> Unit,
+    onChangeRGBInCG: (Int, Int, Int, Int, RGBValue) -> Unit,
 ) {
     Column {
         Text(
@@ -47,24 +92,49 @@ fun DeviceControlsScreen(
                 .height(2.dp)
                 .background(Color.Black)
         )
-        LazyColumn{
+        LazyColumn {
             items(item.groupsViewStates) { groupViewState ->
                 DeviceGroup(
                     item = groupViewState,
-                    onChange = { _, _, _ ->
-
-                    })
+                    onChangeNumeric = { groupId, fieldId, value ->
+                        onChangeNumeric(item.deviceId, groupId, fieldId, value)
+                    },
+                    onChangeText = { groupId, fieldId, value ->
+                        onChangeText(item.deviceId, groupId, fieldId, value)
+                    },
+                    onChangeButton = { groupId, fieldId, value ->
+                        onChangeButton(item.deviceId, groupId, fieldId, value)
+                    },
+                    onChangeMultipleChoice = { groupId, fieldId, value ->
+                        onChangeMultipleChoice(item.deviceId, groupId, fieldId, value)
+                    },
+                    onChangeRGB = { groupId, fieldId, value ->
+                        onChangeRGB(item.deviceId, groupId, fieldId, value)
+                    },
+                )
                 Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.deviceControlsScreen_spacer_height_between_groups)))
             }
             items(item.complexGroupsViewStates) { complexGroupViewState ->
                 DeviceComplexGroup(
                     item = complexGroupViewState,
-                    changeComplexGroupState = { _, _ ->
-
+                    changeComplexGroupState = { stateId: Int ->
+                        changeComplexGroupState(item.deviceId, complexGroupViewState.complexGroupId, stateId)
                     },
-                    onChange = { _, _, _, _ ->
-
-                    }
+                    onChangeNumeric = { groupId, stateId, fieldId, value ->
+                        onChangeNumericInCG(item.deviceId, groupId, stateId, fieldId, value)
+                    },
+                    onChangeText = { groupId, stateId, fieldId, value ->
+                        onChangeTextInCG(item.deviceId, groupId, stateId, fieldId, value)
+                    },
+                    onChangeButton = { groupId, stateId, fieldId, value ->
+                        onChangeButtonInCG(item.deviceId, groupId, stateId, fieldId, value)
+                    },
+                    onChangeMultipleChoice = { groupId, stateId, fieldId, value ->
+                        onChangeMultipleChoiceInCG(item.deviceId, groupId, stateId, fieldId, value)
+                    },
+                    onChangeRGB = { groupId, stateId, fieldId, value ->
+                        onChangeRGBInCG(item.deviceId, groupId, stateId, fieldId, value)
+                    },
                 )
                 Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.deviceControlsScreen_spacer_height_between_groups)))
             }
@@ -72,8 +142,9 @@ fun DeviceControlsScreen(
     }
 }
 
-@Preview
-@Composable
-fun PreviewDeviceControlsScreen() {
-    DeviceControlsScreen(item = getDevControlsMock())
-}
+//
+//@Preview
+//@Composable
+//fun PreviewDeviceControlsScreen() {
+//    DeviceControlsScreen(item = getDevControlsMock())
+//}

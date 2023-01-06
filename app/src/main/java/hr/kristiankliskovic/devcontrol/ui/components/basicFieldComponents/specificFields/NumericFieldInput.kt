@@ -41,7 +41,6 @@ fun NumericFieldInput(
     val nstepsSkip = ((item.maxValue - item.minValue) / item.valueStep / 10).toInt()
     val multipleStepsValue = nstepsSkip * item.valueStep
     val multipleStepsValueText = "%.2f".format(multipleStepsValue)
-    Log.i("debugValues", multipleStepsValueText)
 
     Column(
         modifier = modifier

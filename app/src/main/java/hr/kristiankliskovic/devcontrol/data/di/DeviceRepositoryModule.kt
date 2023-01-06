@@ -9,6 +9,7 @@ val deviceRepositoryModule = module {
     single<DeviceRepository>{
         DeviceRepositoryImpl(
             deviceService = get(),
+            authTokenRepository = get(),
             websocketService = get(),
             bgDispatcher = Dispatchers.IO
         )

@@ -7,12 +7,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.model.RGBValue
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.*
 
 @Composable
 fun BasicField(
     item: BasicFieldComponentViewState,
-    onChange: (Int, Any) -> Unit,
+    onChangeNumeric: (Int, Float) -> Unit,
+    onChangeText: (Int, String) -> Unit,
+    onChangeButton: (Int, Boolean) -> Unit,
+    onChangeMultipleChoice: (Int, Int) -> Unit,
+    onChangeRGB: (Int, RGBValue) -> Unit,
+
     modifier: Modifier = Modifier,
 ) {
     when (item) {
@@ -20,7 +26,7 @@ fun BasicField(
             ButtonFieldInput(
                 item = item,
                 emitValue = { value ->
-                    onChange(item.fieldId, value)
+                    onChangeButton(item.fieldId, value)
                 },
                 modifier = modifier
                     .fillMaxWidth()
@@ -39,7 +45,7 @@ fun BasicField(
             TextFieldInput(
                 item = item,
                 emitValue = { value ->
-                    onChange(item.fieldId, value)
+                    onChangeText(item.fieldId, value)
                 },
                 modifier = modifier
                     .fillMaxWidth()
@@ -58,7 +64,7 @@ fun BasicField(
             MultipleChoiceFieldInput(
                 item = item,
                 emitValue = { value ->
-                    onChange(item.fieldId, value)
+                    onChangeMultipleChoice(item.fieldId, value)
                 },
                 modifier = modifier
                     .fillMaxWidth()
@@ -69,7 +75,7 @@ fun BasicField(
             RGBFieldInput(
                 item = item,
                 emitValue = { value ->
-                    onChange(item.fieldId, value)
+                    onChangeRGB(item.fieldId, value)
                 },
                 modifier = modifier
                     .fillMaxWidth()
@@ -88,7 +94,7 @@ fun BasicField(
             NumericFieldInput(
                 item = item,
                 emitValue = { value ->
-                    onChange(item.fieldId, value)
+                    onChangeNumeric(item.fieldId, value)
                 },
                 modifier = modifier
                     .fillMaxWidth()

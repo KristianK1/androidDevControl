@@ -2,14 +2,12 @@ package hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.tooling.preview.Preview
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.mock.getMockDeviceComplexGroupViewState
+import hr.kristiankliskovic.devcontrol.model.RGBValue
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.BasicFieldComponentViewState
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.common.BasicField
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
@@ -31,8 +29,12 @@ data class DeviceComplexGroupViewState(
 @Composable
 fun DeviceComplexGroup(
     item: DeviceComplexGroupViewState,
-    changeComplexGroupState: (Int, Int) -> Unit,
-    onChange: (Int, Int, Int, Any) -> Unit,
+    changeComplexGroupState: (Int) -> Unit,
+    onChangeNumeric: (Int, Int, Int, Float) -> Unit,
+    onChangeText: (Int, Int, Int, String) -> Unit,
+    onChangeButton: (Int, Int, Int, Boolean) -> Unit,
+    onChangeMultipleChoice: (Int, Int, Int, Int) -> Unit,
+    onChangeRGB: (Int, Int, Int, RGBValue) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -56,7 +58,7 @@ fun DeviceComplexGroup(
             readOnly = item.readOnly,
             currentState = item.currentState,
             changeState = {
-                changeComplexGroupState(item.complexGroupId, it)
+                changeComplexGroupState(it)
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -65,31 +67,22 @@ fun DeviceComplexGroup(
         for (fieldViewState in item.states[item.currentState].fields) {
             BasicField(
                 item = fieldViewState,
-                onChange = { fieldId, value ->
-                    onChange(item.complexGroupId, item.currentState, fieldId, value)
-                }
-            )
-        }
-    }
-}
-
-
-@Preview
-@Composable
-fun PreviewComplexGroup() {
-    LazyColumn {
-        items(1) {
-            DeviceComplexGroup(
-                item = getMockDeviceComplexGroupViewState(),
-                changeComplexGroupState = { _, _ ->
-
+                onChangeNumeric = { fieldId, value ->
+                    onChangeNumeric(item.complexGroupId, item.currentState, fieldId, value)
                 },
-                onChange = { _, _, _, _ ->
-
-                }
+                onChangeText = { fieldId, value ->
+                    onChangeText(item.complexGroupId, item.currentState, fieldId, value)
+                },
+                onChangeButton = { fieldId, value ->
+                    onChangeButton(item.complexGroupId, item.currentState, fieldId, value)
+                },
+                onChangeMultipleChoice = { fieldId, value ->
+                    onChangeMultipleChoice(item.complexGroupId, item.currentState, fieldId, value)
+                },
+                onChangeRGB = { fieldId, value ->
+                    onChangeRGB(item.complexGroupId, item.currentState, fieldId, value)
+                },
             )
         }
     }
-
-
 }

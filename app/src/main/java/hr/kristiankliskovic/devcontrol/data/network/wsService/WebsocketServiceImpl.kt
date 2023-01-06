@@ -85,14 +85,10 @@ class WebsocketServiceImpl(
             Log.i("deviceData", "unknown message type - deserializeData- WSSService")
             return
         }
-        Log.i("deviceData", "here2")
         when (messageType) {
             WSSReceivingMessageTypes.DeviceData -> {
-                Log.i("deviceData", "here31")
                 val parsed = wsDataParser.parseDeviceData(data)
-                Log.i("deviceData", "here32")
                 deviceMessagesInternal.value = parsed
-                Log.i("deviceData", "here33")
             }
             WSSReceivingMessageTypes.UserMessage -> {
                 val parsed = wsDataParser.parseUserMessages(data)

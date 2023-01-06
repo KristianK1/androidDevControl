@@ -10,6 +10,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.mock.getMockDeviceGroupViewState
+import hr.kristiankliskovic.devcontrol.model.RGBValue
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.common.BasicField
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.BasicFieldComponentViewState
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
@@ -23,7 +24,11 @@ data class DeviceGroupViewState(
 @Composable
 fun DeviceGroup(
     item: DeviceGroupViewState,
-    onChange: (Int, Int, Any) -> Unit,
+    onChangeNumeric: (Int, Int, Float) -> Unit,
+    onChangeText: (Int, Int, String) -> Unit,
+    onChangeButton: (Int, Int, Boolean) -> Unit,
+    onChangeMultipleChoice: (Int, Int, Int) -> Unit,
+    onChangeRGB: (Int, Int, RGBValue) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -45,25 +50,24 @@ fun DeviceGroup(
         for (fieldViewState in item.fields) {
             BasicField(
                 item = fieldViewState,
-                onChange = { fieldId, value ->
-                    onChange(item.groupId, fieldId, value)
+                onChangeNumeric = { fieldId, value ->
+                    onChangeNumeric(item.groupId, fieldId, value)
                 },
+                onChangeText = { fieldId, value ->
+                    onChangeText(item.groupId, fieldId, value)
+                },
+                onChangeButton = { fieldId, value ->
+                    onChangeButton(item.groupId, fieldId, value)
+                },
+                onChangeMultipleChoice = { fieldId, value ->
+                    onChangeMultipleChoice(item.groupId, fieldId, value)
+                },
+                onChangeRGB = { fieldId, value ->
+                    onChangeRGB(item.groupId, fieldId, value)
+                },
+
             )
         }
     }
 }
 
-
-@Preview
-@Composable
-fun PreviewDeviceGroup() {
-    LazyColumn {
-        items(1) {
-            DeviceGroup(
-                item = getMockDeviceGroupViewState(),
-                onChange = { groupId, fieldId, value ->
-                }
-            )
-        }
-    }
-}
