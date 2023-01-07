@@ -106,6 +106,7 @@ data class ChangeRGBFieldInCG(
     val fieldValue: RGBvalue,
 )
 
+@Serializable
 data class ChangeComplexGroupState(
     val authToken: String,
     val deviceId: Int,

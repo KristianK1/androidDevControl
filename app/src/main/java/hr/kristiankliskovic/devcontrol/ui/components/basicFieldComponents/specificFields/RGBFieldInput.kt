@@ -88,9 +88,9 @@ fun RGBDialog(
                             Log.i("rgbDebug", "${color.blue}|${color.blue.toInt()}")
                             selectValue(
                                 RGBValue(
-                                    color.red.toInt(),
-                                    color.green.toInt(),
-                                    color.blue.toInt()
+                                    (color.red * 256).toInt(),
+                                    (color.green * 256 ).toInt(),
+                                    (color.blue * 256).toInt()
                                 )
                             )
                         },

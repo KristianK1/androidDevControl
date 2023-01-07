@@ -138,7 +138,7 @@ fun ComplexStateChooserDialog(
             modifier = Modifier
                 .clip(Shapes.small)
                 .clickable {
-                    dialogOpen = false
+                    dialogOpen = true
                 }
                 .background(colorResource(id = R.color.fieldComponent_button_background))
                 .padding(5.dp)

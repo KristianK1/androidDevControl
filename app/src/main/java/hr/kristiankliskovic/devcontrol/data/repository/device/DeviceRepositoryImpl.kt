@@ -216,6 +216,7 @@ class DeviceRepositoryImpl(
     }
 
     override suspend fun changeComplexGroupState(deviceId: Int, groupId: Int, state: Int): Boolean {
+        Log.i("changeState", "final2")
         return deviceService.changeComplexGroupState(
             authTokenRepository.getAuthToken()!!,
             deviceId,

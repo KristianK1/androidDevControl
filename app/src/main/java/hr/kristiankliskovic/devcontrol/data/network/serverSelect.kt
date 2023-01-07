@@ -29,4 +29,4 @@ val renderHosting = Server(
     httpServer = "https://devcontrol-backend.onrender.com",
     wsServer = "devcontrol-backend.onrender.com"
 )
-val HTTPSERVER = renderHosting
+val HTTPSERVER = SB_PC_LAN

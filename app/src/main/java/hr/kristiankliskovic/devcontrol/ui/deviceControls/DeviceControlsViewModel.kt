@@ -68,6 +68,7 @@ class DeviceControlsViewModel(
 
     fun onChangeNumericInCG(deviceId: Int, groupId: Int, stateId: Int, fieldId: Int, value: Float) {
         viewModelScope.launch {
+            Log.i("changeState", "final1")
             deviceRepository.changeNumericFieldInComplexGroup(deviceId,
                 groupId,
                 stateId,

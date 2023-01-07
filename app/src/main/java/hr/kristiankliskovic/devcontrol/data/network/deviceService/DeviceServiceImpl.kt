@@ -1,5 +1,7 @@
 package hr.kristiankliskovic.devcontrol.data.network.deviceService
 
+import android.util.Log
+import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
 import hr.kristiankliskovic.devcontrol.data.network.model.*
 import io.ktor.client.*
@@ -204,9 +206,14 @@ class DeviceServiceImpl(
         groupId: Int,
         state: Int,
     ): Boolean {
+        Log.i("CGstate", "${HTTPSERVER.httpServer}$device_routerPath$changeComplexGroupStateValue_routerPath")
+        Log.i("CGState", Gson().toJson(ChangeComplexGroupState(authToken, deviceId, groupId, state)))
+
         val httpResponse =
             httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeComplexGroupStateValue_routerPath",
                 body = ChangeComplexGroupState(authToken, deviceId, groupId, state))
+        Log.i("CGstate", "sent_${httpResponse?.status?.value}")
+
         return (httpResponse != null && httpResponse.status.value in 200..299)
     }
 

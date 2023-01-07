@@ -1,5 +1,6 @@
 package hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -58,6 +59,7 @@ fun DeviceComplexGroup(
             readOnly = item.readOnly,
             currentState = item.currentState,
             changeState = {
+                Log.i("CGstate","$it")
                 changeComplexGroupState(it)
             },
             modifier = Modifier
