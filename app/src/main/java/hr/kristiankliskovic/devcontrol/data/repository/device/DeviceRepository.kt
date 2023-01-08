@@ -2,10 +2,12 @@ package hr.kristiankliskovic.devcontrol.data.repository.device
 
 import hr.kristiankliskovic.devcontrol.model.Device
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
+import java.util.concurrent.CopyOnWriteArrayList
 
 interface DeviceRepository {
 
-    val devices: Flow<List<Device>>
+    val devices: Flow<CopyOnWriteArrayList<Device>>
     fun getDevice(deviceId: Int): Flow<Device>
 
     suspend fun changeNumericField(

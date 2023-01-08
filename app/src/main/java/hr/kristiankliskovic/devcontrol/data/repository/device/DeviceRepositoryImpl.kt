@@ -1,15 +1,12 @@
 package hr.kristiankliskovic.devcontrol.data.repository.device
 
-import android.util.Log
-import androidx.core.util.rangeTo
 import hr.kristiankliskovic.devcontrol.data.network.deviceService.DeviceService
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
 import hr.kristiankliskovic.devcontrol.model.Device
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
+import java.util.concurrent.CopyOnWriteArrayList
 
 class DeviceRepositoryImpl(
     private val websocketService: WebSocketService,
@@ -18,9 +15,9 @@ class DeviceRepositoryImpl(
     private val bgDispatcher: CoroutineDispatcher,
 ) : DeviceRepository {
 
-    private var devicesInternal: MutableList<Device> = mutableListOf()
+    val devicesInternal: CopyOnWriteArrayList<Device> = CopyOnWriteArrayList()
 
-    override val devices: Flow<List<Device>> = flow {
+    override val devices: Flow<CopyOnWriteArrayList<Device>> = flow {
         websocketService.deviceMessages.collect { device ->
             if (device != null) {
                 for ((index, _) in devicesInternal.withIndex()) {
@@ -30,20 +27,22 @@ class DeviceRepositoryImpl(
                     }
                 }
                 devicesInternal.add(device)
+                devicesInternal.sortBy { it.deviceId }
                 emit(devicesInternal)
             } else {
-                Log.i("QdeviceData", "no device")
+//                Log.i("QdeviceData", "no device")
             }
         }
     }.flowOn(bgDispatcher)
 
+
     override fun getDevice(deviceId: Int): Flow<Device> = flow {
-        devices.collect {
-            Log.i("deviceData", "getDeviceFlow in devrepo")
-            for (device in it) {
-                Log.i("deviceData", "getDeviceFlow in devrepo__${device.deviceId}")
-            }
-            emit(devicesInternal.find { it.deviceId == deviceId }!!)
+        devices.collect { devs ->
+            //Log.i("deviceData", "getDeviceFlow in devrepo")
+//            for (device in it) {
+//                //Log.i("deviceData", "getDeviceFlow in devrepo__${device.deviceId}")
+//            }
+            devs.find { it.deviceId == deviceId }?.let { emit(it) }
         }
     }.flowOn(bgDispatcher)
 
@@ -216,7 +215,7 @@ class DeviceRepositoryImpl(
     }
 
     override suspend fun changeComplexGroupState(deviceId: Int, groupId: Int, state: Int): Boolean {
-        Log.i("changeState", "final2")
+        //Log.i("changeState", "final2")
         return deviceService.changeComplexGroupState(
             authTokenRepository.getAuthToken()!!,
             deviceId,
