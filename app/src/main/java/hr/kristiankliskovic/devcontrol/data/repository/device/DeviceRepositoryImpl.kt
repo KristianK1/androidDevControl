@@ -15,19 +15,24 @@ class DeviceRepositoryImpl(
     private val bgDispatcher: CoroutineDispatcher,
 ) : DeviceRepository {
 
-    val devicesInternal: CopyOnWriteArrayList<Device> = CopyOnWriteArrayList()
+    private var devicesInternal: CopyOnWriteArrayList<Device> = CopyOnWriteArrayList()
 
     override val devices: Flow<CopyOnWriteArrayList<Device>> = flow {
         websocketService.deviceMessages.collect { device ->
             if (device != null) {
-                for ((index, _) in devicesInternal.withIndex()) {
-                    if (devicesInternal[index].deviceId == device.deviceId) {
-                        devicesInternal.removeAt(index)
-                        break
-                    }
+                val deviceList = devicesInternal.toMutableList()
+                deviceList.removeIf { dev ->
+                    dev.deviceId == device.deviceId
                 }
-                devicesInternal.add(device)
-                devicesInternal.sortBy { it.deviceId }
+//                for ((index, _) in deviceList.withIndex()) {
+//                    if (deviceList[index].deviceId == device.deviceId) {
+//                        deviceList.removeAt(index)
+//                        break
+//                    }
+//                }
+                deviceList.add(device)
+                deviceList.sortBy { it.deviceId }
+                devicesInternal = CopyOnWriteArrayList(deviceList)
                 emit(devicesInternal)
             } else {
 //                Log.i("QdeviceData", "no device")
