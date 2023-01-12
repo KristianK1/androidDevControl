@@ -15,16 +15,6 @@ val SB_PC_LAN = Server(
     wsServer = "192.168.1.70"
 )
 
-val OS_PC_LAN = Server(
-    httpServer = "http://192.168.1.103:8000",
-    wsServer = "ws://192.168.1.103:8000"
-)
-
-val OS_PC_WiFi = Server(
-    httpServer = "http://192.168.1.104:8000",
-    wsServer = "ws://192.168.1.104:8000"
-)
-
 val renderHosting = Server(
     httpServer = "https://devcontrol-backend.onrender.com",
     wsServer = "devcontrol-backend.onrender.com"

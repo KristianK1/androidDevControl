@@ -1,8 +1,8 @@
 package hr.kristiankliskovic.devcontrol.mock
 
 import hr.kristiankliskovic.devcontrol.model.*
-import hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.AdminPanelHomeDeviceViewState
-import hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.AdminPanelHomeViewState
+import hr.kristiankliskovic.devcontrol.ui.adminPanelHome.AdminPanelHomeDeviceViewState
+import hr.kristiankliskovic.devcontrol.ui.adminPanelHome.AdminPanelHomeViewState
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.*
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupStateViewState
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroupViewState

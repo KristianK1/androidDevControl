@@ -1,11 +1,13 @@
-package hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.mapper
+package hr.kristiankliskovic.devcontrol.ui.adminPanelHome.mapper
 
+import android.util.Log
 import hr.kristiankliskovic.devcontrol.model.Device
-import hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.AdminPanelHomeDeviceViewState
-import hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.AdminPanelHomeViewState
+import hr.kristiankliskovic.devcontrol.ui.adminPanelHome.AdminPanelHomeDeviceViewState
+import hr.kristiankliskovic.devcontrol.ui.adminPanelHome.AdminPanelHomeViewState
 
 class AdminPanelHomeMapperImpl : AdminPanelHomeMapper {
-    override fun toAdminPanelHomeViewState(myUserId: Int,devices: List<Device>): AdminPanelHomeViewState {
+    override fun toAdminPanelHomeViewState(myUserId: Int?,devices: List<Device>): AdminPanelHomeViewState {
+        Log.i("mapper2", "${myUserId}_${devices.size}")
         return AdminPanelHomeViewState(
             devices = devices.filter{
                 myUserId == it.userAdminId

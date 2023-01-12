@@ -6,6 +6,7 @@ import hr.kristiankliskovic.devcontrol.data.di.deviceRepositoryModule
 import hr.kristiankliskovic.devcontrol.data.encrpytedPreferences.di.preferencesModule
 import hr.kristiankliskovic.devcontrol.data.network.networkModule
 import hr.kristiankliskovic.devcontrol.data.di.userRepositoryModule
+import hr.kristiankliskovic.devcontrol.ui.adminPanelHome.di.adminPanelHomeModule
 import hr.kristiankliskovic.devcontrol.ui.deviceControls.di.deviceControlsModule
 import hr.kristiankliskovic.devcontrol.ui.login.di.loginModule
 import hr.kristiankliskovic.devcontrol.ui.main.di.mainScreenModule
@@ -34,6 +35,7 @@ class DevControlApp: Application() {
                 changePasswordModule,
                 myDevicesModule,
                 deviceControlsModule,
+                adminPanelHomeModule,
             )
         }
     }

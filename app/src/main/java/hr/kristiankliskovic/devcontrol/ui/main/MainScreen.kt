@@ -25,7 +25,7 @@ import hr.kristiankliskovic.devcontrol.navigation.*
 import hr.kristiankliskovic.devcontrol.ui.addNewDevice.AddNewDeviceRoute
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDevice.AdminPanelDeviceRoute
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission.AddPermissionRoute
-import hr.kristiankliskovic.devcontrol.ui.adminPanelListOfDevices.AdminPanelHomeRoute
+import hr.kristiankliskovic.devcontrol.ui.adminPanelHome.AdminPanelHomeRoute
 import hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.ChangeDeviceAdminRoute
 import hr.kristiankliskovic.devcontrol.ui.deviceControls.DeviceControlsRoute
 import hr.kristiankliskovic.devcontrol.ui.login.LoginRoute
@@ -123,6 +123,7 @@ fun MainScreen() {
                 }
                 composable(ADMIN_PANEL_ROUTE) {
                     AdminPanelHomeRoute(
+                        viewModel = getViewModel(),
                         navigateToAdminPanelDevice = { route ->
                             navController.navigate(route)
                         },
