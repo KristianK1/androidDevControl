@@ -9,8 +9,9 @@ val changeDeviceAdminModule = module {
     single<ChangeDeviceAdminMapper> {
         ChangeDeviceAdminMapperImpl()
     }
-    viewModel {
+    viewModel { (deviceId: Int) ->
         ChangeDeviceAdminViewModel(
+            deviceId = deviceId,
             mapper = get(),
             userRepository = get(),
             deviceRepository = get(),

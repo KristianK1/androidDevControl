@@ -16,15 +16,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.navigation.ChangeDeviceAdminDestination
+import hr.kristiankliskovic.devcontrol.navigation.addPermissionDestination
+import hr.kristiankliskovic.devcontrol.navigation.seeAllPermissionsDestination
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOption
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 
 @Composable
 fun AdminPanelDeviceRoute(
     viewModel: AdminPanelDeviceViewModel,
-    navigateToChangeDeviceAdmin: () -> Unit,
-    navigateToSeeAllPermissions: () -> Unit,
-    navigateToAddNewPermission: () -> Unit,
+    navigateToChangeDeviceAdmin: (String) -> Unit,
+    navigateToSeeAllPermissions: (String) -> Unit,
+    navigateToAddNewPermission: (String) -> Unit,
 ) {
 
     val viewState = viewModel.state
@@ -35,7 +38,7 @@ fun AdminPanelDeviceRoute(
         navigateToSeeAllPermissions = navigateToSeeAllPermissions,
         navigateToAddNewPermission = navigateToAddNewPermission,
         deleteDevice = {
-
+            viewModel.deleteDevice()
         }
     )
 }
@@ -43,10 +46,10 @@ fun AdminPanelDeviceRoute(
 @Composable
 fun AdminPanelDeviceScreen(
     viewState: AdminPanelDeviceViewState,
-    navigateToChangeDeviceAdmin: () -> Unit,
-    navigateToSeeAllPermissions: () -> Unit,
+    navigateToChangeDeviceAdmin: (String) -> Unit,
+    navigateToSeeAllPermissions: (String) -> Unit,
     deleteDevice: () -> Unit,
-    navigateToAddNewPermission: () -> Unit,
+    navigateToAddNewPermission: (String) -> Unit,
 ) {
 
     Column(
@@ -55,17 +58,29 @@ fun AdminPanelDeviceScreen(
     ) {
         TextListOption(
             text = stringResource(id = R.string.adminPanelDevice_changeAdmin),
-            onClick = navigateToChangeDeviceAdmin
+            onClick = {
+                navigateToChangeDeviceAdmin(
+                    ChangeDeviceAdminDestination.createNavigationRoute(viewState.deviceId)
+                )
+            }
         )
         Line()
         TextListOption(
             text = stringResource(id = R.string.adminPanelDevice_seeAllPermissions),
-            onClick = navigateToSeeAllPermissions
+            onClick = {
+                navigateToSeeAllPermissions(
+                    seeAllPermissionsDestination.createNavigationRoute(viewState.deviceId)
+                )
+            }
         )
         Line()
         TextListOption(
             text = stringResource(id = R.string.adminPanelDevice_addPermission),
-            onClick = navigateToAddNewPermission
+            onClick = {
+                navigateToAddNewPermission(
+                    addPermissionDestination.createNavigationRoute(viewState.deviceId)
+                )
+            }
         )
         Line()
         TextListOption(

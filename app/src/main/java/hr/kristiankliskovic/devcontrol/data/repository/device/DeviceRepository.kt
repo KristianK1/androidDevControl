@@ -9,6 +9,11 @@ interface DeviceRepository {
     val devices: Flow<CopyOnWriteArrayList<Device>>
     fun getDevice(deviceId: Int): Flow<Device>
 
+    suspend fun addNewDevice(
+        deviceName: String,
+        deviceKey: String?,
+    ): Boolean
+
     suspend fun changeNumericField(
         deviceId: Int,
         groupId: Int,
@@ -99,19 +104,7 @@ interface DeviceRepository {
         adminId: Int,
     ): Boolean
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    suspend fun deleteDevice(deviceId: Int): Boolean
 
 
 }

@@ -20,10 +20,15 @@ import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineText
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 
 @Composable
-fun AddNewDeviceRoute() {
+fun AddNewDeviceRoute(
+    viewModel: AddNewDeviceViewModel,
+) {
     AddNewDevice(
-        addNewDevice = { _, _ ->
-
+        addNewDevice = { deviceName, deviceKey ->
+            viewModel.addNewDevice(
+                deviceName = deviceName,
+                deviceKey = deviceKey,
+            )
         }
     )
 }

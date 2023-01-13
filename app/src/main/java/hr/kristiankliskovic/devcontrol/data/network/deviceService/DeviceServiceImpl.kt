@@ -15,6 +15,8 @@ private const val changeFieldValue_routerPath = "/changeField/user"
 private const val changeFieldInComplexGroupValue_routerPath = "/fieldInComplexGroupState/user"
 private const val changeComplexGroupStateValue_routerPath = "/changeComplexGroupState/user"
 private const val changeDeviceAdmin_routerPath = "/changeAdmin"
+private const val addDevice_routerPath = "/addDevice"
+private const val deleteDevice_routerPath = "/deleteDevice"
 
 class DeviceServiceImpl(
     private val client: HttpClient,
@@ -221,6 +223,33 @@ class DeviceServiceImpl(
                 authToken = authToken,
                 deviceId = deviceId,
                 userAdminId = userId,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun addNewDevice(
+        authToken: String,
+        deviceName: String,
+        deviceKey: String?,
+    ): Boolean {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$device_routerPath$addDevice_routerPath",
+            body = AddNewDeviceRequest(
+                authToken = authToken,
+                deviceName = deviceName,
+                deviceKey = deviceKey,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun deleteDevice(authToken: String, deviceId: Int): Boolean {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$device_routerPath$deleteDevice_routerPath",
+            body = DeleteDeviceRequest(
+                authToken = authToken,
+                deviceId = deviceId,
             )
         )
         return (httpResponse != null && httpResponse.status.value in 200..299)

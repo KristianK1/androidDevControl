@@ -9,7 +9,21 @@ data class Device(
     val groups: List<DeviceGroup>,
     val complexGroups: List<DeviceComplexGroup>,
     val isActive: Boolean,
-)
+){
+    companion object{
+        fun getEmptyObject(): Device{
+            return Device(
+                deviceId = 0,
+                deviceKey = "",
+                userAdminId = 0,
+                deviceName = "",
+                groups = listOf(),
+                complexGroups = listOf(),
+                isActive = false,
+            )
+        }
+    }
+}
 
 data class DeviceGroup(
     val groupId: Int,

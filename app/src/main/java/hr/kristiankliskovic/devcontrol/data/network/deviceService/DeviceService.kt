@@ -105,4 +105,15 @@ interface DeviceService {
         deviceId: Int,
         userId: Int,
     ): Boolean
+
+    suspend fun addNewDevice(
+        authToken: String,
+        deviceName: String,
+        deviceKey: String?,
+    ): Boolean
+
+    suspend fun deleteDevice(
+        authToken: String,
+        deviceId: Int,
+    ): Boolean
 }

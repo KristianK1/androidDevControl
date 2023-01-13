@@ -50,6 +50,17 @@ class DeviceRepositoryImpl(
         }
     }.flowOn(bgDispatcher)
 
+    override suspend fun addNewDevice(
+        deviceName: String,
+        deviceKey: String?,
+    ): Boolean {
+        return deviceService.addNewDevice(
+            authToken = authTokenRepository.getAuthToken()!!,
+            deviceName = deviceName,
+            deviceKey = deviceKey,
+        )
+    }
+
     override suspend fun changeNumericField(
         deviceId: Int,
         groupId: Int,
@@ -232,6 +243,13 @@ class DeviceRepositoryImpl(
             authToken = authTokenRepository.getAuthToken()!!,
             deviceId = deviceId,
             userId = adminId
+        )
+    }
+
+    override suspend fun deleteDevice(deviceId: Int): Boolean {
+        return deviceService.deleteDevice(
+            authToken = authTokenRepository.getAuthToken()!!,
+            deviceId = deviceId,
         )
     }
 

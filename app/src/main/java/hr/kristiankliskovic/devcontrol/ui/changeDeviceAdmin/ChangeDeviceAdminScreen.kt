@@ -1,9 +1,11 @@
 package hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.mock.getMockUsers
@@ -37,7 +39,9 @@ fun ChangeDeviceAdminScreen(
             label = stringResource(id = R.string.addPermissionScreen_userSearchHint),
             onChange = {
                 searchValue = it
-            }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
         )
         LazyColumn {
             items(state.users.filter { it.username.contains(searchValue, true) }) { user ->

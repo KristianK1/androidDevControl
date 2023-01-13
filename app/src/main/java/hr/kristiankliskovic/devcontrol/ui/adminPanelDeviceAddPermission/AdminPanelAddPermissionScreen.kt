@@ -29,15 +29,13 @@ import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOpt
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 
 @Composable
-fun AddPermissionRoute() {
-    val state = AddPermissionMapperImpl().toAddPermissionViewState(
-        device = getDeviceMock(),
-        users = getMockUsers(),
-        myUserId = 2,
-    )
+fun AddPermissionRoute(
+    viewModel: AddPermissionViewModel,
+) {
+    val viewState by viewModel.viewState.collectAsState()
 
     AddPermissionScreen(
-        state = state,
+        state = viewState,
         { _, _ ->
 
         },
@@ -499,7 +497,6 @@ fun PreviewAddPermissionScreen() {
     val state = AddPermissionMapperImpl().toAddPermissionViewState(
         device = getDeviceMock(),
         users = getMockUsers(),
-        myUserId = 2,
     )
     AddPermissionScreen(
         state = state,

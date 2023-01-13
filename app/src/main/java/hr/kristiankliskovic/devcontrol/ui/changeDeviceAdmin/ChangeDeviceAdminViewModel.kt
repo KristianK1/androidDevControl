@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class ChangeDeviceAdminViewModel(
+    val deviceId: Int,
     mapper: ChangeDeviceAdminMapper,
     userRepository: UserRepository,
     val deviceRepository: DeviceRepository,
@@ -33,10 +34,10 @@ class ChangeDeviceAdminViewModel(
 
     fun changeDeviceAdmin(adminId: Int){
         viewModelScope.launch {
-//            deviceRepository.changeDeviceAdmin(
-//                deviceId = deviceRepository.adminPanelDeviceId!!,
-//                adminId = adminId,
-//            )
+            deviceRepository.changeDeviceAdmin(
+                deviceId = deviceId,
+                adminId = adminId,
+            )
         }
     }
 }

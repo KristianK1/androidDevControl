@@ -145,30 +145,68 @@ fun MainScreen() {
                                     ?: throw IllegalStateException("no deviceId sent")
                             )
                         },
-                        navigateToChangeDeviceAdmin = {
-                            navController.navigate(CHANGE_DEVICE_ADMIN_ROUTE)
+                        navigateToChangeDeviceAdmin = { route ->
+                            Log.i("navigationW", route)
+                            navController.navigate(route)
                         },
-                        navigateToAddNewPermission = {
-                            navController.navigate(ADD_PERMISSION_ROUTE)
+                        navigateToAddNewPermission = { route ->
+                            navController.navigate(route)
                         },
-                        navigateToSeeAllPermissions = {
-                            navController.navigate(SEE_ALL_PERMISSIONS_ROUTE)
+                        navigateToSeeAllPermissions = { route ->
+                            navController.navigate(route)
                         }
                     )
                 }
                 composable(ADD_NEW_DEVICE_ROUTE) {
-                    AddNewDeviceRoute()
-                }
-                composable(ADD_PERMISSION_ROUTE) {
-                    AddPermissionRoute()
-                }
-                composable(CHANGE_DEVICE_ADMIN_ROUTE) {
-                    ChangeDeviceAdminRoute(
+                    AddNewDeviceRoute(
                         viewModel = getViewModel()
                     )
                 }
-                composable(SEE_ALL_PERMISSIONS_ROUTE) {
-                    SeeAllPermissionsRoute()
+                composable(
+                    route = addPermissionDestination.route,
+                    arguments = listOf(navArgument(ADD_PERMISSION_ID_KEY) {
+                        type = NavType.IntType
+                    })
+                ) {
+                    AddPermissionRoute(
+                        viewModel = getViewModel {
+                            parametersOf(
+                                navBackStackEntry?.arguments?.getInt(ADD_PERMISSION_ID_KEY)
+                                    ?: throw IllegalStateException("no deviceId sent")
+                            )
+                        }
+                    )
+                }
+                composable(
+                    route = ChangeDeviceAdminDestination.route,
+                    arguments = listOf(navArgument(CHANGE_DEVICE_ADMIN_ID_KEY) {
+                        type = NavType.IntType
+                    })
+                ) {
+                    Log.i("navigationW", "HEREQQQ")
+                    ChangeDeviceAdminRoute(
+                        viewModel = getViewModel {
+                            parametersOf(
+                                navBackStackEntry?.arguments?.getInt(CHANGE_DEVICE_ADMIN_ID_KEY)
+                                    ?: throw IllegalStateException("no deviceId sent")
+                            )
+                        }
+                    )
+                }
+                composable(
+                    route = seeAllPermissionsDestination.route,
+                    arguments = listOf(navArgument(SEE_ALL_PERMISSIONS_ID_KEY) {
+                        type = NavType.IntType
+                    })
+                ) {
+                    SeeAllPermissionsRoute(
+                        viewModel = getViewModel{
+                            parametersOf(
+                                navBackStackEntry?.arguments?.getInt(SEE_ALL_PERMISSIONS_ID_KEY)
+                                    ?: throw IllegalStateException("no deviceId sent")
+                            )
+                        }
+                    )
                 }
                 composable(USER_PROFILE_ROUTE) {
                     UserProfileSettingsRoute(

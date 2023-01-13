@@ -119,3 +119,16 @@ data class ChangeDeviceAdminRequest(
     val deviceId: Int,
     val userAdminId: Int,
 )
+
+@Serializable
+data class AddNewDeviceRequest(
+    val authToken: String,
+    val deviceName: String,
+    val deviceKey: String?
+)
+
+@Serializable
+data class DeleteDeviceRequest(
+    val authToken: String,
+    val deviceId: Int
+)

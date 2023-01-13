@@ -6,6 +6,9 @@ import org.koin.dsl.module
 
 val adminPanelDeviceModule = module {
     viewModel { (deviceId: Int) ->
-        AdminPanelDeviceViewModel(deviceId = deviceId)
+        AdminPanelDeviceViewModel(
+            deviceId = deviceId,
+            deviceRepository = get()
+        )
     }
 }

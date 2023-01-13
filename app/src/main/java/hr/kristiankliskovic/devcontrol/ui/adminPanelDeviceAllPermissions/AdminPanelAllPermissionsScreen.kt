@@ -18,7 +18,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import hr.kristiankliskovic.devcontrol.R
 
 @Composable
-fun SeeAllPermissionsRoute(){
+fun SeeAllPermissionsRoute(
+    viewModel: SeeAllPermissionsViewModel,
+){
     val state = SeeAllPermissionsViewState(
         rights = listOf(),
         groupRights = listOf(),

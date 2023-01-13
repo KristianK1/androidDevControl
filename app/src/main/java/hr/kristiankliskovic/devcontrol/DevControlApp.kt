@@ -6,7 +6,10 @@ import hr.kristiankliskovic.devcontrol.data.di.deviceRepositoryModule
 import hr.kristiankliskovic.devcontrol.data.encrpytedPreferences.di.preferencesModule
 import hr.kristiankliskovic.devcontrol.data.network.networkModule
 import hr.kristiankliskovic.devcontrol.data.di.userRepositoryModule
+import hr.kristiankliskovic.devcontrol.ui.addNewDevice.di.addNewDeviceModule
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDevice.di.adminPanelDeviceModule
+import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission.di.addPermissionModule
+import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.di.seeAllPermissionsModule
 import hr.kristiankliskovic.devcontrol.ui.adminPanelHome.di.adminPanelHomeModule
 import hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.changeDeviceAdminModule
 import hr.kristiankliskovic.devcontrol.ui.deviceControls.di.deviceControlsModule
@@ -39,7 +42,10 @@ class DevControlApp: Application() {
                 deviceControlsModule,
                 adminPanelHomeModule,
                 changeDeviceAdminModule,
-                adminPanelDeviceModule
+                adminPanelDeviceModule,
+                addNewDeviceModule,
+                addPermissionModule,
+                seeAllPermissionsModule
             )
         }
     }
