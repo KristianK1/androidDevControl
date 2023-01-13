@@ -44,7 +44,6 @@ fun AdminPanelHomeScreen(
     navigateToAdminPanelDevice: (String) -> Unit,
     navigateToAddNewDevice: () -> Unit,
 ) {
-    val scrollState = rememberScrollState()
     Box(
         modifier = Modifier
             .fillMaxSize(),

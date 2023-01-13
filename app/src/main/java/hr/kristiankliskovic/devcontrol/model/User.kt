@@ -1,6 +1,6 @@
 package hr.kristiankliskovic.devcontrol.model
 
 data class User(
-    val userId: Int,
+    val id: Int,
     val username: String,
 )

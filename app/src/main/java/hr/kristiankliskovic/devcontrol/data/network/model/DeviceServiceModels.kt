@@ -55,7 +55,6 @@ data class RGBvalue(
 )
 
 
-
 @Serializable
 data class ChangeNumericFieldInCG(
     val authToken: String,
@@ -112,4 +111,11 @@ data class ChangeComplexGroupState(
     val deviceId: Int,
     val groupId: Int,
     val state: Int,
+)
+
+@Serializable
+data class ChangeDeviceAdminRequest(
+    val authToken: String,
+    val deviceId: Int,
+    val userAdminId: Int,
 )

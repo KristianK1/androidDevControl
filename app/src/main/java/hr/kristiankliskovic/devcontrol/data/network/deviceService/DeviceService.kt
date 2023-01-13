@@ -3,6 +3,7 @@ package hr.kristiankliskovic.devcontrol.data.network.deviceService
 import hr.kristiankliskovic.devcontrol.data.network.model.RGBvalue
 
 interface DeviceService {
+
     suspend fun changeNumericField(
         authToken: String,
         deviceId: Int,
@@ -97,5 +98,11 @@ interface DeviceService {
         deviceId: Int,
         groupId: Int,
         state: Int,
+    ): Boolean
+
+    suspend fun changeDeviceAdmin(
+        authToken: String,
+        deviceId: Int,
+        userId: Int,
     ): Boolean
 }

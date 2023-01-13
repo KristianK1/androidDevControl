@@ -7,12 +7,11 @@ import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.ChangeD
 class ChangeDeviceAdminMapperImpl: ChangeDeviceAdminMapper {
     override fun toChangeDeviceAdminViewState(
         users: List<User>,
-        myUserId: Int,
     ): ChangeDeviceAdminViewState {
         return ChangeDeviceAdminViewState(
-            users = users.filter { it.userId != myUserId }.map{ user ->
+            users = users.map{ user ->
                 ChangeDeviceAdminUserViewState(
-                    userId = user.userId,
+                    userId = user.id,
                     username = user.username,
                 )
             }

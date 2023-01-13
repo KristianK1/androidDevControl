@@ -139,6 +139,12 @@ fun MainScreen() {
                     })
                 ) {
                     AdminPanelDeviceRoute(
+                        viewModel = getViewModel {
+                            parametersOf(
+                                navBackStackEntry?.arguments?.getInt(ADMIN_PANEL_DEVICE_ID_KEY)
+                                    ?: throw IllegalStateException("no deviceId sent")
+                            )
+                        },
                         navigateToChangeDeviceAdmin = {
                             navController.navigate(CHANGE_DEVICE_ADMIN_ROUTE)
                         },
@@ -157,7 +163,9 @@ fun MainScreen() {
                     AddPermissionRoute()
                 }
                 composable(CHANGE_DEVICE_ADMIN_ROUTE) {
-                    ChangeDeviceAdminRoute()
+                    ChangeDeviceAdminRoute(
+                        viewModel = getViewModel()
+                    )
                 }
                 composable(SEE_ALL_PERMISSIONS_ROUTE) {
                     SeeAllPermissionsRoute()

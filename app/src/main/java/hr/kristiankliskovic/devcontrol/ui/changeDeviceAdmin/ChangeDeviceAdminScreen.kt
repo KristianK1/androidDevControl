@@ -13,14 +13,15 @@ import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineText
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOption
 
 @Composable
-fun ChangeDeviceAdminRoute() {
-    ChangeDeviceAdminScreen(
-        state = ChangeDeviceAdminMapperImpl().toChangeDeviceAdminViewState(
-            users = getMockUsers(),
-            myUserId = 0,
-        ),
-        selectNewAdmin = { _ ->
+fun ChangeDeviceAdminRoute(
+    viewModel: ChangeDeviceAdminViewModel,
+) {
+    val viewState by viewModel.viewState.collectAsState()
 
+    ChangeDeviceAdminScreen(
+        state = viewState,
+        selectNewAdmin = { userId ->
+            viewModel.changeDeviceAdmin(userId)
         }
     )
 }

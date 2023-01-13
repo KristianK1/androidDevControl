@@ -50,9 +50,9 @@ class AddPermissionMapperImpl : AddPermissionMapper {
                     )
                 }
             ),
-            users = users.filter{ it.userId != myUserId}.map{ user ->
+            users = users.filter{ it.id != myUserId}.map{ user ->
                 AddPermissionUserViewState(
-                    userId = user.userId,
+                    userId = user.id,
                     username = user.username,
                 )
             }

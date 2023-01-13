@@ -5,6 +5,7 @@ import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
 import hr.kristiankliskovic.devcontrol.data.network.model.*
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebsocketServiceImpl
+import hr.kristiankliskovic.devcontrol.model.User
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -21,6 +22,7 @@ private const val logout_routerPath = "/logout"
 private const val register_routerPath = "/register"
 private const val deleteUser_routerPath = "/delete"
 private const val changePassword_routerPath = "/changePassword"
+private const val getAllUsers_routerPath = "/getUsers"
 
 class UserServiceImpl(
     private val client: HttpClient,
@@ -74,6 +76,20 @@ class UserServiceImpl(
             )
         )
         return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun getOtherUsers(token: String): GetAllUsersResponse? {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userAuth_routerPath$getAllUsers_routerPath",
+            body = GetAllUsersRequest(
+                authToken = token,
+            )
+        )
+        return if (httpResponse != null && httpResponse.status.value in 200..299) {
+            httpResponse.body<GetAllUsersResponse>()
+        } else {
+            null
+        }
     }
 
     override suspend fun changePassword(

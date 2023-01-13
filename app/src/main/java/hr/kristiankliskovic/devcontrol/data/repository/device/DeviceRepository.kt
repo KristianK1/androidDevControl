@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.StateFlow
 import java.util.concurrent.CopyOnWriteArrayList
 
 interface DeviceRepository {
-
     val devices: Flow<CopyOnWriteArrayList<Device>>
     fun getDevice(deviceId: Int): Flow<Device>
 
@@ -95,7 +94,10 @@ interface DeviceRepository {
         state: Int,
     ): Boolean
 
-
+    suspend fun changeDeviceAdmin(
+        deviceId: Int,
+        adminId: Int,
+    ): Boolean
 
 
 

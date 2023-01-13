@@ -315,31 +315,31 @@ fun getAdminPanelHomeMock(): AdminPanelHomeViewState {
 fun getMockUsers(): List<User> {
     return listOf(
         User(
-            userId = 0,
+            id = 0,
             username = "Kristian"
         ),
         User(
-            userId = 1,
+            id = 1,
             username = "Sviki"
         ),
         User(
-            userId = 2,
+            id = 2,
             username = "Filip"
         ),
         User(
-            userId = 3,
+            id = 3,
             username = "Marija"
         ),
         User(
-            userId = 4,
+            id = 4,
             username = "Petar kjhgf"
         ),
         User(
-            userId = 5,
+            id = 5,
             username = "aeiuo"
         ),
         User(
-            userId = 6,
+            id = 6,
             username = "qaswed"
         ),
     )

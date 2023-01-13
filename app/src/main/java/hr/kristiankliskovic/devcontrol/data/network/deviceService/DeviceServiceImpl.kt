@@ -14,7 +14,7 @@ private const val device_routerPath = "/api/device"
 private const val changeFieldValue_routerPath = "/changeField/user"
 private const val changeFieldInComplexGroupValue_routerPath = "/fieldInComplexGroupState/user"
 private const val changeComplexGroupStateValue_routerPath = "/changeComplexGroupState/user"
-
+private const val changeDeviceAdmin_routerPath = "/changeAdmin"
 
 class DeviceServiceImpl(
     private val client: HttpClient,
@@ -206,9 +206,6 @@ class DeviceServiceImpl(
         groupId: Int,
         state: Int,
     ): Boolean {
-        Log.i("CGstate", "${HTTPSERVER.httpServer}$device_routerPath$changeComplexGroupStateValue_routerPath")
-        Log.i("CGState", Gson().toJson(ChangeComplexGroupState(authToken, deviceId, groupId, state)))
-
         val httpResponse =
             httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeComplexGroupStateValue_routerPath",
                 body = ChangeComplexGroupState(authToken, deviceId, groupId, state))
@@ -217,4 +214,15 @@ class DeviceServiceImpl(
         return (httpResponse != null && httpResponse.status.value in 200..299)
     }
 
+    override suspend fun changeDeviceAdmin(authToken: String, deviceId: Int, userId: Int): Boolean {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$device_routerPath$changeDeviceAdmin_routerPath",
+            body = ChangeDeviceAdminRequest(
+                authToken = authToken,
+                deviceId = deviceId,
+                userAdminId = userId,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
 }

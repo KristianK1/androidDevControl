@@ -16,7 +16,7 @@ class SeeAllPermissionsMapperImpl : SeeAllPermissionsMapper {
             rights = rights.deviceRights.map { userRightToDevice ->
                 UserRightViewState(
                     userId = userRightToDevice.userId,
-                    username = users.find { it.userId == userRightToDevice.userId }!!.username,
+                    username = users.find { it.id == userRightToDevice.userId }!!.username,
                     readOnly = userRightToDevice.readOnly,
                 )
             },

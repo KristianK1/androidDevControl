@@ -14,7 +14,6 @@ class DeviceRepositoryImpl(
     private val deviceService: DeviceService,
     private val bgDispatcher: CoroutineDispatcher,
 ) : DeviceRepository {
-
     private var devicesInternal: CopyOnWriteArrayList<Device> = CopyOnWriteArrayList()
 
     override val devices: Flow<CopyOnWriteArrayList<Device>> = flow {
@@ -220,7 +219,6 @@ class DeviceRepositoryImpl(
     }
 
     override suspend fun changeComplexGroupState(deviceId: Int, groupId: Int, state: Int): Boolean {
-        //Log.i("changeState", "final2")
         return deviceService.changeComplexGroupState(
             authTokenRepository.getAuthToken()!!,
             deviceId,
@@ -229,5 +227,12 @@ class DeviceRepositoryImpl(
         )
     }
 
+    override suspend fun changeDeviceAdmin(deviceId: Int, adminId: Int): Boolean {
+        return deviceService.changeDeviceAdmin(
+            authToken = authTokenRepository.getAuthToken()!!,
+            deviceId = deviceId,
+            userId = adminId
+        )
+    }
 
 }

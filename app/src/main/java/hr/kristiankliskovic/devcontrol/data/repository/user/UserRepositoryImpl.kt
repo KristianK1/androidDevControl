@@ -8,6 +8,7 @@ import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReason
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
 import hr.kristiankliskovic.devcontrol.model.LoggedInUser
+import hr.kristiankliskovic.devcontrol.model.User
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
@@ -28,6 +29,20 @@ class UserRepositoryImpl(
             removeUser()
         }
         it
+    }
+
+    override fun getOtherUsers(): Flow<List<User>> = flow {
+        Log.i("chAdmin", "new users - repo")
+        val response = userService.getOtherUsers(authTokenRepository.getAuthToken()!!)
+        if (response == null) {
+            emit(listOf())
+        } else
+            emit(response.users.map {
+                User(
+                    username = it.username,
+                    id = it.id,
+                )
+            })
     }
 
     override suspend fun connectToWS() {

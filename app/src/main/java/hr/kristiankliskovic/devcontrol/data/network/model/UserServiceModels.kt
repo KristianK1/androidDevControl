@@ -45,3 +45,19 @@ data class RegisterRequest(
     val username: String,
     val password: String,
 )
+
+@Serializable
+data class GetAllUsersRequest(
+    val authToken: String,
+)
+
+@Serializable
+data class GetAllUsersResponse(
+    val users: List<GetAllUsersResponseUser>,
+)
+
+@Serializable
+data class GetAllUsersResponseUser(
+    val id: Int,
+    val username: String,
+)

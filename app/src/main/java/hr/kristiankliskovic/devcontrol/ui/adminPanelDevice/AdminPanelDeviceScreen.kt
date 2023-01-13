@@ -21,11 +21,16 @@ import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 
 @Composable
 fun AdminPanelDeviceRoute(
+    viewModel: AdminPanelDeviceViewModel,
     navigateToChangeDeviceAdmin: () -> Unit,
     navigateToSeeAllPermissions: () -> Unit,
     navigateToAddNewPermission: () -> Unit,
 ) {
+
+    val viewState = viewModel.state
+
     AdminPanelDeviceScreen(
+        viewState,
         navigateToChangeDeviceAdmin = navigateToChangeDeviceAdmin,
         navigateToSeeAllPermissions = navigateToSeeAllPermissions,
         navigateToAddNewPermission = navigateToAddNewPermission,
@@ -37,6 +42,7 @@ fun AdminPanelDeviceRoute(
 
 @Composable
 fun AdminPanelDeviceScreen(
+    viewState: AdminPanelDeviceViewState,
     navigateToChangeDeviceAdmin: () -> Unit,
     navigateToSeeAllPermissions: () -> Unit,
     deleteDevice: () -> Unit,
