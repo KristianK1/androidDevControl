@@ -1,7 +1,6 @@
 package hr.kristiankliskovic.devcontrol.data.network.deviceService
 
 import android.util.Log
-import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
 import hr.kristiankliskovic.devcontrol.data.network.model.*
 import io.ktor.client.*
@@ -10,6 +9,7 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 
 private const val device_routerPath = "/api/device"
+private const val userPermission_routerPath = "/api/userRights"
 
 private const val changeFieldValue_routerPath = "/changeField/user"
 private const val changeFieldInComplexGroupValue_routerPath = "/fieldInComplexGroupState/user"
@@ -17,6 +17,16 @@ private const val changeComplexGroupStateValue_routerPath = "/changeComplexGroup
 private const val changeDeviceAdmin_routerPath = "/changeAdmin"
 private const val addDevice_routerPath = "/addDevice"
 private const val deleteDevice_routerPath = "/deleteDevice"
+
+private const val addDevicePermission_routerPath = "/addDeviceRight"
+private const val addGroupPermission_routerPath = "/addGroupRight"
+private const val addFieldPermission_routerPath = "/addFieldRight"
+private const val addComplexGroupPermission_routerPath = "/addComplexGroupRight"
+private const val deleteDevicePermission_routerPath = "/deleteDeviceRight"
+private const val deleteGroupPermission_routerPath = "/deleteGroupRight"
+private const val deleteFieldPermission_routerPath = "/deleteFieldRight"
+private const val deleteComplexGroupPermission_routerPath = "/deleteComplexGroupRight"
+
 
 class DeviceServiceImpl(
     private val client: HttpClient,
@@ -254,4 +264,162 @@ class DeviceServiceImpl(
         )
         return (httpResponse != null && httpResponse.status.value in 200..299)
     }
+
+    override suspend fun addUserPermissionToDevice(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        readOnly: Boolean,
+    ): Boolean {
+        Log.i("perms", "four")
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userPermission_routerPath$addDevicePermission_routerPath",
+            body = AddUserPermissionToDevice(
+                authToken = authToken,
+                userId = userId,
+                deviceId = deviceId,
+                readOnly = readOnly,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun addUserPermissionToGroup(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+        readOnly: Boolean,
+    ): Boolean {
+        Log.i("perms", "four")
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userPermission_routerPath$addGroupPermission_routerPath",
+            body = AddUserPermissionToGroup(
+                authToken = authToken,
+                userId = userId,
+                deviceId = deviceId,
+                groupId = groupId,
+                readOnly = readOnly,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun addUserPermissionToField(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+        readOnly: Boolean,
+    ): Boolean {
+        Log.i("perms", "four")
+        Log.i("perms", "${HTTPSERVER.httpServer}$userPermission_routerPath$addFieldPermission_routerPath")
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userPermission_routerPath$addFieldPermission_routerPath",
+            body = AddUserPermissionToField(
+                authToken = authToken,
+                userId = userId,
+                deviceId = deviceId,
+                groupId = groupId,
+                fieldId = fieldId,
+                readOnly = readOnly,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun addUserPermissionToComplexGroup(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        complexGroupId: Int,
+        readOnly: Boolean,
+    ): Boolean {
+        Log.i("perms", "four")
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userPermission_routerPath$addComplexGroupPermission_routerPath",
+            body = AddUserPermissionToComplexGroup(
+                authToken = authToken,
+                userId = userId,
+                deviceId = deviceId,
+                complexGroupId = complexGroupId,
+                readOnly = readOnly,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun deleteUserPermissionToDevice(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+    ): Boolean {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userPermission_routerPath$deleteDevicePermission_routerPath",
+            body = DeleteUserPermissionToDevice(
+                authToken = authToken,
+                userId = userId,
+                deviceId = deviceId,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun deleteUserPermissionToGroup(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+    ): Boolean {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userPermission_routerPath$deleteGroupPermission_routerPath",
+            body = DeleteUserPermissionToGroup(
+                authToken = authToken,
+                userId = userId,
+                deviceId = deviceId,
+                groupId = groupId
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun deleteUserPermissionToField(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+    ): Boolean {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userPermission_routerPath$deleteFieldPermission_routerPath",
+            body = DeleteUserPermissionToField(
+                authToken = authToken,
+                userId = userId,
+                deviceId = deviceId,
+                groupId = groupId,
+                fieldId = fieldId,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun deleteUserPermissionToComplexGroup(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        complexGroupId: Int,
+    ): Boolean {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userPermission_routerPath$deleteComplexGroupPermission_routerPath",
+            body = DeleteUserPermissionToComplexGroup(
+                authToken = authToken,
+                userId = userId,
+                deviceId = deviceId,
+                complexGroupId = complexGroupId,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
 }

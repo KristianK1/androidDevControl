@@ -6,6 +6,7 @@ import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission.*
 class AddPermissionMapperImpl : AddPermissionMapper {
     override fun toAddPermissionViewState(device: Device, users: List<User>): AddPermissionViewState{
         return AddPermissionViewState(
+            deviceId = device.deviceId,
             device = AddPermissionDeviceViewState(
                 groups = device.groups.map { group ->
                     AddPermissionGroupViewState(

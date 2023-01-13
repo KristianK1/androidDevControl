@@ -106,5 +106,55 @@ interface DeviceRepository {
 
     suspend fun deleteDevice(deviceId: Int): Boolean
 
+    suspend fun addUserPermissionToDevice(
+        userId: Int,
+        deviceId: Int,
+        readOnly: Boolean,
+    ): Boolean
 
+    suspend fun addUserPermissionToGroup(
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+        readOnly: Boolean,
+    ): Boolean
+
+    suspend fun addUserPermissionToField(
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+        readOnly: Boolean,
+    ): Boolean
+
+    suspend fun addUserPermissionToComplexGroup(
+        userId: Int,
+        deviceId: Int,
+        complexGroupId: Int,
+        readOnly: Boolean,
+    ): Boolean
+
+    suspend fun deleteUserPermissionToDevice(
+        userId: Int,
+        deviceId: Int,
+    ): Boolean
+
+    suspend fun deleteUserPermissionToGroup(
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+    ): Boolean
+
+    suspend fun deleteUserPermissionToField(
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+    ): Boolean
+
+    suspend fun deleteUserPermissionToComplexGroup(
+        userId: Int,
+        deviceId: Int,
+        complexGroupId: Int,
+    ): Boolean
 }

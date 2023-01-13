@@ -3,12 +3,14 @@ package hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission
 import hr.kristiankliskovic.devcontrol.model.Device
 
 data class AddPermissionViewState(
+    val deviceId: Int,
     val device: AddPermissionDeviceViewState,
     val users: List<AddPermissionUserViewState>,
 ){
     companion object{
         fun getEmptyObject(): AddPermissionViewState{
             return AddPermissionViewState(
+                deviceId = 0,
                 device = AddPermissionDeviceViewState.getEmptyObject(),
                 users = listOf(),
             )

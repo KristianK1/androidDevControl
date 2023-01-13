@@ -1,6 +1,7 @@
 package hr.kristiankliskovic.devcontrol.data.network.model
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
 
 @Serializable
 data class ChangeNumericField(
@@ -124,11 +125,81 @@ data class ChangeDeviceAdminRequest(
 data class AddNewDeviceRequest(
     val authToken: String,
     val deviceName: String,
-    val deviceKey: String?
+    val deviceKey: String?,
 )
 
 @Serializable
 data class DeleteDeviceRequest(
     val authToken: String,
-    val deviceId: Int
+    val deviceId: Int,
 )
+
+@Serializable
+data class AddUserPermissionToDevice(
+    val authToken: String,
+    val userId: Int,
+    val deviceId: Int,
+    val readOnly: Boolean,
+)
+
+@Serializable
+data class AddUserPermissionToGroup(
+    val authToken: String,
+    val userId: Int,
+    val deviceId: Int,
+    val groupId: Int,
+    val readOnly: Boolean,
+)
+
+@Serializable
+data class AddUserPermissionToField(
+    val authToken: String,
+    val userId: Int,
+    val deviceId: Int,
+    val groupId: Int,
+    val fieldId: Int,
+    val readOnly: Boolean,
+)
+
+@Serializable
+data class AddUserPermissionToComplexGroup(
+    val authToken: String,
+    val userId: Int,
+    val deviceId: Int,
+    val complexGroupId: Int,
+    val readOnly: Boolean,
+)
+
+
+@Serializable
+data class DeleteUserPermissionToDevice(
+    val authToken: String,
+    val userId: Int,
+    val deviceId: Int,
+)
+
+@Serializable
+data class DeleteUserPermissionToGroup(
+    val authToken: String,
+    val userId: Int,
+    val deviceId: Int,
+    val groupId: Int,
+)
+
+@Serializable
+data class DeleteUserPermissionToField(
+    val authToken: String,
+    val userId: Int,
+    val deviceId: Int,
+    val groupId: Int,
+    val fieldId: Int,
+)
+
+@Serializable
+data class DeleteUserPermissionToComplexGroup(
+    val authToken: String,
+    val userId: Int,
+    val deviceId: Int,
+    val complexGroupId: Int,
+)
+

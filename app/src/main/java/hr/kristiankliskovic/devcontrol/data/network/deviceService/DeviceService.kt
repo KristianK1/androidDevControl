@@ -1,7 +1,5 @@
 package hr.kristiankliskovic.devcontrol.data.network.deviceService
 
-import hr.kristiankliskovic.devcontrol.data.network.model.RGBvalue
-
 interface DeviceService {
 
     suspend fun changeNumericField(
@@ -115,5 +113,65 @@ interface DeviceService {
     suspend fun deleteDevice(
         authToken: String,
         deviceId: Int,
+    ): Boolean
+
+    suspend fun addUserPermissionToDevice(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        readOnly: Boolean,
+    ): Boolean
+
+    suspend fun addUserPermissionToGroup(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+        readOnly: Boolean,
+    ): Boolean
+
+    suspend fun addUserPermissionToField(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+        readOnly: Boolean,
+    ): Boolean
+
+    suspend fun addUserPermissionToComplexGroup(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        complexGroupId: Int,
+        readOnly: Boolean,
+    ): Boolean
+
+    suspend fun deleteUserPermissionToDevice(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+    ): Boolean
+
+    suspend fun deleteUserPermissionToGroup(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+    ): Boolean
+
+    suspend fun deleteUserPermissionToField(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+    ): Boolean
+
+    suspend fun deleteUserPermissionToComplexGroup(
+        authToken: String,
+        userId: Int,
+        deviceId: Int,
+        complexGroupId: Int,
     ): Boolean
 }

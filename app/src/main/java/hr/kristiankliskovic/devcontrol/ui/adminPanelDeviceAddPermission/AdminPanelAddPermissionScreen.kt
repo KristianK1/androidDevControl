@@ -1,5 +1,6 @@
 package hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -33,20 +34,23 @@ fun AddPermissionRoute(
     viewModel: AddPermissionViewModel,
 ) {
     val viewState by viewModel.viewState.collectAsState()
-
     AddPermissionScreen(
         state = viewState,
-        { _, _ ->
-
+        { userId, readOnly ->
+            Log.i("perms", "one")
+            viewModel.addUserPermissionToDevice(userId, viewState.deviceId, readOnly)
         },
-        { _, _, _ ->
-
+        { userId, groupId, readOnly ->
+            Log.i("perms", "one")
+            viewModel.addUserPermissionToGroup(userId, viewState.deviceId, groupId, readOnly)
         },
-        { _, _, _, _ ->
-
+        { userId, groupId, fieldId, readOnly ->
+            Log.i("perms", "one")
+            viewModel.addUserPermissionToField(userId, viewState.deviceId, groupId, fieldId, readOnly)
         },
-        { _, _, _ ->
-
+        { userId, complexGroupId, readOnly ->
+            Log.i("perms", "one")
+            viewModel.addUserPermissionToComplexGroup(userId, viewState.deviceId, complexGroupId, readOnly)
         },
     )
 }
@@ -457,7 +461,7 @@ fun ReadWriteSelector(
         Row(
             modifier = Modifier
                 .clickable {
-                    changeReadWriteState(false)
+                    changeReadWriteState(true)
                 },
             horizontalArrangement = Arrangement.SpaceAround
         ) {
@@ -474,7 +478,7 @@ fun ReadWriteSelector(
         Row(
             modifier = Modifier
                 .clickable {
-                    changeReadWriteState(true)
+                    changeReadWriteState(false)
                 },
             horizontalArrangement = Arrangement.SpaceAround
         ) {

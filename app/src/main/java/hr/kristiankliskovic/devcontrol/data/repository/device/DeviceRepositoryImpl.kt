@@ -1,5 +1,6 @@
 package hr.kristiankliskovic.devcontrol.data.repository.device
 
+import android.util.Log
 import hr.kristiankliskovic.devcontrol.data.network.deviceService.DeviceService
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
@@ -250,6 +251,119 @@ class DeviceRepositoryImpl(
         return deviceService.deleteDevice(
             authToken = authTokenRepository.getAuthToken()!!,
             deviceId = deviceId,
+        )
+    }
+
+    override suspend fun addUserPermissionToDevice(
+        userId: Int,
+        deviceId: Int,
+        readOnly: Boolean,
+    ): Boolean {
+        Log.i("perms", "three")
+        return deviceService.addUserPermissionToDevice(
+            authToken = authTokenRepository.getAuthToken()!!,
+            userId = userId,
+            deviceId = deviceId,
+            readOnly = readOnly
+        )
+    }
+
+    override suspend fun addUserPermissionToGroup(
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+        readOnly: Boolean,
+    ): Boolean {
+        Log.i("perms", "three")
+        return deviceService.addUserPermissionToGroup(
+            authToken = authTokenRepository.getAuthToken()!!,
+            userId = userId,
+            deviceId = deviceId,
+            groupId = groupId,
+            readOnly = readOnly
+        )
+    }
+
+    override suspend fun addUserPermissionToField(
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+        readOnly: Boolean,
+    ): Boolean {
+        Log.i("perms", "three")
+        return deviceService.addUserPermissionToField(
+            authToken = authTokenRepository.getAuthToken()!!,
+            userId = userId,
+            deviceId = deviceId,
+            groupId = groupId,
+            fieldId = fieldId,
+            readOnly = readOnly
+        )
+    }
+
+    override suspend fun addUserPermissionToComplexGroup(
+        userId: Int,
+        deviceId: Int,
+        complexGroupId: Int,
+        readOnly: Boolean,
+    ): Boolean {
+        Log.i("perms", "three")
+        return deviceService.addUserPermissionToComplexGroup(
+            authToken = authTokenRepository.getAuthToken()!!,
+            userId = userId,
+            deviceId = deviceId,
+            complexGroupId = complexGroupId,
+            readOnly = readOnly
+        )
+    }
+
+    override suspend fun deleteUserPermissionToDevice(userId: Int, deviceId: Int): Boolean {
+        return deviceService.deleteUserPermissionToDevice(
+            authToken = authTokenRepository.getAuthToken()!!,
+            userId = userId,
+            deviceId = deviceId,
+        )
+    }
+
+    override suspend fun deleteUserPermissionToGroup(
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+    ): Boolean {
+        return deviceService.deleteUserPermissionToGroup(
+            authToken = authTokenRepository.getAuthToken()!!,
+            userId = userId,
+            deviceId = deviceId,
+            groupId = groupId,
+        )
+    }
+
+    override suspend fun deleteUserPermissionToField(
+        userId: Int,
+        deviceId: Int,
+        groupId: Int,
+        fieldId: Int,
+    ): Boolean {
+        return deviceService.deleteUserPermissionToField(
+            authToken = authTokenRepository.getAuthToken()!!,
+            userId = userId,
+            deviceId = deviceId,
+            groupId = groupId,
+            fieldId = fieldId,
+        )
+    }
+
+    override suspend fun deleteUserPermissionToComplexGroup(
+        userId: Int,
+        deviceId: Int,
+        complexGroupId: Int,
+    ): Boolean {
+        return deviceService.deleteUserPermissionToComplexGroup(
+            authToken = authTokenRepository.getAuthToken()!!,
+            userId = userId,
+            deviceId = deviceId,
+            complexGroupId = complexGroupId,
         )
     }
 
