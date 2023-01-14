@@ -17,6 +17,7 @@ class SeeAllPermissionsViewModel(
     private val mapper: SeeAllPermissionsMapper,
 ) : ViewModel() {
     init {
+        deviceRepository.clearAllPermissionsResponse()
         viewModelScope.launch {
             deviceRepository.getUserPermissionsForDevice(deviceId)
         }

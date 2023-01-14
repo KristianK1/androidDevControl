@@ -162,4 +162,5 @@ interface DeviceRepository {
 
     val allPermissionsForDeviceResponse: StateFlow<UserPermissionsForDeviceResponse?>
     suspend fun getUserPermissionsForDevice(deviceId: Int)
+    fun clearAllPermissionsResponse()
 }

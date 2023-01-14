@@ -372,4 +372,9 @@ class DeviceRepositoryImpl(
         )
         allPermissionsForDeviceResponseInternal.emit(response)
     }
+
+    override fun clearAllPermissionsResponse() {
+        allPermissionsForDeviceResponseInternal.value = null
+    }
+
 }
