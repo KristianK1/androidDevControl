@@ -269,22 +269,22 @@ fun AddPermissionScreen(
                 .clickable {
                     if (userSelected != null) {
                         if (permissionCategorySelected == PermissionCategory.DEVICE) {
-                            addDevicePermission(userSelected!!.userId, permissionIsWrite)
+                            addDevicePermission(userSelected!!.userId, !permissionIsWrite)
                         }
                         if (permissionCategorySelected == PermissionCategory.GROUP && groupSelected != null) {
                             addGroupPermission(userSelected!!.userId,
                                 groupSelected!!.groupId,
-                                permissionIsWrite)
+                                !permissionIsWrite)
                         } else if (permissionCategorySelected == PermissionCategory.FIELD && fieldSelected != null) {
                             addFieldPermission(
                                 userSelected!!.userId,
                                 groupSelected!!.groupId,
                                 fieldSelected!!.fieldId,
-                                permissionIsWrite)
+                                !permissionIsWrite)
                         } else if (permissionCategorySelected == PermissionCategory.COMPLEX_GROUP && complexGroupSelected != null) {
                             addComplexGroupPermission(userSelected!!.userId,
                                 complexGroupSelected!!.complexGroupId,
-                                permissionIsWrite)
+                                !permissionIsWrite)
                         } else {
                             //TOAST
                         }
@@ -461,7 +461,7 @@ fun ReadWriteSelector(
         Row(
             modifier = Modifier
                 .clickable {
-                    changeReadWriteState(true)
+                    changeReadWriteState(false)
                 },
             horizontalArrangement = Arrangement.SpaceAround
         ) {
@@ -478,7 +478,7 @@ fun ReadWriteSelector(
         Row(
             modifier = Modifier
                 .clickable {
-                    changeReadWriteState(false)
+                    changeReadWriteState(true)
                 },
             horizontalArrangement = Arrangement.SpaceAround
         ) {
