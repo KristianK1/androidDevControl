@@ -1,32 +1,46 @@
 package hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions
 
 data class SeeAllPermissionsViewState(
-    val rights: List<UserRightViewState>,
-    val groupRights: List<UserRightToGroupViewState>,
-    val complexGroupRights: List<UserRightToComplexGroupViewState>
-)
+    val deviceId: Int,
+    val deviceName: String,
+    val permissions: List<UserPermissionViewState>,
+    val groupPermissions: List<UserPermissionToGroupViewState>,
+    val complexGroupPermissions: List<UserPermissionToComplexGroupViewState>,
+){
+    companion object{
+        fun getEmptyObject(): SeeAllPermissionsViewState =
+            SeeAllPermissionsViewState(
+                deviceId = 0,
+                deviceName = "",
+                permissions = listOf(),
+                groupPermissions = listOf(),
+                complexGroupPermissions = listOf(),
+            )
+    }
+}
 
-data class UserRightToGroupViewState(
+data class UserPermissionToGroupViewState(
     val groupId: Int,
     val groupName: String,
-    val rights: List<UserRightViewState>,
-    val fieldRights: List<UserRightToFieldViewState>
+    val permissions: List<UserPermissionViewState>,
+    val fields: List<UserPermissionToFieldViewState>,
 )
 
-data class UserRightToFieldViewState(
+data class UserPermissionToFieldViewState(
     val fieldId: Int,
     val fieldName: String,
-    val rights: List<UserRightViewState>
+    val fieldType: String,
+    val permissions: List<UserPermissionViewState>,
 )
 
-data class UserRightToComplexGroupViewState(
+data class UserPermissionToComplexGroupViewState(
     val complexGroupId: Int,
     val complexGroupName: String,
-    val rights: List<UserRightViewState>
+    val permissions: List<UserPermissionViewState>,
 )
 
-data class UserRightViewState(
+data class UserPermissionViewState(
     val userId: Int,
     val username: String,
-    val readOnly: Boolean
+    val readOnly: Boolean,
 )

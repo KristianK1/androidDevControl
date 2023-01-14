@@ -9,6 +9,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -21,16 +23,13 @@ import hr.kristiankliskovic.devcontrol.R
 fun SeeAllPermissionsRoute(
     viewModel: SeeAllPermissionsViewModel,
 ){
-    val state = SeeAllPermissionsViewState(
-        rights = listOf(),
-        groupRights = listOf(),
-        complexGroupRights = listOf()
-    )
+    val viewState by viewModel.viewState.collectAsState()
+    SeeAllPermissionsScreen(viewState = viewState)
 }
 
 @Composable
 fun SeeAllPermissionsScreen(
-    state: SeeAllPermissionsViewState,
+    viewState: SeeAllPermissionsViewState,
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -42,7 +41,7 @@ fun SeeAllPermissionsScreen(
         Text(
             text = stringResource(id = R.string.seeAllPermissions_devicePermissions_title)
         )
-        for (devRight in state.rights) {
+        for (devRight in viewState.permissions) {
             UserRightLabel(
                 username = devRight.username,
                 isWrite = !devRight.readOnly,
@@ -54,7 +53,7 @@ fun SeeAllPermissionsScreen(
         Text(
             text = stringResource(id = R.string.seeAllPermissions_groupPermissions_title)
         )
-        for(group in state.groupRights) {
+        for(group in viewState.groupPermissions) {
             Column(
                 modifier = Modifier
                     .border(
@@ -62,7 +61,7 @@ fun SeeAllPermissionsScreen(
                         width = dimensionResource(id = R.dimen.seeAllPermissionScreen_rights_borders)
                     )
             ) {
-                for(groupRight in group.rights)
+                for(groupRight in group.permissions)
                 UserRightLabel(
                     username = groupRight.username,
                     isWrite = !groupRight.readOnly,
@@ -73,7 +72,7 @@ fun SeeAllPermissionsScreen(
                 Text(
                     text = stringResource(id = R.string.seeAllPermissions_fieldPermissions_title)
                 )
-                for(field in group.fieldRights){
+                for(field in group.fields){
                     Column(
                         modifier = Modifier
                             .border(
@@ -81,7 +80,7 @@ fun SeeAllPermissionsScreen(
                                 width = dimensionResource(id = R.dimen.seeAllPermissionScreen_rights_borders)
                             )
                     ) {
-                        for(fieldRight in field.rights)
+                        for(fieldRight in field.permissions)
                         UserRightLabel(
                             username = fieldRight.username,
                             isWrite = !fieldRight.readOnly,

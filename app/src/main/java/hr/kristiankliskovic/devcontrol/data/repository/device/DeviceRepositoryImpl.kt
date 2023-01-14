@@ -2,9 +2,11 @@ package hr.kristiankliskovic.devcontrol.data.repository.device
 
 import android.util.Log
 import hr.kristiankliskovic.devcontrol.data.network.deviceService.DeviceService
+import hr.kristiankliskovic.devcontrol.data.network.model.UserPermissionsForDeviceResponse
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
 import hr.kristiankliskovic.devcontrol.model.Device
+import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsViewState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import java.util.concurrent.CopyOnWriteArrayList
@@ -367,4 +369,19 @@ class DeviceRepositoryImpl(
         )
     }
 
+    override fun getUserPermissionsForDevice(deviceId: Int): Flow<UserPermissionsForDeviceResponse?> =
+        flow {
+            val response = deviceService.getUserPermissionsForDevice(
+                authToken = authTokenRepository.getAuthToken()!!,
+                deviceId = deviceId,
+            )
+            emit(response)
+        }
+
 }
+
+
+//return deviceService.getUserPermissionsForDevice(
+//authToken = authTokenRepository.getAuthToken()!!,
+//deviceId = deviceId,
+//)

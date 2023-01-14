@@ -426,7 +426,7 @@ class DeviceServiceImpl(
 
     override suspend fun getUserPermissionsForDevice(authToken: String, deviceId: Int): UserPermissionsForDeviceResponse? {
         val httpResponse = httpPostRequest(
-            url = "${HTTPSERVER.httpServer}$userPermission_routerPath$userPermission_routerPath",
+            url = "${HTTPSERVER.httpServer}$userPermission_routerPath$getUserPermissions_routerPath",
             body = UserPermissionsForDeviceRequest(
                 authToken = authToken,
                 deviceId = deviceId,

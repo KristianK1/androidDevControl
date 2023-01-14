@@ -220,14 +220,15 @@ data class UserPermissionsForDeviceResponse(
 data class UserPermissionsForDeviceResponseGroup (
     val userPermissions: List<UserPermissionResponse>,
     val groupId: Int,
-//    val groupName: String,
+    val groupName: String,
     val fields: List<UserPermissionsForDeviceResponseField>
 )
 
 @Serializable
 data class UserPermissionsForDeviceResponseField (
     val fieldId: Int,
-//    val fieldName: String,
+    val fieldName: String,
+    val fieldType: String,
     val userPermissions:List<UserPermissionResponse>
 )
 
@@ -235,7 +236,7 @@ data class UserPermissionsForDeviceResponseField (
 data class UserPermissionsForDeviceResponseComplexGroup(
     val userPermissions: List<UserPermissionResponse>,
     val complexGroupId: Int,
-//    val complexGroupName: String
+    val complexGroupName: String
 )
 
 @Serializable

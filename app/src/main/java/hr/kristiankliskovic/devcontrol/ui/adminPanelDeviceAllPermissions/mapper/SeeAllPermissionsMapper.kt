@@ -1,5 +1,6 @@
 package hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.mapper
 
+import hr.kristiankliskovic.devcontrol.data.network.model.UserPermissionsForDeviceResponse
 import hr.kristiankliskovic.devcontrol.model.AllUserRightsToDevice
 import hr.kristiankliskovic.devcontrol.model.Device
 import hr.kristiankliskovic.devcontrol.model.User
@@ -8,7 +9,6 @@ import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllP
 interface SeeAllPermissionsMapper {
     fun toSeeAllPermissionViewState(
         device: Device,
-        rights: AllUserRightsToDevice,
-        users: List<User>,
+        permissions: UserPermissionsForDeviceResponse?,
     ): SeeAllPermissionsViewState
 }
