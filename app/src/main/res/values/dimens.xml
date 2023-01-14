@@ -72,6 +72,7 @@
     <dimen name="addPermissionScreen_readWrite_radioButtons_margin">20.dp</dimen>
 
     <dimen name="seeAllPermissionScreen_rights_borders">2.dp</dimen>
+    <dimen name="seeAllPermissionScreen_userPermission_border">1.dp</dimen>
 
     <dimen name="adminPanelDevice_dividerLine_height">2.dp</dimen>
     <dimen name="adminPanelDevice_confirmDialog_padding">25.dp</dimen>
@@ -92,5 +93,6 @@
     <dimen name="seeAllPermissionScreen_userPermissionComponent_padding">4.dp</dimen>
     <dimen name="seeAllPermissionScreen_padding_for_border">2.dp</dimen>
     <dimen name="seeAllPermissionScreen_padding_between_boxes">5.dp</dimen>
+    <dimen name="seeAllPermissionScreen_padding_between_userPermissions">1.dp</dimen>
 
 </resources>
