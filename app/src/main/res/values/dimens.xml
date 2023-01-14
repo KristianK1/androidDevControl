@@ -89,4 +89,8 @@
     <dimen name="rgbFieldOutputComponent_height">100.dp</dimen>
     <dimen name="numericFieldInputComponent_height">130.dp</dimen>
 
+    <dimen name="seeAllPermissionScreen_userPermissionComponent_padding">4.dp</dimen>
+    <dimen name="seeAllPermissionScreen_padding_for_border">2.dp</dimen>
+    <dimen name="seeAllPermissionScreen_padding_between_boxes">5.dp</dimen>
+
 </resources>

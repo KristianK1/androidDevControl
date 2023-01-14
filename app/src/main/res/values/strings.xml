@@ -86,6 +86,17 @@
     <string name="adminPanelDevice_deleteDeviceConfirm">Delete</string>
     <string name="adminPanelDevice_deleteDeviceCancel">Cancel</string>
 
+    <string name="seeAllPermissionsScreen_fieldPermission_deviceName_title">Device name:</string>
+    <string name="seeAllPermissionsScreen_fieldPermission_groupName_title">Group name:</string>
+    <string name="seeAllPermissionsScreen_fieldPermission_fieldName_title">Field name:</string>
+    <string name="seeAllPermissionsScreen_fieldPermission_complexGroupName_title">Complex group name:</string>
+
+    <string name="seeAllPermissionsScreen_permission_username_title">Username:</string>
+    <string name="seeAllPermissionsScreen_permission_permissionType_title">Type:</string>
+    <string name="seeAllPermissionsScreen_noPermission_device">There are no specific permissions to the full device</string>
+    <string name="seeAllPermissionsScreen_noPermission_group">There are no specific permissions to this full group</string>
+    <string name="seeAllPermissionsScreen_noPermission_field">There are no specific permission to this field</string>
+    <string name="seeAllPermissionsScreen_noPermission_complexGroup">There are no specific permissions to this complex group</string>
 
 
 </resources>
