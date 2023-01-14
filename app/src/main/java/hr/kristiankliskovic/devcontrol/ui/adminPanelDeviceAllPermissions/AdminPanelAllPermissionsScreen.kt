@@ -31,17 +31,32 @@ fun SeeAllPermissionsRoute(
     SeeAllPermissionsScreen(
         viewState = viewState,
         deleteDevicePermission = { deviceId: Int, userId: Int ->
-
+            viewModel.deleteUserPermissionToDevice(
+                userId = userId,
+                deviceId = deviceId,
+            )
         },
         deleteGroupPermission = { deviceId: Int, groupId: Int, userId: Int ->
-
+            viewModel.deleteUserPermissionToGroup(
+                userId = userId,
+                deviceId = deviceId,
+                groupId = groupId,
+            )
         },
-
         deleteFieldPermission = { deviceId: Int, groupId: Int, fieldId: Int, userId: Int ->
-
+            viewModel.deleteUserPermissionToField(
+                userId = userId,
+                deviceId = deviceId,
+                groupId = groupId,
+                fieldId = fieldId,
+            )
         },
         deleteComplexGroupPermission = { deviceId: Int, complexGroupId: Int, userId: Int ->
-
+            viewModel.deleteUserPermissionToComplexGroup(
+                userId = userId,
+                deviceId = deviceId,
+                complexGroupId = complexGroupId,
+            )
         },
     )
 }

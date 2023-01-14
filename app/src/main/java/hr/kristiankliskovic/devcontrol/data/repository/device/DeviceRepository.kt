@@ -160,5 +160,6 @@ interface DeviceRepository {
         complexGroupId: Int,
     ): Boolean
 
-    fun getUserPermissionsForDevice(deviceId: Int): Flow<UserPermissionsForDeviceResponse?>
+    val allPermissionsForDeviceResponse: StateFlow<UserPermissionsForDeviceResponse?>
+    suspend fun getUserPermissionsForDevice(deviceId: Int)
 }

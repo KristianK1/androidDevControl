@@ -26,12 +26,6 @@ class DeviceRepositoryImpl(
                 deviceList.removeIf { dev ->
                     dev.deviceId == device.deviceId
                 }
-//                for ((index, _) in deviceList.withIndex()) {
-//                    if (deviceList[index].deviceId == device.deviceId) {
-//                        deviceList.removeAt(index)
-//                        break
-//                    }
-//                }
                 deviceList.add(device)
                 deviceList.sortBy { it.deviceId }
                 devicesInternal = CopyOnWriteArrayList(deviceList)
@@ -45,10 +39,6 @@ class DeviceRepositoryImpl(
 
     override fun getDevice(deviceId: Int): Flow<Device> = flow {
         devices.collect { devs ->
-            //Log.i("deviceData", "getDeviceFlow in devrepo")
-//            for (device in it) {
-//                //Log.i("deviceData", "getDeviceFlow in devrepo__${device.deviceId}")
-//            }
             devs.find { it.deviceId == deviceId }?.let { emit(it) }
         }
     }.flowOn(bgDispatcher)
@@ -369,19 +359,17 @@ class DeviceRepositoryImpl(
         )
     }
 
-    override fun getUserPermissionsForDevice(deviceId: Int): Flow<UserPermissionsForDeviceResponse?> =
-        flow {
-            val response = deviceService.getUserPermissionsForDevice(
-                authToken = authTokenRepository.getAuthToken()!!,
-                deviceId = deviceId,
-            )
-            emit(response)
-        }
 
+    private val allPermissionsForDeviceResponseInternal: MutableStateFlow<UserPermissionsForDeviceResponse?> =
+        MutableStateFlow(null);
+    override val allPermissionsForDeviceResponse: StateFlow<UserPermissionsForDeviceResponse?> =
+        allPermissionsForDeviceResponseInternal.asStateFlow()
+
+    override suspend fun getUserPermissionsForDevice(deviceId: Int) {
+        val response = deviceService.getUserPermissionsForDevice(
+            authToken = authTokenRepository.getAuthToken()!!,
+            deviceId = deviceId,
+        )
+        allPermissionsForDeviceResponseInternal.emit(response)
+    }
 }
-
-
-//return deviceService.getUserPermissionsForDevice(
-//authToken = authTokenRepository.getAuthToken()!!,
-//deviceId = deviceId,
-//)
