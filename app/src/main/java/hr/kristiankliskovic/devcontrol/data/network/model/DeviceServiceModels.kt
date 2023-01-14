@@ -203,3 +203,44 @@ data class DeleteUserPermissionToComplexGroup(
     val complexGroupId: Int,
 )
 
+@Serializable
+data class UserPermissionsForDeviceRequest(
+    val authToken: String,
+    val deviceId: Int,
+)
+
+@Serializable
+data class UserPermissionsForDeviceResponse(
+    val userPermissions: List<UserPermissionResponse>,
+    val groups: List<UserPermissionsForDeviceResponseGroup>,
+    val complexGroups: List<UserPermissionsForDeviceResponseComplexGroup>,
+)
+
+@Serializable
+data class UserPermissionsForDeviceResponseGroup (
+    val userPermissions: List<UserPermissionResponse>,
+    val groupId: Int,
+//    val groupName: String,
+    val fields: List<UserPermissionsForDeviceResponseField>
+)
+
+@Serializable
+data class UserPermissionsForDeviceResponseField (
+    val fieldId: Int,
+//    val fieldName: String,
+    val userPermissions:List<UserPermissionResponse>
+)
+
+@Serializable
+data class UserPermissionsForDeviceResponseComplexGroup(
+    val userPermissions: List<UserPermissionResponse>,
+    val complexGroupId: Int,
+//    val complexGroupName: String
+)
+
+@Serializable
+data class UserPermissionResponse (
+    val userId: Int,
+    val username: String,
+    val readOnly: Boolean,
+)

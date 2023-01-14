@@ -4,6 +4,7 @@ import android.util.Log
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
 import hr.kristiankliskovic.devcontrol.data.network.model.*
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -26,6 +27,7 @@ private const val deleteDevicePermission_routerPath = "/deleteDeviceRight"
 private const val deleteGroupPermission_routerPath = "/deleteGroupRight"
 private const val deleteFieldPermission_routerPath = "/deleteFieldRight"
 private const val deleteComplexGroupPermission_routerPath = "/deleteComplexGroupRight"
+private const val getUserPermissions_routerPath = "/getUserPermissions"
 
 
 class DeviceServiceImpl(
@@ -422,4 +424,18 @@ class DeviceServiceImpl(
         return (httpResponse != null && httpResponse.status.value in 200..299)
     }
 
+    override suspend fun getUserPermissionsForDevice(authToken: String, deviceId: Int): UserPermissionsForDeviceResponse? {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userPermission_routerPath$userPermission_routerPath",
+            body = UserPermissionsForDeviceRequest(
+                authToken = authToken,
+                deviceId = deviceId,
+            )
+        )
+        return if (httpResponse != null && httpResponse.status.value in 200..299) {
+            httpResponse.body<UserPermissionsForDeviceResponse>()
+        } else {
+            null
+        }
+    }
 }

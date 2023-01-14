@@ -1,5 +1,7 @@
 package hr.kristiankliskovic.devcontrol.data.network.deviceService
 
+import hr.kristiankliskovic.devcontrol.data.network.model.UserPermissionsForDeviceResponse
+
 interface DeviceService {
 
     suspend fun changeNumericField(
@@ -174,4 +176,9 @@ interface DeviceService {
         deviceId: Int,
         complexGroupId: Int,
     ): Boolean
+
+    suspend fun getUserPermissionsForDevice(
+        authToken: String,
+        deviceId: Int,
+    ): UserPermissionsForDeviceResponse?
 }
