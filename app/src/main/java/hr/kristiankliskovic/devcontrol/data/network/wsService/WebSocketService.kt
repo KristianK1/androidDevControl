@@ -9,8 +9,10 @@ interface WebSocketService {
 
     val userMessages: StateFlow<WssLogoutReason?>
     val deviceMessages: StateFlow<Device?>
+    val deviceRemoved: StateFlow<Int?>
 
     suspend fun connect(token: String)
     suspend fun disconnect()
     suspend fun resetUserMessages()
+    suspend fun resetDeviceMessages()
 }

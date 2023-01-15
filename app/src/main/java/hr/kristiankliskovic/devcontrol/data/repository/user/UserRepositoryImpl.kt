@@ -55,6 +55,7 @@ class UserRepositoryImpl(
     override suspend fun disconnectWS() {
         websocketService.disconnect()
         websocketService.resetUserMessages()
+        websocketService.resetDeviceMessages()
     }
 
     private fun addUser(loginResponse: LoginResponse) {

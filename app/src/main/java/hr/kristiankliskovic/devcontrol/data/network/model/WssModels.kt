@@ -28,12 +28,12 @@ enum class WSSReceivingMessageTypes {
     LostRights,
 }
 
-val WssReceivingMessageType_DeviceData = "deviceData"
-val WssReceivingMessageType_UserMessage = "userMessage"
-val WssReceivingMessageType_DeviceDeleted = "deviceDeleted"
-val WssReceivingMessageType_lostRights = "lostRightsToDevice"
+const val WssReceivingMessageType_DeviceData = "deviceData"
+const val WssReceivingMessageType_UserMessage = "userMessage"
+const val WssReceivingMessageType_DeviceDeleted = "deviceDeleted"
+const val WssReceivingMessageType_lostRights = "lostRightsToDevice"
 
-sealed class WSSReceivingMessageData()
+sealed class WSSReceivingMessageData //not sure what this was suposed to be :/
 
 @Serializable
 data class WssLogoutReasonResponse(
@@ -147,3 +147,11 @@ data class WSSRGBField(
     val B: Int,
     val fieldDirection: String,
 )
+
+data class WSSDeviceDeleted(
+    val deletedDeviceId: Int,
+) : WSSReceivingMessageData()
+
+data class WSSLostRightsToDevice(
+    val lostRightsToDevice: Int,
+) : WSSReceivingMessageData()

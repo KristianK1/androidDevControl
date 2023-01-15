@@ -8,7 +8,8 @@ import org.koin.dsl.module
 val mainScreenModule = module {
     viewModel{
         MainScreenViewModel(
-            userRepository = get()
+            userRepository = get(),
+            deviceRepository = get(),
         )
     }
 }
