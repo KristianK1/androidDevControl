@@ -39,8 +39,8 @@ class WebsocketServiceImpl(
     private val deviceMessagesInternal: MutableStateFlow<Device?> = MutableStateFlow(null)
     override val deviceMessages: StateFlow<Device?> = deviceMessagesInternal.asStateFlow()
 
-    private val deviceRemovedInternal: MutableStateFlow<Int?> = MutableStateFlow(null)
-    override val deviceRemoved: StateFlow<Int?> = deviceRemovedInternal.asStateFlow()
+    private val deviceRemovedInternal: MutableStateFlow<Int> = MutableStateFlow(-1)
+    override val deviceRemoved: StateFlow<Int> = deviceRemovedInternal.asStateFlow()
 
     override suspend fun connect(token: String) {
         authToken = token
@@ -125,5 +125,9 @@ class WebsocketServiceImpl(
 
     override suspend fun resetUserMessages() {
         userMessagesInternal.emit(null)
+    }
+
+    override suspend fun resetDeviceMessages(){
+        deviceMessagesInternal.emit(null)
     }
 }

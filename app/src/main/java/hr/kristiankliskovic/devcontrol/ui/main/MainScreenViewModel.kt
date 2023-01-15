@@ -4,12 +4,14 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReason
+import hr.kristiankliskovic.devcontrol.data.repository.device.DeviceRepository
 import hr.kristiankliskovic.devcontrol.data.repository.user.UserRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class MainScreenViewModel(
     val userRepository: UserRepository,
+    val deviceRepository: DeviceRepository,
 ) : ViewModel() {
     val loggedInUser: StateFlow<Boolean?> = userRepository.loggedInUser.mapLatest {
         it != null

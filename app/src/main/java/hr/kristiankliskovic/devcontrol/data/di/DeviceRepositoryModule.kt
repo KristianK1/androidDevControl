@@ -11,6 +11,7 @@ val deviceRepositoryModule = module {
             deviceService = get(),
             authTokenRepository = get(),
             websocketService = get(),
+            userRepository = get(),
             bgDispatcher = Dispatchers.IO
         )
     }
