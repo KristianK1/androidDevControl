@@ -200,7 +200,7 @@ fun MainScreen() {
                     })
                 ) {
                     SeeAllPermissionsRoute(
-                        viewModel = getViewModel{
+                        viewModel = getViewModel {
                             parametersOf(
                                 navBackStackEntry?.arguments?.getInt(SEE_ALL_PERMISSIONS_ID_KEY)
                                     ?: throw IllegalStateException("no deviceId sent")
@@ -231,22 +231,28 @@ fun MainScreen() {
         when (loggedIn.value) {
             true -> {
                 Log.i("mainScreen", "Qtrue")
-                navController.navigate(MY_DEVICES_ROUTE) {
-                    popUpTo(LOGIN_ROUTE) {
-                        inclusive = true
+                if (!viewModel.loggedInLocal) {
+                    navController.navigate(MY_DEVICES_ROUTE) {
+                        popUpTo(LOGIN_ROUTE) {
+                            inclusive = true
+                        }
                     }
+                    viewModel.startWS()
+                    viewModel.loggedInLocal = true
                 }
-                viewModel.startWS()
             }
             false -> {
                 Log.i("mainScreen", "Qfalse")
-                navController.navigate(LOGIN_ROUTE) {
-                    launchSingleTop = true
-                    popUpTo(MY_DEVICES_ROUTE) {
-                        inclusive = true
+                if (viewModel.loggedInLocal) {
+                    navController.navigate(LOGIN_ROUTE) {
+                        launchSingleTop = true
+                        popUpTo(MY_DEVICES_ROUTE) {
+                            inclusive = true
+                        }
                     }
+                    viewModel.stopWS()
+                    viewModel.loggedInLocal = false
                 }
-                viewModel.stopWS()
             }
             null -> {
                 Log.i("mainScreen", "Qnull")
