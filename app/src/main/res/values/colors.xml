@@ -47,4 +47,9 @@
     <color name="seeAllPermissionsScreen_fields_background">#FFB8B8B8</color>
     <color name="seeAllPermissionsScreen_field_background">#FFA0A0A0</color>
 
+    <color name="topBar_dividerLine">#FF000000</color>
+
+    <color name="WS_status_Online">#7800FF00</color>
+    <color name="WS_status_Offline">#70FF0000</color>
+
 </resources>

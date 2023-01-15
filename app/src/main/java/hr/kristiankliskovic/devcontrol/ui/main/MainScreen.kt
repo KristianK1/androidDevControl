@@ -1,8 +1,12 @@
 package hr.kristiankliskovic.devcontrol.ui.main
 
 import android.util.Log
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -14,7 +18,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -35,8 +46,6 @@ import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.UserProfileSetting
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword.ChangePasswordRoute
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsRoute
-import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.ScreenSubtitle
-import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.ScreenTitle
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -51,23 +60,64 @@ fun MainScreen() {
         }
     }
 
-    val screenTitle: String by remember {
+    val screenTitleResId by remember {
         derivedStateOf {
-            when()
-            ""
+            when (navBackStackEntry?.destination?.route) {
+                LOGIN_ROUTE -> {
+                    null
+                }
+                REGISTER_ROUTE -> {
+                    null
+                }
+                MY_DEVICES_ROUTE -> {
+                    R.string.topBar_myDevices
+                }
+                DeviceControlsDestination.route -> {
+                    R.string.topBar_devControls
+                }
+                ADMIN_PANEL_ROUTE -> {
+                    R.string.topBar_adminPanelAllScreens
+                }
+                AdminPanelDeviceDestination.route -> {
+                    R.string.topBar_adminPanelAllScreens
+                }
+                AddPermissionDestination.route -> {
+                    R.string.topBar_adminPanelAllScreens
+                }
+                ChangeDeviceAdminDestination.route -> {
+                    R.string.topBar_adminPanelAllScreens
+                }
+                seeAllPermissionsDestination.route -> {
+                    R.string.topBar_adminPanelAllScreens
+                }
+                USER_PROFILE_ROUTE -> {
+                    R.string.topBar_userSettings
+                }
+                CHANGE_PASSWORD_ROUTE -> {
+                    R.string.topBar_changePassword
+                }
+                else -> {
+                    R.string.topBar_error
+                }
+            }
+
         }
     }
 
     val viewModel: MainScreenViewModel = getViewModel()
     val loggedIn = viewModel.loggedInUser.collectAsState()
     val userMessages = viewModel.userMessages.collectAsState()
+    val connectedToWS =
+        viewModel.connectedToWS.collectAsState() //could have been a viewState (all 3)
+
     viewModel.startWS()
     Scaffold(
         topBar = {
             TopBar(
-                screenTitle = "devControl",
+                screenTitleResId = screenTitleResId,
                 showIcons = showIcons,
                 screenSubTitle = null,
+                connectedToWS = connectedToWS.value,
                 navigateToAdminPanel = {
                     navController.navigate(ADMIN_PANEL_ROUTE)
                 },
@@ -276,65 +326,79 @@ fun MainScreen() {
 @Composable
 fun TopBar(
     showIcons: Boolean,
-    screenTitle: String?,
+    screenTitleResId: Int?,
     screenSubTitle: String?,
+    connectedToWS: Boolean,
     navigateToUserSettings: () -> Unit,
     navigateToAdminPanel: () -> Unit,
 ) {
-    if (screenTitle != null) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(dimensionResource(id = R.dimen.topBarHeight)),
-        ) {
-            ScreenTitle(screenTitle)
-
-            if (screenSubTitle != null) {
-                ScreenSubtitle(subtitle = screenSubTitle)
-            }
-//            Box(
-//                contentAlignment = Alignment.Center,
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .height(dimensionResource(id = R.dimen.topBarHeight))
-//            ) {
-//                Text(
-//                    text = text,
-//                )
-//            }
-            if (showIcons) {
+    if (screenTitleResId != null) {
+        Column {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(dimensionResource(id = R.dimen.topBarHeight)),
+            ) {
                 Box(
-                    contentAlignment = Alignment.CenterEnd,
+                    contentAlignment = Alignment.CenterStart,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(dimensionResource(id = R.dimen.topBarHeight))
                 ) {
-                    Row(
-                        modifier = Modifier.fillMaxHeight()
+                    Image(
+                        painter = painterResource(id = R.drawable.connected_icon_foreground),
+                        contentDescription = null,
+                        modifier = Modifier
+//                            .clip(CircleShape)
+                            .background(colorResource(id = if(connectedToWS) R.color.WS_status_Online else R.color.WS_status_Offline)),
+                    )
+                }
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(dimensionResource(id = R.dimen.topBarHeight))
+                ) {
+                    Text(
+                        text = stringResource(id = screenTitleResId),
+                        fontSize = 30.sp,
+                    )
+                }
+                if (showIcons) {
+                    Box(
+                        contentAlignment = Alignment.CenterEnd,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(dimensionResource(id = R.dimen.topBarHeight))
                     ) {
-                        Icon(
-                            Icons.Filled.AccountBox,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .width(dimensionResource(id = R.dimen.topBarHeight))
-                                .clickable {
-                                    navigateToAdminPanel()
-                                }
-                        )
-                        Icon(
-                            Icons.Filled.Settings,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .width(dimensionResource(id = R.dimen.topBarHeight))
-                                .clickable {
-                                    navigateToUserSettings()
-                                }
-                        )
+                        Row(
+                            modifier = Modifier.fillMaxHeight()
+                        ) {
+                            Icon(
+                                Icons.Filled.AccountBox,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .width(dimensionResource(id = R.dimen.topBarHeight))
+                                    .clickable {
+                                        navigateToAdminPanel()
+                                    }
+                            )
+                            Icon(
+                                Icons.Filled.Settings,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .width(dimensionResource(id = R.dimen.topBarHeight))
+                                    .clickable {
+                                        navigateToUserSettings()
+                                    }
+                            )
+                        }
                     }
                 }
             }
+            Line()
         }
     }
     if (screenSubTitle != null) {
@@ -347,4 +411,16 @@ fun TopBar(
             Text(text = screenSubTitle)
         }
     }
+}
+
+@Composable
+fun Line(
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(dimensionResource(id = R.dimen.topBar_dividerLine_height))
+            .background(colorResource(id = R.color.topBar_dividerLine))
+    )
 }

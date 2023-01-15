@@ -25,12 +25,16 @@ class MainScreenViewModel(
         it
     }.stateIn(viewModelScope, SharingStarted.Lazily, null)
 
-    fun onPause(){
+    val connectedToWS: StateFlow<Boolean> = userRepository.connectedToWSS.mapLatest {
+        it
+    }.stateIn(viewModelScope, SharingStarted.Lazily, false)
+
+    fun onPause() {
         Log.i("sviki", "onPause2")
 
     }
 
-    fun onResume(){
+    fun onResume() {
         Log.i("sviki", "onResume2")
 
     }

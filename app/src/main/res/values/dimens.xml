@@ -98,4 +98,6 @@
     <dimen name="screenTitleComponent_elevation">2.dp</dimen>
     <dimen name="screenSubTitleComponent_elevation">1.dp</dimen>
 
+    <dimen name="topBar_dividerLine_height">3.dp</dimen>
+
 </resources>

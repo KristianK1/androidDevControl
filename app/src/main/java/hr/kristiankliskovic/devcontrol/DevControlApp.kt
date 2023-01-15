@@ -11,7 +11,7 @@ import hr.kristiankliskovic.devcontrol.ui.adminPanelDevice.di.adminPanelDeviceMo
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission.di.addPermissionModule
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.di.seeAllPermissionsModule
 import hr.kristiankliskovic.devcontrol.ui.adminPanelHome.di.adminPanelHomeModule
-import hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.changeDeviceAdminModule
+import hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.di.changeDeviceAdminModule
 import hr.kristiankliskovic.devcontrol.ui.deviceControls.di.deviceControlsModule
 import hr.kristiankliskovic.devcontrol.ui.login.di.loginModule
 import hr.kristiankliskovic.devcontrol.ui.main.di.mainScreenModule

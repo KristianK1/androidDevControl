@@ -99,4 +99,12 @@
     <string name="seeAllPermissionsScreen_noPermission_complexGroup">There are no specific permissions to this complex group</string>
 
 
+    <string name="topBar_myDevices">My devices</string>
+    <string name="topBar_devControls">Device controls</string>
+    <string name="topBar_userSettings">User settings</string>
+    <string name="topBar_changePassword">Change password</string>
+    <string name="topBar_adminPanelAllScreens">Admin panel</string>
+    <string name="topBar_error">Error</string>
+
+
 </resources>
