@@ -2,8 +2,6 @@ package hr.kristiankliskovic.devcontrol.ui.addNewDevice
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import hr.kristiankliskovic.devcontrol.data.di.deviceRepositoryModule
 import hr.kristiankliskovic.devcontrol.data.repository.device.DeviceRepository
 import kotlinx.coroutines.launch
 

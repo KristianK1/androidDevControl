@@ -1,7 +1,5 @@
 package hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword
 
-import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hr.kristiankliskovic.devcontrol.data.repository.user.UserRepository

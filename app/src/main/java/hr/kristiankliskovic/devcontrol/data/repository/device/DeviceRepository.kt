@@ -2,7 +2,6 @@ package hr.kristiankliskovic.devcontrol.data.repository.device
 
 import hr.kristiankliskovic.devcontrol.data.network.model.UserPermissionsForDeviceResponse
 import hr.kristiankliskovic.devcontrol.model.Device
-import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsViewState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import java.util.concurrent.CopyOnWriteArrayList

@@ -101,18 +101,18 @@ fun AddPermissionScreen(
             Box(
                 contentAlignment = Alignment.Center
             ) {
-                var dropDownMenuExpanded_group by remember { mutableStateOf(false) }
+                var dropDownMenuExpandedGroup by remember { mutableStateOf(false) }
                 SelectedItem(
                     text = if (groupSelected == null) stringResource(id = R.string.addPermissionScreen_no_group_selected_text)
                     else "${groupSelected!!.groupName} (id:${groupSelected!!.groupId})",
                     onClick = {
-                        dropDownMenuExpanded_group = true
+                        dropDownMenuExpandedGroup = true
                     }
                 )
                 DropdownMenu(
-                    expanded = dropDownMenuExpanded_group,
+                    expanded = dropDownMenuExpandedGroup,
                     onDismissRequest = {
-                        dropDownMenuExpanded_group = false
+                        dropDownMenuExpandedGroup = false
                     },
                     modifier = Modifier
                         .align(Alignment.Center)
@@ -121,7 +121,7 @@ fun AddPermissionScreen(
                         DropdownMenuItem(
                             onClick = {
                                 groupSelected = group
-                                dropDownMenuExpanded_group = false
+                                dropDownMenuExpandedGroup = false
                             },
                         ) {
                             Text(
@@ -136,18 +136,18 @@ fun AddPermissionScreen(
             Box(
                 contentAlignment = Alignment.Center
             ) {
-                var dropDownMenuExpanded_group by remember { mutableStateOf(false) }
+                var dropDownMenuExpandedGroup by remember { mutableStateOf(false) }
                 SelectedItem(
                     text = if (groupSelected == null) stringResource(id = R.string.addPermissionScreen_no_group_selected_text)
                     else "${groupSelected!!.groupName} (id:${groupSelected!!.groupId})",
                     onClick = {
-                        dropDownMenuExpanded_group = true
+                        dropDownMenuExpandedGroup = true
                     }
                 )
                 DropdownMenu(
-                    expanded = dropDownMenuExpanded_group,
+                    expanded = dropDownMenuExpandedGroup,
                     onDismissRequest = {
-                        dropDownMenuExpanded_group = false
+                        dropDownMenuExpandedGroup = false
                     },
                 ) {
                     for (group in state.device.groups) {
@@ -157,7 +157,7 @@ fun AddPermissionScreen(
                                     groupSelected = group
                                     fieldSelected = null
                                 }
-                                dropDownMenuExpanded_group = false
+                                dropDownMenuExpandedGroup = false
                             },
                             modifier = Modifier
                                 .align(Alignment.CenterHorizontally)
@@ -173,18 +173,18 @@ fun AddPermissionScreen(
             Box(
                 contentAlignment = Alignment.Center
             ) {
-                var dropDownMenuExpanded_field by remember { mutableStateOf(false) }
+                var dropDownMenuExpandedField by remember { mutableStateOf(false) }
                 SelectedItem(
                     text = if (fieldSelected == null) stringResource(id = R.string.addPermissionScreen_no_field_selected_text)
                     else "${fieldSelected!!.fieldName} (id:${fieldSelected!!.fieldId})",
                     onClick = {
-                        dropDownMenuExpanded_field = true
+                        dropDownMenuExpandedField = true
                     }
                 )
                 DropdownMenu(
-                    expanded = dropDownMenuExpanded_field,
+                    expanded = dropDownMenuExpandedField,
                     onDismissRequest = {
-                        dropDownMenuExpanded_field = false
+                        dropDownMenuExpandedField = false
                     }
                 ) {
                     if (groupSelected != null) {
@@ -192,7 +192,7 @@ fun AddPermissionScreen(
                             DropdownMenuItem(
                                 onClick = {
                                     fieldSelected = field
-                                    dropDownMenuExpanded_field = false
+                                    dropDownMenuExpandedField = false
                                 },
                                 modifier = Modifier
                                     .align(Alignment.CenterHorizontally)
@@ -205,7 +205,7 @@ fun AddPermissionScreen(
                     } else {
                         DropdownMenuItem(
                             onClick = {
-                                dropDownMenuExpanded_field = false
+                                dropDownMenuExpandedField = false
                             },
                             modifier = Modifier
                                 .align(Alignment.CenterHorizontally)
@@ -224,25 +224,25 @@ fun AddPermissionScreen(
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-                var dropDownMenuExpanded_complexGroup by remember { mutableStateOf(false) }
+                var dropDownMenuExpandedComplexGroup by remember { mutableStateOf(false) }
                 SelectedItem(
                     text = if (complexGroupSelected == null) stringResource(id = R.string.addPermissionScreen_no_complex_group_selected_text)
                     else "${complexGroupSelected!!.complexGroupName} (id:${complexGroupSelected!!.complexGroupId})",
                     onClick = {
-                        dropDownMenuExpanded_complexGroup = true
+                        dropDownMenuExpandedComplexGroup = true
                     }
                 )
                 DropdownMenu(
-                    expanded = dropDownMenuExpanded_complexGroup,
+                    expanded = dropDownMenuExpandedComplexGroup,
                     onDismissRequest = {
-                        dropDownMenuExpanded_complexGroup = false
+                        dropDownMenuExpandedComplexGroup = false
                     },
                 ) {
                     for (complexGroup in state.device.complexGroups) {
                         DropdownMenuItem(
                             onClick = {
                                 complexGroupSelected = complexGroup
-                                dropDownMenuExpanded_complexGroup = false
+                                dropDownMenuExpandedComplexGroup = false
                             }
                         ) {
                             Text(

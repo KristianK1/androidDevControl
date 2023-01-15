@@ -1,7 +1,5 @@
 package hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission
 
-import hr.kristiankliskovic.devcontrol.model.Device
-
 data class AddPermissionViewState(
     val deviceId: Int,
     val device: AddPermissionDeviceViewState,

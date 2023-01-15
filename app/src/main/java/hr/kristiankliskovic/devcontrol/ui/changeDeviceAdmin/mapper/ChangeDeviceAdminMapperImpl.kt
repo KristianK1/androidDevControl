@@ -1,8 +1,8 @@
 package hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.mapper
 
 import hr.kristiankliskovic.devcontrol.model.User
-import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.ChangeDeviceAdminUserViewState
-import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.ChangeDeviceAdminViewState
+import hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.ChangeDeviceAdminUserViewState
+import hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.ChangeDeviceAdminViewState
 
 class ChangeDeviceAdminMapperImpl: ChangeDeviceAdminMapper {
     override fun toChangeDeviceAdminViewState(

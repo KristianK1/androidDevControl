@@ -1,18 +1,12 @@
 package hr.kristiankliskovic.devcontrol.data.network.userService
 
-import android.util.Log
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
 import hr.kristiankliskovic.devcontrol.data.network.model.*
-import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
-import hr.kristiankliskovic.devcontrol.data.network.wsService.WebsocketServiceImpl
-import hr.kristiankliskovic.devcontrol.model.User
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import io.ktor.server.util.*
-import kotlinx.coroutines.flow.map
 
 private const val userAuth_routerPath = "/api/userAuth"
 

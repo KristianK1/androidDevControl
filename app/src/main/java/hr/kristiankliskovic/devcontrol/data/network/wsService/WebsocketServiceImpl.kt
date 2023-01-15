@@ -2,10 +2,9 @@ package hr.kristiankliskovic.devcontrol.data.network.wsService
 
 import android.util.Log
 import com.google.gson.Gson
-import com.google.gson.JsonSyntaxException
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
 import hr.kristiankliskovic.devcontrol.data.network.model.*
-import hr.kristiankliskovic.devcontrol.data.network.wsService.parser.deviceData.WSDataParser
+import hr.kristiankliskovic.devcontrol.data.network.wsService.parser.WSDataParser
 import hr.kristiankliskovic.devcontrol.model.Device
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -46,7 +45,7 @@ class WebsocketServiceImpl(
         authToken = token
         if (!connectedToWSSInternal.value) {
             while (true) {
-                if (authToken == null) break;
+                if (authToken == null) break
                 try {
                     httpClientForWS.webSocket(
                         method = HttpMethod.Get,
@@ -79,7 +78,7 @@ class WebsocketServiceImpl(
         connectedToWSSInternal.emit(false)
     }
 
-    private suspend fun deserializeData(data: String) {
+    private fun deserializeData(data: String) {
         Log.i("deviceData", "here")
         lateinit var messageType: WSSReceivingMessageTypes
         try {

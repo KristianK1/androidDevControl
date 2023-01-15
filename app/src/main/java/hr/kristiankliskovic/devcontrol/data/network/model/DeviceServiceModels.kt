@@ -1,7 +1,6 @@
 package hr.kristiankliskovic.devcontrol.data.network.model
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.PrimitiveKind
 
 @Serializable
 data class ChangeNumericField(

@@ -8,9 +8,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.mock.getMockUsers
-import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.ChangeDeviceAdminViewState
-import hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.mapper.ChangeDeviceAdminMapperImpl
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineTextWrapper
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOption
 

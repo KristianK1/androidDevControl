@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.navigation.ChangeDeviceAdminDestination
-import hr.kristiankliskovic.devcontrol.navigation.addPermissionDestination
+import hr.kristiankliskovic.devcontrol.navigation.AddPermissionDestination
 import hr.kristiankliskovic.devcontrol.navigation.seeAllPermissionsDestination
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOption
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
@@ -78,7 +78,7 @@ fun AdminPanelDeviceScreen(
             text = stringResource(id = R.string.adminPanelDevice_addPermission),
             onClick = {
                 navigateToAddNewPermission(
-                    addPermissionDestination.createNavigationRoute(viewState.deviceId)
+                    AddPermissionDestination.createNavigationRoute(viewState.deviceId)
                 )
             }
         )

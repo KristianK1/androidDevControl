@@ -1,4 +1,4 @@
-package hr.kristiankliskovic.devcontrol.data.network
+package hr.kristiankliskovic.devcontrol.data.network.di
 
 import android.util.Log
 import com.google.gson.Gson
@@ -8,8 +8,8 @@ import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserServiceImpl
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebsocketServiceImpl
-import hr.kristiankliskovic.devcontrol.data.network.wsService.parser.deviceData.WSDataParser
-import hr.kristiankliskovic.devcontrol.data.network.wsService.parser.deviceData.WSDataParserImpl
+import hr.kristiankliskovic.devcontrol.data.network.wsService.parser.WSDataParser
+import hr.kristiankliskovic.devcontrol.data.network.wsService.parser.WSDataParserImpl
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.plugins.contentnegotiation.*

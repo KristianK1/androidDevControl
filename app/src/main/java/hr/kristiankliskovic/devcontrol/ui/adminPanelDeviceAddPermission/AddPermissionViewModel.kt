@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import hr.kristiankliskovic.devcontrol.data.repository.device.DeviceRepository
 import hr.kristiankliskovic.devcontrol.data.repository.user.UserRepository
 import hr.kristiankliskovic.devcontrol.model.Device
-import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import hr.kristiankliskovic.devcontrol.model.User
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission.mapper.AddPermissionMapper
 import kotlinx.coroutines.flow.SharingStarted

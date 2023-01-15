@@ -163,7 +163,7 @@ fun MainScreen() {
                     )
                 }
                 composable(
-                    route = addPermissionDestination.route,
+                    route = AddPermissionDestination.route,
                     arguments = listOf(navArgument(ADD_PERMISSION_ID_KEY) {
                         type = NavType.IntType
                     })

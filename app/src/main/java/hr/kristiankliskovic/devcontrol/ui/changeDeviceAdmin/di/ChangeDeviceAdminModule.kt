@@ -1,5 +1,6 @@
-package hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin
+package hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.di
 
+import hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.ChangeDeviceAdminViewModel
 import hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.mapper.ChangeDeviceAdminMapper
 import hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin.mapper.ChangeDeviceAdminMapperImpl
 import org.koin.androidx.viewmodel.dsl.viewModel

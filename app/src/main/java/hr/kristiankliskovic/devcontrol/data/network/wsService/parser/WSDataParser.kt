@@ -1,6 +1,6 @@
-package hr.kristiankliskovic.devcontrol.data.network.wsService.parser.deviceData
+package hr.kristiankliskovic.devcontrol.data.network.wsService.parser
 
-import hr.kristiankliskovic.devcontrol.data.network.model.WSSReceivingMessageData
+
 import hr.kristiankliskovic.devcontrol.data.network.model.WSSReceivingMessageTypes
 import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReasonResponse
 import hr.kristiankliskovic.devcontrol.model.Device

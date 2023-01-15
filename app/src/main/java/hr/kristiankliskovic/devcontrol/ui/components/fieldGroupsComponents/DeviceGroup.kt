@@ -2,14 +2,11 @@ package hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.tooling.preview.Preview
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.mock.getMockDeviceGroupViewState
 import hr.kristiankliskovic.devcontrol.model.RGBValue
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.common.BasicField
 import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.BasicFieldComponentViewState

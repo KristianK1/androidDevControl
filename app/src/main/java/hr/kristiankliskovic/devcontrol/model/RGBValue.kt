@@ -14,7 +14,7 @@ data class RGBValue(
     private fun intToColorHexString(num: Int): String {
         var str = num.toString(16)
         if (str.length < 2) {
-            str = "0$str";
+            str = "0$str"
         }
         return str.uppercase()
     }

@@ -2,7 +2,6 @@ package hr.kristiankliskovic.devcontrol.data.network.model
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class WssConnectUserMessage(
     val data: WssConnectUserMessageData,
@@ -14,7 +13,6 @@ data class WssConnectUserMessageData(
     val authToken: String,
     val frontendType: Int = 2,  // AndroidApp = 2
 )
-
 
 data class WssReceivingMessage(
     val messageType: String,
@@ -93,14 +91,6 @@ const val RGBFieldLabel = "RGB"
 
 const val fieldDirectionInput = "input"
 const val fieldDirectionOutput = "output"
-
-//enum class FieldTypes{
-//    numeric,
-//    text,
-//    button,
-//    multipleChoice,
-//    RGB
-//}
 
 data class WSSComplexGroup(
     val id: Int,

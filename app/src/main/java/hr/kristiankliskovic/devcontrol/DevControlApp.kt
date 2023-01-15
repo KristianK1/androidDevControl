@@ -4,7 +4,7 @@ import android.app.Application
 import hr.kristiankliskovic.devcontrol.data.di.authTokenRepositoryModule
 import hr.kristiankliskovic.devcontrol.data.di.deviceRepositoryModule
 import hr.kristiankliskovic.devcontrol.data.encrpytedPreferences.di.preferencesModule
-import hr.kristiankliskovic.devcontrol.data.network.networkModule
+import hr.kristiankliskovic.devcontrol.data.network.di.networkModule
 import hr.kristiankliskovic.devcontrol.data.di.userRepositoryModule
 import hr.kristiankliskovic.devcontrol.ui.addNewDevice.di.addNewDeviceModule
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDevice.di.adminPanelDeviceModule

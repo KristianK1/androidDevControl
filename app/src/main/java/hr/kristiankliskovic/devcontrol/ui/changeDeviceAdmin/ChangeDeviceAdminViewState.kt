@@ -1,10 +1,10 @@
-package hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions
+package hr.kristiankliskovic.devcontrol.ui.changeDeviceAdmin
 
 data class ChangeDeviceAdminViewState(
     val users: List<ChangeDeviceAdminUserViewState>
 ){
     companion object{
-        fun getEmptyViewState(): ChangeDeviceAdminViewState{
+        fun getEmptyViewState(): ChangeDeviceAdminViewState {
             return ChangeDeviceAdminViewState(
                 users = listOf(),
             )

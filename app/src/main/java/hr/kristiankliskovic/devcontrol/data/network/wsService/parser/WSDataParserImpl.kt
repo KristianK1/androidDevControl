@@ -1,10 +1,9 @@
-package hr.kristiankliskovic.devcontrol.data.network.wsService.parser.deviceData
+package hr.kristiankliskovic.devcontrol.data.network.wsService.parser
 
 import android.util.Log
 import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.data.network.model.*
 import hr.kristiankliskovic.devcontrol.model.*
-
 
 class WSDataParserImpl(
     private val gson: Gson,
@@ -254,5 +253,4 @@ class WSDataParserImpl(
             }
         }
     }
-
 }

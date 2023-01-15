@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import hr.kristiankliskovic.devcontrol.data.network.model.UserPermissionsForDeviceResponse
 import hr.kristiankliskovic.devcontrol.data.repository.device.DeviceRepository
 import hr.kristiankliskovic.devcontrol.model.Device
-import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission.AddPermissionViewState
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.mapper.SeeAllPermissionsMapper
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
