@@ -6,7 +6,6 @@ import hr.kristiankliskovic.devcontrol.data.network.model.UserPermissionsForDevi
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
 import hr.kristiankliskovic.devcontrol.model.Device
-import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsViewState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import java.util.concurrent.CopyOnWriteArrayList
@@ -19,23 +18,47 @@ class DeviceRepositoryImpl(
 ) : DeviceRepository {
     private var devicesInternal: CopyOnWriteArrayList<Device> = CopyOnWriteArrayList()
 
-    override val devices: Flow<CopyOnWriteArrayList<Device>> = flow {
-        websocketService.deviceMessages.collect { device ->
-            if (device != null) {
-                val deviceList = devicesInternal.toMutableList()
-                deviceList.removeIf { dev ->
-                    dev.deviceId == device.deviceId
+    override val devices: Flow<CopyOnWriteArrayList<Device>> = flow<CopyOnWriteArrayList<Device>> {
+        val together = merge(
+            websocketService.deviceRemoved,
+            websocketService.deviceMessages,
+        )
+        together.collect() { it ->
+            Log.i("deviceRepo_collect", "start")
+            when (it) {
+                is Int? -> {
+                    Log.i("deviceRepo_collect", "split removed")
+                    val deviceId: Int? = it
+                    if (deviceId != null) {
+                        val deviceList = devicesInternal.toMutableList()
+                        deviceList.removeIf { dev ->
+                            dev.deviceId == deviceId
+                        }
+                        deviceList.sortBy { it.deviceId }
+                        devicesInternal = CopyOnWriteArrayList(deviceList)
+                        emit(devicesInternal)
+                    }
                 }
-                deviceList.add(device)
-                deviceList.sortBy { it.deviceId }
-                devicesInternal = CopyOnWriteArrayList(deviceList)
-                emit(devicesInternal)
-            } else {
-//                Log.i("QdeviceData", "no device")
+                is Device? -> {
+                    Log.i("deviceRepo_collect", "split deviceData")
+                    val device: Device? = it
+                    if (device != null) {
+                        val deviceList = devicesInternal.toMutableList()
+                        deviceList.removeIf { dev ->
+                            dev.deviceId == device.deviceId
+                        }
+                        deviceList.add(device)
+                        deviceList.sortBy { it.deviceId }
+                        devicesInternal = CopyOnWriteArrayList(deviceList)
+                        emit(devicesInternal)
+                    } else {
+//                        Log.i("QdeviceData", "no device")
+                    }
+                }
             }
         }
-    }.flowOn(bgDispatcher)
 
+    }.flowOn(bgDispatcher)
 
     override fun getDevice(deviceId: Int): Flow<Device> = flow {
         devices.collect { devs ->
@@ -222,7 +245,11 @@ class DeviceRepositoryImpl(
         )
     }
 
-    override suspend fun changeComplexGroupState(deviceId: Int, groupId: Int, state: Int): Boolean {
+    override suspend fun changeComplexGroupState(
+        deviceId: Int,
+        groupId: Int,
+        state: Int,
+    ): Boolean {
         return deviceService.changeComplexGroupState(
             authTokenRepository.getAuthToken()!!,
             deviceId,

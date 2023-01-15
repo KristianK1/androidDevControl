@@ -149,9 +149,9 @@ data class WSSRGBField(
 )
 
 data class WSSDeviceDeleted(
-    val lostRightsToDevice: Int,
+    val deletedDeviceId: Int,
 ) : WSSReceivingMessageData()
 
 data class WSSLostRightsToDevice(
-    val deletedDeviceId: Int,
+    val lostRightsToDevice: Int,
 ) : WSSReceivingMessageData()

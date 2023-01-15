@@ -39,6 +39,9 @@ class WebsocketServiceImpl(
     private val deviceMessagesInternal: MutableStateFlow<Device?> = MutableStateFlow(null)
     override val deviceMessages: StateFlow<Device?> = deviceMessagesInternal.asStateFlow()
 
+    private val deviceRemovedInternal: MutableStateFlow<Int?> = MutableStateFlow(null)
+    override val deviceRemoved: StateFlow<Int?> = deviceRemovedInternal.asStateFlow()
+
     override suspend fun connect(token: String) {
         authToken = token
         if (!connectedToWSSInternal.value) {
@@ -100,11 +103,12 @@ class WebsocketServiceImpl(
                 }
             }
             WSSReceivingMessageTypes.DeviceDeleted -> {
-
-
+                val parsed = wsDataParser.parseDeviceDeletedMessage(data)
+                deviceRemovedInternal.value = parsed
             }
             WSSReceivingMessageTypes.LostRights -> {
-
+                val parsed = wsDataParser.parseLostRightsToDeviceMessage(data)
+                deviceRemovedInternal.value = parsed
             }
         }
     }

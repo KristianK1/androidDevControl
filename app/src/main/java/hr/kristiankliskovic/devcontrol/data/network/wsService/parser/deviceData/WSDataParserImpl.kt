@@ -89,14 +89,25 @@ class WSDataParserImpl(
 
     override fun parseUserMessages(data: String): WssLogoutReasonResponse {
         val parsed = gson.fromJson(data, WssLogoutReasonResponse::class.java)
-        val b = parsed == null
-        Log.i("parsingData", "b_$b")
-
         var int = parsed.logoutReason //magic
-        int += 1
-        Log.i("parsingData", "$int")
+        int += 1 //I can't check is it null the normal way
         return parsed
     }
+
+    override fun parseDeviceDeletedMessage(data: String): Int {
+        val wssMessage = gson.fromJson(data, WssReceivingMessage::class.java)
+        val deviceDeleteData = gson.toJson(wssMessage.data)
+
+        val parsedData = gson.fromJson(deviceDeleteData, WSSDeviceDeleted::class.java)
+        return parsedData.deletedDeviceId
+    }
+
+    override fun parseLostRightsToDeviceMessage(data: String): Int {
+        val wssMessage = gson.fromJson(data, WssReceivingMessage::class.java)
+        val deviceDeleteData = gson.toJson(wssMessage.data)
+
+        val parsedData = gson.fromJson(deviceDeleteData, WSSLostRightsToDevice::class.java)
+        return parsedData.lostRightsToDevice}
 
     private fun parseFieldInGroup(field: WSSBasicFieldInGroup): BasicDeviceField? {
         val fieldValue = gson.toJson(field.fieldValue)
