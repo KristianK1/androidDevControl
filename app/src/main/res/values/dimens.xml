@@ -95,4 +95,7 @@
     <dimen name="seeAllPermissionScreen_padding_between_boxes">5.dp</dimen>
     <dimen name="seeAllPermissionScreen_padding_between_userPermissions">1.dp</dimen>
 
+    <dimen name="screenTitleComponent_elevation">2.dp</dimen>
+    <dimen name="screenSubTitleComponent_elevation">1.dp</dimen>
+
 </resources>

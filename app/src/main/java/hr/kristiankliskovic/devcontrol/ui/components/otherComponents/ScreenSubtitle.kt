@@ -9,6 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.ui.res.dimensionResource
+import hr.kristiankliskovic.devcontrol.R
 
 @Composable
 fun ScreenSubtitle(
@@ -22,7 +26,7 @@ fun ScreenSubtitle(
                 .background(Color.Black)
         )
 
-        Box(
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.Green.copy(alpha = 0.2f))
@@ -31,7 +35,7 @@ fun ScreenSubtitle(
                     vertical = 0.dp,
                     horizontal = 10.dp
                 ),
-            contentAlignment = Alignment.Center,
+            elevation = CardDefaults.cardElevation(dimensionResource(id = R.dimen.screenSubTitleComponent_elevation)),
         ) {
 
             Text(

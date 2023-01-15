@@ -35,6 +35,8 @@ import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.UserProfileSetting
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword.ChangePasswordRoute
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsRoute
+import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.ScreenSubtitle
+import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.ScreenTitle
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -49,6 +51,13 @@ fun MainScreen() {
         }
     }
 
+    val screenTitle: String by remember {
+        derivedStateOf {
+            when()
+            ""
+        }
+    }
+
     val viewModel: MainScreenViewModel = getViewModel()
     val loggedIn = viewModel.loggedInUser.collectAsState()
     val userMessages = viewModel.userMessages.collectAsState()
@@ -56,9 +65,9 @@ fun MainScreen() {
     Scaffold(
         topBar = {
             TopBar(
-                text = "devControl",
+                screenTitle = "devControl",
                 showIcons = showIcons,
-                textSecondary = null,
+                screenSubTitle = null,
                 navigateToAdminPanel = {
                     navController.navigate(ADMIN_PANEL_ROUTE)
                 },
@@ -267,27 +276,32 @@ fun MainScreen() {
 @Composable
 fun TopBar(
     showIcons: Boolean,
-    text: String?,
-    textSecondary: String?,
+    screenTitle: String?,
+    screenSubTitle: String?,
     navigateToUserSettings: () -> Unit,
     navigateToAdminPanel: () -> Unit,
 ) {
-    if (text != null) {
+    if (screenTitle != null) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(dimensionResource(id = R.dimen.topBarHeight)),
         ) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(dimensionResource(id = R.dimen.topBarHeight))
-            ) {
-                Text(
-                    text = text,
-                )
+            ScreenTitle(screenTitle)
+
+            if (screenSubTitle != null) {
+                ScreenSubtitle(subtitle = screenSubTitle)
             }
+//            Box(
+//                contentAlignment = Alignment.Center,
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .height(dimensionResource(id = R.dimen.topBarHeight))
+//            ) {
+//                Text(
+//                    text = text,
+//                )
+//            }
             if (showIcons) {
                 Box(
                     contentAlignment = Alignment.CenterEnd,
@@ -323,14 +337,14 @@ fun TopBar(
             }
         }
     }
-    if (textSecondary != null) {
+    if (screenSubTitle != null) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(dimensionResource(id = R.dimen.topBarSecundaryHeight)),
             contentAlignment = Alignment.Center,
         ) {
-            Text(text = textSecondary)
+            Text(text = screenSubTitle)
         }
     }
 }
