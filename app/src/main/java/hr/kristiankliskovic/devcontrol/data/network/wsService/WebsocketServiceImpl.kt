@@ -50,8 +50,8 @@ class WebsocketServiceImpl(
                     httpClientForWS.webSocket(
                         method = HttpMethod.Get,
                         host = HTTPSERVER.wsServer,
-                        port = 8000,
-//                        path = "/"
+//                        port = 8000,
+                        path = "/"
                     ) {
                         currentWSSclient = this
                         connectedToWSSInternal.value = true

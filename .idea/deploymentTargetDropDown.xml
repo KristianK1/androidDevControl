@@ -19,8 +19,17 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
+            <type value="VIRTUAL_DEVICE_PATH" />
+            <value value="C:\Users\Kristian-PC\.android\avd\Pixel_3a_API_30_x86.avd" />
+          </Key>
+        </deviceKey>
+      </Target>
+      <Target>
+        <type value="RUNNING_DEVICE_TARGET" />
+        <deviceKey>
+          <Key>
             <type value="SERIAL_NUMBER" />
-            <value value="67bba86a" />
+            <value value="RFCR60K0Z6H" />
           </Key>
         </deviceKey>
       </Target>
@@ -35,15 +44,6 @@
       </Target>
     </runningDeviceTargetsSelectedWithDialog>
     <targetsSelectedWithDialog>
-      <Target>
-        <type value="QUICK_BOOT_TARGET" />
-        <deviceKey>
-          <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\Kristian-PC\.android\avd\13.5_Freeform_API_30.avd" />
-          </Key>
-        </deviceKey>
-      </Target>
       <Target>
         <type value="QUICK_BOOT_TARGET" />
         <deviceKey>
