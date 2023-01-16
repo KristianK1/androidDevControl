@@ -109,4 +109,8 @@
 
     <string name="deviceControlsScreen_empty_screen_message">You don\'t have access to this device</string>
 
+    <string name="deviceControlsScreen_empty_device_message">This device doesn\'t have any real data.\nThe device itself needs to connect to the internet and register its data.</string>
+    <string name="myDevicesScreen_emptyScreen_message">You don\'t have access to any devices.\nAdd a device or ask a device admin to give you permissions to their device</string>
+    <string name="AdminPanelHomeScreen_emptyScreen_message">You aren\'t admin to any device.</string>
+
 </resources>

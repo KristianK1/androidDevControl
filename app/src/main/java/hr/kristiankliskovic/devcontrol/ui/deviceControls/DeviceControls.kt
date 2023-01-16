@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceComplexGroup
 import hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents.DeviceGroup
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.model.DeviceComplexGroup
 import hr.kristiankliskovic.devcontrol.model.RGBValue
 
 @Composable
@@ -30,7 +29,7 @@ fun DeviceControlsRoute(
             text = stringResource(id = R.string.deviceControlsScreen_empty_screen_message),
             fontSize = 30.sp,
             modifier = Modifier
-                .padding(dimensionResource(id = R.dimen.deviceControlsScreen_emptyScreenMessage_padding))
+                .padding(dimensionResource(id = R.dimen.emptyScreenMessage_padding))
         )
     } else {
         DeviceControlsScreen(
@@ -98,59 +97,72 @@ fun DeviceControlsScreen(
             textAlign = TextAlign.Center,
             fontSize = 20.sp,
         )
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(2.dp)
-                .background(Color.Black)
-        )
-        LazyColumn {
-            items(item.groupsViewStates) { groupViewState ->
-                DeviceGroup(
-                    item = groupViewState,
-                    onChangeNumeric = { groupId, fieldId, value ->
-                        onChangeNumeric(item.deviceId, groupId, fieldId, value)
-                    },
-                    onChangeText = { groupId, fieldId, value ->
-                        onChangeText(item.deviceId, groupId, fieldId, value)
-                    },
-                    onChangeButton = { groupId, fieldId, value ->
-                        onChangeButton(item.deviceId, groupId, fieldId, value)
-                    },
-                    onChangeMultipleChoice = { groupId, fieldId, value ->
-                        onChangeMultipleChoice(item.deviceId, groupId, fieldId, value)
-                    },
-                    onChangeRGB = { groupId, fieldId, value ->
-                        onChangeRGB(item.deviceId, groupId, fieldId, value)
-                    },
-                )
-                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.deviceControlsScreen_spacer_height_between_groups)))
-            }
-            items(item.complexGroupsViewStates) { complexGroupViewState ->
-                DeviceComplexGroup(
-                    item = complexGroupViewState,
-                    changeComplexGroupState = { stateId: Int ->
-                        changeComplexGroupState(item.deviceId,
-                            complexGroupViewState.complexGroupId,
-                            stateId)
-                    },
-                    onChangeNumeric = { groupId, stateId, fieldId, value ->
-                        onChangeNumericInCG(item.deviceId, groupId, stateId, fieldId, value)
-                    },
-                    onChangeText = { groupId, stateId, fieldId, value ->
-                        onChangeTextInCG(item.deviceId, groupId, stateId, fieldId, value)
-                    },
-                    onChangeButton = { groupId, stateId, fieldId, value ->
-                        onChangeButtonInCG(item.deviceId, groupId, stateId, fieldId, value)
-                    },
-                    onChangeMultipleChoice = { groupId, stateId, fieldId, value ->
-                        onChangeMultipleChoiceInCG(item.deviceId, groupId, stateId, fieldId, value)
-                    },
-                    onChangeRGB = { groupId, stateId, fieldId, value ->
-                        onChangeRGBInCG(item.deviceId, groupId, stateId, fieldId, value)
-                    },
-                )
-                Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.deviceControlsScreen_spacer_height_between_groups)))
+        if (item.groupsViewStates.isEmpty() && item.complexGroupsViewStates.isEmpty()) {
+            Text(
+                text = stringResource(id = R.string.deviceControlsScreen_empty_device_message),
+                fontSize = 30.sp,
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.emptyScreenMessage_padding))
+            )
+        } else {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+                    .background(Color.Black)
+            )
+            LazyColumn {
+                items(item.groupsViewStates) { groupViewState ->
+                    DeviceGroup(
+                        item = groupViewState,
+                        onChangeNumeric = { groupId, fieldId, value ->
+                            onChangeNumeric(item.deviceId, groupId, fieldId, value)
+                        },
+                        onChangeText = { groupId, fieldId, value ->
+                            onChangeText(item.deviceId, groupId, fieldId, value)
+                        },
+                        onChangeButton = { groupId, fieldId, value ->
+                            onChangeButton(item.deviceId, groupId, fieldId, value)
+                        },
+                        onChangeMultipleChoice = { groupId, fieldId, value ->
+                            onChangeMultipleChoice(item.deviceId, groupId, fieldId, value)
+                        },
+                        onChangeRGB = { groupId, fieldId, value ->
+                            onChangeRGB(item.deviceId, groupId, fieldId, value)
+                        },
+                    )
+                    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.deviceControlsScreen_spacer_height_between_groups)))
+                }
+                items(item.complexGroupsViewStates) { complexGroupViewState ->
+                    DeviceComplexGroup(
+                        item = complexGroupViewState,
+                        changeComplexGroupState = { stateId: Int ->
+                            changeComplexGroupState(item.deviceId,
+                                complexGroupViewState.complexGroupId,
+                                stateId)
+                        },
+                        onChangeNumeric = { groupId, stateId, fieldId, value ->
+                            onChangeNumericInCG(item.deviceId, groupId, stateId, fieldId, value)
+                        },
+                        onChangeText = { groupId, stateId, fieldId, value ->
+                            onChangeTextInCG(item.deviceId, groupId, stateId, fieldId, value)
+                        },
+                        onChangeButton = { groupId, stateId, fieldId, value ->
+                            onChangeButtonInCG(item.deviceId, groupId, stateId, fieldId, value)
+                        },
+                        onChangeMultipleChoice = { groupId, stateId, fieldId, value ->
+                            onChangeMultipleChoiceInCG(item.deviceId,
+                                groupId,
+                                stateId,
+                                fieldId,
+                                value)
+                        },
+                        onChangeRGB = { groupId, stateId, fieldId, value ->
+                            onChangeRGBInCG(item.deviceId, groupId, stateId, fieldId, value)
+                        },
+                    )
+                    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.deviceControlsScreen_spacer_height_between_groups)))
+                }
             }
         }
     }

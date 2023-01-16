@@ -102,6 +102,6 @@
 
     <dimen name="userProfileSettingsScreen_userData_padding">20.dp</dimen>
 
-    <dimen name="deviceControlsScreen_emptyScreenMessage_padding">20.dp</dimen>
+    <dimen name="emptyScreenMessage_padding">20.dp</dimen>
 
 </resources>

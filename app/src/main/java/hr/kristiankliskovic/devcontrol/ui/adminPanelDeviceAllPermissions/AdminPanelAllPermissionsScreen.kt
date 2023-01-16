@@ -392,16 +392,9 @@ fun UserPermissionLabel(
             imageVector = Icons.Filled.Delete,
             contentDescription = null,
             modifier = Modifier
-                .fillMaxSize()
                 .clickable {
                     onClick()
                 }
         )
     }
-}
-
-@Preview
-@Composable
-fun PreviewSeeAllPermissionsScreen() {
-
 }
