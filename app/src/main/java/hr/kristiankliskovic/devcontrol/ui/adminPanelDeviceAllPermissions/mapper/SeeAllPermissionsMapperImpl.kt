@@ -6,10 +6,10 @@ import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.*
 
 class SeeAllPermissionsMapperImpl : SeeAllPermissionsMapper {
     override fun toSeeAllPermissionViewState(
-        device: Device,
+        device: Device?,
         permissions: UserPermissionsForDeviceResponse?,
     ): SeeAllPermissionsViewState {
-        if (permissions == null) return SeeAllPermissionsViewState.getEmptyObject()
+        if (permissions == null || device == null) return SeeAllPermissionsViewState.getEmptyObject()
 
         return SeeAllPermissionsViewState(
             deviceId = device.deviceId,

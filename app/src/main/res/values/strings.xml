@@ -107,5 +107,6 @@
     <string name="topBar_addNewDevice">Add new device</string>
     <string name="topBar_error">Error</string>
 
+    <string name="deviceControlsScreen_empty_screen_message">You don\'t have access to this device</string>
 
 </resources>

@@ -19,7 +19,7 @@ class DeviceControlsViewModel(
     private val deviceControlsMapper: DeviceControlsMapper,
 ) : ViewModel() {
 
-    val deviceControlsViewState: StateFlow<DeviceControlsViewState> =
+    val deviceControlsViewState: StateFlow<DeviceControlsViewState?> =
         deviceRepository.getDevice(deviceId = deviceId).map { deviceData ->
             Log.i("deviceData", "devControlViewModel")
             Log.i("deviceData", Gson().toJson(deviceData))

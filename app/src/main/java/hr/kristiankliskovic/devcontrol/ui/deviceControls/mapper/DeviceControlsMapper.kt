@@ -4,5 +4,5 @@ import hr.kristiankliskovic.devcontrol.model.Device
 import hr.kristiankliskovic.devcontrol.ui.deviceControls.DeviceControlsViewState
 
 interface DeviceControlsMapper {
-    fun toDeviceControlsViewState(device: Device): DeviceControlsViewState
+    fun toDeviceControlsViewState(device: Device?): DeviceControlsViewState?
 }

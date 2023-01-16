@@ -72,9 +72,9 @@ class DeviceRepositoryImpl(
 
     }.flowOn(bgDispatcher)
 
-    override fun getDevice(deviceId: Int): Flow<Device> = flow {
+    override fun getDevice(deviceId: Int): Flow<Device?> = flow {
         devices.collect { devs ->
-            devs.find { it.deviceId == deviceId }?.let { emit(it) }
+            emit(devs.find { it.deviceId == deviceId })
         }
     }.flowOn(bgDispatcher)
 
@@ -400,7 +400,7 @@ class DeviceRepositoryImpl(
 
 
     private val allPermissionsForDeviceResponseInternal: MutableStateFlow<UserPermissionsForDeviceResponse?> =
-        MutableStateFlow(null);
+        MutableStateFlow(null)
     override val allPermissionsForDeviceResponse: StateFlow<UserPermissionsForDeviceResponse?> =
         allPermissionsForDeviceResponseInternal.asStateFlow()
 

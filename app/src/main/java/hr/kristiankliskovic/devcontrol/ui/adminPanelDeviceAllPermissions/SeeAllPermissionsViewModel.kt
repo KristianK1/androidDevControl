@@ -24,7 +24,7 @@ class SeeAllPermissionsViewModel(
     val viewState: StateFlow<SeeAllPermissionsViewState> = combine(
         deviceRepository.getDevice(deviceId),
         deviceRepository.allPermissionsForDeviceResponse,
-    ) { device: Device, userPermissionsForDeviceResponse: UserPermissionsForDeviceResponse? ->
+    ) { device: Device?, userPermissionsForDeviceResponse: UserPermissionsForDeviceResponse? ->
         Log.i("seeAllPerms", "viewstate mapping")
         mapper.toSeeAllPermissionViewState(device, userPermissionsForDeviceResponse)
     }.stateIn(viewModelScope, SharingStarted.Lazily, SeeAllPermissionsViewState.getEmptyObject())

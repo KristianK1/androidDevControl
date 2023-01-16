@@ -6,7 +6,7 @@ import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllP
 
 interface SeeAllPermissionsMapper {
     fun toSeeAllPermissionViewState(
-        device: Device,
+        device: Device?,
         permissions: UserPermissionsForDeviceResponse?,
     ): SeeAllPermissionsViewState
 }

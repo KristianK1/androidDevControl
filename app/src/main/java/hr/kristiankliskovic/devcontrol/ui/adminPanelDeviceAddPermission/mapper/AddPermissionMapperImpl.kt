@@ -4,7 +4,17 @@ import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission.*
 
 class AddPermissionMapperImpl : AddPermissionMapper {
-    override fun toAddPermissionViewState(device: Device, users: List<User>): AddPermissionViewState{
+    override fun toAddPermissionViewState(device: Device?, users: List<User>): AddPermissionViewState{
+        if(device == null){
+            return AddPermissionViewState(
+                deviceId = 0,
+                device = AddPermissionDeviceViewState(
+                    groups = listOf(),
+                    complexGroups = listOf()
+                ),
+                users = listOf(),
+            )
+        }
         return AddPermissionViewState(
             deviceId = device.deviceId,
             device = AddPermissionDeviceViewState(

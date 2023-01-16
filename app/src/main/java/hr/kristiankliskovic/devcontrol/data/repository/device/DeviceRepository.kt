@@ -8,7 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 
 interface DeviceRepository {
     val devices: Flow<CopyOnWriteArrayList<Device>>
-    fun getDevice(deviceId: Int): Flow<Device>
+    fun getDevice(deviceId: Int): Flow<Device?>
 
     suspend fun addNewDevice(
         deviceName: String,

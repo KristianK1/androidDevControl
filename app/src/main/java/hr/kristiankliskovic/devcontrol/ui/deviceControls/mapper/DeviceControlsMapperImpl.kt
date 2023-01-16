@@ -11,7 +11,10 @@ import hr.kristiankliskovic.devcontrol.ui.deviceControls.DeviceControlsViewState
 
 class DeviceControlsMapperImpl : DeviceControlsMapper {
     private val gson = Gson()
-    override fun toDeviceControlsViewState(device: Device): DeviceControlsViewState {
+    override fun toDeviceControlsViewState(device: Device?): DeviceControlsViewState? {
+        if(device == null){
+            return null
+        }
         Log.i("mapperData", "mapperStart")
         return DeviceControlsViewState(
             deviceId = device.deviceId,

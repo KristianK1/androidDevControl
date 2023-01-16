@@ -24,8 +24,8 @@ class AddPermissionViewModel(
     val viewState: StateFlow<AddPermissionViewState> = combine(
         userRepository.getOtherUsers(),
         deviceRepository.getDevice(deviceId)
-    ) { users: List<User>, device: Device ->
-        mapper.toAddPermissionViewState(device = device, users = users)
+    ) { users: List<User>, device: Device? ->
+            mapper.toAddPermissionViewState(device = device, users = users)
     }.stateIn(viewModelScope, SharingStarted.Lazily, AddPermissionViewState.getEmptyObject())
 
     fun addUserPermissionToDevice(
