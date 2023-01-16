@@ -29,7 +29,6 @@ data class NumericFieldInputViewState(
     val maxValue: Float,
     val valueStep: Float,
     var currentValue: Float,
-    var localValue: Float,
 ) : BasicFieldComponentViewState()
 
 @Composable
@@ -78,7 +77,7 @@ fun NumericFieldInput(
             ChangeValueButton(
                 text = "-$multipleStepsValueText",
                 onClick = {
-                    emitValue(item.localValue + it)
+                    emitValue(item.currentValue + it)
                 },
                 valueDiff = -1 * multipleStepsValue,
                 modifier = Modifier
@@ -87,20 +86,19 @@ fun NumericFieldInput(
             ChangeValueButton(
                 text = "-${item.valueStep}",
                 onClick = {
-                    emitValue(item.localValue + it)
+                    emitValue(item.currentValue + it)
                 },
                 valueDiff = -1 * item.valueStep,
                 modifier = Modifier
                     .weight(1f, true)
             )
             FieldValues(
-                localValue = "%.2f".format(item.localValue),
                 currentValue = "%.2f".format(item.currentValue),
             )
             ChangeValueButton(
                 text = "+${item.valueStep}",
                 onClick = {
-                    emitValue(item.localValue + it)
+                    emitValue(item.currentValue + it)
                 },
                 valueDiff = item.valueStep,
                 modifier = Modifier
@@ -109,7 +107,7 @@ fun NumericFieldInput(
             ChangeValueButton(
                 text = "+$multipleStepsValueText",
                 onClick = {
-                    emitValue(item.localValue + it)
+                    emitValue(item.currentValue + it)
                 },
                 valueDiff = multipleStepsValue,
                 modifier = Modifier
@@ -148,7 +146,6 @@ fun ChangeValueButton(
 
 @Composable
 fun FieldValues(
-    localValue: String,
     currentValue: String,
     modifier: Modifier = Modifier,
 ) {
@@ -161,16 +158,6 @@ fun FieldValues(
             text = currentValue,
             textAlign = TextAlign.Center,
             fontSize = 28.sp
-        )
-        LocalValue(
-            localValue,
-            modifier = Modifier
-                .padding(
-                    top = dimensionResource(id = R.dimen.numericField_localValue_padding_top),
-                    bottom = 0.dp,
-                    start = 0.dp,
-                    end = 0.dp
-                )
         )
     }
 }
@@ -205,18 +192,18 @@ fun PreviewNumericFieldInput() {
         maxValue = 25f,
         valueStep = 0.1f,
         currentValue = 18.1f,
-        localValue = 18.1f,
+//        localValue = 18.1f,
     )
     NumericFieldInput(
         item = viewState,
         emitValue = { value ->
             if (value < viewState.minValue) {
                 viewState.currentValue = viewState.minValue
-                viewState.localValue = viewState.currentValue
+//                viewState.localValue = viewState.currentValue
 
             } else if (value > viewState.maxValue) {
                 viewState.currentValue = viewState.maxValue
-                viewState.localValue = viewState.currentValue
+//                viewState.localValue = viewState.currentValue
             } else {
                 val Nstep = round((value - viewState.minValue) / viewState.valueStep)
                 viewState.currentValue = viewState.minValue + Nstep * viewState.valueStep

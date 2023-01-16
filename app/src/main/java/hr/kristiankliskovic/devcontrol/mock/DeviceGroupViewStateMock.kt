@@ -64,7 +64,6 @@ fun getMockDeviceGroupViewState(): DeviceGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
-            localValue = 18.1f,
         ),
         NumericFieldInputViewState(
             fieldId = 0,
@@ -73,7 +72,6 @@ fun getMockDeviceGroupViewState(): DeviceGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
-            localValue = 18.1f,
         ),
         NumericFieldInputViewState(
             fieldId = 0,
@@ -82,7 +80,6 @@ fun getMockDeviceGroupViewState(): DeviceGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
-            localValue = 18.1f,
         ),
         NumericFieldInputViewState(
             fieldId = 0,
@@ -91,7 +88,6 @@ fun getMockDeviceGroupViewState(): DeviceGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
-            localValue = 18.1f,
         ),
         RGBFieldInputViewState(fieldId = 0,
             name = "RGB field 1",
@@ -166,7 +162,6 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
-            localValue = 18.1f,
         ),
         NumericFieldInputViewState(
             fieldId = 1,
@@ -175,7 +170,6 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
-            localValue = 18.1f,
         ),
         NumericFieldInputViewState(
             fieldId = 2,
@@ -184,7 +178,6 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
-            localValue = 18.1f,
         )
     )
     val state1 = DeviceComplexGroupStateViewState(
