@@ -100,4 +100,6 @@
 
     <dimen name="topBar_dividerLine_height">3.dp</dimen>
 
+    <dimen name="userProfileSettingsScreen_userData_padding">20.dp</dimen>
+
 </resources>
