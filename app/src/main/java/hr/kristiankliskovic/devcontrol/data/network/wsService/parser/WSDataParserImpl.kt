@@ -1,9 +1,13 @@
 package hr.kristiankliskovic.devcontrol.data.network.wsService.parser
 
 import android.util.Log
+import android.widget.Toast
 import com.google.gson.Gson
+import hr.kristiankliskovic.devcontrol.DevControlApp
+import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.data.network.model.*
 import hr.kristiankliskovic.devcontrol.model.*
+import io.ktor.client.call.*
 
 class WSDataParserImpl(
     private val gson: Gson,
@@ -90,6 +94,13 @@ class WSDataParserImpl(
         val parsed = gson.fromJson(data, WssLogoutReasonResponse::class.java)
         var int = parsed.logoutReason //magic
         int += 1 //I can't check is it null the normal way
+        val errorMessage = DevControlApp.application.getText(R.string.registerError)
+        if(parsed.logoutReason == WssLogoutReason.DeletedUser.ordinal){
+            Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(R.string.RemotedeleteUser_message), Toast.LENGTH_SHORT).show()
+        }
+        if(parsed.logoutReason == WssLogoutReason.LogoutAll.ordinal){
+            Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(R.string.RemoteLogout_message), Toast.LENGTH_SHORT).show()
+        }
         return parsed
     }
 

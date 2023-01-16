@@ -1,5 +1,10 @@
 package hr.kristiankliskovic.devcontrol.data.network.userService
 
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import hr.kristiankliskovic.devcontrol.DevControlApp
+import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
 import hr.kristiankliskovic.devcontrol.data.network.model.*
 import io.ktor.client.*
@@ -30,10 +35,15 @@ class UserServiceImpl(
                 password = password,
             )
         )
-        return if (httpResponse != null && httpResponse.status.value in 200..299) {
-            httpResponse.body<LoginResponse>()
+        if (httpResponse != null && httpResponse.status.value in 200..299) {
+            return  httpResponse.body<LoginResponse>()
         } else {
-            null
+            var errorMessage = DevControlApp.application.getText(R.string.loginError)
+            if(httpResponse?.status?.value == 400){
+                errorMessage = "$errorMessage ${httpResponse.body<String>()}"
+            }
+            Toast.makeText(DevControlApp.application.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+            return null
         }
     }
 
@@ -69,7 +79,17 @@ class UserServiceImpl(
                 authToken = token,
             )
         )
-        return (httpResponse != null && httpResponse.status.value in 200..299)
+        val success = (httpResponse != null && httpResponse.status.value in 200..299)
+        if (success) {
+            Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(R.string.userDeleted_success), Toast.LENGTH_SHORT).show()
+        } else {
+            var errorMessage = DevControlApp.application.getText(R.string.userDeleted_error)
+            if(httpResponse?.status?.value == 400){
+                errorMessage = "$errorMessage ${httpResponse.body<String>()}"
+            }
+            Toast.makeText(DevControlApp.application.applicationContext, errorMessage, Toast.LENGTH_LONG).show()
+        }
+        return success
     }
 
     override suspend fun getOtherUsers(token: String): GetAllUsersResponse? {
@@ -103,7 +123,17 @@ class UserServiceImpl(
                 dontLogoutToken = dontLogoutToken
             )
         )
-        return (httpResponse != null && httpResponse.status.value in 200..299)
+        val success = (httpResponse != null && httpResponse.status.value in 200..299)
+        if (success) {
+            Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(R.string.passwordChanged), Toast.LENGTH_SHORT).show()
+        } else {
+            var errorMessage = DevControlApp.application.getText(R.string.passwordError)
+            if(httpResponse?.status?.value == 400){
+                errorMessage = "$errorMessage ${httpResponse.body<String>()}"
+            }
+            Toast.makeText(DevControlApp.application.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+        }
+        return success
     }
 
     override suspend fun registerUser(username: String, password: String): LoginResponse? {
@@ -114,10 +144,15 @@ class UserServiceImpl(
                 password = password,
             )
         )
-        return if (httpResponse != null && httpResponse.status.value in 200..299) {
-            httpResponse.body<LoginResponse>()
+        if (httpResponse != null && httpResponse.status.value in 200..299) {
+            return  httpResponse.body<LoginResponse>()
         } else {
-            null
+            var errorMessage = DevControlApp.application.getText(R.string.registerError)
+            if(httpResponse?.status?.value == 400){
+                errorMessage = "$errorMessage ${httpResponse.body<String>()}"
+            }
+            Toast.makeText(DevControlApp.application.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+            return null
         }
     }
 
@@ -131,4 +166,5 @@ class UserServiceImpl(
             null
         }
     }
+    
 }

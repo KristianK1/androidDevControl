@@ -25,6 +25,7 @@ import org.koin.core.context.startKoin
 class DevControlApp: Application() {
     override fun onCreate() {
         super.onCreate()
+        application = this
         startKoin {
             androidContext(this@DevControlApp)
             modules(
@@ -48,5 +49,9 @@ class DevControlApp: Application() {
                 seeAllPermissionsModule
             )
         }
+    }
+
+    companion object{
+        lateinit var application: Application
     }
 }

@@ -113,4 +113,30 @@
     <string name="myDevicesScreen_emptyScreen_message">You don\'t have access to any devices.\nAdd a device or ask a device admin to give you permissions to their device</string>
     <string name="AdminPanelHomeScreen_emptyScreen_message">You aren\'t admin to any device.</string>
 
+    <string name="passwordChanged">Password changed.</string>
+    <string name="passwordError">Error at changing password.</string>
+
+    <string name="userDeleted_success">User is deleted.</string>
+    <string name="userDeleted_error">Error at deleting user.</string>
+
+    <string name="registerError">Error at register.</string>
+
+    <string name="RemoteLogout_message">You have been remotely logged out</string>
+    <string name="RemotedeleteUser_message">You have been remotely logged out</string>
+    <string name="loginError">Error at login. </string>
+
+    <string name="changedAdmin_success">Successfully changed admin.</string>
+    <string name="changedAdmin_error">Error at changing admin.</string>
+
+
+    <string name="addNewDevice_success">Successfully added new device.</string>
+    <string name="addNewDevice_error">Error at adding new device.</string>
+
+    <string name="deleteDevice_success">Successfully deleted device.</string>
+    <string name="deleteDevice_error">Error at deleting device.</string>
+
+    <string name="permission_added">Permission added.</string>
+    <string name="permission_added_error">Permission not added. </string>
+
+
 </resources>
