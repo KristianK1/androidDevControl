@@ -80,7 +80,7 @@ class DeviceControlsMapperImpl : DeviceControlsMapper {
                     TextFieldOutputViewState(
                         fieldId = field.fieldId,
                         name = field.fieldName,
-                        currentValue = ".2f".format(field.currentValue)
+                        currentValue = "%.2f".format(field.currentValue)
                     )
                 } else {
                     NumericFieldInputViewState(

@@ -13,7 +13,7 @@
     <string name="buttonField_change_to_OFF_text">Change to OFF</string>
 
     <string name="RGBFieldInput_open_dialog">Change</string>
-    <string name="RGBFieldInput_dialog_close_button">Close dialog</string>
+    <string name="RGBFieldInput_set_value_button">Select value</string>
 
     <string name="complexGroup_stateChooser_title">Current\nstate:</string>
     <string name="complexGroup_stateChooser_button">Change\nstate</string>

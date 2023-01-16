@@ -70,6 +70,9 @@ fun RGBFieldInput(
 fun RGBDialog(
     selectValue: (RGBValue) -> Unit,
 ) {
+    var rgb by remember {
+        mutableStateOf(RGBValue(0, 0, 0))
+    }
     var dialogOpen by remember {
         mutableStateOf(false)
     }
@@ -86,12 +89,10 @@ fun RGBDialog(
                         onColorChanged = {
                             val color = it.toColor()
                             Log.i("rgbDebug", "${color.blue}|${color.blue.toInt()}")
-                            selectValue(
-                                RGBValue(
-                                    (color.red * 256).toInt(),
-                                    (color.green * 256 ).toInt(),
-                                    (color.blue * 256).toInt()
-                                )
+                            rgb = RGBValue(
+                                (color.red * 256).toInt(),
+                                (color.green * 256).toInt(),
+                                (color.blue * 256).toInt()
                             )
                         },
                         modifier = Modifier
@@ -109,13 +110,14 @@ fun RGBDialog(
                             modifier = Modifier
                                 .clip(Shapes.small)
                                 .clickable {
+                                    selectValue(rgb)
                                     dialogOpen = false
                                 }
                                 .background(colorResource(id = R.color.fieldComponent_button_background))
                                 .padding(dimensionResource(id = R.dimen.dialog_confirm_button_padding))
                         ) {
                             Text(
-                                text = stringResource(id = R.string.RGBFieldInput_dialog_close_button),
+                                text = "${stringResource(id = R.string.RGBFieldInput_set_value_button)} (${rgb.displayColorString()})",
                                 fontSize = 20.sp
                             )
                         }
