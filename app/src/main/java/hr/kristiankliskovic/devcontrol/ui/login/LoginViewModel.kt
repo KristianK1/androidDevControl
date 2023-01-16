@@ -23,7 +23,7 @@ class LoginViewModel(
 
     fun login(username: String, password: String) {
         Log.i("login", "LoginViewModel_loginByCreds_${username}_${password}")
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             Log.i("login", "LoginViewModel_viewModelScope_loginByCreds_${username}_${password}")
             userRepository.loginByCreds(
                 username = username,
