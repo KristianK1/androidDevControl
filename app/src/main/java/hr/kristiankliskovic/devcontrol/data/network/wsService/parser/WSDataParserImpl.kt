@@ -54,7 +54,7 @@ class WSDataParserImpl(
                 val fields: MutableList<BasicDeviceField> = mutableListOf()
                 for (field in state.fields) {
                     Log.i("parsingData", "parsing23")
-                    fields.add(parseFieldInComplexGroup(field)!!) //ako je null nek pukne
+                    fields.add(parseFieldInComplexGroup(field, complexGroup.readOnly)!!) //ako je null nek pukne
                     Log.i("parsingData", "parsing24")
                 }
                 val fullState = DeviceComplexGroupState(
@@ -174,12 +174,12 @@ class WSDataParserImpl(
         }
     }
 
-    private fun parseFieldInComplexGroup(field: WSSBasicFieldInComplexGroup): BasicDeviceField? {
+    private fun parseFieldInComplexGroup(field: WSSBasicFieldInComplexGroup, CGreadOnly: Boolean): BasicDeviceField? {
         val fieldValue = gson.toJson(field.fieldValue)
         when (field.fieldType) {
             numericFieldLabel -> {
                 val fieldValueParsed = gson.fromJson(fieldValue, WSSNumericField::class.java)
-                val fieldDirectionReadOnly = parseDirection(fieldValueParsed.fieldDirection)
+                val fieldDirectionReadOnly = parseDirection(fieldValueParsed.fieldDirection) || CGreadOnly
                 return NumericDeviceField(
                     fieldId = field.id,
                     fieldName = field.fieldName,
