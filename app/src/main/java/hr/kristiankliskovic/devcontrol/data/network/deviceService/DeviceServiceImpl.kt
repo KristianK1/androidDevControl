@@ -322,7 +322,7 @@ class DeviceServiceImpl(
         val success = (httpResponse != null && httpResponse.status.value in 200..299)
         if (success) {
             Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(
-                R.string.permission_added_error), Toast.LENGTH_SHORT).show()
+                R.string.permission_added), Toast.LENGTH_SHORT).show()
         } else {
             var errorMessage = DevControlApp.application.getText(R.string.permission_added_error)
             if(httpResponse?.status?.value == 400){
@@ -354,7 +354,7 @@ class DeviceServiceImpl(
         val success = (httpResponse != null && httpResponse.status.value in 200..299)
         if (success) {
             Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(
-                R.string.permission_added_error), Toast.LENGTH_SHORT).show()
+                R.string.permission_added), Toast.LENGTH_SHORT).show()
         } else {
             var errorMessage = DevControlApp.application.getText(R.string.permission_added_error)
             if(httpResponse?.status?.value == 400){
@@ -389,7 +389,7 @@ class DeviceServiceImpl(
         val success = (httpResponse != null && httpResponse.status.value in 200..299)
         if (success) {
             Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(
-                R.string.permission_added_error), Toast.LENGTH_SHORT).show()
+                R.string.permission_added), Toast.LENGTH_SHORT).show()
         } else {
             var errorMessage = DevControlApp.application.getText(R.string.permission_added_error)
             if(httpResponse?.status?.value == 400){
@@ -421,7 +421,7 @@ class DeviceServiceImpl(
         val success = (httpResponse != null && httpResponse.status.value in 200..299)
         if (success) {
             Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(
-                R.string.permission_added_error), Toast.LENGTH_SHORT).show()
+                R.string.permission_added), Toast.LENGTH_SHORT).show()
         } else {
             var errorMessage = DevControlApp.application.getText(R.string.permission_added_error)
             if(httpResponse?.status?.value == 400){
