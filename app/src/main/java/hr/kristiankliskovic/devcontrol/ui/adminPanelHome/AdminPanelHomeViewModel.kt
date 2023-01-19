@@ -19,7 +19,6 @@ class AdminPanelHomeViewModel(
 
     val state: StateFlow<AdminPanelHomeViewState> = combine(userRepository.loggedInUser,
         deviceRepository.devices) { loggedInUser: LoggedInUser?, devices: CopyOnWriteArrayList<Device> ->
-        Log.i("mapper2", "new devices")
         adminPanelHomeMapper.toAdminPanelHomeViewState(loggedInUser?.userId, devices)
     }.stateIn(viewModelScope, SharingStarted.Lazily, AdminPanelHomeViewState.empty())
 }

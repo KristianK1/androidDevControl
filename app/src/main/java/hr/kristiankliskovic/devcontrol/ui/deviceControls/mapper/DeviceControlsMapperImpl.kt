@@ -15,7 +15,6 @@ class DeviceControlsMapperImpl : DeviceControlsMapper {
         if(device == null){
             return null
         }
-        Log.i("mapperData", "mapperStart")
         return DeviceControlsViewState(
             deviceId = device.deviceId,
             deviceName = device.deviceName,
@@ -30,8 +29,6 @@ class DeviceControlsMapperImpl : DeviceControlsMapper {
     }
 
     private fun complexGroupToComplexGroupViewState(complexGroup: DeviceComplexGroup): DeviceComplexGroupViewState {
-        Log.i("mapperData", "mapperCG")
-        Log.i("mapperData", gson.toJson(complexGroup))
 
         return DeviceComplexGroupViewState(
             complexGroupId = complexGroup.complexGroupId,
@@ -47,8 +44,6 @@ class DeviceControlsMapperImpl : DeviceControlsMapper {
     private fun complexGroupStateToComplexGroupStateViewState(
         complexGroupState: DeviceComplexGroupState,
     ): DeviceComplexGroupStateViewState {
-        Log.i("mapperData", "mapperCGState")
-        Log.i("mapperData", gson.toJson(complexGroupState))
 
         return DeviceComplexGroupStateViewState(
             stateId = complexGroupState.stateId,
@@ -60,22 +55,17 @@ class DeviceControlsMapperImpl : DeviceControlsMapper {
     }
 
     private fun groupToGroupViewState(group: DeviceGroup): DeviceGroupViewState {
-        Log.i("mapperData", "mapper_group")
-        Log.i("mapperData", gson.toJson(group))
         return DeviceGroupViewState(
             groupId = group.groupId,
             groupName = group.groupName,
             fields = group.fields.map { field ->
                 val x = fieldToFieldViewState(field)
-                Log.i("deviceData", gson.toJson(x))
                 x
             }
         )
     }
 
     private fun fieldToFieldViewState(field: BasicDeviceField): BasicFieldComponentViewState {
-        Log.i("mapperData", "mapperfield")
-        Log.i("mapperData", gson.toJson(field))
 
         when (field) {
             is NumericDeviceField -> {

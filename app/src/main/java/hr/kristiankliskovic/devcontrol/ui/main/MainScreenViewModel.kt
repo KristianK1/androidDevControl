@@ -21,7 +21,6 @@ class MainScreenViewModel(
     }.stateIn(viewModelScope, SharingStarted.Lazily, null)
 
     val userMessages: StateFlow<WssLogoutReason?> = userRepository.userMessages.mapLatest {
-        Log.i("websocket_usermessages", "listen")
         it
     }.stateIn(viewModelScope, SharingStarted.Lazily, null)
 
@@ -29,19 +28,8 @@ class MainScreenViewModel(
         it
     }.stateIn(viewModelScope, SharingStarted.Lazily, false)
 
-    fun onPause() {
-        Log.i("sviki", "onPause2")
-
-    }
-
-    fun onResume() {
-        Log.i("sviki", "onResume2")
-
-    }
-
     fun startWS() {
         viewModelScope.launch {
-            Log.i("websocket", "started stay conn")
             userRepository.connectToWS()
         }
     }

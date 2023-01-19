@@ -33,7 +33,6 @@ class AddPermissionViewModel(
         deviceId: Int,
         readOnly: Boolean,
     ) {
-        Log.i("perms", "two")
         viewModelScope.launch {
             deviceRepository.addUserPermissionToDevice(
                 userId = userId,
@@ -49,7 +48,6 @@ class AddPermissionViewModel(
         groupId: Int,
         readOnly: Boolean,
     ) {
-        Log.i("perms", "two")
         viewModelScope.launch {
             deviceRepository.addUserPermissionToGroup(
                 userId = userId,
@@ -67,7 +65,6 @@ class AddPermissionViewModel(
         fieldId: Int,
         readOnly: Boolean,
     ) {
-        Log.i("perms", "two")
         viewModelScope.launch {
             deviceRepository.addUserPermissionToField(
                 userId = userId,
@@ -85,7 +82,6 @@ class AddPermissionViewModel(
         complexGroupId: Int,
         readOnly: Boolean,
     ) {
-        Log.i("perms", "two")
         viewModelScope.launch {
             deviceRepository.addUserPermissionToComplexGroup(
                 userId = userId,

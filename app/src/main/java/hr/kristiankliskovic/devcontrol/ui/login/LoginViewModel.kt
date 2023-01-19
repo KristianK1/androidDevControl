@@ -12,25 +12,17 @@ class LoginViewModel(
 ) : ViewModel() {
 
     init {
-        Log.i("login", "LoginViewModel_init")
         viewModelScope.launch {
-            Log.i("login", "LoginViewModel_viewModeLScope_init")
             userRepository.loginByToken()
-            Log.i("login", "LoginViewModel_viewModeLScope_init_end")
         }
-        Log.i("login", "LoginViewModel_viewModeLScope_init_end2")
     }
 
     fun login(username: String, password: String) {
-        Log.i("login", "LoginViewModel_loginByCreds_${username}_${password}")
         viewModelScope.launch {
-            Log.i("login", "LoginViewModel_viewModelScope_loginByCreds_${username}_${password}")
             userRepository.loginByCreds(
                 username = username,
                 password = password,
             )
-            Log.i("login", "LoginViewModel_viewModelScope_end_loginByCreds_${username}_${password}")
         }
-        Log.i("login", "LoginViewModel_viewModelScope_end2_loginByCreds_${username}_${password}")
     }
 }

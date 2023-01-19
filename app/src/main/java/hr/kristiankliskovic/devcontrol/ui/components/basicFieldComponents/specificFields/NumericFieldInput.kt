@@ -207,7 +207,6 @@ fun PreviewNumericFieldInput() {
             } else {
                 val Nstep = round((value - viewState.minValue) / viewState.valueStep)
                 viewState.currentValue = viewState.minValue + Nstep * viewState.valueStep
-                Log.i("chVal", "" + viewState.currentValue)
             }
         },
         modifier = Modifier

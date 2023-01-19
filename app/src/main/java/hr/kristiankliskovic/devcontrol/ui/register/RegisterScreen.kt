@@ -164,9 +164,7 @@ fun RegisterScreen(
 fun PreviewRegisterScreen() {
     RegisterScreen(
         register = { u, p ->
-            Log.i("register", "$u|$p")
         },
         loginInstead = {
-            Log.i("register", "login")
         })
 }

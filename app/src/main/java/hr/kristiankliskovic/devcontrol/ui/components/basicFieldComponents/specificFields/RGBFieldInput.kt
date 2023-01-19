@@ -88,7 +88,6 @@ fun RGBDialog(
                     ClassicColorPicker(
                         onColorChanged = {
                             val color = it.toColor()
-                            Log.i("rgbDebug", "${color.blue}|${color.blue.toInt()}")
                             rgb = RGBValue(
                                 (color.red * 256).toInt(),
                                 (color.green * 256).toInt(),
@@ -164,7 +163,6 @@ fun PreviewRGBFieldInput() {
         currentValue = RGBValue(55, 55, 155)
     )
     RGBFieldInput(item = state, emitValue = {
-        Log.i("rgbDebug", it.displayColorString())
     }, modifier = Modifier
         .fillMaxWidth()
         .height(100.dp))

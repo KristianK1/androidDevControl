@@ -138,10 +138,8 @@ fun LoginScreen(
 fun PreviewLoginScreen() {
     LoginScreen(
         login = { u, p ->
-            Log.i("login", "$u|$p")
         },
         registerInstead = {
-            Log.i("login", "register")
         }
     )
 }

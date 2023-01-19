@@ -1,6 +1,5 @@
 package hr.kristiankliskovic.devcontrol.data.network.deviceService
 
-import android.util.Log
 import android.widget.Toast
 import hr.kristiankliskovic.devcontrol.DevControlApp
 import hr.kristiankliskovic.devcontrol.R
@@ -226,7 +225,6 @@ class DeviceServiceImpl(
         val httpResponse =
             httpPostRequest(url = "${HTTPSERVER.httpServer}$device_routerPath$changeComplexGroupStateValue_routerPath",
                 body = ChangeComplexGroupState(authToken, deviceId, groupId, state))
-        Log.i("CGstate", "sent_${httpResponse?.status?.value}")
 
         return (httpResponse != null && httpResponse.status.value in 200..299)
     }
@@ -309,7 +307,6 @@ class DeviceServiceImpl(
         deviceId: Int,
         readOnly: Boolean,
     ): Boolean {
-        Log.i("perms", "four")
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$userPermission_routerPath$addDevicePermission_routerPath",
             body = AddUserPermissionToDevice(
@@ -340,7 +337,6 @@ class DeviceServiceImpl(
         groupId: Int,
         readOnly: Boolean,
     ): Boolean {
-        Log.i("perms", "four")
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$userPermission_routerPath$addGroupPermission_routerPath",
             body = AddUserPermissionToGroup(
@@ -373,8 +369,6 @@ class DeviceServiceImpl(
         fieldId: Int,
         readOnly: Boolean,
     ): Boolean {
-        Log.i("perms", "four")
-        Log.i("perms", "${HTTPSERVER.httpServer}$userPermission_routerPath$addFieldPermission_routerPath")
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$userPermission_routerPath$addFieldPermission_routerPath",
             body = AddUserPermissionToField(
@@ -407,7 +401,6 @@ class DeviceServiceImpl(
         complexGroupId: Int,
         readOnly: Boolean,
     ): Boolean {
-        Log.i("perms", "four")
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$userPermission_routerPath$addComplexGroupPermission_routerPath",
             body = AddUserPermissionToComplexGroup(

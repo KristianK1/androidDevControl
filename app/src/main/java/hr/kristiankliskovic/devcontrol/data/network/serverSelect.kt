@@ -19,4 +19,9 @@ val renderHosting = Server(
     httpServer = "https://devcontrol-backend.onrender.com",
     wsServer = "devcontrol-backend.onrender.com"
 )
+
+val herokuHosting = Server(
+    httpServer = "https://devcontrol.herokuapp.com",
+    wsServer = "devcontrol.herokuapp.com"
+)
 val HTTPSERVER = renderHosting

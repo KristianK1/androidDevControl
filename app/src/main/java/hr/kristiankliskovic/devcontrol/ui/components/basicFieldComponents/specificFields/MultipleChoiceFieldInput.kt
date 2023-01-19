@@ -159,7 +159,6 @@ fun PreviewMultipleChoiceFieldInput() {
             .fillMaxWidth()
             .height(100.dp),
         emitValue = {
-            Log.i("MCfield", "" + it)
         }
     )
 }

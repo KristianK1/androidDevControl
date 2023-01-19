@@ -5,26 +5,21 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -208,7 +203,6 @@ fun MainScreen() {
                             )
                         },
                         navigateToChangeDeviceAdmin = { route ->
-                            Log.i("navigationW", route)
                             navController.navigate(route)
                         },
                         navigateToAddNewPermission = { route ->
@@ -245,7 +239,6 @@ fun MainScreen() {
                         type = NavType.IntType
                     })
                 ) {
-                    Log.i("navigationW", "HEREQQQ")
                     ChangeDeviceAdminRoute(
                         viewModel = getViewModel {
                             parametersOf(
@@ -292,7 +285,6 @@ fun MainScreen() {
         }
         when (loggedIn.value) {
             true -> {
-                Log.i("mainScreen", "Qtrue")
                 if (!viewModel.loggedInLocal) {
                     navController.navigate(MY_DEVICES_ROUTE) {
                         popUpTo(LOGIN_ROUTE) {
@@ -304,7 +296,6 @@ fun MainScreen() {
                 }
             }
             false -> {
-                Log.i("mainScreen", "Qfalse")
                 if (viewModel.loggedInLocal) {
                     navController.navigate(LOGIN_ROUTE) {
                         launchSingleTop = true
@@ -317,7 +308,6 @@ fun MainScreen() {
                 }
             }
             null -> {
-                Log.i("mainScreen", "Qnull")
             }
         }
         if (userMessages.value != null) {
@@ -378,7 +368,7 @@ fun TopBar(
                             modifier = Modifier.fillMaxHeight()
                         ) {
                             Icon(
-                                Icons.Filled.AccountBox,
+                                Icons.Filled.Menu,
                                 contentDescription = null,
                                 modifier = Modifier
                                     .fillMaxHeight()
@@ -388,7 +378,7 @@ fun TopBar(
                                     }
                             )
                             Icon(
-                                Icons.Filled.Settings,
+                                Icons.Filled.AccountBox,
                                 contentDescription = null,
                                 modifier = Modifier
                                     .fillMaxHeight()

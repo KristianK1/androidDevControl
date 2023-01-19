@@ -1,13 +1,11 @@
 package hr.kristiankliskovic.devcontrol.data.network.wsService.parser
 
-import android.util.Log
 import android.widget.Toast
 import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.DevControlApp
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.data.network.model.*
 import hr.kristiankliskovic.devcontrol.model.*
-import io.ktor.client.call.*
 
 class WSDataParserImpl(
     private val gson: Gson,
@@ -30,18 +28,13 @@ class WSDataParserImpl(
 
         val wssMessage = gson.fromJson(data, WssReceivingMessage::class.java)
         val deviceDataJSON = gson.toJson(wssMessage.data)
-        Log.i("parsingData", "parsing")
-        Log.i("parsingData", deviceDataJSON)
 
         val deviceData = gson.fromJson(deviceDataJSON, WSSDeviceData::class.java)
-        Log.i("parsingData", "parsing2")
         val groups: MutableList<DeviceGroup> = mutableListOf()
         for (group in deviceData.deviceFieldGroups) {
             val fields: MutableList<BasicDeviceField> = mutableListOf()
             for (field in group.fields) {
-                Log.i("parsingData", "parsing21")
                 fields.add(parseFieldInGroup(field)!!) //ako je null nek pukne
-                Log.i("parsingData", "parsing22")
             }
             val mappedGroup = DeviceGroup(
                 groupId = group.id,
@@ -57,9 +50,7 @@ class WSDataParserImpl(
             for (state in complexGroup.fieldGroupStates) {
                 val fields: MutableList<BasicDeviceField> = mutableListOf()
                 for (field in state.fields) {
-                    Log.i("parsingData", "parsing23")
                     fields.add(parseFieldInComplexGroup(field, complexGroup.readOnly)!!) //ako je null nek pukne
-                    Log.i("parsingData", "parsing24")
                 }
                 val fullState = DeviceComplexGroupState(
                     stateId = state.id,
@@ -77,7 +68,6 @@ class WSDataParserImpl(
             )
             complexGroups.add(fullComplexGroup)
         }
-        Log.i("parsingData", "${deviceData.updateTimeStamp}")
 
         return Device(
             deviceId = deviceData.id,

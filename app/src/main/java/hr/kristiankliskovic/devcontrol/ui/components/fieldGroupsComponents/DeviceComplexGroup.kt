@@ -59,7 +59,6 @@ fun DeviceComplexGroup(
             readOnly = item.readOnly,
             currentState = item.currentState,
             changeState = {
-                Log.i("CGstate","$it")
                 changeComplexGroupState(it)
             },
             modifier = Modifier

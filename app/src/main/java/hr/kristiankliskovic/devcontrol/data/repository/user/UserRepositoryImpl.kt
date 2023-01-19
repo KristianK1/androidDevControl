@@ -32,7 +32,6 @@ class UserRepositoryImpl(
     }
 
     override fun getOtherUsers(): Flow<List<User>> = flow {
-        Log.i("chAdmin", "new users - repo")
         val response = userService.getOtherUsers(authTokenRepository.getAuthToken()!!)
         if (response == null) {
             emit(listOf())
@@ -111,9 +110,7 @@ class UserRepositoryImpl(
         newPassword: String,
         logoutOtherSessions: Boolean,
     ): Boolean {
-        Log.i("chpas", "line1")
         val user = InMemoryDb.loggedInUser.value
-        Log.i("chpas", "user_${user != null}")
         return if (user != null) {
             userService.changePassword(
                 userId = user.userId,

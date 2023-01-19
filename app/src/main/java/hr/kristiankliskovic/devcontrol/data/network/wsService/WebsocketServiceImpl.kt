@@ -1,6 +1,5 @@
 package hr.kristiankliskovic.devcontrol.data.network.wsService
 
-import android.util.Log
 import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
 import hr.kristiankliskovic.devcontrol.data.network.model.*
@@ -79,12 +78,10 @@ class WebsocketServiceImpl(
     }
 
     private fun deserializeData(data: String) {
-        Log.i("deviceData", "here")
         lateinit var messageType: WSSReceivingMessageTypes
         try {
             messageType = wsDataParser.getWSSMessageType(data)
         } catch (e: Throwable) {
-            Log.i("deviceData", "unknown message type - deserializeData- WSSService")
             return
         }
         when (messageType) {

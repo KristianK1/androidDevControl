@@ -28,20 +28,20 @@ class DeviceRepositoryImpl(
             websocketService.deviceMessages,
             userRepository.loggedInUser,
         ).collect { it ->
-            Log.i("deviceRepo_collect", "start")
-            Log.i("deviceRepo_collect", Gson().toJson(it))
+   
+
             when (it) {
                 is LoggedInUser? -> {
-                    Log.i("deviceRepo_collect", "split logged in user")
+
                     val loggedInUser: LoggedInUser? = it
                     if (loggedInUser == null) {
-                        Log.i("deviceRepo_collect", "remove all")
+
                         devicesInternal = CopyOnWriteArrayList()
                         emit(devicesInternal)
                     }
                 }
                 is Int -> {
-                    Log.i("deviceRepo_collect", "split removed")
+
                     val deviceId: Int = it
                     val deviceList = devicesInternal.toMutableList()
                     deviceList.removeIf { dev ->
@@ -52,7 +52,7 @@ class DeviceRepositoryImpl(
                     emit(devicesInternal)
                 }
                 is Device? -> {
-                    Log.i("deviceRepo_collect", "split deviceData")
+
                     val device: Device? = it
                     if (device != null) {
                         val deviceList = devicesInternal.toMutableList()
@@ -64,7 +64,7 @@ class DeviceRepositoryImpl(
                         devicesInternal = CopyOnWriteArrayList(deviceList)
                         emit(devicesInternal)
                     } else {
-//                        Log.i("QdeviceData", "no device")
+//
                     }
                 }
             }
@@ -290,7 +290,6 @@ class DeviceRepositoryImpl(
         deviceId: Int,
         readOnly: Boolean,
     ): Boolean {
-        Log.i("perms", "three")
         return deviceService.addUserPermissionToDevice(
             authToken = authTokenRepository.getAuthToken()!!,
             userId = userId,
@@ -305,7 +304,6 @@ class DeviceRepositoryImpl(
         groupId: Int,
         readOnly: Boolean,
     ): Boolean {
-        Log.i("perms", "three")
         return deviceService.addUserPermissionToGroup(
             authToken = authTokenRepository.getAuthToken()!!,
             userId = userId,
@@ -322,7 +320,6 @@ class DeviceRepositoryImpl(
         fieldId: Int,
         readOnly: Boolean,
     ): Boolean {
-        Log.i("perms", "three")
         return deviceService.addUserPermissionToField(
             authToken = authTokenRepository.getAuthToken()!!,
             userId = userId,
@@ -339,7 +336,6 @@ class DeviceRepositoryImpl(
         complexGroupId: Int,
         readOnly: Boolean,
     ): Boolean {
-        Log.i("perms", "three")
         return deviceService.addUserPermissionToComplexGroup(
             authToken = authTokenRepository.getAuthToken()!!,
             userId = userId,

@@ -5,7 +5,7 @@ data class Device(
     val deviceId: Int,
     val deviceName: String,
     val userAdminId: Int,
-    val deviceKey: String, //TODO remove?
+    val deviceKey: String,
     val groups: List<DeviceGroup>,
     val complexGroups: List<DeviceComplexGroup>,
     val isActive: Boolean,

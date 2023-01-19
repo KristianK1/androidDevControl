@@ -37,19 +37,15 @@ fun AddPermissionRoute(
     AddPermissionScreen(
         state = viewState,
         { userId, readOnly ->
-            Log.i("perms", "one")
             viewModel.addUserPermissionToDevice(userId, viewState.deviceId, readOnly)
         },
         { userId, groupId, readOnly ->
-            Log.i("perms", "one")
             viewModel.addUserPermissionToGroup(userId, viewState.deviceId, groupId, readOnly)
         },
         { userId, groupId, fieldId, readOnly ->
-            Log.i("perms", "one")
             viewModel.addUserPermissionToField(userId, viewState.deviceId, groupId, fieldId, readOnly)
         },
         { userId, complexGroupId, readOnly ->
-            Log.i("perms", "one")
             viewModel.addUserPermissionToComplexGroup(userId, viewState.deviceId, complexGroupId, readOnly)
         },
     )

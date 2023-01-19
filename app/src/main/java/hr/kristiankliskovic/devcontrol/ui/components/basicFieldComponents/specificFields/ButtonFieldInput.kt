@@ -103,7 +103,6 @@ fun PreviewButtonFieldInput() {
     ButtonFieldInput(
         item = state,
         emitValue = {
-            Log.i("btn State", "" + it)
         },
         modifier = Modifier
             .fillMaxWidth()

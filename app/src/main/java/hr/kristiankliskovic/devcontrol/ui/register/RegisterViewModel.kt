@@ -11,7 +11,6 @@ class RegisterViewModel(
 ) : ViewModel() {
     fun register(username: String, password: String) {
         viewModelScope.launch {
-            Log.i("regg", "qqwe")
             userRepository.registerUser(
                 username = username,
                 password = password

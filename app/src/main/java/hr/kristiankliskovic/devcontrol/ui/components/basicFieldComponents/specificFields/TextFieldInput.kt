@@ -159,7 +159,6 @@ fun PreviewTextFieldInput() {
     TextFieldInput(
         item = state,
         emitValue = {
-            Log.i("TFdebug", it)
         },
         modifier = Modifier
             .fillMaxWidth()

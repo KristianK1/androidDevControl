@@ -21,11 +21,7 @@ class DeviceControlsViewModel(
 
     val deviceControlsViewState: StateFlow<DeviceControlsViewState?> =
         deviceRepository.getDevice(deviceId = deviceId).map { deviceData ->
-            Log.i("deviceData", "devControlViewModel")
-            Log.i("deviceData", Gson().toJson(deviceData))
-
             val x = deviceControlsMapper.toDeviceControlsViewState(deviceData)
-            Log.i("deviceData_mapEnd", Gson().toJson(x))
             x
         }.stateIn(viewModelScope, SharingStarted.Lazily, DeviceControlsViewState.empty())
 
@@ -68,7 +64,6 @@ class DeviceControlsViewModel(
 
     fun onChangeNumericInCG(deviceId: Int, groupId: Int, stateId: Int, fieldId: Int, value: Float) {
         viewModelScope.launch {
-            Log.i("changeState", "final1")
             deviceRepository.changeNumericFieldInComplexGroup(deviceId,
                 groupId,
                 stateId,
@@ -127,7 +122,6 @@ class DeviceControlsViewModel(
                 value.R,
                 value.G,
                 value.B)
-
         }
     }
 }

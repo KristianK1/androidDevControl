@@ -21,8 +21,6 @@ class ChangeDeviceAdminViewModel(
 
     val viewState: StateFlow<ChangeDeviceAdminViewState> =
         userRepository.getOtherUsers().mapLatest { users ->
-            Log.i("chAdmin", "new users")
-            Log.i("chAdmin", "${users.size}")
             mapper.toChangeDeviceAdminViewState(
                 users = users,
             )
