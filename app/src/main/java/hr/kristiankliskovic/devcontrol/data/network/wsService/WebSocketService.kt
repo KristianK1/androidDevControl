@@ -8,7 +8,7 @@ interface WebSocketService {
     val connectedToWSS: StateFlow<Boolean>
 
     val userMessages: StateFlow<WssLogoutReason?>
-    val deviceMessages: StateFlow<Device?>
+    val deviceMessages: StateFlow<List<Device>>
     val deviceRemoved: StateFlow<Int?>
 
     suspend fun connect(token: String)

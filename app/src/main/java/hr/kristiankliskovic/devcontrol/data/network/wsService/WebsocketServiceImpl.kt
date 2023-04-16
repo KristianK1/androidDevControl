@@ -1,5 +1,6 @@
 package hr.kristiankliskovic.devcontrol.data.network.wsService
 
+import android.util.Log
 import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
 import hr.kristiankliskovic.devcontrol.data.network.model.*
@@ -34,8 +35,8 @@ class WebsocketServiceImpl(
         MutableStateFlow(null)
     override val userMessages: StateFlow<WssLogoutReason?> = userMessagesInternal.asStateFlow()
 
-    private val deviceMessagesInternal: MutableStateFlow<Device?> = MutableStateFlow(null)
-    override val deviceMessages: StateFlow<Device?> = deviceMessagesInternal.asStateFlow()
+    private val deviceMessagesInternal: MutableStateFlow<List<Device>> = MutableStateFlow(arrayListOf())
+    override val deviceMessages: StateFlow<List<Device>> = deviceMessagesInternal.asStateFlow()
 
     private val deviceRemovedInternal: MutableStateFlow<Int> = MutableStateFlow(-1)
     override val deviceRemoved: StateFlow<Int> = deviceRemovedInternal.asStateFlow()
@@ -45,13 +46,15 @@ class WebsocketServiceImpl(
         if (!connectedToWSSInternal.value) {
             while (true) {
                 if (authToken == null) break
+                Log.i("wsConnect", "first")
                 try {
                     httpClientForWS.webSocket(
                         method = HttpMethod.Get,
                         host = HTTPSERVER.wsServer,
-//                        port = 8000,
-                        path = "/"
+                        port = 8000,
+//                        path = "/"
                     ) {
+                        Log.i("wsConnect", "second")
                         currentWSSclient = this
                         connectedToWSSInternal.value = true
                         send(constructFirstMessage(authToken!!)) //!! is kinda okey here
@@ -124,6 +127,6 @@ class WebsocketServiceImpl(
     }
 
     override suspend fun resetDeviceMessages(){
-        deviceMessagesInternal.emit(null)
+        deviceMessagesInternal.emit(listOf())
     }
 }

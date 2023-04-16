@@ -7,7 +7,7 @@ import hr.kristiankliskovic.devcontrol.model.Device
 
 interface WSDataParser {
     fun getWSSMessageType(data: String): WSSReceivingMessageTypes
-    fun parseDeviceData(data: String): Device
+    fun parseDeviceData(data: String): List<Device>
     fun parseUserMessages(data: String): WssLogoutReasonResponse
     fun parseDeviceDeletedMessage(data: String): Int
     fun parseLostRightsToDeviceMessage(data: String): Int

@@ -45,7 +45,7 @@ enum class WssLogoutReason {
     LogoutMyself,
 }
 
-data class WSSDeviceData(
+data class WSSDeviceDataSingle(
     val id: Int,
     val deviceKey: String,
     val deviceName: String,

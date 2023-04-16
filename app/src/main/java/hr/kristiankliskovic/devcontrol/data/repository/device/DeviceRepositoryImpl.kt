@@ -51,21 +51,10 @@ class DeviceRepositoryImpl(
                     devicesInternal = CopyOnWriteArrayList(deviceList)
                     emit(devicesInternal)
                 }
-                is Device? -> {
-
-                    val device: Device? = it
-                    if (device != null) {
-                        val deviceList = devicesInternal.toMutableList()
-                        deviceList.removeIf { dev ->
-                            dev.deviceId == device.deviceId
-                        }
-                        deviceList.add(device)
-                        deviceList.sortBy { it.deviceId }
-                        devicesInternal = CopyOnWriteArrayList(deviceList)
-                        emit(devicesInternal)
-                    } else {
-//
-                    }
+                is List<*> -> {
+                    val devices: List<Device> = it as List<Device>
+                    devicesInternal = CopyOnWriteArrayList(devices)
+                    emit(devicesInternal)
                 }
             }
         }
