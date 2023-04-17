@@ -9,11 +9,12 @@ import kotlinx.coroutines.launch
 class RegisterViewModel(
     private val userRepository: UserRepository,
 ) : ViewModel() {
-    fun register(username: String, password: String) {
+    fun register(username: String, password: String, email: String) {
         viewModelScope.launch {
             userRepository.registerUser(
                 username = username,
-                password = password
+                password = password,
+                email = email,
             )
         }
     }

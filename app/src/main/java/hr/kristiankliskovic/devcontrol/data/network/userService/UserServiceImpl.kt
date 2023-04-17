@@ -136,12 +136,13 @@ class UserServiceImpl(
         return success
     }
 
-    override suspend fun registerUser(username: String, password: String): LoginResponse? {
+    override suspend fun registerUser(username: String, password: String, email: String): LoginResponse? {
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$userAuth_routerPath$register_routerPath",
             body = RegisterRequest(
                 username = username,
                 password = password,
+                email = email,
             )
         )
         if (httpResponse != null && httpResponse.status.value in 200..299) {

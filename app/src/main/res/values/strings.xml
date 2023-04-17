@@ -28,6 +28,8 @@
     <string name="loginRegisterScreen_passwordHint">Enter password:</string>
     <string name="registerScreen_passwordAgainText">Repeat Password:</string>
     <string name="registerScreen_passwordAgainHint">Enter password again:</string>
+    <string name="registerScreen_emailText">Email: (optional)</string>
+    <string name="registerScreen_emailHint">Enter email:</string>
     <string name="loginScreen_login_button">Login</string>
     <string name="registerScreen_title">Register</string>
     <string name="registerScreen_register_button">Register</string>

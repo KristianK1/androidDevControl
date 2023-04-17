@@ -13,7 +13,7 @@ interface UserRepository {
     suspend fun loginByCreds(username: String, password: String)
     suspend fun loginByToken()
     suspend fun logoutUser(logoutAllSessions: Boolean)
-    suspend fun registerUser(username: String, password: String)
+    suspend fun registerUser(username: String, password: String, email: String)
     suspend fun changePassword(
         oldPassword: String,
         newPassword: String,

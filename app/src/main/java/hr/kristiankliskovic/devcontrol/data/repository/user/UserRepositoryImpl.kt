@@ -11,6 +11,7 @@ import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import hr.kristiankliskovic.devcontrol.model.User
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.serialization.descriptors.PrimitiveKind
 
 class UserRepositoryImpl(
     private val userService: UserService,
@@ -98,8 +99,8 @@ class UserRepositoryImpl(
         }
     }
 
-    override suspend fun registerUser(username: String, password: String) {
-        val loginResponse = userService.registerUser(username, password)
+    override suspend fun registerUser(username: String, password: String, email: String) {
+        val loginResponse = userService.registerUser(username, password, email)
         if (loginResponse != null) {
             addUser(loginResponse)
         }

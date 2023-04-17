@@ -1,6 +1,7 @@
 package hr.kristiankliskovic.devcontrol.ui.register
 
 import android.util.Log
+import android.util.Patterns
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,8 @@ import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.AppNameCursive
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineTextWrapper
 
+
+private const val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
 @Composable
 fun RegisterRoute(
     registerViewModel: RegisterViewModel,
@@ -40,7 +43,7 @@ fun RegisterRoute(
 
 @Composable
 fun RegisterScreen(
-    register: (String, String) -> Unit,
+    register: (String, String, String) -> Unit,
     loginInstead: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -53,6 +56,7 @@ fun RegisterScreen(
         var username by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var passwordAgain by remember { mutableStateOf("") }
+        var email by remember { mutableStateOf("") }
         AppNameCursive()
 
         Text(
@@ -118,6 +122,22 @@ fun RegisterScreen(
                 ),
         )
 
+        OutlineTextWrapper(
+            initValue = email,
+            label = stringResource(id = R.string.registerScreen_emailHint),
+            placeholder = stringResource(id = R.string.registerScreen_emailText),
+            onChange = {
+                email = it
+            },
+            modifier = Modifier
+                .padding(
+                    top = dimensionResource(id = R.dimen.login_register_screen_paddingAbove_text_input),
+                    bottom = 0.dp,
+                    start = 0.dp,
+                    end = 0.dp
+                ),
+        )
+
 
         Text(
             text = stringResource(id = R.string.registerScreen_register_button),
@@ -130,10 +150,13 @@ fun RegisterScreen(
                     color = colorResource(id = R.color.loginRegisterScreen_button_color),
                 )
                 .clickable {
-                    if (password == passwordAgain) {
-                        register(username, password)
-                    } else {
-                        //TODO toast?
+                    if(password != passwordAgain){
+                        Log.i("regiterErrors","unequal passwords")
+                    }
+                    else if(email.isNotEmpty() && !EMAIL_REGEX.toRegex().matches(email)){
+                        Log.i("regiterErrors","not an email")
+                    }else{
+                        register(username, password, email)
                     }
                 }
                 .padding(
@@ -163,7 +186,7 @@ fun RegisterScreen(
 @Composable
 fun PreviewRegisterScreen() {
     RegisterScreen(
-        register = { u, p ->
+        register = { u, p, e ->
         },
         loginInstead = {
         })
