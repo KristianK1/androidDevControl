@@ -41,6 +41,7 @@ import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.UserProfileSetting
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword.ChangePasswordRoute
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsRoute
+import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsAddEmail.AddEmailRoute
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -268,7 +269,10 @@ fun MainScreen() {
                         navigateToChangePasswordScreen = {
                             navController.navigate(CHANGE_PASSWORD_ROUTE)
                         },
-                        userProfileSettingsViewModel = get()
+                        userProfileSettingsViewModel = get(),
+                        navigateToAddEmailScreen = {
+                            navController.navigate(ADD_EMAIL_ROUTE)
+                        }
                     )
                 }
                 composable(CHANGE_PASSWORD_ROUTE) {
@@ -279,6 +283,11 @@ fun MainScreen() {
                                 popUpTo(USER_PROFILE_ROUTE)
                             }
                         }
+                    )
+                }
+                composable(ADD_EMAIL_ROUTE) {
+                    AddEmailRoute(
+                        viewModel = getViewModel(),
                     )
                 }
             }

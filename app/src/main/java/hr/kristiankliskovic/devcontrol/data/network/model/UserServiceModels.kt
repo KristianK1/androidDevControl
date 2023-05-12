@@ -17,7 +17,8 @@ data class LoginByTokenRequest(
 data class LoginResponse(
     val id: Int,
     val authToken: String,
-    val username: String
+    val username: String,
+    val email: String,
 )
 
 @Serializable
@@ -38,6 +39,12 @@ data class ChangePasswordRequest(
     val newPassword: String,
     val logoutOtherSessions: Boolean,
     val dontLogoutToken: String,
+)
+
+@Serializable
+data class AddEmailRequest(
+    val authToken: String,
+    val email: String,
 )
 
 @Serializable

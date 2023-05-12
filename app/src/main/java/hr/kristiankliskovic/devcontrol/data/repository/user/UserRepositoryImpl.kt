@@ -64,7 +64,8 @@ class UserRepositoryImpl(
             LoggedInUser(
                 userId = loginResponse.id,
                 username = loginResponse.username,
-                token = loginResponse.authToken
+                token = loginResponse.authToken,
+                email = loginResponse.email,
             )
         )
     }
@@ -119,6 +120,18 @@ class UserRepositoryImpl(
                 newPassword = newPassword,
                 logoutOtherSessions = logoutOtherSessions,
                 dontLogoutToken = user.token,
+            )
+        } else {
+            false
+        }
+    }
+
+    override suspend fun addEmail(email: String): Boolean {
+        val user = InMemoryDb.loggedInUser.value
+        return if (user != null) {
+            userService.addEmail(
+                token = user.token,
+                email = email,
             )
         } else {
             false

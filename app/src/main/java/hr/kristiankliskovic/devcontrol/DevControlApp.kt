@@ -18,6 +18,7 @@ import hr.kristiankliskovic.devcontrol.ui.main.di.mainScreenModule
 import hr.kristiankliskovic.devcontrol.ui.myDevices.di.myDevicesModule
 import hr.kristiankliskovic.devcontrol.ui.register.di.registerModule
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.di.userProfileSettingsModule
+import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsAddEmail.di.emailModule
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword.di.changePasswordModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -46,7 +47,8 @@ class DevControlApp: Application() {
                 adminPanelDeviceModule,
                 addNewDeviceModule,
                 addPermissionModule,
-                seeAllPermissionsModule
+                seeAllPermissionsModule,
+                emailModule,
             )
         }
     }

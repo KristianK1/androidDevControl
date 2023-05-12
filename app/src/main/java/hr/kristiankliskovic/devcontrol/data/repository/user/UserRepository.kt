@@ -19,7 +19,7 @@ interface UserRepository {
         newPassword: String,
         logoutOtherSessions: Boolean,
     ): Boolean
-
+    suspend fun addEmail(email: String): Boolean
     suspend fun deleteUser()
     suspend fun connectToWS()
     suspend fun disconnectWS()

@@ -4,4 +4,5 @@ data class LoggedInUser(
     val userId: Int,
     val username: String,
     val token: String,
+    val email: String,
 )

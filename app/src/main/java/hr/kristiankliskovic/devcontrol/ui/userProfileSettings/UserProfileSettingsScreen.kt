@@ -22,6 +22,7 @@ import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.di.userProfileSett
 @Composable
 fun UserProfileSettingsRoute(
     navigateToChangePasswordScreen: () -> Unit,
+    navigateToAddEmailScreen: () -> Unit,
     userProfileSettingsViewModel: UserProfileSettingsViewModel,
 ) {
     val viewState by userProfileSettingsViewModel.userProfileSettingsViewState.collectAsState()
@@ -32,6 +33,7 @@ fun UserProfileSettingsRoute(
         deleteUserProfile = userProfileSettingsViewModel::deleteUser,
         logout = userProfileSettingsViewModel::logout,
         logoutAllSessions = userProfileSettingsViewModel::logoutAllSessions,
+        navigateToAddEmailScreen = navigateToAddEmailScreen,
     )
 }
 
@@ -39,9 +41,11 @@ fun UserProfileSettingsRoute(
 fun UserProfileSettingsScreen(
     viewState: UserProfileSettingsViewState,
     navigateToChangePasswordScreen: () -> Unit,
+    navigateToAddEmailScreen: () -> Unit,
     deleteUserProfile: () -> Unit,
     logout: () -> Unit,
     logoutAllSessions: () -> Unit,
+
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -51,8 +55,8 @@ fun UserProfileSettingsScreen(
     ) {
 
         Text(
-            text = "Username:\n${viewState.username}\nUser ID: ${viewState.userId}",
-            fontSize = 40.sp,
+            text = "Username:\n${viewState.username}\nUser ID: ${viewState.userId}\n${if(viewState.email.isNotEmpty()) "Email: ${viewState.email}\n" else ""}",
+            fontSize = 25.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
@@ -79,6 +83,13 @@ fun UserProfileSettingsScreen(
             onClick = deleteUserProfile
         )
         Line()
+        if(viewState.email.isEmpty()){
+            TextListOption(
+                text = stringResource(id = R.string.userSettings_addEmail_button),
+                onClick = navigateToAddEmailScreen
+            )
+            Line()
+        }
     }
 }
 
@@ -109,6 +120,9 @@ fun PreviewUserProfileSettingsScreen() {
 
         },
         logoutAllSessions = {
+
+        },
+        navigateToAddEmailScreen = {
 
         }
     )

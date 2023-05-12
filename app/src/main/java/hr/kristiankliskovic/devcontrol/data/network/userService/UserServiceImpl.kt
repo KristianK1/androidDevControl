@@ -21,6 +21,7 @@ private const val logout_routerPath = "/logout"
 private const val register_routerPath = "/register"
 private const val deleteUser_routerPath = "/delete"
 private const val changePassword_routerPath = "/changePassword"
+private const val addEmail_routerPath = "/addEmail"
 private const val getAllUsers_routerPath = "/getUsers"
 
 class UserServiceImpl(
@@ -128,6 +129,27 @@ class UserServiceImpl(
             Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(R.string.passwordChanged), Toast.LENGTH_SHORT).show()
         } else {
             var errorMessage = DevControlApp.application.getText(R.string.passwordError)
+            if(httpResponse?.status?.value == 400){
+                errorMessage = "$errorMessage ${httpResponse.body<String>()}"
+            }
+            Toast.makeText(DevControlApp.application.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+        }
+        return success
+    }
+
+    override suspend fun addEmail(token: String, email: String): Boolean {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$userAuth_routerPath$addEmail_routerPath",
+            body = AddEmailRequest(
+                authToken = token,
+                email = email,
+            )
+        )
+        val success = (httpResponse != null && httpResponse.status.value in 200..299)
+        if (success) {
+            Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(R.string.addEmailRequestSuccess), Toast.LENGTH_SHORT).show()
+        } else {
+            var errorMessage = DevControlApp.application.getText(R.string.addEmailRequestError)
             if(httpResponse?.status?.value == 400){
                 errorMessage = "$errorMessage ${httpResponse.body<String>()}"
             }

@@ -32,6 +32,7 @@ fun LoginRoute(
     LoginScreen(
         login = loginViewModel::login,
         registerInstead = registerInstead,
+        forgotPassword = loginViewModel::forgotPassword,
     )
 }
 
@@ -39,6 +40,7 @@ fun LoginRoute(
 fun LoginScreen(
     login: (String, String) -> Unit,
     registerInstead: () -> Unit,
+    forgotPassword: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -130,6 +132,21 @@ fun LoginScreen(
                     registerInstead()
                 }
         )
+
+        Text(
+            text = stringResource(id = R.string.loginScreen_forgot_password),
+            color = colorResource(id = R.color.text_link_color),
+            fontStyle = FontStyle.Italic,
+            textDecoration = TextDecoration.Underline,
+            modifier = Modifier
+                .padding(
+                    horizontal = 0.dp,
+                    vertical = dimensionResource(id = R.dimen.login_register_screen_linkToOtherScreen_padding_vertical)
+                )
+                .clickable {
+                    forgotPassword()
+                }
+        )
     }
 }
 
@@ -140,6 +157,9 @@ fun PreviewLoginScreen() {
         login = { u, p ->
         },
         registerInstead = {
+        },
+        forgotPassword = {
+
         }
     )
 }

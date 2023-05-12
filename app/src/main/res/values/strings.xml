@@ -34,6 +34,7 @@
     <string name="registerScreen_title">Register</string>
     <string name="registerScreen_register_button">Register</string>
     <string name="loginScreen_register_instead">Register instead</string>
+    <string name="loginScreen_forgot_password">Forgot password</string>
     <string name="registerScreen_login_instead">Login instead</string>
 
     <string name="deviceStatusComponent_online_statusText">Online</string>
@@ -42,6 +43,7 @@
     <string name="textInputComponent_open_dialog_button">Change value</string>
 
     <string name="userSettings_changePassword_button">Change password</string>
+    <string name="userSettings_addEmail_button">Add Email</string>
     <string name="userSettings_logout_button">Logout</string>
     <string name="userSettings_logout_all_sessions_button">Logout all sessions</string>
     <string name="userSettings_deleteProfile_button">Delete user profile</string>
@@ -51,6 +53,9 @@
     <string name="changePasswordScreen_newPasswordAgain_label">Repeat new password</string>
     <string name="changePasswordScreen_logout_from_other_devices_checkbox">Logout from all other devices</string>
     <string name="changePasswordScreen_changePasswordButton">Change password</string>
+
+    <string name="addEmailScreen_email_label">Email</string>
+    <string name="addEmailScreen_changePasswordButton">Add Email</string>
 
     <string name="addNewDeviceScreen_deviceNameHint">Enter device name:</string>
     <string name="addNewDeviceScreen_autoGenerateKey">Autogenerate device key</string>
@@ -117,6 +122,9 @@
 
     <string name="passwordChanged">Password changed.</string>
     <string name="passwordError">Error at changing password.</string>
+
+    <string name="addEmailRequestSuccess">Confirmation email has been sent. Check your SPAM folder.</string>
+    <string name="addEmailRequestError">Error at adding email.</string>
 
     <string name="userDeleted_success">User is deleted.</string>
     <string name="userDeleted_error">Error at deleting user.</string>

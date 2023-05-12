@@ -8,6 +8,7 @@ class UserProfileSettingsMapperImpl: UserProfileSettingsMapper {
         return UserProfileSettingsViewState(
             userId = loggedInUser.userId,
             username = loggedInUser.username,
+            email = loggedInUser.email,
         )
     }
 }

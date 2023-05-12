@@ -20,4 +20,5 @@ interface UserService {
         dontLogoutToken: String,
     ): Boolean
 
+    suspend fun addEmail(token: String, email: String): Boolean
 }

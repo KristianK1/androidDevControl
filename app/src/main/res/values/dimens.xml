@@ -48,6 +48,12 @@
     <dimen name="changePasswordScreen_button_padding_vertical">10.dp</dimen>
     <dimen name="changePasswordScreen_button_padding_horizontal">20.dp</dimen>
 
+    <dimen name="addEmailScreen_top_bottom_spacer_height">50.dp</dimen>
+    <dimen name="addEmailScreen_textbox_spacer_height">10.dp</dimen>
+    <dimen name="addEmailScreen_button_margin">20.dp</dimen>
+    <dimen name="addEmailScreen_button_padding_horizontal">20.dp</dimen>
+    <dimen name="addEmailScreen_button_padding_vertical">10.dp</dimen>
+
     <dimen name="adminPanelHomeScreen_dividerLine_height">2.dp</dimen>
 
     <dimen name="fabPadding">20.dp</dimen>
