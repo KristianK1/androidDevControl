@@ -110,6 +110,7 @@
     <string name="topBar_devControls">Device controls</string>
     <string name="topBar_userSettings">User settings</string>
     <string name="topBar_changePassword">Change password</string>
+    <string name="topBar_addEmail">Add Email</string>
     <string name="topBar_adminPanelAllScreens">Admin panel</string>
     <string name="topBar_addNewDevice">Add new device</string>
     <string name="topBar_error">Error</string>

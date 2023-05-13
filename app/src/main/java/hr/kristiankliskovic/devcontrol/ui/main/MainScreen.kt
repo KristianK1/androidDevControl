@@ -92,6 +92,9 @@ fun MainScreen() {
                 CHANGE_PASSWORD_ROUTE -> {
                     R.string.topBar_changePassword
                 }
+                ADD_EMAIL_ROUTE -> {
+                    R.string.topBar_addEmail
+                }
                 ADD_NEW_DEVICE_ROUTE -> {
                     R.string.topBar_addNewDevice
                 }
