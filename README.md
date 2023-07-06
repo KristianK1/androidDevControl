@@ -16,44 +16,44 @@ Numeric field control:
 The numeric field control is defined with properties such as minimal value, maximal value, and value step.
 This control is specifically designed to allow users to adjust the brightness of a LED strip.
 
-![Numeric field](screenshots/devC_numeric.jpg)
+![Numeric field](screenshots/devC_numeric.JPG)
 
 Text field control:
 The text field control allows the user to send or receive a string to or from a device.
 When the „Change“ button is clicked, a dialog will appear.
 
-![Text field](screenshots/devC_text.jpg)
+![Text field](screenshots/devC_text.JPG)
 
-![Text field dialog](screenshots/devC_text_dialog.jpg)
+![Text field dialog](screenshots/devC_text_dialog.JPG)
 
 Boolean field control:
 The button field control allows the user to send or receive a boolean value to or from a device in an intuitive button-like format.
 
-![Boolean field](screenshots/devC_boolean.jpg)
+![Boolean field](screenshots/devC_boolean.JPG)
 
 Multiple choice field control:
 The multiple-choice field allows the user to select a value from a list of options presented in an aesthetically pleasing dialog form.
 
-![Multiple choice field](screenshots/devC_multiple_choice.jpg)
+![Multiple choice field](screenshots/devC_multiple_choice.JPG)
 
-![Multiple choice field dialog](screenshots/devC_multiple_choice_dialog.jpg)
+![Multiple choice field dialog](screenshots/devC_multiple_choice_dialog.JPG)
 
 RGB field control:
 
 The RGB field control enables the user to send or receive an RGB value to or from a device through an attractive RGB dialog form.
 This control is specifically designed for setting colors for an RGB LED strip.
 
-![RGB field](screenshots/devC_rgb.jpg)
+![RGB field](screenshots/devC_rgb.JPG)
 
-![RGB field dialog](screenshots/devC_rgb_dialog.jpg)
+![RGB field dialog](screenshots/devC_rgb_dialog.JPG)
 
 These controls can be organised in groups and complex groups.
 A group is essentially an array of fields with a name.
 
-![Group](screenshots/devC_group.jpg)
+![Group](screenshots/devC_group.JPG)
 
 On the other hand, a complex group introduces the concept of states, which enables the user to control a single input/output (I/O) in different ways, as illustrated in the image below.
 
-![Complex Group](screenshots/devC_complex_group.jpg)
+![Complex Group](screenshots/devC_complex_group.JPG)
 
-![Complex group dialog](screenshots/devC_complex_group_dialog.jpg)
+![Complex group dialog](screenshots/devC_complex_group_dialog.JPG)
