@@ -69,7 +69,7 @@ Login/Register:
 User logs in with his username and password and while creating the account has the option to add email which he has to confirm (user recives an automated email).
 Email adress can be used to recover the account (by reciving an automated email) or recive notifications (notifications are not yet implemented).
 
-![Login and register screens](screenshots/devC_login_register.JPG)
+![Login and register screens](screenshots/devC_login_register.jpg)
 
 Main screen:
 On the main screen the user sees the list of devices to which he has access.
@@ -115,7 +115,7 @@ Add permissions screen:
 The user has to choose to what user does he want to give the permission and to what entity inside the device (entire device, specific group, specific field or specific complex group) and does he want to assign a read or a write permission.
 Read permission don't allow user to alter the state of a field, only to see what the value is.
 
-![Add permission screen](screenshots/devC_admin_panel_add_permission.JPG)
+![Add permission screen](screenshots/devC_admin_panel_add_permission.jpg)
 
 
 See all permissions screen:
