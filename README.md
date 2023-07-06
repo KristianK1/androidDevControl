@@ -123,3 +123,9 @@ See all permissions screen:
 In this screen, the admin can see what users have what permissions on his device and can delete specific permissions.
 
 ![See all permissions screen](screenshots/devC_admin_panel_permissions.JPG)
+
+Change admin screen:
+
+On this screen the admin can select the new admin for that device.
+
+![Change admin screen](screenshots/devC_admin_panel_change_admin.JPG)
