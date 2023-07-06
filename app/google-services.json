@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "704520380535",
+    "project_id": "devcontrol-backend",
+    "storage_bucket": "devcontrol-backend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704520380535:android:943270cddb3c2b4ce1a672",
+        "android_client_info": {
+          "package_name": "hr.kristiankliskovic.devcontrol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704520380535-pk8e4na5gj13f9rd05lqmr3valjlcdd1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hr.kristiankliskovic.devcontrol",
+            "certificate_hash": "2d78cd3c82d5bc742166d06cd53e099cb961c74c"
+          }
+        },
+        {
+          "client_id": "704520380535-rc5st4mlklvvsjotiveqr0khikelp0hj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf-r7NYD_EOj543N_aT5OfaI6A40eZcsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704520380535-rc5st4mlklvvsjotiveqr0khikelp0hj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
