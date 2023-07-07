@@ -10,6 +10,11 @@ In this diagram, each user has the ability to control their own devices as the d
 The device itself is designed to incorporate its own input/output (IO) capabilities through electronic components such as LEDs, temperature sensors, light sensors, relays, and more.
 Values from these sensors or actuators are then transmitted to or received from the server.
 
+Video demonstrations:
+        https://www.youtube.com/watch?v=RpGQwCulJrs
+        https://www.youtube.com/shorts/8FY1SPaJZHM
+        https://www.youtube.com/shorts/rtwHEy4xCRg
+
 These "values" can be controlled from an Android device using one of the available UI controls.
 
 Numeric field control:
