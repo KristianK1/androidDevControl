@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">devControl</string>
 
+    <string name="numericFieldInput_open_dialog_button">Change value</string>
     <string name="numericFieldInput_local_value">Local value: </string>
     <string name="multipleChoiceFieldInput_open_selector">Change</string>
     <string name="multipleChoiceFieldInput_choose_value_title">Choose value</string>

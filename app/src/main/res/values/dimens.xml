@@ -27,7 +27,7 @@
     <dimen name="dialog_confirm_button_margin">20.dp</dimen>
 
     <dimen name="numericField_changeValueButton_padding">2.dp</dimen>
-    <dimen name="numericField_middleColumn_padding">2.dp</dimen>
+    <dimen name="numericField_middleColumn_padding">5.dp</dimen>
     <dimen name="numericField_localValue_padding_top">2.dp</dimen>
 
     <dimen name="deviceGroup_border_thickness">4.dp</dimen>
