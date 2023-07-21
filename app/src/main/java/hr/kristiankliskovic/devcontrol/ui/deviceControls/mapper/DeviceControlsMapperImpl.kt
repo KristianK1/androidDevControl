@@ -83,6 +83,8 @@ class DeviceControlsMapperImpl : DeviceControlsMapper {
                         minValue = field.minValue,
                         maxValue = field.maxValue,
                         valueStep = field.valueStep,
+                        prefix = field.prefix,
+                        sufix = field.sufix,
                     )
                 }
             }

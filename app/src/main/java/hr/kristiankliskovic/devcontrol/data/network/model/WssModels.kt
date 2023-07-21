@@ -113,6 +113,8 @@ data class WSSNumericField(
     val maxValue: Float,
     val valueStep: Float,
     val fieldDirection: String,
+    val prefix: String,
+    val sufix: String,
 )
 
 data class WSSTextField(

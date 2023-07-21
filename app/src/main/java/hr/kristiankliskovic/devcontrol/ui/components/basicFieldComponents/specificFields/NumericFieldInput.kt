@@ -39,6 +39,8 @@ data class NumericFieldInputViewState(
     val minValue: Float,
     val maxValue: Float,
     val valueStep: Float,
+    val prefix: String,
+    val sufix: String,
     var currentValue: Float,
 ) : BasicFieldComponentViewState()
 
@@ -91,7 +93,7 @@ fun NumericFieldInput(
                     .weight(1f, true)
             )
             FieldValues(
-                currentValue = "%.2f".format(item.currentValue),
+                currentValue = "${item.prefix} %.2f ${item.sufix}".format(item.currentValue),
             )
             ChangeValueButton(
                 text = "+${item.valueStep}",
@@ -290,6 +292,8 @@ fun PreviewNumericFieldInput() {
         maxValue = 3f,
         valueStep = 1f,
         currentValue = 2f,
+        prefix = "T=",
+        sufix = "°C",
 //        localValue = 18.1f,
     )
     NumericFieldInput(

@@ -41,6 +41,8 @@ data class NumericDeviceField(
     val maxValue: Float,
     val valueStep: Float,
     val readOnly: Boolean,
+    val prefix: String,
+    val sufix: String,
 ) : BasicDeviceField()
 
 data class TextDeviceField(

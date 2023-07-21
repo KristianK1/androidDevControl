@@ -64,6 +64,8 @@ fun getMockDeviceGroupViewState(): DeviceGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
+            prefix = "T=",
+            sufix = "°C",
         ),
         NumericFieldInputViewState(
             fieldId = 0,
@@ -72,6 +74,8 @@ fun getMockDeviceGroupViewState(): DeviceGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
+            prefix = "T=",
+            sufix = "°C",
         ),
         NumericFieldInputViewState(
             fieldId = 0,
@@ -80,6 +84,8 @@ fun getMockDeviceGroupViewState(): DeviceGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
+            prefix = "T=",
+            sufix = "°C",
         ),
         NumericFieldInputViewState(
             fieldId = 0,
@@ -88,6 +94,8 @@ fun getMockDeviceGroupViewState(): DeviceGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
+            prefix = "T=",
+            sufix = "°C",
         ),
         RGBFieldInputViewState(fieldId = 0,
             name = "RGB field 1",
@@ -162,6 +170,8 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
+            prefix = "T=",
+            sufix = "°C",
         ),
         NumericFieldInputViewState(
             fieldId = 1,
@@ -170,6 +180,8 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
+            prefix = "T=",
+            sufix = "°C",
         ),
         NumericFieldInputViewState(
             fieldId = 2,
@@ -178,6 +190,8 @@ fun getMockDeviceComplexGroupViewState(): DeviceComplexGroupViewState {
             maxValue = 25f,
             valueStep = 0.1f,
             currentValue = 18.1f,
+            prefix = "T=",
+            sufix = "°C",
         )
     )
     val state1 = DeviceComplexGroupStateViewState(
@@ -381,6 +395,8 @@ fun getDeviceMock(): Device {
                         valueStep = 0.1f,
                         currentValue = 2f,
                         readOnly = false,
+                        prefix = "T=",
+                        sufix = "°C",
                     ),
                     NumericDeviceField(
                         fieldId = 1,
@@ -390,6 +406,8 @@ fun getDeviceMock(): Device {
                         valueStep = 0.1f,
                         currentValue = 2f,
                         readOnly = false,
+                        prefix = "T=",
+                        sufix = "°C",
                     ),
                     NumericDeviceField(
                         fieldId = 2,
@@ -399,6 +417,8 @@ fun getDeviceMock(): Device {
                         valueStep = 0.1f,
                         currentValue = 2f,
                         readOnly = false,
+                        prefix = "T=",
+                        sufix = "°C",
                     ),
                     NumericDeviceField(
                         fieldId = 3,
@@ -408,6 +428,8 @@ fun getDeviceMock(): Device {
                         valueStep = 0.1f,
                         currentValue = 2f,
                         readOnly = false,
+                        prefix = "T=",
+                        sufix = "°C",
                     ),
                     NumericDeviceField(
                         fieldId = 4,
@@ -417,6 +439,8 @@ fun getDeviceMock(): Device {
                         valueStep = 0.1f,
                         currentValue = 2f,
                         readOnly = false,
+                        prefix = "T=",
+                        sufix = "°C",
                     )
                 ),
             ),
