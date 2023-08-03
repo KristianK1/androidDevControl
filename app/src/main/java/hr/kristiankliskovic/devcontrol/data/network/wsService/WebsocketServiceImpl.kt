@@ -51,8 +51,8 @@ class WebsocketServiceImpl(
                     httpClientForWS.webSocket(
                         method = HttpMethod.Get,
                         host = HTTPSERVER.wsServer,
-//                        port = 8000,
-                        path = "/"
+                        port = 8000,
+//                        path = "/"
                     ) {
                         Log.i("wsConnect", "second")
                         currentWSSclient = this

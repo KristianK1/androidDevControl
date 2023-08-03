@@ -24,4 +24,4 @@ val herokuHosting = Server(
     httpServer = "https://devcontrol.herokuapp.com",
     wsServer = "devcontrol.herokuapp.com"
 )
-val HTTPSERVER = renderHosting
+val HTTPSERVER = SB_PC_WiFi
