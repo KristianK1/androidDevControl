@@ -110,4 +110,8 @@
 
     <dimen name="emptyScreenMessage_padding">20.dp</dimen>
 
+    <dimen name="addTriggerScreen_addTrigger_radiobutton_spacer_width">10.dp</dimen>
+    <dimen name="addTriggerScreen_SelectedItem_text_margin">20.dp</dimen>
+    <dimen name="addTriggerScreen_SelectedItem_text_padding">20.dp</dimen>
+
 </resources>

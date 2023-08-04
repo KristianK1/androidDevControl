@@ -52,4 +52,6 @@
     <color name="WS_status_Online">#7800FF00</color>
     <color name="WS_status_Offline">#70FF0000</color>
 
+    <color name="addTrigger_setDateTime_background">#FFB0B0B0</color>
+
 </resources>

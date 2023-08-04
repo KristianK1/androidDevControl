@@ -9,7 +9,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
@@ -26,6 +25,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import hr.kristiankliskovic.devcontrol.DevControlApp
 import hr.kristiankliskovic.devcontrol.navigation.*
 import hr.kristiankliskovic.devcontrol.ui.addNewDevice.AddNewDeviceRoute
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDevice.AdminPanelDeviceRoute
@@ -40,6 +40,10 @@ import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.UserProfileSetting
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword.ChangePasswordRoute
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsRoute
+import hr.kristiankliskovic.devcontrol.ui.settings.SettingsRoute
+import hr.kristiankliskovic.devcontrol.ui.triggerSettings.TriggerSettingsRoute
+import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.AddTriggerRoute
+import hr.kristiankliskovic.devcontrol.ui.triggerSettings_seeAll.SeeAllTriggersRoute
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsAddEmail.AddEmailRoute
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
@@ -97,6 +101,18 @@ fun MainScreen() {
                 ADD_NEW_DEVICE_ROUTE -> {
                     R.string.topBar_addNewDevice
                 }
+                SETTINGS_ROUTE -> {
+                    R.string.topBar_settings
+                }
+                TRIGGER_SETTINGS_ROUTE ->{
+                    R.string.topBar_triggerSettings
+                }
+                ADD_TRIGGER_ROUTE -> {
+                    R.string.topBar_addTrigger
+                }
+                SEE_ALL_TRIGGERS_ROUTE -> {
+                    R.string.topBar_seeAllTriggers
+                }
                 else -> {
                     R.string.topBar_error
                 }
@@ -119,12 +135,9 @@ fun MainScreen() {
                 showIcons = showIcons,
                 screenSubTitle = null,
                 connectedToWS = connectedToWS.value,
-                navigateToAdminPanel = {
-                    navController.navigate(ADMIN_PANEL_ROUTE)
+                navigateToSettings = {
+                    navController.navigate(SETTINGS_ROUTE)
                 },
-                navigateToUserSettings = {
-                    navController.navigate(USER_PROFILE_ROUTE)
-                }
             )
         }
     ) { padding ->
@@ -181,6 +194,19 @@ fun MainScreen() {
                     )
 
                 }
+                composable(SETTINGS_ROUTE) {
+                    SettingsRoute(
+                        navigateToUserSettings = {
+                            navController.navigate(USER_PROFILE_ROUTE)
+                        },
+                        navigateToAdminPanel = {
+                            navController.navigate(ADMIN_PANEL_ROUTE)
+                        },
+                        navigateToTriggerSettings = {
+                            navController.navigate(TRIGGER_SETTINGS_ROUTE)
+                        }
+                    )
+                }
                 composable(ADMIN_PANEL_ROUTE) {
                     AdminPanelHomeRoute(
                         viewModel = getViewModel(),
@@ -189,6 +215,16 @@ fun MainScreen() {
                         },
                         navigateToAddNewDevice = {
                             navController.navigate(ADD_NEW_DEVICE_ROUTE)
+                        }
+                    )
+                }
+                composable(TRIGGER_SETTINGS_ROUTE) {
+                    TriggerSettingsRoute(
+                        navigateToAddTrigger = {
+                            navController.navigate(ADD_TRIGGER_ROUTE)
+                        },
+                        navigateToSeeAllTriggers = {
+                            navController.navigate(SEE_ALL_TRIGGERS_ROUTE)
                         }
                     )
                 }
@@ -292,6 +328,14 @@ fun MainScreen() {
                         viewModel = getViewModel(),
                     )
                 }
+                composable(ADD_TRIGGER_ROUTE) {
+                    AddTriggerRoute(
+                        viewModel = getViewModel(),
+                    )
+                }
+                composable(SEE_ALL_TRIGGERS_ROUTE) {
+                    SeeAllTriggersRoute()
+                }
             }
         }
         when (loggedIn.value) {
@@ -333,8 +377,7 @@ fun TopBar(
     screenTitleResId: Int?,
     screenSubTitle: String?,
     connectedToWS: Boolean,
-    navigateToUserSettings: () -> Unit,
-    navigateToAdminPanel: () -> Unit,
+    navigateToSettings: () -> Unit,
 ) {
     if (screenTitleResId != null) {
         Column {
@@ -354,7 +397,7 @@ fun TopBar(
                         contentDescription = null,
                         modifier = Modifier
 //                            .clip(CircleShape)
-                            .background(colorResource(id = if(connectedToWS) R.color.WS_status_Online else R.color.WS_status_Offline)),
+                            .background(colorResource(id = if (connectedToWS) R.color.WS_status_Online else R.color.WS_status_Offline)),
                     )
                 }
                 Box(
@@ -385,17 +428,7 @@ fun TopBar(
                                     .fillMaxHeight()
                                     .width(dimensionResource(id = R.dimen.topBarHeight))
                                     .clickable {
-                                        navigateToAdminPanel()
-                                    }
-                            )
-                            Icon(
-                                Icons.Filled.AccountBox,
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .fillMaxHeight()
-                                    .width(dimensionResource(id = R.dimen.topBarHeight))
-                                    .clickable {
-                                        navigateToUserSettings()
+                                        navigateToSettings()
                                     }
                             )
                         }

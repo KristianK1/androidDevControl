@@ -106,6 +106,12 @@
     <string name="seeAllPermissionsScreen_noPermission_field">There are no specific permission to this field</string>
     <string name="seeAllPermissionsScreen_noPermission_complexGroup">There are no specific permissions to this complex group</string>
 
+    <string name="settingsScreen_navToUserSettings">User settings</string>
+    <string name="settingsScreen_navToAdminPanel">Admin panel</string>
+    <string name="settingsScreen_navToTriggerSettings">Triggers settings</string>
+
+    <string name="triggerSettings_navToAddTrigger">Add trigger</string>
+    <string name="triggerSettings_navToSeeAllTriggers">See all triggers</string>
 
     <string name="topBar_myDevices">My devices</string>
     <string name="topBar_devControls">Device controls</string>
@@ -114,6 +120,10 @@
     <string name="topBar_addEmail">Add Email</string>
     <string name="topBar_adminPanelAllScreens">Admin panel</string>
     <string name="topBar_addNewDevice">Add new device</string>
+    <string name="topBar_settings">Settings</string>
+    <string name="topBar_triggerSettings">Trigger settings</string>
+    <string name="topBar_addTrigger">Add trigger</string>
+    <string name="topBar_seeAllTriggers">See all triggers</string>
     <string name="topBar_error">Error</string>
 
     <string name="deviceControlsScreen_empty_screen_message">You don\'t have access to this device</string>
@@ -149,6 +159,24 @@
 
     <string name="permission_added">Permission added.</string>
     <string name="permission_added_error">Permission not added. </string>
+
+    <string name="triggerSource_Type_fieldInGroup">Field in group</string>
+    <string name="triggerSource_Type_fieldInComplexGroup">Field in complex group</string>
+    <string name="triggerSource_Type_time">Time</string>
+
+    <string name="addTriggerScreen_no_device_selected_text">Select device</string>
+    <string name="addTriggerScreen_no_group_selected_text">Select group</string>
+    <string name="addTriggerScreen_no_field_selected_text">Select field</string>
+    <string name="addTriggerScreen_no_complex_group_selected_text">Select complex group</string>
+    <string name="addTriggerScreen_no_complex_group_state_selected_text">Select state</string>
+
+    <string name="addTriggerScreen_no_device_selected_warning">Select device first</string>
+    <string name="addTriggerScreen_no_group_selected_warning">Select group first</string>
+    <string name="addTriggerScreen_no_complex_group_selected_warning">Select complex group first</string>
+    <string name="addTriggerScreen_no_state_selected_warning">Select state first</string>
+
+    <string name="addTriggerScreen_setTime">Set time</string>
+    <string name="addTriggerScreen_setDate">Set Date</string>
 
 
 </resources>
