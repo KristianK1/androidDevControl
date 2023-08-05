@@ -15,13 +15,13 @@ import hr.kristiankliskovic.devcontrol.model.ETriggerSourceType
 fun TypeOfSource(
     chooseType: (ETriggerSourceType) -> Unit,
 ) {
-    Column() {
-
+    Column {
         var typeSelected by remember { mutableStateOf(ETriggerSourceType.FieldInGroup) }
 
         Row(
             modifier = Modifier
                 .clickable {
+                    typeSelected = ETriggerSourceType.FieldInGroup
                     chooseType(ETriggerSourceType.FieldInGroup)
                 },
             horizontalArrangement = Arrangement.SpaceAround
@@ -38,8 +38,8 @@ fun TypeOfSource(
         Row(
             modifier = Modifier
                 .clickable {
+                    typeSelected = ETriggerSourceType.FieldInComplexGroup
                     chooseType(ETriggerSourceType.FieldInComplexGroup)
-
                 },
             horizontalArrangement = Arrangement.SpaceAround
         ) {
@@ -55,8 +55,8 @@ fun TypeOfSource(
         Row(
             modifier = Modifier
                 .clickable {
+                    typeSelected = ETriggerSourceType.TimeTrigger
                     chooseType(ETriggerSourceType.TimeTrigger)
-
                 },
             horizontalArrangement = Arrangement.SpaceAround
         ) {

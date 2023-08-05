@@ -2,9 +2,7 @@ package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Context
-import android.widget.DatePicker
-import android.widget.TimePicker
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -24,11 +22,9 @@ import androidx.compose.ui.res.stringResource
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.model.ETriggerSourceType
 import hr.kristiankliskovic.devcontrol.model.ITrigger
-import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents.TriggerSourceAddressFieldInComplexGroup
-import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents.TriggerSourceAddressFieldInGroup
-import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents.TypeOfSource
+import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents.*
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
-import java.text.SimpleDateFormat
+import hr.kristiankliskovic.devcontrol.utils.*
 import java.util.*
 
 @Composable
@@ -48,7 +44,6 @@ fun AddTriggerScreen(
     var newTriggerData = ITrigger.empty()
 
     var typeSeleted by remember { mutableStateOf(ETriggerSourceType.FieldInGroup) }
-
     val scrollState = rememberScrollState()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -80,95 +75,44 @@ fun AddTriggerScreen(
                 )
             }
             ETriggerSourceType.TimeTrigger -> {
-                val time: Int?
-                val date: Calendar?
+                var time: Int? = null
+                var date: Calendar? = null
+                
                 TimeSelection(
                     saveTime = {
-
+                        Log.i("devCalendar", "ttt")
+                        time = it
+                        if (date != null) {
+                            val timeStamp = valuesToCalendar(
+                                year = date!!.get(Calendar.YEAR),
+                                month = date!!.get(Calendar.MONTH),
+                                day = date!!.get(Calendar.DAY_OF_MONTH),
+                                hour = time!! / 60,
+                                minute = time!! % 60
+                            )
+                            Log.i("devCalendar", CalendarToIso(timeStamp))
+                            Log.i("devCalendar_RESULT",localCalendarToGMTISO(timeStamp))
+                        }
                     }
                 )
                 DateSelection(
                     saveDate = {
-
+                        date = it
+                        Log.i("devCalendar", "ttt")
+                        if (time != null) {
+                            val timeStamp = valuesToCalendar(
+                                year = date!!.get(Calendar.YEAR),
+                                month = date!!.get(Calendar.MONTH),
+                                day = date!!.get(Calendar.DAY_OF_MONTH),
+                                hour = time!! / 60,
+                                minute = time!! % 60
+                            )
+                            Log.i("devCalendar", CalendarToIso(timeStamp))
+                            Log.i("devCalendar_RESULT",localCalendarToGMTISO(timeStamp))
+                        }
                     }
                 )
             }
         }
     }
-}
-
-@Composable
-fun TimeSelection(
-    saveTime: (Int) -> Unit,
-) {
-    val textStart = stringResource(id = R.string.addTriggerScreen_setTime)
-    var text by remember { mutableStateOf(textStart) }
-    var showDialog by remember { mutableStateOf(false) }
-
-    if (showDialog) {
-        val time = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            saveTime((hourOfDay * 60 + minute) / 5 * 5)
-            text = String.format("%02d:%02d", hourOfDay, minute / 5 * 5)
-            showDialog = false
-        }
-        TimePickerDialog(
-            LocalContext.current,
-            time,
-            10,
-            10,
-            true
-        ).show()
-    }
-
-    Text(
-        text = text,
-        modifier = Modifier
-            .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_margin))
-            .clip(Shapes.small)
-            .background(colorResource(id = R.color.addTrigger_setDateTime_background))
-            .clickable {
-                showDialog = true
-            }
-            .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_padding))
-    )
-
-}
-
-@Composable
-private fun DateSelection(
-    saveDate: (Calendar) -> Unit,
-) {
-    val textStart = stringResource(id = R.string.addTriggerScreen_setDate)
-    var text by remember { mutableStateOf(textStart) }
-
-    var showDialog by remember { mutableStateOf(false) }
-
-    if (showDialog) {
-        val calendar = Calendar.getInstance()
-        val date = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            calendar.set(year, monthOfYear, dayOfMonth)
-            text = String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear, year)
-            saveDate(calendar)
-        }
-        DatePickerDialog(
-            LocalContext.current,
-            date,
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        ).show()
-        showDialog = false
-    }
-
-    Text(
-        text = text,
-        modifier = Modifier
-            .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_margin))
-            .clip(Shapes.small)
-            .background(colorResource(id = R.color.addTrigger_setDateTime_background))
-            .clickable {
-                showDialog = true
-            }
-            .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_padding))
-    )
 }
