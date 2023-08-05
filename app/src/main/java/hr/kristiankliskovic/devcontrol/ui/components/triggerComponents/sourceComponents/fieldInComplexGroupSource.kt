@@ -123,8 +123,8 @@ fun TriggerSourceAddressFieldInComplexGroup(
     ) {
         var dropDownMenuExpandedState by remember { mutableStateOf(false) }
         SelectedItem(
-            text = if (fieldSelected == null) stringResource(id = R.string.addTriggerScreen_no_complex_group_state_selected_text)
-            else "${fieldSelected!!.fieldName} (id:${fieldSelected!!.fieldId})",
+            text = if (stateSelected == null) stringResource(id = R.string.addTriggerScreen_no_complex_group_state_selected_text)
+            else "${stateSelected!!.stateName} (id:${stateSelected!!.stateId})",
             onClick = {
                 dropDownMenuExpandedState = true
             }

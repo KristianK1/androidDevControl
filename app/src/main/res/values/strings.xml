@@ -178,5 +178,22 @@
     <string name="addTriggerScreen_setTime">Set time</string>
     <string name="addTriggerScreen_setDate">Set Date</string>
 
+    <string name="numericTriggerType_bigger">Bigger then</string>
+    <string name="numericTriggerType_smaller">Smaller then</string>
+    <string name="numericTriggerType_equal">Equal to</string>
+    <string name="numericTriggerType_between">Between</string>
+    <string name="numericTriggerType_NotBetween">Not between</string>
+
+    <string name="buttonTriggerType_true">is ON</string>
+    <string name="buttonTriggerType_false">is OFF</string>
+
+
+
+    <string name="triggerNumericSelectValue_startText">Select value</string>
+
+    <string name="MCTriggerType_equal">Equal to</string>
+    <string name="MCTriggerType_notEqual">Not equal to</string>
+
+
 
 </resources>

@@ -1,7 +1,6 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.mapper
 
 import hr.kristiankliskovic.devcontrol.model.*
-import hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.*
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.*
 
 class AddTriggerMapperImpl : AddTriggerMapper {
@@ -45,31 +44,36 @@ class AddTriggerMapperImpl : AddTriggerMapper {
             is NumericDeviceField -> {
                 return TriggerSourceFieldViewState(
                     fieldId = field.fieldId,
-                    fieldName = field.fieldName
-                )
+                    fieldName = field.fieldName,
+                    fieldData = field,
+                    )
             }
             is TextDeviceField -> {
                 return TriggerSourceFieldViewState(
                     fieldId = field.fieldId,
-                    fieldName = field.fieldName
-                )
+                    fieldName = field.fieldName,
+                    fieldData = field,
+                    )
             }
             is ButtonDeviceField -> {
                 return TriggerSourceFieldViewState(
                     fieldId = field.fieldId,
-                    fieldName = field.fieldName
+                    fieldName = field.fieldName,
+                    fieldData = field,
                 )
             }
             is MultipleChoiceDeviceField -> {
                 return TriggerSourceFieldViewState(
                     fieldId = field.fieldId,
-                    fieldName = field.fieldName
+                    fieldName = field.fieldName,
+                    fieldData = field,
                 )
             }
             is RGBDeviceField -> {
                 return TriggerSourceFieldViewState(
                     fieldId = field.fieldId,
-                    fieldName = field.fieldName
+                    fieldName = field.fieldName,
+                    fieldData = field,
                 )
             }
         }

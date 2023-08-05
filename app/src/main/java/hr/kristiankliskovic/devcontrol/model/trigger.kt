@@ -1,5 +1,8 @@
 package hr.kristiankliskovic.devcontrol.model
 
+import android.util.Log
+import com.google.gson.Gson
+
 enum class ENumericTriggerType {
     Bigger,
     Smaller,
@@ -38,8 +41,8 @@ enum class ERGBTriggerType_context {
 sealed class TriggerSettings()
 
 data class INumericTrigger(
-    val value: Double,
-    val second_value: Double?,
+    val value: Float,
+    val second_value: Float? = null,
     val type: ENumericTriggerType,
 ) : TriggerSettings()
 
@@ -49,7 +52,7 @@ data class ITextTrigger(
 ) : TriggerSettings()
 
 data class IMCTrigger(
-    val value: Double,
+    val value: Int,
     val type: EMCTriggerType,
 ) : TriggerSettings()
 
@@ -62,13 +65,11 @@ data class IRGBTrigger(
 
 data class IBooleanTrigger(
     val value: Boolean,
-    val type: Boolean,
 ) : TriggerSettings() {
     companion object {
         fun empty(): IBooleanTrigger {
             return IBooleanTrigger(
                 value = false,
-                type = false
             )
         }
     }
@@ -117,7 +118,6 @@ enum class ETriggerTimeType {
 data class ITriggerTimeSourceData(
     val type: ETriggerTimeType,
     val firstTimeStamp: String,
-    val daysInWeek: List<Int>? = null,
     val lastRunTimestamp: String,
 ) : TriggerSourceData()
 
@@ -199,5 +199,8 @@ data class ITrigger(
                 responseSettings = ITriggerMobileNotificationResponse.empty()
             )
         }
+    }
+    fun print(){
+        Log.i("triggerDataPrint_sourceData", Gson().toJson(this))
     }
 }

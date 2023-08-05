@@ -19,9 +19,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.model.ETriggerSourceType
-import hr.kristiankliskovic.devcontrol.model.ITrigger
+import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents.*
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 import hr.kristiankliskovic.devcontrol.utils.*
@@ -45,6 +45,11 @@ fun AddTriggerScreen(
 
     var typeSeleted by remember { mutableStateOf(ETriggerSourceType.FieldInGroup) }
     val scrollState = rememberScrollState()
+
+    var fieldData by remember {
+        mutableStateOf<BasicDeviceField?>(null)
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -63,7 +68,12 @@ fun AddTriggerScreen(
                     state = viewState,
                     selectFieldInGroupData = {
                         newTriggerData.sourceData = it
+                        fieldData = findFieldData(
+                            sourceData = newTriggerData.sourceData,
+                            viewState = viewState,
+                        )
                     }
+
                 )
             }
             ETriggerSourceType.FieldInComplexGroup -> {
@@ -71,16 +81,19 @@ fun AddTriggerScreen(
                     state = viewState,
                     selectFieldInComplexGroupData = {
                         newTriggerData.sourceData = it
+                        fieldData = findFieldData(
+                            sourceData = newTriggerData.sourceData,
+                            viewState = viewState,
+                        )
                     }
                 )
             }
             ETriggerSourceType.TimeTrigger -> {
                 var time: Int? = null
                 var date: Calendar? = null
-                
+
                 TimeSelection(
                     saveTime = {
-                        Log.i("devCalendar", "ttt")
                         time = it
                         if (date != null) {
                             val timeStamp = valuesToCalendar(
@@ -90,15 +103,13 @@ fun AddTriggerScreen(
                                 hour = time!! / 60,
                                 minute = time!! % 60
                             )
-                            Log.i("devCalendar", CalendarToIso(timeStamp))
-                            Log.i("devCalendar_RESULT",localCalendarToGMTISO(timeStamp))
+                            val rez = localCalendarToGMTISO(timeStamp)
                         }
                     }
                 )
                 DateSelection(
                     saveDate = {
                         date = it
-                        Log.i("devCalendar", "ttt")
                         if (time != null) {
                             val timeStamp = valuesToCalendar(
                                 year = date!!.get(Calendar.YEAR),
@@ -107,12 +118,59 @@ fun AddTriggerScreen(
                                 hour = time!! / 60,
                                 minute = time!! % 60
                             )
-                            Log.i("devCalendar", CalendarToIso(timeStamp))
-                            Log.i("devCalendar_RESULT",localCalendarToGMTISO(timeStamp))
+                            val rez = localCalendarToGMTISO(timeStamp)
                         }
                     }
                 )
             }
+        }
+        if (fieldData != null) {
+            TriggerFieldDataSettings(
+                field = fieldData!!,
+                setTriggerSettings = {
+
+                }
+            )
+        }
+    }
+}
+
+
+private fun findFieldData(
+    sourceData: TriggerSourceData,
+    viewState: TriggerSourceDevicesViewState,
+): BasicDeviceField? {
+    when (sourceData) {
+        is ITriggerSourceAdress_fieldInGroup -> {
+            return try {
+                viewState.devices.find {
+                    it.id == sourceData.deviceId
+                }!!.groups.find {
+                    it.groupId == sourceData.groupId
+                }!!.fields.find {
+                    it.fieldId == sourceData.fieldId
+                }!!.fieldData
+            } catch (e: Throwable) {
+                null
+            }
+        }
+        is ITriggerSourceAdress_fieldInComplexGroup -> {
+            return try {
+                viewState.devices.find {
+                    it.id == sourceData.deviceId
+                }!!.complexGroups.find {
+                    it.complexGroupId == sourceData.complexGroupId
+                }!!.states.find {
+                    it.stateId == sourceData.stateId
+                }!!.fields.find {
+                    it.fieldId == sourceData.fieldId
+                }!!.fieldData
+            } catch (e: Throwable) {
+                null
+            }
+        }
+        is ITriggerTimeSourceData -> {
+            return null
         }
     }
 }

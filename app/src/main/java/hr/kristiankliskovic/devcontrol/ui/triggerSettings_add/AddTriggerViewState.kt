@@ -1,7 +1,6 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add
 
 import hr.kristiankliskovic.devcontrol.model.*
-import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission.AddPermissionFieldViewState
 
 //data class AddTriggerViewState(
 //    val device: Device,
@@ -46,6 +45,7 @@ data class TriggerSourceGroupViewState(
 data class TriggerSourceFieldViewState(
     val fieldId: Int,
     val fieldName: String,
+    val fieldData: BasicDeviceField,
 )
 
 data class TriggerSourceComplexGroupViewState(
@@ -59,3 +59,66 @@ data class TriggerSourceComplexGroupStateViewState(
     val stateName: String,
     val fields: List<TriggerSourceFieldViewState>,
 )
+
+
+
+
+
+
+sealed class TriggerSourceDataViewState
+
+data class TriggerSourceAdress_fieldInGroupViewState(
+    var deviceId: Int? = null,
+    var groupId: Int? = null,
+    var fieldId: Int? = null,
+) : TriggerSourceDataViewState()
+
+data class TriggerSourceAdress_fieldInComplexGroupViewState(
+    var deviceId: Int? = null,
+    var complexGroupId: Int? = null,
+    var stateId: Int? = null,
+    var fieldId: Int? = null,
+) : TriggerSourceDataViewState()
+
+data class TriggerTimeSourceDataViewState(
+    var type: ETriggerTimeType,
+    var firstTimeStamp: String? = null,
+) : TriggerSourceDataViewState()
+
+sealed class TriggerSettingsViewState
+
+data class NumericTriggerViewState(
+    var value: Float?  = null,
+    var second_value: Float? = null,
+    var type: ENumericTriggerType,
+) : TriggerSettingsViewState()
+
+data class TextTriggerViewState(
+    var value: String? = null,
+    var type: ETextTriggerType,
+) : TriggerSettingsViewState()
+
+data class MCTriggerViewState(
+    var value: Int? = null,
+    var type: EMCTriggerType,
+) : TriggerSettingsViewState()
+
+data class RGBTriggerViewState(
+    var value: Int? = null,
+    var second_value: Int? = null,
+    var type: ERGBTriggerType_numeric,
+    var contextType: ERGBTriggerType_context,
+) : TriggerSettingsViewState()
+
+data class BooleanTriggerViewState(
+    var value: Boolean,
+) : TriggerSettingsViewState()
+
+
+
+
+
+
+
+
+

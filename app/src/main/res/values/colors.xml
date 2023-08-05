@@ -54,4 +54,7 @@
 
     <color name="addTrigger_setDateTime_background">#FFB0B0B0</color>
 
+    <color name="addTrigger_chooseValueButton_background">#FFB0B0B0</color>
+
+
 </resources>
