@@ -1,97 +1,64 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import hr.kristiankliskovic.devcontrol.model.*
+import java.util.*
 
-//data class AddTriggerViewState(
-//    val device: Device,
-//)
 
-data class TriggerSourceDevicesViewState(
-    val devices: List<TriggerSourceDeviceViewState>,
-) {
-    companion object {
-        fun empty(): TriggerSourceDevicesViewState {
-            return TriggerSourceDevicesViewState(
-                devices = listOf()
-            )
-        }
-    }
-}
+data class AddTriggerViewState(
+    var triggerName: String = "",
 
-data class TriggerSourceDeviceViewState(
+    var sourceType: MutableState<ETriggerSourceType> = mutableStateOf(ETriggerSourceType.FieldInGroup),
+    var sourceAddress: TriggerSourceAddressViewState = TriggerSourceAddressViewState(),
+
+    var timeTriggerType: ETriggerTimeType = ETriggerTimeType.Once,
+    var timeSourceTime: Int? = null,
+    var timeSourceDate: Calendar? = null,
+
+    var sourceSettings: TriggerSettingsViewState? = null,
+    var fieldData: BasicDeviceField? = null, //TODO
+)
+
+data class DeviceEntityViewState(
     val id: Int,
     val name: String,
-    val groups: List<TriggerSourceGroupViewState>,
-    val complexGroups: List<TriggerSourceComplexGroupViewState>,
-) {
-    companion object {
-        fun empty(): TriggerSourceDeviceViewState {
-            return TriggerSourceDeviceViewState(
-                id = -1,
-                name = "",
-                groups = listOf(),
-                complexGroups = listOf(),
-            )
-        }
-    }
-}
-
-data class TriggerSourceGroupViewState(
-    val groupId: Int,
-    val groupName: String,
-    val fields: List<TriggerSourceFieldViewState>,
 )
 
-data class TriggerSourceFieldViewState(
-    val fieldId: Int,
-    val fieldName: String,
-    val fieldData: BasicDeviceField,
+data class TriggerSourceAddressViewState(
+    var selectedDevice: DeviceEntityViewState? = null,
+    var selectedGroup: DeviceEntityViewState? = null,
+    var selectedState: DeviceEntityViewState? = null,
+    var selectedField: DeviceEntityViewState? = null,
+
+    var sourceDevicesChoices: List<DeviceEntityViewState> = listOf(),
+    var sourceGroupsChoices: List<DeviceEntityViewState> = listOf(),
+    var sourceComplexGroupStatesChoices: List<DeviceEntityViewState> = listOf(),
+    var sourceFieldChoices: List<DeviceEntityViewState> = listOf(),
 )
 
-data class TriggerSourceComplexGroupViewState(
-    val complexGroupId: Int,
-    val complexGroupName: String,
-    val states: List<TriggerSourceComplexGroupStateViewState>,
-)
-
-data class TriggerSourceComplexGroupStateViewState(
-    val stateId: Int,
-    val stateName: String,
-    val fields: List<TriggerSourceFieldViewState>,
-)
-
-
-
-
-
-
-sealed class TriggerSourceDataViewState
-
-data class TriggerSourceAdress_fieldInGroupViewState(
-    var deviceId: Int? = null,
-    var groupId: Int? = null,
-    var fieldId: Int? = null,
-) : TriggerSourceDataViewState()
-
-data class TriggerSourceAdress_fieldInComplexGroupViewState(
-    var deviceId: Int? = null,
-    var complexGroupId: Int? = null,
-    var stateId: Int? = null,
-    var fieldId: Int? = null,
-) : TriggerSourceDataViewState()
-
-data class TriggerTimeSourceDataViewState(
-    var type: ETriggerTimeType,
-    var firstTimeStamp: String? = null,
-) : TriggerSourceDataViewState()
 
 sealed class TriggerSettingsViewState
 
 data class NumericTriggerViewState(
-    var value: Float?  = null,
+    var minimum: Float,
+    var maximum: Float,
+    var step: Float,
+    var value: Float? = null,
     var second_value: Float? = null,
     var type: ENumericTriggerType,
-) : TriggerSettingsViewState()
+) : TriggerSettingsViewState() {
+    companion object {
+        fun empty(): NumericTriggerViewState {
+            return NumericTriggerViewState(
+                type = ENumericTriggerType.Bigger,
+                minimum = -1f,
+                maximum = -1f,
+                step = -1f,
+            )
+        }
+    }
+}
 
 data class TextTriggerViewState(
     var value: String? = null,
@@ -99,6 +66,7 @@ data class TextTriggerViewState(
 ) : TriggerSettingsViewState()
 
 data class MCTriggerViewState(
+    var values: List<String>,
     var value: Int? = null,
     var type: EMCTriggerType,
 ) : TriggerSettingsViewState()
@@ -113,7 +81,6 @@ data class RGBTriggerViewState(
 data class BooleanTriggerViewState(
     var value: Boolean,
 ) : TriggerSettingsViewState()
-
 
 
 

@@ -1,55 +1,63 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
-import com.google.gson.Gson
-import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents.*
-import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 import hr.kristiankliskovic.devcontrol.utils.*
 import java.util.*
+import kotlin.math.min
 
 @Composable
 fun AddTriggerRoute(
     viewModel: AddTriggerViewModel,
 ) {
-    val addTriggerViewState by viewModel.devicesViewState.collectAsState()
+    val addTriggerViewState by viewModel.viewState.collectAsState()
     AddTriggerScreen(
         viewState = addTriggerViewState,
+        changeSourceType = {
+            viewModel.changeSourceType(it)
+        },
+        selectDevice = {
+            viewModel.selectSourceDevice(it)
+        },
+        selectGroup = {
+            viewModel.selectSourceGroup(it)
+        },
+        selectState = {
+            viewModel.selectSourceState(it)
+        },
+        selectField = {
+            viewModel.selectSourceField(it)
+        },
+        setTime = { hour, minute ->
+            viewModel.setTimeTriggerTime(hour, minute)
+        },
+        setDate = { year, month, day ->
+            viewModel.setDateTriggerDate(year, month, day)
+        }
     )
 }
 
 @Composable
 fun AddTriggerScreen(
-    viewState: TriggerSourceDevicesViewState,
+    viewState: AddTriggerViewState,
+    changeSourceType: (ETriggerSourceType) -> Unit,
+    selectDevice: (Int) -> Unit,
+    selectGroup: (Int) -> Unit,
+    selectState: (Int) -> Unit,
+    selectField: (Int) -> Unit,
+    setTime: (Int, Int) -> Unit,
+    setDate: (Int, Int, Int) -> Unit,
 ) {
-    var newTriggerData = ITrigger.empty()
 
-    var typeSeleted by remember { mutableStateOf(ETriggerSourceType.FieldInGroup) }
     val scrollState = rememberScrollState()
-
-    var fieldData by remember {
-        mutableStateOf<BasicDeviceField?>(null)
-    }
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -57,120 +65,44 @@ fun AddTriggerScreen(
             .verticalScroll(state = scrollState)
     ) {
         TypeOfSource(
+            typeSelected = viewState.sourceType.value,
             chooseType = {
-                typeSeleted = it
-                newTriggerData.sourceType = it
+                Log.i("devCAL", "changeState - $it")
+                changeSourceType(it)
             }
         )
-        when (typeSeleted) {
-            ETriggerSourceType.FieldInGroup -> {
-                TriggerSourceAddressFieldInGroup(
-                    state = viewState,
-                    selectFieldInGroupData = {
-                        newTriggerData.sourceData = it
-                        fieldData = findFieldData(
-                            sourceData = newTriggerData.sourceData,
-                            viewState = viewState,
-                        )
-                    }
-
-                )
-            }
-            ETriggerSourceType.FieldInComplexGroup -> {
-                TriggerSourceAddressFieldInComplexGroup(
-                    state = viewState,
-                    selectFieldInComplexGroupData = {
-                        newTriggerData.sourceData = it
-                        fieldData = findFieldData(
-                            sourceData = newTriggerData.sourceData,
-                            viewState = viewState,
-                        )
-                    }
-                )
-            }
-            ETriggerSourceType.TimeTrigger -> {
-                var time: Int? = null
-                var date: Calendar? = null
-
-                TimeSelection(
-                    saveTime = {
-                        time = it
-                        if (date != null) {
-                            val timeStamp = valuesToCalendar(
-                                year = date!!.get(Calendar.YEAR),
-                                month = date!!.get(Calendar.MONTH),
-                                day = date!!.get(Calendar.DAY_OF_MONTH),
-                                hour = time!! / 60,
-                                minute = time!! % 60
-                            )
-                            val rez = localCalendarToGMTISO(timeStamp)
-                        }
-                    }
-                )
-                DateSelection(
-                    saveDate = {
-                        date = it
-                        if (time != null) {
-                            val timeStamp = valuesToCalendar(
-                                year = date!!.get(Calendar.YEAR),
-                                month = date!!.get(Calendar.MONTH),
-                                day = date!!.get(Calendar.DAY_OF_MONTH),
-                                hour = time!! / 60,
-                                minute = time!! % 60
-                            )
-                            val rez = localCalendarToGMTISO(timeStamp)
-                        }
-                    }
-                )
-            }
-        }
-        if (fieldData != null) {
-            TriggerFieldDataSettings(
-                field = fieldData!!,
-                setTriggerSettings = {
-
+        if (viewState.sourceType.value == ETriggerSourceType.FieldInGroup || viewState.sourceType.value == ETriggerSourceType.FieldInComplexGroup) {
+//            TriggerSourceAddress(
+//                sourceType = viewState.sourceType,
+//                viewState = viewState.sourceAddress,
+//                selectDevice = selectDevice,
+//                selectGroup = selectGroup,
+//                selectState = selectState,
+//                selectField = selectField,
+//            )
+        } else {
+            Log.i("timeCAL", "calendar opened")
+            TimeSelection(
+                time = viewState.timeSourceTime,
+                saveTime = { hour, minute ->
+                    setTime(hour, minute)
+                }
+            )
+            DateSelection(
+                date = viewState.timeSourceDate,
+                saveDate = { year, month, day ->
+                    setDate(year, month, day)
                 }
             )
         }
     }
-}
-
-
-private fun findFieldData(
-    sourceData: TriggerSourceData,
-    viewState: TriggerSourceDevicesViewState,
-): BasicDeviceField? {
-    when (sourceData) {
-        is ITriggerSourceAdress_fieldInGroup -> {
-            return try {
-                viewState.devices.find {
-                    it.id == sourceData.deviceId
-                }!!.groups.find {
-                    it.groupId == sourceData.groupId
-                }!!.fields.find {
-                    it.fieldId == sourceData.fieldId
-                }!!.fieldData
-            } catch (e: Throwable) {
-                null
-            }
-        }
-        is ITriggerSourceAdress_fieldInComplexGroup -> {
-            return try {
-                viewState.devices.find {
-                    it.id == sourceData.deviceId
-                }!!.complexGroups.find {
-                    it.complexGroupId == sourceData.complexGroupId
-                }!!.states.find {
-                    it.stateId == sourceData.stateId
-                }!!.fields.find {
-                    it.fieldId == sourceData.fieldId
-                }!!.fieldData
-            } catch (e: Throwable) {
-                null
-            }
-        }
-        is ITriggerTimeSourceData -> {
-            return null
-        }
-    }
+//        if (fieldData != null) {
+//            TriggerFieldDataSettings(
+//                field = fieldData!!,
+//                setTriggerSettings = {
+//
+//                }
+//            )
+//        }
+//}
 }

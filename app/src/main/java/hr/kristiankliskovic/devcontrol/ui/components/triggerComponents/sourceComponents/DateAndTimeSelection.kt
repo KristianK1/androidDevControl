@@ -20,29 +20,29 @@ import java.util.*
 
 @Composable
 fun TimeSelection(
-    saveTime: (Int) -> Unit,
+    saveTime: (Int, Int) -> Unit,
+    time: Int?,
 ) {
-    val textStart = stringResource(id = R.string.addTriggerScreen_setTime)
-    var text by remember { mutableStateOf(textStart) }
     var showDialog by remember { mutableStateOf(false) }
 
     if (showDialog) {
         val time = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            saveTime((hourOfDay * 60 + minute) / 5 * 5)
-            text = String.format("%02d:%02d", hourOfDay, minute / 5 * 5)
+            saveTime(hourOfDay, minute)
             showDialog = false
         }
         TimePickerDialog(
             LocalContext.current,
             time,
-            10,
-            10,
+            0,
+            0,
             true
         ).show()
     }
 
     Text(
-        text = text,
+        text = if (time != null) String.format("%02d:%02d",
+            time / 60,
+            (time % 60) / 5 * 5) else stringResource(id = R.string.addTriggerScreen_setTime),
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_margin))
             .clip(Shapes.small)
@@ -57,20 +57,15 @@ fun TimeSelection(
 
 @Composable
 fun DateSelection(
-    saveDate: (Calendar) -> Unit,
+    saveDate: (Int, Int, Int) -> Unit,
+    date: Calendar?,
 ) {
-    val textStart = stringResource(id = R.string.addTriggerScreen_setDate)
-    var text by remember { mutableStateOf(textStart) }
-
     var showDialog by remember { mutableStateOf(false) }
 
     if (showDialog) {
         val calendar = Calendar.getInstance()
         val date = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            calendar.set(year, monthOfYear, dayOfMonth)
-            text = String.format("%02d/%02d/%04d", dayOfMonth, monthOfYear, year)
-            Log.i("devCalendar", "zzz")
-            saveDate(calendar)
+            saveDate(year, monthOfYear, dayOfMonth)
         }
         DatePickerDialog(
             LocalContext.current,
@@ -83,7 +78,10 @@ fun DateSelection(
     }
 
     Text(
-        text = text,
+        text = if (date != null) String.format("%02d/%02d/%04d",
+            date.get(Calendar.DAY_OF_MONTH),
+            date.get(Calendar.MONTH) + 1,
+            date.get(Calendar.YEAR)) else stringResource(id = R.string.addTriggerScreen_setDate),
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_margin))
             .clip(Shapes.small)

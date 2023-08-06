@@ -1,6 +1,6 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add
 
-import android.icu.lang.UCharacter.NumericType
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hr.kristiankliskovic.devcontrol.data.repository.device.DeviceRepository
@@ -8,59 +8,47 @@ import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.mapper.AddTriggerMapper
 import hr.kristiankliskovic.devcontrol.utils.valuesToCalendar
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import org.w3c.dom.Text
-import java.util.Calendar
 
 class AddTriggerViewModel(
-    private val deviceRepository: DeviceRepository,
+    deviceRepository: DeviceRepository,
     private val addTriggerMapper: AddTriggerMapper,
 ) : ViewModel() {
-    val devicesViewState: StateFlow<TriggerSourceDevicesViewState> =
-        deviceRepository.devices.map { devices ->
-            addTriggerMapper.toAddTriggerViewState(devices)
-        }.stateIn(viewModelScope, SharingStarted.Lazily, TriggerSourceDevicesViewState.empty())
 
-    var triggerName: MutableStateFlow<String> = MutableStateFlow("")
+    var viewState: StateFlow<AddTriggerViewState> =
+        MutableStateFlow(AddTriggerViewState())
 
-    var sourceType: MutableStateFlow<ETriggerSourceType> =
-        MutableStateFlow(ETriggerSourceType.FieldInGroup)
-
-
-    var sourceData: MutableStateFlow<TriggerSourceDataViewState> = MutableStateFlow(
-        TriggerSourceAdress_fieldInGroupViewState()
-    )
-
-    var sourceSettings: MutableStateFlow<TriggerSettingsViewState?> = MutableStateFlow(
-//        NumericTriggerViewState(
-//            type = ENumericTriggerType.Bigger
-//        )
-        null
-    )
-
-    var timeSourceTime: MutableStateFlow<Int?> = MutableStateFlow(null)
-    var timeSourceData: MutableStateFlow<Calendar?> = MutableStateFlow(null)
+    private val devices: StateFlow<List<Device>> =
+        deviceRepository.devices.stateIn(viewModelScope, SharingStarted.Lazily, listOf())
 
     fun changeTriggerName(name: String) {
-        triggerName.value = name;
+        viewState.value.triggerName = name;
     }
 
     fun changeSourceType(type: ETriggerSourceType) {
-        if (sourceType.value != type) {
-            when (sourceType.value) {
+        if (viewState.value.sourceType.value != type) {
+            when (viewState.value.sourceType.value) {
                 ETriggerSourceType.FieldInGroup -> {
-                    sourceData.value = TriggerSourceAdress_fieldInGroupViewState()
-                    sourceSettings.value = null
+                    viewState.value.sourceAddress.selectedDevice = null
+                    viewState.value.sourceAddress.selectedGroup = null
+                    viewState.value.sourceAddress.selectedField = null
+
+                    viewState.value.sourceSettings = null
                 }
                 ETriggerSourceType.FieldInComplexGroup -> {
-                    sourceData.value = TriggerSourceAdress_fieldInComplexGroupViewState()
+                    viewState.value.sourceAddress.selectedDevice = null
+                    viewState.value.sourceAddress.selectedGroup = null
+                    viewState.value.sourceAddress.selectedState = null
+                    viewState.value.sourceAddress.selectedField = null
+
+                    viewState.value.sourceSettings = null
                 }
                 ETriggerSourceType.TimeTrigger -> {
-                    sourceData.value = TriggerTimeSourceDataViewState(
-                        type = ETriggerTimeType.Once
-                    )
+                    viewState.value.timeSourceTime = null
+                    viewState.value.timeSourceDate = null
                 }
             }
+            Log.i("devCAL", "CHANGED TYPE")
+            viewState.value.sourceType.value = type
         }
     }
 
@@ -68,7 +56,7 @@ class AddTriggerViewModel(
         hour: Int,
         minute: Int,
     ) {
-        timeSourceTime.value = hour * 60 + minute / 5 * 5
+        viewState.value.timeSourceTime = hour * 60 + minute / 5 * 5
     }
 
     fun setDateTriggerDate(
@@ -76,7 +64,7 @@ class AddTriggerViewModel(
         month: Int,
         day: Int,
     ) {
-        timeSourceData.value = valuesToCalendar(
+        viewState.value.timeSourceDate = valuesToCalendar(
             year = year,
             month = month,
             day = day,
@@ -84,76 +72,207 @@ class AddTriggerViewModel(
     }
 
     fun setNumericSourceType(type: ENumericTriggerType) {
-        if (sourceSettings.value != null && sourceSettings.value is NumericTriggerViewState) {
-            (sourceSettings.value as NumericTriggerViewState).type = type
+        if (viewState.value.sourceSettings != null && viewState.value.sourceSettings is NumericTriggerViewState) {
+            (viewState.value.sourceSettings as NumericTriggerViewState).type = type
         }
     }
 
     fun setMCSourceType(type: EMCTriggerType) {
-        if (sourceSettings.value != null && sourceSettings.value is MCTriggerViewState) {
-            (sourceSettings.value as MCTriggerViewState).type = type
+        if (viewState.value.sourceSettings != null && viewState.value.sourceSettings is MCTriggerViewState) {
+            (viewState.value.sourceSettings as MCTriggerViewState).type = type
         }
     }
 
     fun setRGBSourceType(type: ERGBTriggerType_numeric) {
-        if (sourceSettings.value != null && sourceSettings.value is RGBTriggerViewState) {
-            (sourceSettings.value as RGBTriggerViewState).type = type
+        if (viewState.value.sourceSettings != null && viewState.value.sourceSettings is RGBTriggerViewState) {
+            (viewState.value.sourceSettings as RGBTriggerViewState).type = type
         }
     }
 
     fun setRGBSourceContext(context: ERGBTriggerType_context) {
-        if (sourceSettings.value != null && sourceSettings.value is RGBTriggerViewState) {
-            (sourceSettings.value as RGBTriggerViewState).contextType = context
+        if (viewState.value.sourceSettings != null && viewState.value.sourceSettings is RGBTriggerViewState) {
+            (viewState.value.sourceSettings as RGBTriggerViewState).contextType = context
         }
     }
 
     fun setTextSourceType(type: ETextTriggerType) {
-        if (sourceSettings.value != null && sourceSettings.value is TextTriggerViewState) {
-            (sourceSettings.value as TextTriggerViewState).type = type
+        if (viewState.value.sourceSettings != null && viewState.value.sourceSettings is TextTriggerViewState) {
+            (viewState.value.sourceSettings as TextTriggerViewState).type = type
         }
     }
 
     ///////////////////////////
     fun setFirstNumericSourceValue(value: Float) {
-        if (sourceSettings.value != null && sourceSettings.value is NumericTriggerViewState) {
-            (sourceSettings.value as NumericTriggerViewState).value = value
+        if (viewState.value.sourceSettings != null && viewState.value.sourceSettings is NumericTriggerViewState) {
+            (viewState.value.sourceSettings as NumericTriggerViewState).value = value
         }
     }
 
     fun setSecondNumericSourceValue(value: Float) {
-        if (sourceSettings.value != null && sourceSettings.value is NumericTriggerViewState) {
-            (sourceSettings.value as NumericTriggerViewState).second_value = value
+        if (viewState.value.sourceSettings != null && viewState.value.sourceSettings is NumericTriggerViewState) {
+            (viewState.value.sourceSettings as NumericTriggerViewState).second_value =
+                value
         }
     }
 
     fun setTextSourceValue(text: String) {
-        if (sourceSettings.value != null && sourceSettings.value is TextTriggerViewState) {
-            (sourceSettings.value as TextTriggerViewState).value = text
+        if (viewState.value.sourceSettings != null && viewState.value.sourceSettings is TextTriggerViewState) {
+            (viewState.value.sourceSettings as TextTriggerViewState).value = text
         }
     }
 
     fun setMCTextSourceValue(value: Int) {
-        if (sourceSettings.value != null && sourceSettings.value is MCTriggerViewState) {
-            (sourceSettings.value as MCTriggerViewState).value = value
+        if (viewState.value.sourceSettings != null && viewState.value.sourceSettings is MCTriggerViewState) {
+            (viewState.value.sourceSettings as MCTriggerViewState).value = value
         }
     }
 
     fun setBooleanSourceType(type: Boolean) {
-        if (sourceSettings.value != null && sourceSettings.value is BooleanTriggerViewState) {
-            (sourceSettings.value as BooleanTriggerViewState).value = type
+        if (viewState.value.sourceSettings != null && viewState.value.sourceSettings is BooleanTriggerViewState) {
+            (viewState.value.sourceSettings as BooleanTriggerViewState).value = type
         }
     }
 
-    fun setFirstRGBSourceValue(value: Int){
-        if (sourceSettings.value != null && sourceSettings.value is RGBTriggerViewState) {
-            (sourceSettings.value as RGBTriggerViewState).value = value
+    fun setFirstRGBSourceValue(value: Int) {
+        if (viewState.value.sourceSettings != null && viewState.value.sourceSettings is RGBTriggerViewState) {
+            (viewState.value.sourceSettings as RGBTriggerViewState).value = value
         }
     }
 
-    fun setSecondRGBSourceValue(value: Int){
-        if (sourceSettings.value != null && sourceSettings.value is RGBTriggerViewState) {
-            (sourceSettings.value as RGBTriggerViewState).second_value = value
+    fun setSecondRGBSourceValue(value: Int) {
+        if (viewState.value.sourceSettings != null && viewState.value.sourceSettings is RGBTriggerViewState) {
+            (viewState.value.sourceSettings as RGBTriggerViewState).second_value = value
         }
     }
 
+    fun selectSourceDevice(deviceId: Int) {
+        if (viewState.value.sourceAddress.selectedDevice?.id == deviceId) return
+
+        val device = devices.value.find { it.deviceId == deviceId }
+        if (device == null) return
+
+        viewState.value.sourceAddress.selectedDevice = DeviceEntityViewState(
+            id = deviceId,
+            name = device.deviceName
+        )
+
+        when (viewState.value.sourceType.value) {
+            ETriggerSourceType.FieldInGroup -> {
+                viewState.value.sourceAddress.sourceGroupsChoices =
+                    addTriggerMapper.groupsToEntityViewState(device.groups)
+                viewState.value.sourceAddress.sourceFieldChoices = listOf()
+            }
+            ETriggerSourceType.FieldInComplexGroup -> {
+                viewState.value.sourceAddress.sourceGroupsChoices =
+                    addTriggerMapper.complexGroupsToEntityViewState(device.complexGroups, false)
+                viewState.value.sourceAddress.sourceComplexGroupStatesChoices = listOf()
+                viewState.value.sourceAddress.sourceFieldChoices = listOf()
+            }
+            ETriggerSourceType.TimeTrigger -> {
+
+            }
+        }
+    }
+
+    fun selectSourceGroup(groupId: Int) {
+        if (viewState.value.sourceAddress.selectedGroup?.id == groupId) return
+        when (viewState.value.sourceType.value) {
+            ETriggerSourceType.FieldInGroup -> {
+                val device = devices.value.find {
+                    it.deviceId == viewState.value.sourceAddress.selectedDevice?.id
+                }
+                if (device == null) return
+
+                val group = device.groups.find {
+                    it.groupId == groupId
+                }
+                if (group == null) return
+
+                viewState.value.sourceAddress.sourceFieldChoices =
+                    addTriggerMapper.fieldsToEntityViewState(group.fields, false)
+            }
+            ETriggerSourceType.FieldInComplexGroup -> {
+                val device = devices.value.find {
+                    it.deviceId == viewState.value.sourceAddress.selectedDevice?.id
+                }
+                if (device == null) return
+
+                val group = device.complexGroups.find {
+                    it.complexGroupId == groupId
+                }
+                if (group == null) return
+
+                viewState.value.sourceAddress.sourceComplexGroupStatesChoices =
+                    addTriggerMapper.complexGroupsStatesToEntityViewState(group.states, false)
+            }
+            ETriggerSourceType.TimeTrigger -> {
+
+            }
+        }
+    }
+
+    fun selectSourceState(stateId: Int) {
+        when (viewState.value.sourceType.value) {
+            ETriggerSourceType.FieldInGroup -> {
+
+            }
+            ETriggerSourceType.FieldInComplexGroup -> {
+                val device = devices.value.find {
+                    it.deviceId == viewState.value.sourceAddress.selectedDevice?.id
+                }
+                if (device == null) return
+
+                val group = device.complexGroups.find {
+                    it.complexGroupId == viewState.value.sourceAddress.selectedGroup?.id
+                }
+                if (group == null) return
+
+                val state = group.states.find {
+                    it.stateId == stateId
+                }
+                if (state == null) return
+
+                viewState.value.sourceAddress.sourceFieldChoices =
+                    addTriggerMapper.fieldsToEntityViewState(state.fields, false)
+            }
+            ETriggerSourceType.TimeTrigger -> {
+
+            }
+        }
+    }
+
+    fun selectSourceField(fieldId: Int) {
+        val device = devices.value.find {
+            it.deviceId == viewState.value.sourceAddress.selectedDevice?.id
+        }
+        if (device == null) return
+
+        var fields: List<BasicDeviceField> = listOf()
+        when (viewState.value.sourceType.value) {
+            ETriggerSourceType.FieldInGroup -> {
+                val group = device.groups.find {
+                    it.groupId == viewState.value.sourceAddress.selectedGroup?.id
+                }
+                if(group == null) return
+                fields = group.fields
+            }
+            ETriggerSourceType.FieldInComplexGroup -> {
+                val group = device.complexGroups.find {
+                    it.complexGroupId == viewState.value.sourceAddress.selectedGroup?.id
+                }
+                if (group == null) return
+
+                val state = group.states.find {
+                    it.stateId == viewState.value.sourceAddress.selectedField?.id
+                }
+                if(state == null) return
+
+                fields = state.fields
+            }
+            ETriggerSourceType.TimeTrigger -> {
+
+            }
+        }
+
+    }
 }
