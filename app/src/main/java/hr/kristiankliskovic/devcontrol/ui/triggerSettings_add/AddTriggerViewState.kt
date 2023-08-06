@@ -10,11 +10,11 @@ data class AddTriggerViewState(
     var triggerName: String = "",
 
     var sourceType: MutableState<ETriggerSourceType> = mutableStateOf(ETriggerSourceType.FieldInGroup),
-    var sourceAddress: TriggerSourceAddressViewState = TriggerSourceAddressViewState(),
+    var sourceAddress: MutableState<TriggerSourceAddressViewState> = mutableStateOf(TriggerSourceAddressViewState()),
 
-    var timeTriggerType: ETriggerTimeType = ETriggerTimeType.Once,
-    var timeSourceTime: Int? = null,
-    var timeSourceDate: Calendar? = null,
+    var timeTriggerType: MutableState<ETriggerTimeType> = mutableStateOf(ETriggerTimeType.Once),
+    var timeSourceTime: MutableState<Int?> = mutableStateOf(null),
+    var timeSourceDate: MutableState<Calendar?> = mutableStateOf(null),
 
     var sourceSettings: TriggerSettingsViewState? = null,
     var fieldData: BasicDeviceField? = null, //TODO

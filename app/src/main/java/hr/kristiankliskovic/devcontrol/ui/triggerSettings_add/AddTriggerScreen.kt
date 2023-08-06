@@ -36,6 +36,9 @@ fun AddTriggerRoute(
         selectField = {
             viewModel.selectSourceField(it)
         },
+        setTimeTriggerType = {
+            viewModel.setTimeTriggerType(it)
+        },
         setTime = { hour, minute ->
             viewModel.setTimeTriggerTime(hour, minute)
         },
@@ -53,6 +56,7 @@ fun AddTriggerScreen(
     selectGroup: (Int) -> Unit,
     selectState: (Int) -> Unit,
     selectField: (Int) -> Unit,
+    setTimeTriggerType: (ETriggerTimeType) -> Unit,
     setTime: (Int, Int) -> Unit,
     setDate: (Int, Int, Int) -> Unit,
 ) {
@@ -81,15 +85,20 @@ fun AddTriggerScreen(
 //                selectField = selectField,
 //            )
         } else {
-            Log.i("timeCAL", "calendar opened")
+            TypeOfTimeSource(
+                type = viewState.timeTriggerType.value,
+                selectType = {
+                    setTimeTriggerType(it)
+                }
+            )
             TimeSelection(
-                time = viewState.timeSourceTime,
+                time = viewState.timeSourceTime.value,
                 saveTime = { hour, minute ->
                     setTime(hour, minute)
                 }
             )
             DateSelection(
-                date = viewState.timeSourceDate,
+                date = viewState.timeSourceDate.value,
                 saveDate = { year, month, day ->
                     setDate(year, month, day)
                 }
