@@ -1,5 +1,6 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.mapper
 
+import android.util.Log
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.*
 
@@ -41,7 +42,9 @@ class AddTriggerMapperImpl : AddTriggerMapper {
     override fun devicesToEntityViewState(
         devices: List<Device>,
     ): List<DeviceEntityViewState> {
+        Log.i("deviceMapX", "mapping")
         return devices.map {
+            Log.i("deviceMapX", it.deviceName)
             DeviceEntityViewState(
                 id = it.deviceId,
                 name = it.deviceName,

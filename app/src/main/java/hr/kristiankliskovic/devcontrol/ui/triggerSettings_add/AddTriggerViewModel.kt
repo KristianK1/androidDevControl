@@ -1,58 +1,78 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.data.repository.device.DeviceRepository
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.mapper.AddTriggerMapper
 import hr.kristiankliskovic.devcontrol.utils.valuesToCalendar
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import java.util.concurrent.CopyOnWriteArrayList
 
 class AddTriggerViewModel(
     deviceRepository: DeviceRepository,
-    private val addTriggerMapper: AddTriggerMapper,
+    val addTriggerMapper: AddTriggerMapper,
 ) : ViewModel() {
 
     var viewState: StateFlow<AddTriggerViewState> =
         MutableStateFlow(AddTriggerViewState())
 
-    private val devices: StateFlow<List<Device>> =
-        deviceRepository.devices.stateIn(viewModelScope, SharingStarted.Lazily, listOf())
+    val devices: StateFlow<List<Device>> =
+        deviceRepository.devices.map {
+            Log.i("deviceMapX", "HELLO")
+            Log.i("deviceMapX", Gson().toJson(it.toList()))
+            setDevices(it)
+            it
+        }.stateIn(viewModelScope, SharingStarted.Lazily, mutableListOf())
+
+    private suspend fun setDevices(it: CopyOnWriteArrayList<Device>) {
+        viewModelScope.launch {
+            viewState.value.sourceAddress.value.sourceDevicesChoices = addTriggerMapper.devicesToEntityViewState(it).toMutableList()
+        }
+    }
 
     fun changeTriggerName(name: String) {
         viewState.value.triggerName = name;
     }
 
     fun changeSourceType(type: ETriggerSourceType) {
-        if (viewState.value.sourceType.value != type) {
-            when (viewState.value.sourceType.value) {
-                ETriggerSourceType.FieldInGroup -> {
-                    viewState.value.sourceAddress.value.selectedDevice = null
-                    viewState.value.sourceAddress.value.selectedGroup = null
-                    viewState.value.sourceAddress.value.selectedField = null
+        viewModelScope.launch {
+            Log.i("deviceMapX", "SIZEX"+ devices.value.size)
 
-                    viewState.value.sourceSettings = null
+            if (viewState.value.sourceType.value != type) {
+                when (viewState.value.sourceType.value) {
+                    ETriggerSourceType.FieldInGroup -> {
+                        viewState.value.sourceAddress.value.selectedDevice.value = null
+                        viewState.value.sourceAddress.value.selectedGroup.value = null
+                        viewState.value.sourceAddress.value.selectedField.value = null
+                        viewState.value.sourceSettings = null
+                        viewState.value.sourceAddress.value.sourceDevicesChoices = addTriggerMapper.devicesToEntityViewState(devices.value).toMutableList()
+                    }
+                    ETriggerSourceType.FieldInComplexGroup -> {
+                        viewState.value.sourceAddress.value.selectedDevice.value = null
+                        viewState.value.sourceAddress.value.selectedGroup.value = null
+                        viewState.value.sourceAddress.value.selectedState.value = null
+                        viewState.value.sourceAddress.value.selectedField.value = null
+                        viewState.value.sourceSettings = null
+                        viewState.value.sourceAddress.value.sourceDevicesChoices = addTriggerMapper.devicesToEntityViewState(devices.value).toMutableList()
+                    }
+                    ETriggerSourceType.TimeTrigger -> {
+                        viewState.value.timeSourceTime.value = null
+                        viewState.value.timeSourceDate.value = null
+                    }
                 }
-                ETriggerSourceType.FieldInComplexGroup -> {
-                    viewState.value.sourceAddress.value.selectedDevice = null
-                    viewState.value.sourceAddress.value.selectedGroup = null
-                    viewState.value.sourceAddress.value.selectedState = null
-                    viewState.value.sourceAddress.value.selectedField = null
-
-                    viewState.value.sourceSettings = null
-                }
-                ETriggerSourceType.TimeTrigger -> {
-                    viewState.value.timeSourceTime.value = null
-                    viewState.value.timeSourceDate.value = null
-                }
+                Log.i("devCAL", "CHANGED TYPE")
+                viewState.value.sourceType.value = type
             }
-            Log.i("devCAL", "CHANGED TYPE")
-            viewState.value.sourceType.value = type
         }
     }
 
-    fun setTimeTriggerType(type: ETriggerTimeType){
+    fun setTimeTriggerType(type: ETriggerTimeType) {
         viewState.value.timeTriggerType.value = type
     }
 
@@ -150,12 +170,12 @@ class AddTriggerViewModel(
     }
 
     fun selectSourceDevice(deviceId: Int) {
-        if (viewState.value.sourceAddress.value.selectedDevice?.id == deviceId) return
+        if (viewState.value.sourceAddress.value.selectedDevice.value?.id == deviceId) return
 
         val device = devices.value.find { it.deviceId == deviceId }
         if (device == null) return
 
-        viewState.value.sourceAddress.value.selectedDevice = DeviceEntityViewState(
+        viewState.value.sourceAddress.value.selectedDevice.value = DeviceEntityViewState(
             id = deviceId,
             name = device.deviceName
         )
@@ -163,14 +183,16 @@ class AddTriggerViewModel(
         when (viewState.value.sourceType.value) {
             ETriggerSourceType.FieldInGroup -> {
                 viewState.value.sourceAddress.value.sourceGroupsChoices =
-                    addTriggerMapper.groupsToEntityViewState(device.groups)
-                viewState.value.sourceAddress.value.sourceFieldChoices = listOf()
+                    addTriggerMapper.groupsToEntityViewState(device.groups).toMutableList()
+                viewState.value.sourceAddress.value.sourceFieldChoices = mutableListOf()
             }
             ETriggerSourceType.FieldInComplexGroup -> {
                 viewState.value.sourceAddress.value.sourceGroupsChoices =
                     addTriggerMapper.complexGroupsToEntityViewState(device.complexGroups, false)
-                viewState.value.sourceAddress.value.sourceComplexGroupStatesChoices = listOf()
-                viewState.value.sourceAddress.value.sourceFieldChoices = listOf()
+                        .toMutableList()
+                viewState.value.sourceAddress.value.sourceComplexGroupStatesChoices =
+                    mutableListOf()
+                viewState.value.sourceAddress.value.sourceFieldChoices = mutableListOf()
             }
             ETriggerSourceType.TimeTrigger -> {
 
@@ -179,11 +201,11 @@ class AddTriggerViewModel(
     }
 
     fun selectSourceGroup(groupId: Int) {
-        if (viewState.value.sourceAddress.value.selectedGroup?.id == groupId) return
+        if (viewState.value.sourceAddress.value.selectedGroup.value?.id == groupId) return
         when (viewState.value.sourceType.value) {
             ETriggerSourceType.FieldInGroup -> {
                 val device = devices.value.find {
-                    it.deviceId == viewState.value.sourceAddress.value.selectedDevice?.id
+                    it.deviceId == viewState.value.sourceAddress.value.selectedDevice.value?.id
                 }
                 if (device == null) return
 
@@ -193,11 +215,11 @@ class AddTriggerViewModel(
                 if (group == null) return
 
                 viewState.value.sourceAddress.value.sourceFieldChoices =
-                    addTriggerMapper.fieldsToEntityViewState(group.fields, false)
+                    addTriggerMapper.fieldsToEntityViewState(group.fields, false).toMutableList()
             }
             ETriggerSourceType.FieldInComplexGroup -> {
                 val device = devices.value.find {
-                    it.deviceId == viewState.value.sourceAddress.value.selectedDevice?.id
+                    it.deviceId == viewState.value.sourceAddress.value.selectedDevice.value?.id
                 }
                 if (device == null) return
 
@@ -208,6 +230,7 @@ class AddTriggerViewModel(
 
                 viewState.value.sourceAddress.value.sourceComplexGroupStatesChoices =
                     addTriggerMapper.complexGroupsStatesToEntityViewState(group.states, false)
+                        .toMutableList()
             }
             ETriggerSourceType.TimeTrigger -> {
 
@@ -222,12 +245,12 @@ class AddTriggerViewModel(
             }
             ETriggerSourceType.FieldInComplexGroup -> {
                 val device = devices.value.find {
-                    it.deviceId == viewState.value.sourceAddress.value.selectedDevice?.id
+                    it.deviceId == viewState.value.sourceAddress.value.selectedDevice.value?.id
                 }
                 if (device == null) return
 
                 val group = device.complexGroups.find {
-                    it.complexGroupId == viewState.value.sourceAddress.value.selectedGroup?.id
+                    it.complexGroupId == viewState.value.sourceAddress.value.selectedGroup.value?.id
                 }
                 if (group == null) return
 
@@ -237,7 +260,7 @@ class AddTriggerViewModel(
                 if (state == null) return
 
                 viewState.value.sourceAddress.value.sourceFieldChoices =
-                    addTriggerMapper.fieldsToEntityViewState(state.fields, false)
+                    addTriggerMapper.fieldsToEntityViewState(state.fields, false).toMutableList()
             }
             ETriggerSourceType.TimeTrigger -> {
 
@@ -247,7 +270,7 @@ class AddTriggerViewModel(
 
     fun selectSourceField(fieldId: Int) {
         val device = devices.value.find {
-            it.deviceId == viewState.value.sourceAddress.value.selectedDevice?.id
+            it.deviceId == viewState.value.sourceAddress.value.selectedDevice.value?.id
         }
         if (device == null) return
 
@@ -255,21 +278,21 @@ class AddTriggerViewModel(
         when (viewState.value.sourceType.value) {
             ETriggerSourceType.FieldInGroup -> {
                 val group = device.groups.find {
-                    it.groupId == viewState.value.sourceAddress.value.selectedGroup?.id
+                    it.groupId == viewState.value.sourceAddress.value.selectedGroup.value?.id
                 }
-                if(group == null) return
+                if (group == null) return
                 fields = group.fields
             }
             ETriggerSourceType.FieldInComplexGroup -> {
                 val group = device.complexGroups.find {
-                    it.complexGroupId == viewState.value.sourceAddress.value.selectedGroup?.id
+                    it.complexGroupId == viewState.value.sourceAddress.value.selectedGroup.value?.id
                 }
                 if (group == null) return
 
                 val state = group.states.find {
-                    it.stateId == viewState.value.sourceAddress.value.selectedField?.id
+                    it.stateId == viewState.value.sourceAddress.value.selectedField.value?.id
                 }
-                if(state == null) return
+                if (state == null) return
 
                 fields = state.fields
 

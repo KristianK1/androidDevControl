@@ -26,15 +26,15 @@ data class DeviceEntityViewState(
 )
 
 data class TriggerSourceAddressViewState(
-    var selectedDevice: DeviceEntityViewState? = null,
-    var selectedGroup: DeviceEntityViewState? = null,
-    var selectedState: DeviceEntityViewState? = null,
-    var selectedField: DeviceEntityViewState? = null,
+    var selectedDevice: MutableState<DeviceEntityViewState?> = mutableStateOf(null),
+    var selectedGroup: MutableState<DeviceEntityViewState?> = mutableStateOf(null),
+    var selectedState: MutableState<DeviceEntityViewState?> = mutableStateOf(null),
+    var selectedField: MutableState<DeviceEntityViewState?> = mutableStateOf(null),
 
-    var sourceDevicesChoices: List<DeviceEntityViewState> = listOf(),
-    var sourceGroupsChoices: List<DeviceEntityViewState> = listOf(),
-    var sourceComplexGroupStatesChoices: List<DeviceEntityViewState> = listOf(),
-    var sourceFieldChoices: List<DeviceEntityViewState> = listOf(),
+    var sourceDevicesChoices: MutableList<DeviceEntityViewState> = mutableListOf(),
+    var sourceGroupsChoices: MutableList<DeviceEntityViewState> = mutableListOf(),
+    var sourceComplexGroupStatesChoices: MutableList<DeviceEntityViewState> = mutableListOf(),
+    var sourceFieldChoices: MutableList<DeviceEntityViewState> = mutableListOf(),
 )
 
 

@@ -1,5 +1,6 @@
 package hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,18 +28,16 @@ fun TriggerSourceAddress(
     selectState: (Int) -> Unit,
     selectField: (Int) -> Unit,
 ) {
-    val scrollState = rememberScrollState()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
-            .verticalScroll(state = scrollState)
     ) {
         ChooseEntity(
             choices = viewState.sourceDevicesChoices,
             nothingSelectedText = stringResource(id = R.string.addTriggerScreen_no_device_selected_warning),
             noChoicesText = "",
-            chosenEntity = viewState.selectedDevice,
+            chosenEntity = viewState.selectedDevice.value,
             selectEntity = selectDevice,
         )
 
@@ -46,7 +45,7 @@ fun TriggerSourceAddress(
             choices = viewState.sourceGroupsChoices,
             nothingSelectedText = stringResource(id = R.string.addTriggerScreen_no_complex_group_selected_text),
             noChoicesText = stringResource(id = R.string.addTriggerScreen_no_device_selected_warning),
-            chosenEntity = viewState.selectedGroup,
+            chosenEntity = viewState.selectedGroup.value,
             selectEntity = selectGroup,
         )
 
@@ -55,7 +54,7 @@ fun TriggerSourceAddress(
                 choices = viewState.sourceComplexGroupStatesChoices,
                 nothingSelectedText = stringResource(id = R.string.addTriggerScreen_no_complex_group_state_selected_text),
                 noChoicesText = "",
-                chosenEntity = viewState.selectedState,
+                chosenEntity = viewState.selectedState.value,
                 selectEntity = selectState,
             )
         }
@@ -64,7 +63,7 @@ fun TriggerSourceAddress(
             choices = viewState.sourceFieldChoices,
             nothingSelectedText = stringResource(id = R.string.addTriggerScreen_no_field_selected_text),
             noChoicesText = "",
-            chosenEntity = viewState.selectedField,
+            chosenEntity = viewState.selectedField.value,
             selectEntity = selectField,
         )
     }
@@ -82,6 +81,8 @@ fun ChooseEntity(
         contentAlignment = Alignment.Center
     ) {
         var dropDownMenuExpandedField by remember { mutableStateOf(false) }
+        Log.i("ttt1", "!" + choices.size)
+
         SelectedItem(
             text = if (chosenEntity == null) nothingSelectedText
             else "${chosenEntity.name} (id:${chosenEntity.id})",
@@ -89,24 +90,27 @@ fun ChooseEntity(
                 dropDownMenuExpandedField = true
             }
         )
+        Log.i("ttt2", "!" + choices.size)
+
         DropdownMenu(
             expanded = dropDownMenuExpandedField,
             onDismissRequest = {
                 dropDownMenuExpandedField = false
             }
         ) {
+            Log.i("ttt", "!" + choices.size)
             if (choices.isNotEmpty()) {
-                for (field in choices) {
+                for (choice in choices) {
                     DropdownMenuItem(
                         onClick = {
-                            selectEntity(field.id)
+                            selectEntity(choice.id)
                             dropDownMenuExpandedField = false
                         },
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                     ) {
                         Text(
-                            text = "${field.name} (id:${field.id})"
+                            text = "${choice.name} (id:${choice.id})"
                         )
                     }
                 }

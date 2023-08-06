@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +20,9 @@ fun AddTriggerRoute(
     viewModel: AddTriggerViewModel,
 ) {
     val addTriggerViewState by viewModel.viewState.collectAsState()
+    val devices by viewModel.devices.collectAsState()
     AddTriggerScreen(
+        devices = devices,
         viewState = addTriggerViewState,
         changeSourceType = {
             viewModel.changeSourceType(it)
@@ -50,6 +53,7 @@ fun AddTriggerRoute(
 
 @Composable
 fun AddTriggerScreen(
+    devices: List<Device>,
     viewState: AddTriggerViewState,
     changeSourceType: (ETriggerSourceType) -> Unit,
     selectDevice: (Int) -> Unit,
@@ -60,7 +64,9 @@ fun AddTriggerScreen(
     setTime: (Int, Int) -> Unit,
     setDate: (Int, Int, Int) -> Unit,
 ) {
-
+    Text(
+        text = "broj uredaja: ${devices.size}"
+    )
     val scrollState = rememberScrollState()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -76,14 +82,14 @@ fun AddTriggerScreen(
             }
         )
         if (viewState.sourceType.value == ETriggerSourceType.FieldInGroup || viewState.sourceType.value == ETriggerSourceType.FieldInComplexGroup) {
-//            TriggerSourceAddress(
-//                sourceType = viewState.sourceType,
-//                viewState = viewState.sourceAddress,
-//                selectDevice = selectDevice,
-//                selectGroup = selectGroup,
-//                selectState = selectState,
-//                selectField = selectField,
-//            )
+            TriggerSourceAddress(
+                sourceType = viewState.sourceType.value,
+                viewState = viewState.sourceAddress.value,
+                selectDevice = selectDevice,
+                selectGroup = selectGroup,
+                selectState = selectState,
+                selectField = selectField,
+            )
         } else {
             TypeOfTimeSource(
                 type = viewState.timeTriggerType.value,
