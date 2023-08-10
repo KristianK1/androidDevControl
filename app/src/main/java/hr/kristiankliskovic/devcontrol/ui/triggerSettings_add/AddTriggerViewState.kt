@@ -47,18 +47,7 @@ data class NumericTriggerViewState(
     var value: Float? = null,
     var second_value: Float? = null,
     var type: ENumericTriggerType,
-) : TriggerSettingsViewState() {
-    companion object {
-        fun empty(): NumericTriggerViewState {
-            return NumericTriggerViewState(
-                type = ENumericTriggerType.Bigger,
-                minimum = -1f,
-                maximum = -1f,
-                step = -1f,
-            )
-        }
-    }
-}
+) : TriggerSettingsViewState()
 
 data class TextTriggerViewState(
     var value: String? = null,

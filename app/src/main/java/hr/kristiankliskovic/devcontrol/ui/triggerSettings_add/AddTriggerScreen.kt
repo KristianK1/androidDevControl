@@ -20,7 +20,7 @@ fun AddTriggerRoute(
     viewModel: AddTriggerViewModel,
 ) {
     val addTriggerViewState by viewModel.viewState.collectAsState()
-    val devices by viewModel.devices.collectAsState()
+    val devices by viewModel.devices.collectAsState() //dont use this
     AddTriggerScreen(
         devices = devices,
         viewState = addTriggerViewState,
@@ -64,9 +64,6 @@ fun AddTriggerScreen(
     setTime: (Int, Int) -> Unit,
     setDate: (Int, Int, Int) -> Unit,
 ) {
-    Text(
-        text = "broj uredaja: ${devices.size}"
-    )
     val scrollState = rememberScrollState()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -77,7 +74,6 @@ fun AddTriggerScreen(
         TypeOfSource(
             typeSelected = viewState.sourceType.value,
             chooseType = {
-                Log.i("devCAL", "changeState - $it")
                 changeSourceType(it)
             }
         )
