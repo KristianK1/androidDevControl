@@ -32,10 +32,9 @@ fun ChooseNumericValuePopup(
     step: Float,
     prefix: String,
     sufix: String,
+    chosenValue: Float?,
     chosen: (Float) -> Unit,
 ) {
-    var chosenValue by remember { mutableStateOf<Float?>(null) }
-
     var dialogOpen by remember { mutableStateOf(false) }
     val values: ArrayList<Float> = arrayListOf()
     var i = minValue

@@ -9,214 +9,262 @@ import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.RadioButtonRow
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineTextWrapper
+import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.*
 
 @Composable
 fun TriggerFieldDataSettings(
-    field: BasicDeviceField,
-    setTriggerSettings: (TriggerSettings) -> Unit,
-) {
-    Column {
-        var triggerSettings by remember { mutableStateOf<TriggerSettings?>(null) }
-        when (field) {
-            is NumericDeviceField -> {
-                var type by remember { mutableStateOf(ENumericTriggerType.Bigger) }
-                var value1 by remember { mutableStateOf<Float?>(null) }
-                var value2 by remember { mutableStateOf<Float?>(null) }
+    viewState: TriggerSettingsViewState?,
 
+    setNumericTriggerType: (ENumericTriggerType) -> Unit,
+    setTextTriggerType: (ETextTriggerType) -> Unit,
+    setMCTriggerType: (EMCTriggerType) -> Unit,
+    setRGBTriggerType: (ERGBTriggerType_numeric) -> Unit,
+    setRGBTriggerContext: (ERGBTriggerType_context) -> Unit,
+
+    setNumericFirstValue: (Float) -> Unit,
+    setNumericSecondValue: (Float) -> Unit,
+    setTextValue: (String) -> Unit,
+    setButtonValue: (Boolean) -> Unit,
+    setMCvalue: (Int) -> Unit,
+    setRGBFirstValue: (Int) -> Unit,
+    setRGBSecondValue: (Int) -> Unit,
+) {
+    if (viewState == null) return
+    Column {
+        when (viewState) {
+            is NumericTriggerViewState -> {
                 RadioButtonRow(
-                    selected = type == ENumericTriggerType.Bigger,
+                    selected = viewState.type.value == ENumericTriggerType.Bigger,
                     text = stringResource(id = R.string.numericTriggerType_bigger),
                     onClick = {
-                        type = ENumericTriggerType.Bigger
-                        if (value1 != null) {
-                            triggerSettings = INumericTrigger(
-                                type = type,
-                                value = value1!!,
-                            )
-                            setTriggerSettings(triggerSettings!!)
-                        }
+                        setNumericTriggerType(ENumericTriggerType.Bigger)
                     }
                 )
                 RadioButtonRow(
-                    selected = type == ENumericTriggerType.Smaller,
+                    selected = viewState.type.value == ENumericTriggerType.Smaller,
                     text = stringResource(id = R.string.numericTriggerType_smaller),
                     onClick = {
-                        type = ENumericTriggerType.Smaller
-                        if (value1 != null) {
-                            triggerSettings = INumericTrigger(
-                                type = type,
-                                value = value1!!,
-                            )
-                            setTriggerSettings(triggerSettings!!)
-                        }
+                        setNumericTriggerType(ENumericTriggerType.Smaller)
                     }
                 )
                 RadioButtonRow(
-                    selected = type == ENumericTriggerType.Equal,
+                    selected = viewState.type.value == ENumericTriggerType.Equal,
                     text = stringResource(id = R.string.numericTriggerType_equal),
                     onClick = {
-                        type = ENumericTriggerType.Equal
-                        if (value1 != null) {
-                            triggerSettings = INumericTrigger(
-                                type = type,
-                                value = value1!!,
-                            )
-                            setTriggerSettings(triggerSettings!!)
-                        }
+                        setNumericTriggerType(ENumericTriggerType.Equal)
                     }
                 )
                 RadioButtonRow(
-                    selected = type == ENumericTriggerType.Inbetween,
+                    selected = viewState.type.value == ENumericTriggerType.Inbetween,
                     text = stringResource(id = R.string.numericTriggerType_between),
                     onClick = {
-                        type = ENumericTriggerType.Inbetween
-                        if (value1 != null && value2 != null) {
-                            triggerSettings = INumericTrigger(
-                                type = type,
-                                value = value1!!,
-                                second_value = value2,
-                            )
-                            setTriggerSettings(triggerSettings!!)
-                        }
+                        setNumericTriggerType(ENumericTriggerType.Inbetween)
                     }
                 )
                 RadioButtonRow(
-                    selected = type == ENumericTriggerType.NotInBetween,
+                    selected = viewState.type.value == ENumericTriggerType.NotInBetween,
                     text = stringResource(id = R.string.numericTriggerType_NotBetween),
                     onClick = {
-                        type = ENumericTriggerType.NotInBetween
-                        if (value1 != null && value2 != null) {
-                            triggerSettings = INumericTrigger(
-                                type = type,
-                                value = value1!!,
-                                second_value = value2,
-                            )
-                            setTriggerSettings(triggerSettings!!)
-                        }
+                        setNumericTriggerType(ENumericTriggerType.NotInBetween)
                     }
                 )
                 Row {
                     ChooseNumericValuePopup(
-                        minValue = field.minValue,
-                        maxValue = field.maxValue,
-                        step = field.valueStep,
-                        prefix = field.prefix,
-                        sufix = field.sufix,
+                        minValue = viewState.minimum,
+                        maxValue = viewState.maximum,
+                        step = viewState.step,
+                        prefix = viewState.prefix,
+                        sufix = viewState.sufix,
+                        chosenValue = viewState.value.value,
                         chosen = {
-                            value1 = it
-                            if (
-                                type == ENumericTriggerType.Bigger ||
-                                type == ENumericTriggerType.Smaller ||
-                                type == ENumericTriggerType.Equal ||
-                                value1 != null ||
-                                value2 != null
-                            ) {
-                                Log.i("numericFset", "type$type")
-                                Log.i("numericFset", "v1__${value1!!}")
-                                Log.i("numericFset", "v2__$value2")
-                                triggerSettings = INumericTrigger(
-                                    value = value1!!,
-                                    second_value = value2,
-                                    type = type,
-                                )
-                                Log.i("numericFset", Gson().toJson(triggerSettings))
-                                setTriggerSettings(triggerSettings!!)
-                            }
+                            setNumericFirstValue(it)
                         }
                     )
-                    if (type == ENumericTriggerType.Inbetween || type == ENumericTriggerType.NotInBetween) {
+                    if (viewState.type.value == ENumericTriggerType.Inbetween || viewState.type.value == ENumericTriggerType.NotInBetween) {
                         ChooseNumericValuePopup(
-                            minValue = field.minValue,
-                            maxValue = field.maxValue,
-                            step = field.valueStep,
-                            prefix = field.prefix,
-                            sufix = field.sufix,
+                            minValue = viewState.minimum,
+                            maxValue = viewState.maximum,
+                            step = viewState.step,
+                            prefix = viewState.prefix,
+                            sufix = viewState.sufix,
+                            chosenValue = viewState.second_value.value,
                             chosen = {
-                                value2 = it
-                                if (
-                                    value1 != null
-                                ) {
-                                    Log.i("numericFset", "1")
-                                    triggerSettings = INumericTrigger(
-                                        value = value1!!,
-                                        second_value = value2!!,
-                                        type = type
-                                    )
-                                    Log.i("numericFset", "2")
-                                    setTriggerSettings(triggerSettings!!)
-                                    Log.i("numericFset", "3")
-                                }
+                                setNumericSecondValue(it)
                             }
                         )
                     }
                 }
             }
-            is ButtonDeviceField -> {
-                var type by remember { mutableStateOf(true) }
-
+            is BooleanTriggerViewState -> {
                 RadioButtonRow(
-                    selected = true,
+                    selected = viewState.value.value,
                     text = stringResource(id = R.string.buttonTriggerType_true),
                     onClick = {
-                        type = true
-                        triggerSettings = IBooleanTrigger(
-                            value = true
-                        )
-                        setTriggerSettings(triggerSettings!!)
+                        setButtonValue(true)
                     }
                 )
                 RadioButtonRow(
-                    selected = false,
+                    selected = !viewState.value.value,
                     text = stringResource(id = R.string.buttonTriggerType_false),
                     onClick = {
-                        type = false
-                        triggerSettings = IBooleanTrigger(
-                            value = false
-                        )
-                        setTriggerSettings(triggerSettings!!)
+                        setButtonValue(false)
                     }
                 )
             }
-            is MultipleChoiceDeviceField -> {
-                var type by remember { mutableStateOf(EMCTriggerType.IsEqualTo) }
+            is MCTriggerViewState -> {
                 RadioButtonRow(
-                    selected = type == EMCTriggerType.IsEqualTo,
+                    selected = viewState.type.value == EMCTriggerType.IsEqualTo,
                     text = stringResource(id = R.string.MCTriggerType_equal),
                     onClick = {
-                        type = EMCTriggerType.IsEqualTo
-                        triggerSettings = IBooleanTrigger(
-                            value = true
-                        )
-                        setTriggerSettings(triggerSettings!!)
+                        setMCTriggerType(EMCTriggerType.IsEqualTo)
                     }
                 )
                 RadioButtonRow(
-                    selected = type == EMCTriggerType.IsEqualTo,
+                    selected = viewState.type.value == EMCTriggerType.IsNotEqualTo,
                     text = stringResource(id = R.string.MCTriggerType_notEqual),
                     onClick = {
-                        type = EMCTriggerType.IsNotEqualTo
-                        triggerSettings = IBooleanTrigger(
-                            value = false
-                        )
-                        setTriggerSettings(triggerSettings!!)
+                        setMCTriggerType(EMCTriggerType.IsNotEqualTo)
                     }
                 )
                 ChooseTextValuePopup(
-                    values = field.choices,
+                    values = viewState.values,
+                    valueChosen = if(viewState.value.value != null) "${viewState.value.value}: ${viewState.values[viewState.value.value!!] }" else null,
                     chosen = {
-                        triggerSettings = IMCTrigger(
-                            value = it,
-                            type = type
-                        )
-                        setTriggerSettings(triggerSettings!!)
+                        setMCvalue(it)
                     }
                 )
             }
-            is RGBDeviceField -> {
+            is RGBTriggerViewState -> {
+                RadioButtonRow(
+                    selected = viewState.type.value == ERGBTriggerType_numeric.Bigger,
+                    text = stringResource(id = R.string.numericTriggerType_bigger),
+                    onClick = {
+                        setRGBTriggerType(ERGBTriggerType_numeric.Bigger)
+                    }
+                )
+                RadioButtonRow(
+                    selected = viewState.type.value == ERGBTriggerType_numeric.Smaller,
+                    text = stringResource(id = R.string.numericTriggerType_smaller),
+                    onClick = {
+                        setRGBTriggerType(ERGBTriggerType_numeric.Smaller)
+                    }
+                )
+                RadioButtonRow(
+                    selected = viewState.type.value == ERGBTriggerType_numeric.Equal,
+                    text = stringResource(id = R.string.numericTriggerType_equal),
+                    onClick = {
+                        setRGBTriggerType(ERGBTriggerType_numeric.Equal)
+                    }
+                )
+                RadioButtonRow(
+                    selected = viewState.type.value == ERGBTriggerType_numeric.Inbetween,
+                    text = stringResource(id = R.string.numericTriggerType_between),
+                    onClick = {
+                        setRGBTriggerType(ERGBTriggerType_numeric.Inbetween)
+                    }
+                )
+                RadioButtonRow(
+                    selected = viewState.type.value == ERGBTriggerType_numeric.NotInBetween,
+                    text = stringResource(id = R.string.numericTriggerType_NotBetween),
+                    onClick = {
+                        setRGBTriggerType(ERGBTriggerType_numeric.NotInBetween)
+                    }
+                )
 
+                RadioButtonRow(
+                    selected = viewState.contextType.value == ERGBTriggerType_context.R,
+                    text = stringResource(id = R.string.rgbTriggerContext_R),
+                    onClick = {
+                        setRGBTriggerContext(ERGBTriggerType_context.R)
+                    }
+                )
+                RadioButtonRow(
+                    selected = viewState.contextType.value == ERGBTriggerType_context.G,
+                    text = stringResource(id = R.string.rgbTriggerContext_G),
+                    onClick = {
+                        setRGBTriggerContext(ERGBTriggerType_context.G)
+                    }
+                )
+                RadioButtonRow(
+                    selected = viewState.contextType.value == ERGBTriggerType_context.B,
+                    text = stringResource(id = R.string.rgbTriggerContext_B),
+                    onClick = {
+                        setRGBTriggerContext(ERGBTriggerType_context.B)
+                    }
+                )
+
+                Row {
+                    ChooseNumericValuePopup(
+                        minValue = 0f,
+                        maxValue = 255f,
+                        step = 1f,
+                        prefix = "",
+                        sufix = "",
+                        chosenValue = if(viewState.value.value != null) viewState.value.value!!.toFloat() else null,
+                        chosen = {
+                            setRGBFirstValue(it.toInt())
+                        }
+                    )
+                    if (viewState.type.value == ERGBTriggerType_numeric.Inbetween || viewState.type.value == ERGBTriggerType_numeric.NotInBetween) {
+                        ChooseNumericValuePopup(
+                            minValue = 0f,
+                            maxValue = 255f,
+                            step = 1f,
+                            prefix = "",
+                            sufix = "",
+                            chosenValue = if(viewState.second_value.value != null) viewState.second_value.value!!.toFloat() else null,
+                            chosen = {
+                                setRGBSecondValue(it.toInt())
+                            }
+                        )
+                    }
+                }
             }
-            is TextDeviceField -> {
+            is TextTriggerViewState -> {
+                RadioButtonRow(
+                    selected = viewState.type.value == ETextTriggerType.StartsWith,
+                    text = stringResource(id = R.string.textTriggerType_startsWith),
+                    onClick = {
+                        setTextTriggerType(ETextTriggerType.StartsWith)
+                    }
+                )
+                RadioButtonRow(
+                    selected = viewState.type.value == ETextTriggerType.EndsWith,
+                    text = stringResource(id = R.string.textTriggerType_endsWith),
+                    onClick = {
+                        setTextTriggerType(ETextTriggerType.EndsWith)
+                    }
+                )
+                RadioButtonRow(
+                    selected = viewState.type.value == ETextTriggerType.Contains,
+                    text = stringResource(id = R.string.textTriggerType_contains),
+                    onClick = {
+                        setTextTriggerType(ETextTriggerType.Contains)
+                    }
+                )
+                RadioButtonRow(
+                    selected = viewState.type.value == ETextTriggerType.IsEqualTo,
+                    text = stringResource(id = R.string.textTriggerType_isEqual),
+                    onClick = {
+                        setTextTriggerType(ETextTriggerType.IsEqualTo)
+                    }
+                )
+                RadioButtonRow(
+                    selected = viewState.type.value == ETextTriggerType.IsNotEqualTo,
+                    text = stringResource(id = R.string.textTriggerType_isEqualTo),
+                    onClick = {
+                        setTextTriggerType(ETextTriggerType.IsNotEqualTo)
+                    }
+                )
 
+                OutlineTextWrapper(
+                    label = stringResource(id = R.string.textTriggerValue_label),
+                    placeholder = stringResource(id = R.string.textTriggerValue_placeholder),
+                    onChange = {
+                        setTextValue(it)
+                    }
+                )
             }
         }
     }

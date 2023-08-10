@@ -29,10 +29,9 @@ import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 @Composable
 fun ChooseTextValuePopup(
     values: List<String>,
+    valueChosen: String?,
     chosen: (Int) -> Unit,
 ) {
-    var chosenValue by remember { mutableStateOf<Int?>(null) }
-
     var dialogOpen by remember { mutableStateOf(false) }
 
     if (dialogOpen) {
@@ -45,7 +44,7 @@ fun ChooseTextValuePopup(
                 LazyColumn {
                     itemsIndexed(values) { index, value ->
                         TextListOption(
-                            text = "$index$: $value",
+                            text = "$index: $value",
                             onClick = {
                                 dialogOpen = false
                                 chosen(index)
@@ -76,7 +75,7 @@ fun ChooseTextValuePopup(
     ) {
         Text(
             text =
-            if (chosenValue != null)"$chosenValue"
+            if (valueChosen != null) "$valueChosen"
             else stringResource(id = R.string.triggerNumericSelectValue_startText),
             fontSize = 20.sp,
             modifier = Modifier

@@ -10,14 +10,14 @@ data class AddTriggerViewState(
     var triggerName: String = "",
 
     var sourceType: MutableState<ETriggerSourceType> = mutableStateOf(ETriggerSourceType.FieldInGroup),
-    var sourceAddress: MutableState<TriggerSourceAddressViewState> = mutableStateOf(TriggerSourceAddressViewState()),
+    var sourceAddress: MutableState<TriggerSourceAddressViewState> = mutableStateOf(
+        TriggerSourceAddressViewState()),
 
     var timeTriggerType: MutableState<ETriggerTimeType> = mutableStateOf(ETriggerTimeType.Once),
     var timeSourceTime: MutableState<Int?> = mutableStateOf(null),
     var timeSourceDate: MutableState<Calendar?> = mutableStateOf(null),
 
-    var sourceSettings: TriggerSettingsViewState? = null,
-    var fieldData: BasicDeviceField? = null, //TODO
+    var sourceSettings: MutableState<TriggerSettingsViewState?> = mutableStateOf(null),
 )
 
 data class DeviceEntityViewState(
@@ -41,34 +41,36 @@ data class TriggerSourceAddressViewState(
 sealed class TriggerSettingsViewState
 
 data class NumericTriggerViewState(
+    var prefix: String,
+    var sufix: String,
     var minimum: Float,
     var maximum: Float,
     var step: Float,
-    var value: Float? = null,
-    var second_value: Float? = null,
-    var type: ENumericTriggerType,
+    var value: MutableState<Float?> = mutableStateOf(null),
+    var second_value: MutableState<Float?> = mutableStateOf(null),
+    var type: MutableState<ENumericTriggerType>,
 ) : TriggerSettingsViewState()
 
 data class TextTriggerViewState(
-    var value: String? = null,
-    var type: ETextTriggerType,
+    var value: MutableState<String>,
+    var type: MutableState<ETextTriggerType>,
 ) : TriggerSettingsViewState()
 
 data class MCTriggerViewState(
     var values: List<String>,
-    var value: Int? = null,
-    var type: EMCTriggerType,
+    var value: MutableState<Int?> = mutableStateOf(null),
+    var type: MutableState<EMCTriggerType>,
 ) : TriggerSettingsViewState()
 
 data class RGBTriggerViewState(
-    var value: Int? = null,
-    var second_value: Int? = null,
-    var type: ERGBTriggerType_numeric,
-    var contextType: ERGBTriggerType_context,
+    var value: MutableState<Int?> = mutableStateOf(null),
+    var second_value: MutableState<Int?> = mutableStateOf(null),
+    var type: MutableState<ERGBTriggerType_numeric>,
+    var contextType: MutableState<ERGBTriggerType_context>,
 ) : TriggerSettingsViewState()
 
 data class BooleanTriggerViewState(
-    var value: Boolean,
+    var value: MutableState<Boolean>,
 ) : TriggerSettingsViewState()
 
 

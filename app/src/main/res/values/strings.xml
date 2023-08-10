@@ -184,8 +184,23 @@
     <string name="numericTriggerType_between">Between</string>
     <string name="numericTriggerType_NotBetween">Not between</string>
 
+    <string name="rgbTriggerContext_R">Red</string>
+    <string name="rgbTriggerContext_G">Green</string>
+    <string name="rgbTriggerContext_B">Blue</string>
+
+
     <string name="buttonTriggerType_true">is ON</string>
     <string name="buttonTriggerType_false">is OFF</string>
+
+    <string name="textTriggerType_contains">Contains</string>
+    <string name="textTriggerType_startsWith">Starts with</string>
+    <string name="textTriggerType_endsWith">Ends with</string>
+    <string name="textTriggerType_isEqual">Is equal to</string>
+    <string name="textTriggerType_isEqualTo">Is not equal to</string>
+
+    <string name="textTriggerValue_label">Text trigger value</string>
+    <string name="textTriggerValue_placeholder">Enter text trigger value</string>
+
 
     <string name="triggerSource_TimeType_once">Once</string>
     <string name="triggerSource_TimeType_daily">Daily</string>
@@ -196,6 +211,7 @@
     <string name="MCTriggerType_equal">Equal to</string>
     <string name="MCTriggerType_notEqual">Not equal to</string>
 
-
+    <string name="addTrigger_triggerName_label">Trigger name</string>
+    <string name="addTrigger_triggerName_placeholder">Enter trigger name</string>
 
 </resources>

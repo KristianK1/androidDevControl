@@ -43,7 +43,8 @@ fun TriggerSourceAddress(
 
         ChooseEntity(
             choices = viewState.sourceGroupsChoices,
-            nothingSelectedText = stringResource(id = R.string.addTriggerScreen_no_complex_group_selected_text),
+            nothingSelectedText = if (sourceType === ETriggerSourceType.FieldInGroup) stringResource(
+                id = R.string.addTriggerScreen_no_group_selected_warning) else stringResource(id = R.string.addTriggerScreen_no_complex_group_selected_text),
             noChoicesText = stringResource(id = R.string.addTriggerScreen_no_device_selected_warning),
             chosenEntity = viewState.selectedGroup.value,
             selectEntity = selectGroup,

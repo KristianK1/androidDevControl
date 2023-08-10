@@ -117,4 +117,6 @@
     <dimen name="radiobuttonRow_spacer_width">10.dp</dimen>
     <dimen name="addTriggerScreen_dialog_padding">25.dp</dimen>
 
+    <dimen name="addTrigger_triggerNamePadding">30.dp</dimen>
+
 </resources>
