@@ -1,6 +1,7 @@
 package hr.kristiankliskovic.devcontrol.data.network.deviceService
 
 import hr.kristiankliskovic.devcontrol.data.network.model.UserPermissionsForDeviceResponse
+import hr.kristiankliskovic.devcontrol.model.*
 
 interface DeviceService {
 
@@ -181,4 +182,25 @@ interface DeviceService {
         authToken: String,
         deviceId: Int,
     ): UserPermissionsForDeviceResponse?
+
+    suspend fun addTrigger(
+        authToken: String,
+        triggerName: String,
+        sourceType: ETriggerSourceType,
+        sourceData: TriggerSourceData,
+        fieldType: String?,
+        settings: TriggerSettings?,
+
+        responseType: ETriggerResponseType,
+        responseSettings: TriggerResponse,
+    ): Boolean
+
+    suspend fun deleteTrigger(
+        authToken: String,
+        triggerId: Int,
+    ): Boolean
+
+    suspend fun seeAllTriggers(
+        authToken: String,
+    ): List<ITrigger>
 }

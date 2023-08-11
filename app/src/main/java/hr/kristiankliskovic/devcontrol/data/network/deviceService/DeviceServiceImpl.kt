@@ -5,14 +5,17 @@ import hr.kristiankliskovic.devcontrol.DevControlApp
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
 import hr.kristiankliskovic.devcontrol.data.network.model.*
+import hr.kristiankliskovic.devcontrol.model.*
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.server.util.*
 
 private const val device_routerPath = "/api/device"
 private const val userPermission_routerPath = "/api/userRights"
+private const val triggers_routerPath = "/triggers"
 
 private const val changeFieldValue_routerPath = "/changeField/user"
 private const val changeFieldInComplexGroupValue_routerPath = "/fieldInComplexGroupState/user"
@@ -31,6 +34,9 @@ private const val deleteFieldPermission_routerPath = "/deleteFieldRight"
 private const val deleteComplexGroupPermission_routerPath = "/deleteComplexGroupRight"
 private const val getUserPermissions_routerPath = "/getUserPermissions"
 
+private const val addTrigger_routerPath = "/addTrigger"
+private const val deleteTrigger_routerPath = "/deleteTrigger"
+private const val getAllTriggersTrigger_routerPath = "/getAllTriggers"
 
 class DeviceServiceImpl(
     private val client: HttpClient,
@@ -240,14 +246,18 @@ class DeviceServiceImpl(
         )
         val success = (httpResponse != null && httpResponse.status.value in 200..299)
         if (success) {
-            Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(
-                R.string.changedAdmin_success), Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                DevControlApp.application.getText(
+                    R.string.changedAdmin_success),
+                Toast.LENGTH_SHORT).show()
         } else {
             var errorMessage = DevControlApp.application.getText(R.string.changedAdmin_error)
-            if(httpResponse?.status?.value == 400){
+            if (httpResponse?.status?.value == 400) {
                 errorMessage = "$errorMessage ${httpResponse.body<String>()}"
             }
-            Toast.makeText(DevControlApp.application.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                errorMessage,
+                Toast.LENGTH_SHORT).show()
         }
         return success
     }
@@ -267,14 +277,18 @@ class DeviceServiceImpl(
         )
         val success = (httpResponse != null && httpResponse.status.value in 200..299)
         if (success) {
-            Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(
-                R.string.addNewDevice_success), Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                DevControlApp.application.getText(
+                    R.string.addNewDevice_success),
+                Toast.LENGTH_SHORT).show()
         } else {
             var errorMessage = DevControlApp.application.getText(R.string.addNewDevice_error)
-            if(httpResponse?.status?.value == 400){
+            if (httpResponse?.status?.value == 400) {
                 errorMessage = "$errorMessage ${httpResponse.body<String>()}"
             }
-            Toast.makeText(DevControlApp.application.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                errorMessage,
+                Toast.LENGTH_SHORT).show()
         }
         return success
     }
@@ -289,14 +303,18 @@ class DeviceServiceImpl(
         )
         val success = (httpResponse != null && httpResponse.status.value in 200..299)
         if (success) {
-            Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(
-                R.string.deleteDevice_success), Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                DevControlApp.application.getText(
+                    R.string.deleteDevice_success),
+                Toast.LENGTH_SHORT).show()
         } else {
             var errorMessage = DevControlApp.application.getText(R.string.deleteDevice_error)
-            if(httpResponse?.status?.value == 400){
+            if (httpResponse?.status?.value == 400) {
                 errorMessage = "$errorMessage ${httpResponse.body<String>()}"
             }
-            Toast.makeText(DevControlApp.application.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                errorMessage,
+                Toast.LENGTH_SHORT).show()
         }
         return success
     }
@@ -318,14 +336,18 @@ class DeviceServiceImpl(
         )
         val success = (httpResponse != null && httpResponse.status.value in 200..299)
         if (success) {
-            Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(
-                R.string.permission_added), Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                DevControlApp.application.getText(
+                    R.string.permission_added),
+                Toast.LENGTH_SHORT).show()
         } else {
             var errorMessage = DevControlApp.application.getText(R.string.permission_added_error)
-            if(httpResponse?.status?.value == 400){
+            if (httpResponse?.status?.value == 400) {
                 errorMessage = "$errorMessage ${httpResponse.body<String>()}"
             }
-            Toast.makeText(DevControlApp.application.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                errorMessage,
+                Toast.LENGTH_SHORT).show()
         }
         return success
     }
@@ -349,14 +371,18 @@ class DeviceServiceImpl(
         )
         val success = (httpResponse != null && httpResponse.status.value in 200..299)
         if (success) {
-            Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(
-                R.string.permission_added), Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                DevControlApp.application.getText(
+                    R.string.permission_added),
+                Toast.LENGTH_SHORT).show()
         } else {
             var errorMessage = DevControlApp.application.getText(R.string.permission_added_error)
-            if(httpResponse?.status?.value == 400){
+            if (httpResponse?.status?.value == 400) {
                 errorMessage = "$errorMessage ${httpResponse.body<String>()}"
             }
-            Toast.makeText(DevControlApp.application.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                errorMessage,
+                Toast.LENGTH_SHORT).show()
         }
         return success
     }
@@ -382,14 +408,18 @@ class DeviceServiceImpl(
         )
         val success = (httpResponse != null && httpResponse.status.value in 200..299)
         if (success) {
-            Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(
-                R.string.permission_added), Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                DevControlApp.application.getText(
+                    R.string.permission_added),
+                Toast.LENGTH_SHORT).show()
         } else {
             var errorMessage = DevControlApp.application.getText(R.string.permission_added_error)
-            if(httpResponse?.status?.value == 400){
+            if (httpResponse?.status?.value == 400) {
                 errorMessage = "$errorMessage ${httpResponse.body<String>()}"
             }
-            Toast.makeText(DevControlApp.application.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                errorMessage,
+                Toast.LENGTH_SHORT).show()
         }
         return success
     }
@@ -413,14 +443,18 @@ class DeviceServiceImpl(
         )
         val success = (httpResponse != null && httpResponse.status.value in 200..299)
         if (success) {
-            Toast.makeText(DevControlApp.application.applicationContext, DevControlApp.application.getText(
-                R.string.permission_added), Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                DevControlApp.application.getText(
+                    R.string.permission_added),
+                Toast.LENGTH_SHORT).show()
         } else {
             var errorMessage = DevControlApp.application.getText(R.string.permission_added_error)
-            if(httpResponse?.status?.value == 400){
+            if (httpResponse?.status?.value == 400) {
                 errorMessage = "$errorMessage ${httpResponse.body<String>()}"
             }
-            Toast.makeText(DevControlApp.application.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(DevControlApp.application.applicationContext,
+                errorMessage,
+                Toast.LENGTH_SHORT).show()
         }
         return success
     }
@@ -497,7 +531,10 @@ class DeviceServiceImpl(
         return (httpResponse != null && httpResponse.status.value in 200..299)
     }
 
-    override suspend fun getUserPermissionsForDevice(authToken: String, deviceId: Int): UserPermissionsForDeviceResponse? {
+    override suspend fun getUserPermissionsForDevice(
+        authToken: String,
+        deviceId: Int,
+    ): UserPermissionsForDeviceResponse? {
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$userPermission_routerPath$getUserPermissions_routerPath",
             body = UserPermissionsForDeviceRequest(
@@ -510,5 +547,46 @@ class DeviceServiceImpl(
         } else {
             null
         }
+    }
+
+    override suspend fun addTrigger(
+        authToken: String,
+        triggerName: String,
+        sourceType: ETriggerSourceType,
+        sourceData: TriggerSourceData,
+        fieldType: String?,
+        settings: TriggerSettings?,
+        responseType: ETriggerResponseType,
+        responseSettings: TriggerResponse,
+    ): Boolean {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$triggers_routerPath$addTrigger_routerPath",
+            body = AddTriggerRequest(
+                authToken = authToken,
+                trigger = AddTriggerRequestTriggerData(
+                    name = triggerName,
+                    sourceType = sourceType,
+                    sourceData = sourceData,
+                    fieldType = fieldType,
+                    settings = settings,
+                    responseType = responseType,
+                    responseSettings = responseSettings,
+                )
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
+    }
+
+    override suspend fun deleteTrigger(
+        authToken: String,
+        triggerId: Int
+    ): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun seeAllTriggers(
+        authToken: String,
+    ): List<ITrigger> {
+        TODO("Not yet implemented")
     }
 }

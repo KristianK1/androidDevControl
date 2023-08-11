@@ -7,8 +7,7 @@ import hr.kristiankliskovic.devcontrol.data.network.model.UserPermissionsForDevi
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
 import hr.kristiankliskovic.devcontrol.data.repository.user.UserRepository
-import hr.kristiankliskovic.devcontrol.model.Device
-import hr.kristiankliskovic.devcontrol.model.LoggedInUser
+import hr.kristiankliskovic.devcontrol.model.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import java.util.concurrent.CopyOnWriteArrayList
@@ -28,7 +27,7 @@ class DeviceRepositoryImpl(
             websocketService.deviceMessages,
             userRepository.loggedInUser,
         ).collect { it ->
-   
+
 
             when (it) {
                 is LoggedInUser? -> {
@@ -399,5 +398,39 @@ class DeviceRepositoryImpl(
 
     override fun clearAllPermissionsResponse() {
         allPermissionsForDeviceResponseInternal.value = null
+    }
+
+    override suspend fun addTrigger(
+        triggerName: String,
+        sourceType: ETriggerSourceType,
+        sourceData: TriggerSourceData,
+        fieldType: String?,
+        settings: TriggerSettings?,
+        responseType: ETriggerResponseType,
+        responseSettings: TriggerResponse,
+    ): Boolean {
+        return deviceService.addTrigger(
+            authToken = authTokenRepository.getAuthToken()!!,
+            triggerName = triggerName,
+            sourceType = sourceType,
+            sourceData = sourceData,
+            fieldType = fieldType,
+            settings = settings,
+            responseType = responseType,
+            responseSettings = responseSettings
+        )
+    }
+
+    override suspend fun deleteTrigger(triggerId: Int): Boolean {
+        return deviceService.deleteTrigger(
+            authToken = authTokenRepository.getAuthToken()!!,
+            triggerId = triggerId
+        )
+    }
+
+    override suspend fun seeAllTriggers(): List<ITrigger> {
+        return deviceService.seeAllTriggers(
+            authToken = authTokenRepository.getAuthToken()!!,
+        )
     }
 }

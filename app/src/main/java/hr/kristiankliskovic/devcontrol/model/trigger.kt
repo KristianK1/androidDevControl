@@ -57,8 +57,8 @@ data class IMCTrigger(
 ) : TriggerSettings()
 
 data class IRGBTrigger(
-    val value: Double,
-    val second_value: Double,
+    val value: Int,
+    val second_value: Int?,
     val type: ERGBTriggerType_numeric,
     val contextType: ERGBTriggerType_context,
 ) : TriggerSettings()

@@ -1,5 +1,7 @@
 package hr.kristiankliskovic.devcontrol.data.network.model
 
+import hr.kristiankliskovic.devcontrol.model.*
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -216,31 +218,62 @@ data class UserPermissionsForDeviceResponse(
 )
 
 @Serializable
-data class UserPermissionsForDeviceResponseGroup (
+data class UserPermissionsForDeviceResponseGroup(
     val userPermissions: List<UserPermissionResponse>,
     val groupId: Int,
     val groupName: String,
-    val fields: List<UserPermissionsForDeviceResponseField>
+    val fields: List<UserPermissionsForDeviceResponseField>,
 )
 
 @Serializable
-data class UserPermissionsForDeviceResponseField (
+data class UserPermissionsForDeviceResponseField(
     val fieldId: Int,
     val fieldName: String,
     val fieldType: String,
-    val userPermissions:List<UserPermissionResponse>
+    val userPermissions: List<UserPermissionResponse>,
 )
 
 @Serializable
 data class UserPermissionsForDeviceResponseComplexGroup(
     val userPermissions: List<UserPermissionResponse>,
     val complexGroupId: Int,
-    val complexGroupName: String
+    val complexGroupName: String,
 )
 
 @Serializable
-data class UserPermissionResponse (
+data class UserPermissionResponse(
     val userId: Int,
     val username: String,
     val readOnly: Boolean,
+)
+
+@Serializable
+data class AddTriggerRequest(
+    val authToken: String,
+    val trigger: AddTriggerRequestTriggerData,
+)
+
+@Serializable
+data class AddTriggerRequestTriggerData(
+    val name: String,
+    val sourceType: ETriggerSourceType,
+    val responseType: ETriggerResponseType,
+    @Contextual
+    val sourceData: TriggerSourceData,
+    val fieldType: String?,
+    @Contextual
+    val settings: TriggerSettings?,
+    @Contextual
+    val responseSettings: TriggerResponse,
+)
+
+@Serializable
+data class DeleteTriggerRequest(
+    val authToken: String,
+    val triggerId: Int,
+)
+
+@Serializable
+data class GetAllUserTriggersRequest(
+    val authToken: String,
 )

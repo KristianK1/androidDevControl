@@ -8,13 +8,15 @@ import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.data.repository.device.DeviceRepository
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.mapper.AddTriggerMapper
+import hr.kristiankliskovic.devcontrol.utils.CalendarToIso
 import hr.kristiankliskovic.devcontrol.utils.valuesToCalendar
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.util.Calendar
 import java.util.concurrent.CopyOnWriteArrayList
 
 class AddTriggerViewModel(
-    deviceRepository: DeviceRepository,
+    private val deviceRepository: DeviceRepository,
     val addTriggerMapper: AddTriggerMapper,
 ) : ViewModel() {
 
@@ -720,6 +722,174 @@ class AddTriggerViewModel(
     }
 
     fun saveTrigger() {
+        val sourceData: TriggerSourceData
+        when (viewState.value.sourceType.value) {
+            ETriggerSourceType.FieldInGroup -> {
+                val deviceId = viewState.value.sourceAddress.value.selectedDevice.value?.id
+                val groupId = viewState.value.sourceAddress.value.selectedGroup.value?.id
+                val fieldId = viewState.value.sourceAddress.value.selectedField.value?.id
+                if (deviceId == null || groupId == null || fieldId == null) return
+                sourceData = ITriggerSourceAdress_fieldInGroup(
+                    deviceId = deviceId,
+                    groupId = groupId,
+                    fieldId = fieldId
+                )
+            }
+            ETriggerSourceType.FieldInComplexGroup -> {
+                val deviceId = viewState.value.sourceAddress.value.selectedDevice.value?.id
+                val groupId = viewState.value.sourceAddress.value.selectedGroup.value?.id
+                val stateId = viewState.value.sourceAddress.value.selectedState.value?.id
+                val fieldId = viewState.value.sourceAddress.value.selectedField.value?.id
+                if (deviceId == null || groupId == null || stateId == null || fieldId == null) return
+                sourceData = ITriggerSourceAdress_fieldInComplexGroup(
+                    deviceId = deviceId,
+                    complexGroupId = groupId,
+                    stateId = stateId,
+                    fieldId = fieldId
+                )
+            }
+            ETriggerSourceType.TimeTrigger -> {
+                val time = viewState.value.timeSourceTime.value ?: return
 
+                val date = viewState.value.timeSourceDate.value ?: return
+                val ISO = CalendarToIso(
+                    valuesToCalendar(
+                        year = date.get(Calendar.YEAR),
+                        month = date.get(Calendar.MONTH) + 1,
+                        day = date.get(Calendar.DAY_OF_MONTH),
+                        hour = time / 60,
+                        minute = time % 60
+                    )
+                )
+                Log.i("addTriggerHTTP", ISO)
+
+                sourceData = ITriggerTimeSourceData(
+                    type = viewState.value.timeTriggerType.value,
+                    firstTimeStamp = ISO,
+                    lastRunTimestamp = "",
+                )
+            }
+        }
+        var fieldType: String? = null
+        var triggerSettings: TriggerSettings? = null
+
+        if (viewState.value.sourceType.value == ETriggerSourceType.FieldInGroup ||
+            viewState.value.sourceType.value == ETriggerSourceType.FieldInComplexGroup
+        ) {
+            val sourceSettings = viewState.value.sourceSettings.value
+            when (sourceSettings) {
+                is NumericTriggerSourceViewState -> {
+                    fieldType = "numeric"
+                    triggerSettings = INumericTrigger(
+                        value = sourceSettings.value.value!!,
+                        second_value = sourceSettings.second_value.value,
+                        type = sourceSettings.type.value,
+                    )
+                }
+                is TextTriggerSourceViewState -> {
+                    fieldType = "text"
+                    triggerSettings = ITextTrigger(
+                        value = sourceSettings.value.value,
+                        type = sourceSettings.type.value,
+                    )
+                }
+                is BooleanTriggerSourceViewState -> {
+                    fieldType = "button"
+                    triggerSettings = IBooleanTrigger(
+                        value = sourceSettings.value.value,
+                    )
+                }
+                is MCTriggerSourceViewState -> {
+                    fieldType = "multipleChoice"
+                    triggerSettings = IMCTrigger(
+                        value = sourceSettings.value.value!!,
+                        type = sourceSettings.type.value,
+                    )
+                }
+                is RGBTriggerSourceViewState -> {
+                    fieldType = "RGB"
+                    triggerSettings = IRGBTrigger(
+                        value = sourceSettings.value.value!!,
+                        second_value = sourceSettings.second_value.value,
+                        type = sourceSettings.type.value,
+                        contextType = sourceSettings.contextType.value,
+                    )
+                }
+                null -> return
+            }
+        }
+
+        var value: Any? = null
+        if (viewState.value.responseType.value == ETriggerResponseType.SettingValue_fieldInGroup ||
+            viewState.value.responseType.value == ETriggerResponseType.SettingValue_fieldInComplexGroup
+        ) {
+            val responseSettings = viewState.value.responseSettings.value ?: return
+            when (responseSettings) {
+                is BooleanTriggerResponseViewState -> {
+                    value = responseSettings.value.value
+                }
+                is MCTriggerResponseViewState -> {
+                    if(responseSettings.value.value == null) return
+                    value = responseSettings.value.value!!
+                }
+                is NumericTriggerResponseViewState -> {
+                    if(responseSettings.value.value == null) return
+                    value = responseSettings.value.value!!
+                }
+                is RGBTriggerResponseViewState -> {
+                    if(responseSettings.value.value == null) return
+                    value = responseSettings.value.value!!
+                }
+                is TextTriggerResponseViewState -> {
+                    value = responseSettings.value.value
+                }
+            }
+        }
+
+        val responseSettings: TriggerResponse
+        when (viewState.value.responseType.value) {
+            ETriggerResponseType.Email -> {
+                responseSettings = ITriggerEmailResponse(
+                    emailSubject = viewState.value.notificationEmailViewState.value.title.value,
+                    emailText = viewState.value.notificationEmailViewState.value.text.value
+                )
+            }
+            ETriggerResponseType.MobileNotification -> {
+                responseSettings = ITriggerMobileNotificationResponse(
+                    notificationTitle = viewState.value.notificationEmailViewState.value.title.value,
+                    notificationText = viewState.value.notificationEmailViewState.value.text.value
+                )
+            }
+            ETriggerResponseType.SettingValue_fieldInGroup -> {
+                responseSettings = ITriggerSettingValueResponse_fieldInGroup(
+                    deviceId = viewState.value.responseAddress.value.selectedDevice.value!!.id,
+                    groupId = viewState.value.responseAddress.value.selectedGroup.value!!.id,
+                    fieldId = viewState.value.responseAddress.value.selectedField.value!!.id,
+                    value = value!!
+                )
+            }
+            ETriggerResponseType.SettingValue_fieldInComplexGroup -> {
+                responseSettings = ITriggerSettingsValueResponse_fieldInComplexGroup(
+                    deviceId = viewState.value.responseAddress.value.selectedDevice.value!!.id,
+                    complexGroupId = viewState.value.responseAddress.value.selectedGroup.value!!.id,
+                    complexGroupState = viewState.value.responseAddress.value.selectedState.value!!.id,
+                    fieldId = viewState.value.responseAddress.value.selectedField.value!!.id,
+                    value = value!!
+                )
+            }
+        }
+
+
+        viewModelScope.launch {
+            deviceRepository.addTrigger(
+                triggerName = viewState.value.triggerName,
+                sourceType = viewState.value.sourceType.value,
+                sourceData = sourceData,
+                fieldType = fieldType,
+                settings = triggerSettings,
+                responseType = viewState.value.responseType.value,
+                responseSettings = responseSettings,
+            )
+        }
     }
 }

@@ -1,7 +1,7 @@
 package hr.kristiankliskovic.devcontrol.data.repository.device
 
 import hr.kristiankliskovic.devcontrol.data.network.model.UserPermissionsForDeviceResponse
-import hr.kristiankliskovic.devcontrol.model.Device
+import hr.kristiankliskovic.devcontrol.model.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import java.util.concurrent.CopyOnWriteArrayList
@@ -162,4 +162,19 @@ interface DeviceRepository {
     val allPermissionsForDeviceResponse: StateFlow<UserPermissionsForDeviceResponse?>
     suspend fun getUserPermissionsForDevice(deviceId: Int)
     fun clearAllPermissionsResponse()
+
+    suspend fun addTrigger(
+        triggerName: String,
+        sourceType: ETriggerSourceType,
+        sourceData: TriggerSourceData,
+        fieldType: String?,
+        settings: TriggerSettings?,
+
+        responseType: ETriggerResponseType,
+        responseSettings: TriggerResponse,
+    ): Boolean
+
+    suspend fun deleteTrigger(triggerId: Int): Boolean
+
+    suspend fun seeAllTriggers(): List<ITrigger>
 }
