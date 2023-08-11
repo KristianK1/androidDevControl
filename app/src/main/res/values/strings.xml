@@ -164,6 +164,12 @@
     <string name="triggerSource_Type_fieldInComplexGroup">Field in complex group</string>
     <string name="triggerSource_Type_time">Time</string>
 
+    <string name="triggerResponse_Type_fieldInGroup">Field in group</string>
+    <string name="triggerResponse_Type_fieldInComplexGroup">Field in complex group</string>
+    <string name="triggerResponse_Type_email">Email</string>
+    <string name="triggerResponse_Type_mobileNotification">Mobile notification</string>
+
+
     <string name="addTriggerScreen_no_device_selected_text">Select device</string>
     <string name="addTriggerScreen_no_group_selected_text">Select group</string>
     <string name="addTriggerScreen_no_field_selected_text">Select field</string>
@@ -192,6 +198,9 @@
     <string name="buttonTriggerType_true">is ON</string>
     <string name="buttonTriggerType_false">is OFF</string>
 
+    <string name="buttonTriggerResponseType_true">set to ON</string>
+    <string name="buttonTriggerResponseType_false">set to OFF</string>
+
     <string name="textTriggerType_contains">Contains</string>
     <string name="textTriggerType_startsWith">Starts with</string>
     <string name="textTriggerType_endsWith">Ends with</string>
@@ -201,6 +210,8 @@
     <string name="textTriggerValue_label">Text trigger value</string>
     <string name="textTriggerValue_placeholder">Enter text trigger value</string>
 
+    <string name="textTriggerResponseValue_label">Text trigger Responsevalue</string>
+    <string name="textTriggerResponseValue_placeholder">Enter text trigger resposne value</string>
 
     <string name="triggerSource_TimeType_once">Once</string>
     <string name="triggerSource_TimeType_daily">Daily</string>
@@ -213,5 +224,19 @@
 
     <string name="addTrigger_triggerName_label">Trigger name</string>
     <string name="addTrigger_triggerName_placeholder">Enter trigger name</string>
+
+    <string name="addTrigger_emailTitle_label">Email subject</string>
+    <string name="addTrigger_emailTitle_placeholder">Enter email title</string>
+    <string name="addTrigger_emailText_label">Email text</string>
+    <string name="addTrigger_emailText_placeholder">Enter email text</string>
+
+
+    <string name="addTrigger_notificationTitle_label">Notification title</string>
+    <string name="addTrigger_notificationTitle_placeholder">Enter notification title</string>
+
+    <string name="addTrigger_notificationText_label">Notification text</string>
+    <string name="addTrigger_notificationText_placeholder">Enter notification text</string>
+
+    <string name="addTrigger_saveTrigger">Save trigger</string>
 
 </resources>

@@ -4,8 +4,6 @@ import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Text
@@ -21,8 +19,8 @@ import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.*
 
 @Composable
 fun TriggerSourceAddress(
-    sourceType: ETriggerSourceType,
-    viewState: TriggerSourceAddressViewState,
+    includeComplexGroups: Boolean,
+    viewState: TriggerAddressViewState,
     selectDevice: (Int) -> Unit,
     selectGroup: (Int) -> Unit,
     selectState: (Int) -> Unit,
@@ -34,7 +32,7 @@ fun TriggerSourceAddress(
             .fillMaxWidth()
     ) {
         ChooseEntity(
-            choices = viewState.sourceDevicesChoices,
+            choices = viewState.devicesChoices,
             nothingSelectedText = stringResource(id = R.string.addTriggerScreen_no_device_selected_warning),
             noChoicesText = "",
             chosenEntity = viewState.selectedDevice.value,
@@ -42,17 +40,17 @@ fun TriggerSourceAddress(
         )
 
         ChooseEntity(
-            choices = viewState.sourceGroupsChoices,
-            nothingSelectedText = if (sourceType === ETriggerSourceType.FieldInGroup) stringResource(
+            choices = viewState.groupsChoices,
+            nothingSelectedText = if (!includeComplexGroups) stringResource(
                 id = R.string.addTriggerScreen_no_group_selected_warning) else stringResource(id = R.string.addTriggerScreen_no_complex_group_selected_text),
             noChoicesText = stringResource(id = R.string.addTriggerScreen_no_device_selected_warning),
             chosenEntity = viewState.selectedGroup.value,
             selectEntity = selectGroup,
         )
 
-        if (sourceType === ETriggerSourceType.FieldInComplexGroup) {
+        if (includeComplexGroups) {
             ChooseEntity(
-                choices = viewState.sourceComplexGroupStatesChoices,
+                choices = viewState.complexGroupStatesChoices,
                 nothingSelectedText = stringResource(id = R.string.addTriggerScreen_no_complex_group_state_selected_text),
                 noChoicesText = "",
                 chosenEntity = viewState.selectedState.value,
@@ -61,7 +59,7 @@ fun TriggerSourceAddress(
         }
 
         ChooseEntity(
-            choices = viewState.sourceFieldChoices,
+            choices = viewState.fieldChoices,
             nothingSelectedText = stringResource(id = R.string.addTriggerScreen_no_field_selected_text),
             noChoicesText = "",
             chosenEntity = viewState.selectedField.value,

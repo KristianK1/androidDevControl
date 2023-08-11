@@ -65,17 +65,18 @@ class AddTriggerMapperImpl : AddTriggerMapper {
         complexGroups: List<DeviceComplexGroup>,
         justWrites: Boolean,
     ): List<DeviceEntityViewState> {
-        return complexGroups.map {
-            DeviceEntityViewState(
-                id = it.complexGroupId,
-                name = it.groupName,
-            )
+        return complexGroups.mapNotNull {
+            if (justWrites && it.readOnly) null
+            else
+                DeviceEntityViewState(
+                    id = it.complexGroupId,
+                    name = it.groupName,
+                )
         }
     }
 
     override fun complexGroupsStatesToEntityViewState(
         states: List<DeviceComplexGroupState>,
-        justWrites: Boolean,
     ): List<DeviceEntityViewState> {
         return states.map {
             DeviceEntityViewState(
@@ -89,79 +90,49 @@ class AddTriggerMapperImpl : AddTriggerMapper {
         fields: List<BasicDeviceField>,
         justWrites: Boolean,
     ): List<DeviceEntityViewState> {
-        return fields.map {
+        return fields.mapNotNull {
             when (it) {
                 is ButtonDeviceField -> {
-                    DeviceEntityViewState(
-                        id = it.fieldId,
-                        name = it.fieldName,
-                    )
+                    if (justWrites && it.readOnly) null
+                    else
+                        DeviceEntityViewState(
+                            id = it.fieldId,
+                            name = it.fieldName,
+                        )
                 }
                 is MultipleChoiceDeviceField -> {
-                    DeviceEntityViewState(
-                        id = it.fieldId,
-                        name = it.fieldName,
-                    )
+                    if (justWrites && it.readOnly) null
+                    else
+                        DeviceEntityViewState(
+                            id = it.fieldId,
+                            name = it.fieldName,
+                        )
                 }
                 is NumericDeviceField -> {
-                    DeviceEntityViewState(
-                        id = it.fieldId,
-                        name = it.fieldName,
-                    )
+                    if (justWrites && it.readOnly) null
+                    else
+                        DeviceEntityViewState(
+                            id = it.fieldId,
+                            name = it.fieldName,
+                        )
                 }
                 is RGBDeviceField -> {
-                    DeviceEntityViewState(
-                        id = it.fieldId,
-                        name = it.fieldName,
-                    )
+                    if (justWrites && it.readOnly) null
+                    else
+                        DeviceEntityViewState(
+                            id = it.fieldId,
+                            name = it.fieldName,
+                        )
                 }
                 is TextDeviceField -> {
-                    DeviceEntityViewState(
-                        id = it.fieldId,
-                        name = it.fieldName,
-                    )
+                    if (justWrites && it.readOnly) null
+                    else
+                        DeviceEntityViewState(
+                            id = it.fieldId,
+                            name = it.fieldName,
+                        )
                 }
             }
         }
     }
-
-//    private fun fieldToFieldViewState(field: BasicDeviceField): TriggerSourceFieldViewState {
-//        when (field) {
-//            is NumericDeviceField -> {
-//                return TriggerSourceFieldViewState(
-//                    fieldId = field.fieldId,
-//                    fieldName = field.fieldName,
-//                    fieldData = field,
-//                )
-//            }
-//            is TextDeviceField -> {
-//                return TriggerSourceFieldViewState(
-//                    fieldId = field.fieldId,
-//                    fieldName = field.fieldName,
-//                    fieldData = field,
-//                )
-//            }
-//            is ButtonDeviceField -> {
-//                return TriggerSourceFieldViewState(
-//                    fieldId = field.fieldId,
-//                    fieldName = field.fieldName,
-//                    fieldData = field,
-//                )
-//            }
-//            is MultipleChoiceDeviceField -> {
-//                return TriggerSourceFieldViewState(
-//                    fieldId = field.fieldId,
-//                    fieldName = field.fieldName,
-//                    fieldData = field,
-//                )
-//            }
-//            is RGBDeviceField -> {
-//                return TriggerSourceFieldViewState(
-//                    fieldId = field.fieldId,
-//                    fieldName = field.fieldName,
-//                    fieldData = field,
-//                )
-//            }
-//        }
-//    }
 }

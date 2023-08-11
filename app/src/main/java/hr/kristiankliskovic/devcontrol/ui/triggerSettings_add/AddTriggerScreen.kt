@@ -1,10 +1,12 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,16 +32,16 @@ fun AddTriggerRoute(
         changeSourceType = {
             viewModel.changeSourceType(it)
         },
-        selectDevice = {
+        selectSourceDevice = {
             viewModel.selectSourceDevice(it)
         },
-        selectGroup = {
+        selectSourceGroup = {
             viewModel.selectSourceGroup(it)
         },
-        selectState = {
+        selectSourceState = {
             viewModel.selectSourceState(it)
         },
-        selectField = {
+        selectSourceField = {
             viewModel.selectSourceField(it)
         },
         setTimeTriggerType = {
@@ -66,27 +68,69 @@ fun AddTriggerRoute(
         setRGBTriggerContext = {
             viewModel.setRGBSourceContext(it)
         },
-        setNumericFirstValue = {
+        setNumericSourceFirstValue = {
             viewModel.setFirstNumericSourceValue(it)
         },
-        setNumericSecondValue = {
+        setNumericSourceSecondValue = {
             viewModel.setSecondNumericSourceValue(it)
         },
-        setTextValue = {
+        setTextSourceValue = {
             viewModel.setTextSourceValue(it)
         },
-        setButtonValue = {
+        setButtonSourceValue = {
             viewModel.setBooleanSourceType(it)
         },
-        setMCvalue = {
+        setMCSourcevalue = {
             viewModel.setMCTextSourceValue(it)
         },
-        setRGBFirstValue = {
+        setRGBSourceFirstValue = {
             viewModel.setFirstRGBSourceValue(it)
         },
-        setRGBSecondValue = {
+        setRGBSourceSecondValue = {
             viewModel.setSecondRGBSourceValue(it)
         },
+        setNumericResponseValue = {
+            viewModel.setNumericResponseValue(it)
+        },
+        setTextResponseValue = {
+            viewModel.setTextResponseValue(it)
+        },
+        setButtonResponseValue = {
+            viewModel.setBooleanResponseType(it)
+        },
+        setMCResponseValue = {
+            viewModel.setMCResponseValue(it)
+        },
+        setRGBResponseValue = {
+            viewModel.setRGBResponseValue(it)
+        },
+        setRGBResponseContext = {
+            viewModel.setRGBResponseContext(it)
+        },
+        selectResponseDevice = {
+            viewModel.selectResponseDevice(it)
+        },
+        selectResponseGroup = {
+            viewModel.selectResponseGroup(it)
+        },
+        selectResponseState = {
+            viewModel.selectResponseState(it)
+        },
+        selectResponseField = {
+            viewModel.selectResponseField(it)
+        },
+        changeResponseType = {
+            viewModel.changeResponseType(it)
+        },
+        changeResponseText = {
+            viewModel.changeResponseText(it)
+        },
+        changeResponseTitle = {
+            viewModel.changeResponseTitle(it)
+        },
+        saveTrigger = {
+            viewModel.saveTrigger()
+        }
     )
 }
 
@@ -96,10 +140,10 @@ fun AddTriggerScreen(
     changeName: (String) -> Unit,
     changeSourceType: (ETriggerSourceType) -> Unit,
 
-    selectDevice: (Int) -> Unit,
-    selectGroup: (Int) -> Unit,
-    selectState: (Int) -> Unit,
-    selectField: (Int) -> Unit,
+    selectSourceDevice: (Int) -> Unit,
+    selectSourceGroup: (Int) -> Unit,
+    selectSourceState: (Int) -> Unit,
+    selectSourceField: (Int) -> Unit,
 
     setTimeTriggerType: (ETriggerTimeType) -> Unit,
     setTime: (Int, Int) -> Unit,
@@ -111,16 +155,33 @@ fun AddTriggerScreen(
     setRGBTriggerType: (ERGBTriggerType_numeric) -> Unit,
     setRGBTriggerContext: (ERGBTriggerType_context) -> Unit,
 
-    setNumericFirstValue: (Float) -> Unit,
-    setNumericSecondValue: (Float) -> Unit,
-    setTextValue: (String) -> Unit,
-    setButtonValue: (Boolean) -> Unit,
-    setMCvalue: (Int) -> Unit,
-    setRGBFirstValue: (Int) -> Unit,
-    setRGBSecondValue: (Int) -> Unit,
+    setNumericSourceFirstValue: (Float) -> Unit,
+    setNumericSourceSecondValue: (Float) -> Unit,
+    setTextSourceValue: (String) -> Unit,
+    setButtonSourceValue: (Boolean) -> Unit,
+    setMCSourcevalue: (Int) -> Unit,
+    setRGBSourceFirstValue: (Int) -> Unit,
+    setRGBSourceSecondValue: (Int) -> Unit,
 
+    changeResponseType: (ETriggerResponseType) -> Unit,
 
-    ) {
+    selectResponseDevice: (Int) -> Unit,
+    selectResponseGroup: (Int) -> Unit,
+    selectResponseState: (Int) -> Unit,
+    selectResponseField: (Int) -> Unit,
+
+    setNumericResponseValue: (Float) -> Unit,
+    setTextResponseValue: (String) -> Unit,
+    setButtonResponseValue: (Boolean) -> Unit,
+    setMCResponseValue: (Int) -> Unit,
+    setRGBResponseValue: (Int) -> Unit,
+    setRGBResponseContext: (ERGBTriggerType_context) -> Unit,
+
+    changeResponseTitle: (String) -> Unit,
+    changeResponseText: (String) -> Unit,
+
+    saveTrigger: () -> Unit,
+) {
     val scrollState = rememberScrollState()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -149,12 +210,12 @@ fun AddTriggerScreen(
         )
         if (viewState.sourceType.value == ETriggerSourceType.FieldInGroup || viewState.sourceType.value == ETriggerSourceType.FieldInComplexGroup) {
             TriggerSourceAddress(
-                sourceType = viewState.sourceType.value,
+                includeComplexGroups = viewState.sourceType.value == ETriggerSourceType.FieldInComplexGroup,
                 viewState = viewState.sourceAddress.value,
-                selectDevice = selectDevice,
-                selectGroup = selectGroup,
-                selectState = selectState,
-                selectField = selectField,
+                selectDevice = selectSourceDevice,
+                selectGroup = selectSourceGroup,
+                selectState = selectSourceState,
+                selectField = selectSourceField,
             )
         } else {
             TypeOfTimeSource(
@@ -177,7 +238,7 @@ fun AddTriggerScreen(
             )
         }
         if (viewState.sourceSettings.value != null) {
-            TriggerFieldDataSettings(
+            TriggerFieldSourceDataSettings(
                 viewState = viewState.sourceSettings.value,
                 setNumericTriggerType = {
                     setNumericTriggerType(it)
@@ -195,27 +256,108 @@ fun AddTriggerScreen(
                     setRGBTriggerContext(it)
                 },
                 setNumericFirstValue = {
-                    setNumericFirstValue(it)
+                    setNumericSourceFirstValue(it)
                 },
                 setNumericSecondValue = {
-                    setNumericSecondValue(it)
+                    setNumericSourceSecondValue(it)
                 },
                 setTextValue = {
-                    setTextValue(it)
+                    setTextSourceValue(it)
                 },
                 setButtonValue = {
-                    setButtonValue(it)
+                    setButtonSourceValue(it)
                 },
                 setMCvalue = {
-                    setMCvalue(it)
+                    setMCSourcevalue(it)
                 },
                 setRGBFirstValue = {
-                    setRGBFirstValue(it)
+                    setRGBSourceFirstValue(it)
                 },
                 setRGBSecondValue = {
-                    setRGBSecondValue(it)
+                    setRGBSourceSecondValue(it)
                 },
             )
         }
+        TypeOfResponse(
+            chooseType = {
+                changeResponseType(it)
+            },
+            typeSelected = viewState.responseType.value
+        )
+
+        when (viewState.responseType.value) {
+            ETriggerResponseType.SettingValue_fieldInGroup, ETriggerResponseType.SettingValue_fieldInComplexGroup -> {
+                TriggerSourceAddress(
+                    includeComplexGroups = viewState.responseType.value == ETriggerResponseType.SettingValue_fieldInComplexGroup,
+                    viewState = viewState.responseAddress.value,
+                    selectDevice = selectResponseDevice,
+                    selectGroup = selectResponseGroup,
+                    selectState = selectResponseState,
+                    selectField = selectResponseField,
+                )
+                TriggerFieldSourceDataSettings(
+                    viewState = viewState.responseSettings.value,
+                    setNumericValue = {
+                        setNumericResponseValue(it)
+                    },
+                    setTextValue = {
+                        setTextResponseValue(it)
+                    },
+                    setButtonValue = {
+                        setButtonResponseValue(it)
+                    },
+                    setMCvalue = {
+                        setMCResponseValue(it)
+                    },
+                    setRGBValue = {
+                        setRGBResponseValue(it)
+                    },
+                    setRGBTriggerContext = {
+                        setRGBResponseContext(it)
+                    },
+                )
+
+            }
+            ETriggerResponseType.Email -> {
+                OutlineTextWrapper(
+                    label = stringResource(id = R.string.addTrigger_emailTitle_label),
+                    placeholder = stringResource(id = R.string.addTrigger_emailTitle_placeholder),
+                    onChange = {
+                        changeResponseTitle(it)
+                    }
+                )
+                OutlineTextWrapper(
+                    label = stringResource(id = R.string.addTrigger_emailText_label),
+                    placeholder = stringResource(id = R.string.addTrigger_emailText_placeholder),
+                    onChange = {
+                        changeResponseText(it)
+
+                    }
+                )
+            }
+            ETriggerResponseType.MobileNotification -> { //mobile
+                OutlineTextWrapper(
+                    label = stringResource(id = R.string.addTrigger_notificationTitle_label),
+                    placeholder = stringResource(id = R.string.addTrigger_notificationTitle_placeholder),
+                    onChange = {
+                        changeResponseTitle(it)
+                    }
+                )
+                OutlineTextWrapper(
+                    label = stringResource(id = R.string.addTrigger_notificationText_label),
+                    placeholder = stringResource(id = R.string.addTrigger_notificationText_placeholder),
+                    onChange = {
+                        changeResponseText(it)
+                    }
+                )
+            }
+        }
+        Text(
+            text = stringResource(id = R.string.addTrigger_saveTrigger),
+            modifier = Modifier
+                .clickable {
+                    saveTrigger()
+                }
+        )
     }
 }

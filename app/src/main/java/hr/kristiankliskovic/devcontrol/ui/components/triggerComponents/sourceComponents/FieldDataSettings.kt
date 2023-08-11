@@ -1,11 +1,9 @@
 package hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
-import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.RadioButtonRow
 import hr.kristiankliskovic.devcontrol.R
@@ -13,8 +11,8 @@ import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineText
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.*
 
 @Composable
-fun TriggerFieldDataSettings(
-    viewState: TriggerSettingsViewState?,
+fun TriggerFieldSourceDataSettings(
+    viewState: TriggerSourceSettingsViewState?,
 
     setNumericTriggerType: (ENumericTriggerType) -> Unit,
     setTextTriggerType: (ETextTriggerType) -> Unit,
@@ -33,7 +31,7 @@ fun TriggerFieldDataSettings(
     if (viewState == null) return
     Column {
         when (viewState) {
-            is NumericTriggerViewState -> {
+            is NumericTriggerSourceViewState -> {
                 RadioButtonRow(
                     selected = viewState.type.value == ENumericTriggerType.Bigger,
                     text = stringResource(id = R.string.numericTriggerType_bigger),
@@ -96,7 +94,7 @@ fun TriggerFieldDataSettings(
                     }
                 }
             }
-            is BooleanTriggerViewState -> {
+            is BooleanTriggerSourceViewState -> {
                 RadioButtonRow(
                     selected = viewState.value.value,
                     text = stringResource(id = R.string.buttonTriggerType_true),
@@ -112,7 +110,7 @@ fun TriggerFieldDataSettings(
                     }
                 )
             }
-            is MCTriggerViewState -> {
+            is MCTriggerSourceViewState -> {
                 RadioButtonRow(
                     selected = viewState.type.value == EMCTriggerType.IsEqualTo,
                     text = stringResource(id = R.string.MCTriggerType_equal),
@@ -135,7 +133,7 @@ fun TriggerFieldDataSettings(
                     }
                 )
             }
-            is RGBTriggerViewState -> {
+            is RGBTriggerSourceViewState -> {
                 RadioButtonRow(
                     selected = viewState.type.value == ERGBTriggerType_numeric.Bigger,
                     text = stringResource(id = R.string.numericTriggerType_bigger),
@@ -221,7 +219,7 @@ fun TriggerFieldDataSettings(
                     }
                 }
             }
-            is TextTriggerViewState -> {
+            is TextTriggerSourceViewState -> {
                 RadioButtonRow(
                     selected = viewState.type.value == ETextTriggerType.StartsWith,
                     text = stringResource(id = R.string.textTriggerType_startsWith),
@@ -259,8 +257,8 @@ fun TriggerFieldDataSettings(
                 )
 
                 OutlineTextWrapper(
-                    label = stringResource(id = R.string.textTriggerValue_label),
-                    placeholder = stringResource(id = R.string.textTriggerValue_placeholder),
+                    label = stringResource(id = R.string.textTriggerResponseValue_label),
+                    placeholder = stringResource(id = R.string.textTriggerResponseValue_placeholder),
                     onChange = {
                         setTextValue(it)
                     }
