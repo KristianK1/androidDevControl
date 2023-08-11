@@ -581,7 +581,14 @@ class DeviceServiceImpl(
         authToken: String,
         triggerId: Int
     ): Boolean {
-        TODO("Not yet implemented")
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$triggers_routerPath$deleteTrigger_routerPath",
+            body = DeleteTriggerRequest(
+                authToken = authToken,
+                triggerId = triggerId,
+            )
+        )
+        return (httpResponse != null && httpResponse.status.value in 200..299)
     }
 
     override suspend fun seeAllTriggers(
