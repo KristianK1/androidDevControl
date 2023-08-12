@@ -1,24 +1,26 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add
 
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineTextWrapper
 import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents.*
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 
 @Composable
 fun AddTriggerRoute(
@@ -342,45 +344,92 @@ fun AddTriggerScreen(
 
             }
             ETriggerResponseType.Email -> {
-                OutlineTextWrapper(
-                    label = stringResource(id = R.string.addTrigger_emailTitle_label),
-                    placeholder = stringResource(id = R.string.addTrigger_emailTitle_placeholder),
-                    onChange = {
-                        changeResponseTitle(it)
-                    }
-                )
-                OutlineTextWrapper(
-                    label = stringResource(id = R.string.addTrigger_emailText_label),
-                    placeholder = stringResource(id = R.string.addTrigger_emailText_placeholder),
-                    onChange = {
-                        changeResponseText(it)
+                Column(
+                    modifier = Modifier
+                        .width(IntrinsicSize.Max)
+                        .border(
+                            width = 1.dp,
+                            shape = RectangleShape,
+                            color = Color.Gray,
+                        )
+                        .padding(dimensionResource(id = R.dimen.addTriggerBorderPadding))
+                        .align(Alignment.CenterHorizontally),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.addTrigger_emailSetupTitle),
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally),
+                        fontSize = 20.sp
+                    )
+                    OutlineTextWrapper(
+                        label = stringResource(id = R.string.addTrigger_emailTitle_label),
+                        placeholder = stringResource(id = R.string.addTrigger_emailTitle_placeholder),
+                        onChange = {
+                            changeResponseTitle(it)
+                        }
+                    )
+                    OutlineTextWrapper(
+                        label = stringResource(id = R.string.addTrigger_emailText_label),
+                        placeholder = stringResource(id = R.string.addTrigger_emailText_placeholder),
+                        onChange = {
+                            changeResponseText(it)
 
-                    }
-                )
+                        }
+                    )
+                }
             }
             ETriggerResponseType.MobileNotification -> { //mobile
-                OutlineTextWrapper(
-                    label = stringResource(id = R.string.addTrigger_notificationTitle_label),
-                    placeholder = stringResource(id = R.string.addTrigger_notificationTitle_placeholder),
-                    onChange = {
-                        changeResponseTitle(it)
-                    }
-                )
-                OutlineTextWrapper(
-                    label = stringResource(id = R.string.addTrigger_notificationText_label),
-                    placeholder = stringResource(id = R.string.addTrigger_notificationText_placeholder),
-                    onChange = {
-                        changeResponseText(it)
-                    }
-                )
+                Column(
+                    modifier = Modifier
+                        .width(IntrinsicSize.Max)
+                        .border(
+                            width = 1.dp,
+                            shape = RectangleShape,
+                            color = Color.Gray,
+                        )
+                        .padding(dimensionResource(id = R.dimen.addTriggerBorderPadding))
+                        .align(Alignment.CenterHorizontally),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.addTrigger_notificationSetupTitle),
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally),
+                        fontSize = 20.sp
+                    )
+                    OutlineTextWrapper(
+                        label = stringResource(id = R.string.addTrigger_notificationTitle_label),
+                        placeholder = stringResource(id = R.string.addTrigger_notificationTitle_placeholder),
+                        onChange = {
+                            changeResponseTitle(it)
+                        }
+                    )
+                    OutlineTextWrapper(
+                        label = stringResource(id = R.string.addTrigger_notificationText_label),
+                        placeholder = stringResource(id = R.string.addTrigger_notificationText_placeholder),
+                        onChange = {
+                            changeResponseText(it)
+                        }
+                    )
+                }
             }
         }
+
         Text(
             text = stringResource(id = R.string.addTrigger_saveTrigger),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier
+                .padding(dimensionResource(id = R.dimen.addTrigger_saveButton_margin))
+                .clip(Shapes.large)
+                .background(
+                    color = colorResource(id = R.color.addTrigger_saveTrigger_button),
+                )
                 .clickable {
                     saveTrigger()
                 }
+                .padding(dimensionResource(id = R.dimen.addTrigger_saveButton_padding))
         )
     }
 }

@@ -165,16 +165,15 @@
     <string name="triggerSource_Type_fieldInComplexGroup">Field in complex group</string>
     <string name="triggerSource_Type_time">Time</string>
 
+    <string name="triggerResponse_Type_title">Select type of response</string>
     <string name="triggerResponse_Type_fieldInGroup">Field in group</string>
     <string name="triggerResponse_Type_fieldInComplexGroup">Field in complex group</string>
     <string name="triggerResponse_Type_email">Email</string>
     <string name="triggerResponse_Type_mobileNotification">Mobile notification</string>
 
-
     <string name="addTriggerScreen_sourceAddress_selectTitle">Select field address</string>
     <string name="addTriggerScreen_sourceFieldSettings_selectTitle">Select field settings</string>
     <string name="addTriggerScreen_timeSettings_selectTitle">Select time settings</string>
-
 
     <string name="addTriggerScreen_no_device_selected_text">Select device</string>
     <string name="addTriggerScreen_no_group_selected_text">Select group</string>
@@ -201,23 +200,23 @@
     <string name="rgbTriggerContext_B">Blue</string>
 
 
-    <string name="buttonTriggerType_true">is ON</string>
-    <string name="buttonTriggerType_false">is OFF</string>
+    <string name="buttonTriggerType_true">ON</string>
+    <string name="buttonTriggerType_false">OFF</string>
 
     <string name="buttonTriggerResponseType_true">set to ON</string>
     <string name="buttonTriggerResponseType_false">set to OFF</string>
 
-    <string name="textTriggerType_contains">Contains</string>
-    <string name="textTriggerType_startsWith">Starts with</string>
-    <string name="textTriggerType_endsWith">Ends with</string>
-    <string name="textTriggerType_isEqual">Is equal to</string>
-    <string name="textTriggerType_isEqualTo">Is not equal to</string>
+    <string name="textTriggerType_contains">Contain</string>
+    <string name="textTriggerType_startsWith">Start with</string>
+    <string name="textTriggerType_endsWith">End with</string>
+    <string name="textTriggerType_isEqual">Be equal to</string>
+    <string name="textTriggerType_isEqualTo">Be not equal to</string>
 
     <string name="textTriggerValue_label">Text trigger value</string>
     <string name="textTriggerValue_placeholder">Enter text trigger value</string>
 
-    <string name="textTriggerResponseValue_label">Text trigger Responsevalue</string>
-    <string name="textTriggerResponseValue_placeholder">Enter text trigger resposne value</string>
+    <string name="textTriggerResponseValue_label">Text trigger Response value</string>
+    <string name="textTriggerResponseValue_placeholder">Enter text trigger response value</string>
 
     <string name="triggerSource_TimeType_once">Once</string>
     <string name="triggerSource_TimeType_daily">Daily</string>
@@ -225,24 +224,39 @@
 
     <string name="triggerNumericSelectValue_startText">Select value</string>
 
-    <string name="MCTriggerType_equal">Equal to</string>
-    <string name="MCTriggerType_notEqual">Not equal to</string>
+    <string name="MCTriggerType_equal">Be equal to</string>
+    <string name="MCTriggerType_notEqual">Be not equal to</string>
 
     <string name="addTrigger_triggerName_label">Trigger name</string>
     <string name="addTrigger_triggerName_placeholder">Enter trigger name</string>
 
+    <string name="addTrigger_emailSetupTitle">Email settings</string>
     <string name="addTrigger_emailTitle_label">Email subject</string>
     <string name="addTrigger_emailTitle_placeholder">Enter email title</string>
     <string name="addTrigger_emailText_label">Email text</string>
     <string name="addTrigger_emailText_placeholder">Enter email text</string>
 
 
+    <string name="addTrigger_notificationSetupTitle">Notification settings</string>
     <string name="addTrigger_notificationTitle_label">Notification title</string>
     <string name="addTrigger_notificationTitle_placeholder">Enter notification title</string>
-
     <string name="addTrigger_notificationText_label">Notification text</string>
     <string name="addTrigger_notificationText_placeholder">Enter notification text</string>
 
     <string name="addTrigger_saveTrigger">Save trigger</string>
+
+    <string name="addTriggerScreen_valueType_title_numeric">Numeric value needs to be</string>
+    <string name="addTriggerScreen_valueType_title_text">Text value must</string>
+    <string name="addTriggerScreen_valueType_title_button">Button value must be</string>
+    <string name="addTriggerScreen_valueType_title_multipleC">Selected value must</string>
+    <string name="addTriggerScreen_valueType_title_RGB">Numeric value needs to be</string>
+    <string name="addTriggerScreen_valueType_title_RGB_context">Select RGB context</string>
+
+    <string name="addTriggerScreen_valueType_title_numeric_response">Numeric value will be set to</string>
+    <string name="addTriggerScreen_valueType_title_text_response">Text value will be set to</string>
+    <string name="addTriggerScreen_valueType_title_button_response">Button value will be set to</string>
+    <string name="addTriggerScreen_valueType_title_multipleC_response">Selected value will be set to</string>
+    <string name="addTriggerScreen_valueType_title_RGB_response">Numeric value will be set to</string>
+
 
 </resources>

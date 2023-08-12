@@ -121,4 +121,6 @@
 
     <dimen name="addTriggerBorderPadding">5.dp</dimen>
 
+    <dimen name="addTrigger_saveButton_margin">25.dp</dimen>
+    <dimen name="addTrigger_saveButton_padding">25.dp</dimen>
 </resources>

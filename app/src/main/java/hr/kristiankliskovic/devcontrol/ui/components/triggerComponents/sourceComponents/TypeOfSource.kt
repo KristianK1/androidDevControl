@@ -33,7 +33,7 @@ fun TypeOfSource(
             .padding(dimensionResource(id = R.dimen.addTriggerBorderPadding))
     ) {
         Text(
-            text = stringResource(id = R.string.triggerSource_Type_title),
+            text = stringResource(id = R.string.triggerResponse_Type_title),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
             fontSize = 20.sp
