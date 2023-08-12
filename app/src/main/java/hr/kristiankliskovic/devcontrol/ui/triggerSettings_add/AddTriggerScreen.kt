@@ -1,6 +1,7 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -190,6 +191,7 @@ fun AddTriggerScreen(
             .verticalScroll(state = scrollState)
     ) {
         OutlineTextWrapper(
+            initValue = viewState.triggerName,
             label = stringResource(id = R.string.addTrigger_triggerName_label),
             placeholder = stringResource(id = R.string.addTrigger_triggerName_placeholder),
             onChange = {

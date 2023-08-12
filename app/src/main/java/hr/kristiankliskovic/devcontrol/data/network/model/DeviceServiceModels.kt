@@ -256,8 +256,8 @@ data class AddTriggerRequest(
 @Serializable
 data class AddTriggerRequestTriggerData(
     val name: String,
-    val sourceType: ETriggerSourceType,
-    val responseType: ETriggerResponseType,
+    val sourceType: Int,
+    val responseType: Int,
     @Contextual
     val sourceData: TriggerSourceData,
     val fieldType: String?,

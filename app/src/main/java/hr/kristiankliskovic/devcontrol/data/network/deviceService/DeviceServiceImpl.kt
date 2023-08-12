@@ -1,6 +1,8 @@
 package hr.kristiankliskovic.devcontrol.data.network.deviceService
 
+import android.util.Log
 import android.widget.Toast
+import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.DevControlApp
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
@@ -15,7 +17,7 @@ import io.ktor.server.util.*
 
 private const val device_routerPath = "/api/device"
 private const val userPermission_routerPath = "/api/userRights"
-private const val triggers_routerPath = "/triggers"
+private const val triggers_routerPath = "/api/triggers"
 
 private const val changeFieldValue_routerPath = "/changeField/user"
 private const val changeFieldInComplexGroupValue_routerPath = "/fieldInComplexGroupState/user"
@@ -28,10 +30,12 @@ private const val addDevicePermission_routerPath = "/addDeviceRight"
 private const val addGroupPermission_routerPath = "/addGroupRight"
 private const val addFieldPermission_routerPath = "/addFieldRight"
 private const val addComplexGroupPermission_routerPath = "/addComplexGroupRight"
+
 private const val deleteDevicePermission_routerPath = "/deleteDeviceRight"
 private const val deleteGroupPermission_routerPath = "/deleteGroupRight"
 private const val deleteFieldPermission_routerPath = "/deleteFieldRight"
 private const val deleteComplexGroupPermission_routerPath = "/deleteComplexGroupRight"
+
 private const val getUserPermissions_routerPath = "/getUserPermissions"
 
 private const val addTrigger_routerPath = "/addTrigger"
@@ -559,27 +563,35 @@ class DeviceServiceImpl(
         responseType: ETriggerResponseType,
         responseSettings: TriggerResponse,
     ): Boolean {
-        val httpResponse = httpPostRequest(
-            url = "${HTTPSERVER.httpServer}$triggers_routerPath$addTrigger_routerPath",
-            body = AddTriggerRequest(
-                authToken = authToken,
-                trigger = AddTriggerRequestTriggerData(
-                    name = triggerName,
-                    sourceType = sourceType,
-                    sourceData = sourceData,
-                    fieldType = fieldType,
-                    settings = settings,
-                    responseType = responseType,
-                    responseSettings = responseSettings,
-                )
+        Log.i("addTriggerHTTP", "came to service")
+        Log.i("addTriggerHTTP_URL",
+            "${HTTPSERVER.httpServer}$triggers_routerPath$addTrigger_routerPath")
+        val body = AddTriggerRequest(
+            authToken = authToken,
+            trigger = AddTriggerRequestTriggerData(
+                name = triggerName,
+                sourceType = sourceType.ordinal,
+                sourceData = sourceData,
+                fieldType = fieldType,
+                settings = settings,
+                responseType = responseType.ordinal,
+                responseSettings = responseSettings,
             )
         )
+        Log.i("addTriggerHTTP_body", Gson().toJson(body))
+
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$triggers_routerPath$addTrigger_routerPath",
+            body = Gson().toJson(body)
+        )
+
+        Log.i("addTriggerHTTP", "end of service")
         return (httpResponse != null && httpResponse.status.value in 200..299)
     }
 
     override suspend fun deleteTrigger(
         authToken: String,
-        triggerId: Int
+        triggerId: Int,
     ): Boolean {
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$triggers_routerPath$deleteTrigger_routerPath",

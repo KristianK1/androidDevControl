@@ -722,6 +722,11 @@ class AddTriggerViewModel(
     }
 
     fun saveTrigger() {
+        if(viewState.value.triggerName.length < 5) return
+
+        Log.i("addTriggerHTTP_name", Gson().toJson(viewState.value.triggerName))
+
+
         val sourceData: TriggerSourceData
         when (viewState.value.sourceType.value) {
             ETriggerSourceType.FieldInGroup -> {
@@ -764,12 +769,15 @@ class AddTriggerViewModel(
                 Log.i("addTriggerHTTP", ISO)
 
                 sourceData = ITriggerTimeSourceData(
-                    type = viewState.value.timeTriggerType.value,
+                    type = viewState.value.timeTriggerType.value.ordinal,
                     firstTimeStamp = ISO,
                     lastRunTimestamp = "",
                 )
             }
         }
+        ETriggerSourceType.TimeTrigger
+        Log.i("addTriggerHTTP_sourceData", Gson().toJson(sourceData))
+
         var fieldType: String? = null
         var triggerSettings: TriggerSettings? = null
 
@@ -783,14 +791,14 @@ class AddTriggerViewModel(
                     triggerSettings = INumericTrigger(
                         value = sourceSettings.value.value!!,
                         second_value = sourceSettings.second_value.value,
-                        type = sourceSettings.type.value,
+                        type = sourceSettings.type.value.ordinal,
                     )
                 }
                 is TextTriggerSourceViewState -> {
                     fieldType = "text"
                     triggerSettings = ITextTrigger(
                         value = sourceSettings.value.value,
-                        type = sourceSettings.type.value,
+                        type = sourceSettings.type.value.ordinal,
                     )
                 }
                 is BooleanTriggerSourceViewState -> {
@@ -803,7 +811,7 @@ class AddTriggerViewModel(
                     fieldType = "multipleChoice"
                     triggerSettings = IMCTrigger(
                         value = sourceSettings.value.value!!,
-                        type = sourceSettings.type.value,
+                        type = sourceSettings.type.value.ordinal,
                     )
                 }
                 is RGBTriggerSourceViewState -> {
@@ -811,13 +819,15 @@ class AddTriggerViewModel(
                     triggerSettings = IRGBTrigger(
                         value = sourceSettings.value.value!!,
                         second_value = sourceSettings.second_value.value,
-                        type = sourceSettings.type.value,
-                        contextType = sourceSettings.contextType.value,
+                        type = sourceSettings.type.value.ordinal,
+                        contextType = sourceSettings.contextType.value.ordinal,
                     )
                 }
                 null -> return
             }
         }
+        Log.i("addTriggerHTTP_fieldType", Gson().toJson(fieldType))
+        Log.i("addTriggerHTTP_triggerSettings", Gson().toJson(triggerSettings))
 
         var value: Any? = null
         if (viewState.value.responseType.value == ETriggerResponseType.SettingValue_fieldInGroup ||
@@ -845,6 +855,7 @@ class AddTriggerViewModel(
                 }
             }
         }
+        Log.i("addTriggerHTTP_value", Gson().toJson(value))
 
         val responseSettings: TriggerResponse
         when (viewState.value.responseType.value) {
@@ -878,6 +889,7 @@ class AddTriggerViewModel(
                 )
             }
         }
+        Log.i("addTriggerHTTP_responseSettings", Gson().toJson(responseSettings))
 
 
         viewModelScope.launch {

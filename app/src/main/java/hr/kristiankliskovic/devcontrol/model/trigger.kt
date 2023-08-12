@@ -43,24 +43,24 @@ sealed class TriggerSettings()
 data class INumericTrigger(
     val value: Float,
     val second_value: Float? = null,
-    val type: ENumericTriggerType,
+    val type: Int,
 ) : TriggerSettings()
 
 data class ITextTrigger(
     val value: String,
-    val type: ETextTriggerType,
+    val type: Int,
 ) : TriggerSettings()
 
 data class IMCTrigger(
     val value: Int,
-    val type: EMCTriggerType,
+    val type: Int,
 ) : TriggerSettings()
 
 data class IRGBTrigger(
     val value: Int,
     val second_value: Int?,
-    val type: ERGBTriggerType_numeric,
-    val contextType: ERGBTriggerType_context,
+    val type: Int,
+    val contextType: Int,
 ) : TriggerSettings()
 
 data class IBooleanTrigger(
@@ -116,7 +116,7 @@ enum class ETriggerTimeType {
 }
 
 data class ITriggerTimeSourceData(
-    val type: ETriggerTimeType,
+    val type: Int,
     val firstTimeStamp: String,
     val lastRunTimestamp: String,
 ) : TriggerSourceData()
@@ -178,11 +178,11 @@ data class ITrigger(
     var id: Int,
     var name: String,
     var userId: Int,
-    var sourceType: ETriggerSourceType,
+    var sourceType: Int,
     var sourceData: TriggerSourceData,
     var fieldType: String, // Replace this with a sealed class hierarchy in Kotlin
     var settings: TriggerSettings,
-    var responseType: ETriggerResponseType,
+    var responseType: Int,
     var responseSettings: TriggerResponse,
 ) {
     companion object {
@@ -191,11 +191,11 @@ data class ITrigger(
                 id = -1,
                 name = "",
                 userId = -1,
-                sourceType = ETriggerSourceType.FieldInGroup,
+                sourceType = ETriggerSourceType.FieldInGroup.ordinal,
                 sourceData = ITriggerSourceAdress_fieldInGroup.empty(),
                 fieldType = "",
                 settings = IBooleanTrigger.empty(),
-                responseType = ETriggerResponseType.Email,
+                responseType = ETriggerResponseType.Email.ordinal,
                 responseSettings = ITriggerMobileNotificationResponse.empty()
             )
         }

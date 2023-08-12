@@ -409,6 +409,8 @@ class DeviceRepositoryImpl(
         responseType: ETriggerResponseType,
         responseSettings: TriggerResponse,
     ): Boolean {
+        Log.i("addTriggerHTTP", "came to repository")
+
         return deviceService.addTrigger(
             authToken = authTokenRepository.getAuthToken()!!,
             triggerName = triggerName,
