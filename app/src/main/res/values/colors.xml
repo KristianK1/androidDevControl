@@ -53,6 +53,7 @@
     <color name="WS_status_Offline">#70FF0000</color>
 
     <color name="addTrigger_setDateTime_background">#FFB0B0B0</color>
+    <color name="addTrigger_SelectedItem_background">#FFB0B0B0</color>
 
     <color name="addTrigger_chooseValueButton_background">#FFB0B0B0</color>
 

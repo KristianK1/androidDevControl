@@ -1,19 +1,20 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineTextWrapper
 import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents.*
@@ -220,24 +221,44 @@ fun AddTriggerScreen(
                 selectField = selectSourceField,
             )
         } else {
-            TypeOfTimeSource(
-                type = viewState.timeTriggerType.value,
-                selectType = {
-                    setTimeTriggerType(it)
-                }
-            )
-            TimeSelection(
-                time = viewState.timeSourceTime.value,
-                saveTime = { hour, minute ->
-                    setTime(hour, minute)
-                }
-            )
-            DateSelection(
-                date = viewState.timeSourceDate.value,
-                saveDate = { year, month, day ->
-                    setDate(year, month, day)
-                }
-            )
+            Column(
+                modifier = Modifier
+                    .width(IntrinsicSize.Max)
+                    .border(
+                        width = 1.dp,
+                        shape = RectangleShape,
+                        color = Color.Gray,
+                    )
+                    .padding(dimensionResource(id = R.dimen.addTriggerBorderPadding))
+                    .align(Alignment.CenterHorizontally),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = stringResource(id = R.string.addTriggerScreen_timeSettings_selectTitle),
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally),
+                    fontSize = 20.sp
+                )
+
+                TypeOfTimeSource(
+                    type = viewState.timeTriggerType.value,
+                    selectType = {
+                        setTimeTriggerType(it)
+                    },
+                )
+                TimeSelection(
+                    time = viewState.timeSourceTime.value,
+                    saveTime = { hour, minute ->
+                        setTime(hour, minute)
+                    }
+                )
+                DateSelection(
+                    date = viewState.timeSourceDate.value,
+                    saveDate = { year, month, day ->
+                        setDate(year, month, day)
+                    }
+                )
+            }
         }
         if (viewState.sourceSettings.value != null) {
             TriggerFieldSourceDataSettings(

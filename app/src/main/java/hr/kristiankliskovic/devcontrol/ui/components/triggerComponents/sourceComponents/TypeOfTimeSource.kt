@@ -5,18 +5,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.model.ETriggerSourceType
 import hr.kristiankliskovic.devcontrol.model.ETriggerTimeType
 
 @Composable
 fun TypeOfTimeSource(
     type: ETriggerTimeType,
-    selectType: (ETriggerTimeType) ->Unit
-){
+    selectType: (ETriggerTimeType) -> Unit,
+) {
     Column {
         Row(
             modifier = Modifier
@@ -31,7 +31,9 @@ fun TypeOfTimeSource(
             )
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addTriggerScreen_addTrigger_radiobutton_spacer_width)))
             Text(
-                text = stringResource(id = R.string.triggerSource_TimeType_once)
+                text = stringResource(id = R.string.triggerSource_TimeType_once),
+                modifier = Modifier
+                    .weight(1f,true)
             )
         }
         Row(
@@ -47,7 +49,9 @@ fun TypeOfTimeSource(
             )
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addTriggerScreen_addTrigger_radiobutton_spacer_width)))
             Text(
-                text = stringResource(id = R.string.triggerSource_TimeType_daily)
+                text = stringResource(id = R.string.triggerSource_TimeType_daily),
+                modifier = Modifier
+                    .weight(1f,true)
             )
         }
         Row(
@@ -63,7 +67,9 @@ fun TypeOfTimeSource(
             )
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addTriggerScreen_addTrigger_radiobutton_spacer_width)))
             Text(
-                text = stringResource(id = R.string.triggerSource_TimeType_weekly)
+                text = stringResource(id = R.string.triggerSource_TimeType_weekly),
+                modifier = Modifier
+                    .weight(1f,true)
             )
         }
     }

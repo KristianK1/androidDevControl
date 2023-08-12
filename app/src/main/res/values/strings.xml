@@ -160,6 +160,7 @@
     <string name="permission_added">Permission added.</string>
     <string name="permission_added_error">Permission not added. </string>
 
+    <string name="triggerSource_Type_title">Select type of source</string>
     <string name="triggerSource_Type_fieldInGroup">Field in group</string>
     <string name="triggerSource_Type_fieldInComplexGroup">Field in complex group</string>
     <string name="triggerSource_Type_time">Time</string>
@@ -168,6 +169,11 @@
     <string name="triggerResponse_Type_fieldInComplexGroup">Field in complex group</string>
     <string name="triggerResponse_Type_email">Email</string>
     <string name="triggerResponse_Type_mobileNotification">Mobile notification</string>
+
+
+    <string name="addTriggerScreen_sourceAddress_selectTitle">Select field address</string>
+    <string name="addTriggerScreen_sourceFieldSettings_selectTitle">Select field settings</string>
+    <string name="addTriggerScreen_timeSettings_selectTitle">Select time settings</string>
 
 
     <string name="addTriggerScreen_no_device_selected_text">Select device</string>

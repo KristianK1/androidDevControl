@@ -1,19 +1,28 @@
 package hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents
 
 import android.util.Log
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission.SelectedItem
+import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.*
 
 
@@ -29,8 +38,21 @@ fun TriggerSourceAddress(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .fillMaxWidth()
+            .width(IntrinsicSize.Max)
+            .border(
+                width = 1.dp,
+                shape = RectangleShape,
+                color = Color.Gray,
+            )
+            .padding(dimensionResource(id = R.dimen.addTriggerBorderPadding))
     ) {
+        Text(
+            text = stringResource(id = R.string.addTriggerScreen_sourceAddress_selectTitle),
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally),
+            fontSize = 20.sp
+        )
+
         ChooseEntity(
             choices = viewState.devicesChoices,
             nothingSelectedText = stringResource(id = R.string.addTriggerScreen_no_device_selected_warning),
@@ -80,16 +102,14 @@ fun ChooseEntity(
         contentAlignment = Alignment.Center
     ) {
         var dropDownMenuExpandedField by remember { mutableStateOf(false) }
-        Log.i("ttt1", "!" + choices.size)
 
-        SelectedItem(
+        SelectedItemTriggers(
             text = if (chosenEntity == null) nothingSelectedText
             else "${chosenEntity.name} (id:${chosenEntity.id})",
             onClick = {
                 dropDownMenuExpandedField = true
             }
         )
-        Log.i("ttt2", "!" + choices.size)
 
         DropdownMenu(
             expanded = dropDownMenuExpandedField,
@@ -97,7 +117,6 @@ fun ChooseEntity(
                 dropDownMenuExpandedField = false
             }
         ) {
-            Log.i("ttt", "!" + choices.size)
             if (choices.isNotEmpty()) {
                 for (choice in choices) {
                     DropdownMenuItem(
@@ -128,4 +147,22 @@ fun ChooseEntity(
             }
         }
     }
+}
+
+@Composable
+fun SelectedItemTriggers(
+    text: String,
+    onClick: () -> Unit,
+) {
+    Text(
+        text = text,
+        modifier = Modifier
+            .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_margin))
+            .clip(Shapes.small)
+            .background(colorResource(id = R.color.addTrigger_SelectedItem_background))
+            .clickable {
+                onClick()
+            }
+            .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_padding))
+    )
 }
