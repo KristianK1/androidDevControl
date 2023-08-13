@@ -309,6 +309,12 @@
     <string name="getAllTriggersScreen_triggerResponseType_email_propertyName">Email</string>
     <string name="getAllTriggersScreen_triggerResponseType_mobileNotification_propertyName">Mobile notification</string>
 
+    <string name="getAllTriggersScreen_triggerResponseType_email_subject_propertyName">Email subject:</string>
+    <string name="getAllTriggersScreen_triggerResponseType_email_content_propertyName">Email content:</string>
+    <string name="getAllTriggersScreen_triggerResponseType_mobileNotification_title_propertyName">Notification title:</string>
+    <string name="getAllTriggersScreen_triggerResponseType_mobileNotification_content_propertyName">Notification content:</string>
+
+
     <string name="getAllTriggersScreen_triggerResponseFieldType_propertyName">Trigger response field type:</string>
     <string name="getAllTriggersScreen_triggerResponseFieldValue_propertyName">Trigger response field value:</string>
 

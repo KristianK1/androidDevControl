@@ -563,9 +563,6 @@ class DeviceServiceImpl(
         responseType: ETriggerResponseType,
         responseSettings: TriggerResponse,
     ): Boolean {
-        Log.i("addTriggerHTTP", "came to service")
-        Log.i("addTriggerHTTP_URL",
-            "${HTTPSERVER.httpServer}$triggers_routerPath$addTrigger_routerPath")
         val body = AddTriggerRequest(
             authToken = authToken,
             trigger = AddTriggerRequestTriggerData(
@@ -578,14 +575,12 @@ class DeviceServiceImpl(
                 responseSettings = responseSettings,
             )
         )
-        Log.i("addTriggerHTTP_body", Gson().toJson(body))
 
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$triggers_routerPath$addTrigger_routerPath",
             body = Gson().toJson(body)
         )
 
-        Log.i("addTriggerHTTP", "end of service")
         return (httpResponse != null && httpResponse.status.value in 200..299)
     }
 
@@ -605,7 +600,19 @@ class DeviceServiceImpl(
 
     override suspend fun seeAllTriggers(
         authToken: String,
-    ): List<ITrigger> {
-        TODO("Not yet implemented")
+    ): GetAllUserTriggersResponse? {
+        val httpResponse = httpPostRequest(
+            url = "${HTTPSERVER.httpServer}$triggers_routerPath$getAllTriggersTrigger_routerPath",
+            body = GetAllUserTriggersRequest(
+                authToken = authToken,
+            )
+        )
+        return if (httpResponse != null && httpResponse.status.value in 200..299) {
+            val x = httpResponse.body<GetAllUserTriggersResponse>()
+            Log.i("ALLT_1", Gson().toJson(x))
+            x
+        } else {
+            null
+        }
     }
 }

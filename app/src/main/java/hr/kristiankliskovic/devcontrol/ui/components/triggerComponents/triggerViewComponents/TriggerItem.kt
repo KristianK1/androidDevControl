@@ -12,7 +12,6 @@ import androidx.compose.ui.res.stringResource
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents.TriggerItemLine
-import java.util.*
 
 data class TriggerItemViewState(
     val id: Int,
@@ -26,9 +25,9 @@ data class TriggerItemViewState(
 
     val responseType: ETriggerResponseType,
     val responseAddressViewState: TriggerView_AddressViewState?,
-
-
-//    val responseDataViewState: List<TriggerItemLineViewState>,
+    val responseFieldInfoViewState: ResponseFieldInfoViewState?,
+    val emailInfoViewState: EmailInfoViewState?,
+    val mobileNotificationViewState: MobileNotificationInfoViewState?,
 )
 
 @Composable
@@ -87,18 +86,16 @@ fun TriggerItem(
                     propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerResponseType_propertyName),
                     propertyValue = stringResource(id = R.string.getAllTriggersScreen_triggerResponseType_settingValue_propertyName)
                 )
+                if (viewState.responseFieldInfoViewState != null)
+                    ResponseFieldInfo(viewState.responseFieldInfoViewState)
             }
             ETriggerResponseType.Email -> {
-                TriggerItemLine(
-                    propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerResponseType_propertyName),
-                    propertyValue = stringResource(id = R.string.getAllTriggersScreen_triggerResponseType_email_propertyName)
-                )
+                if (viewState.emailInfoViewState != null)
+                    EmailInfo(viewState.emailInfoViewState)
             }
             else -> {
-                TriggerItemLine(
-                    propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerResponseType_propertyName),
-                    propertyValue = stringResource(id = R.string.getAllTriggersScreen_triggerResponseType_mobileNotification_propertyName)
-                )
+                if (viewState.mobileNotificationViewState != null)
+                    MobileNotificationInfo(viewState.mobileNotificationViewState)
             }
         }
     }

@@ -769,7 +769,7 @@ class AddTriggerViewModel(
                 Log.i("addTriggerHTTP", ISO)
 
                 sourceData = ITriggerTimeSourceData(
-                    type = viewState.value.timeTriggerType.value.ordinal,
+                    type = viewState.value.timeTriggerType.value,
                     firstTimeStamp = ISO,
                     lastRunTimestamp = "",
                 )
@@ -791,14 +791,14 @@ class AddTriggerViewModel(
                     triggerSettings = INumericTrigger(
                         value = sourceSettings.value.value!!,
                         second_value = sourceSettings.second_value.value,
-                        type = sourceSettings.type.value.ordinal,
+                        type = sourceSettings.type.value,
                     )
                 }
                 is TextTriggerSourceViewState -> {
                     fieldType = "text"
                     triggerSettings = ITextTrigger(
                         value = sourceSettings.value.value,
-                        type = sourceSettings.type.value.ordinal,
+                        type = sourceSettings.type.value,
                     )
                 }
                 is BooleanTriggerSourceViewState -> {
@@ -811,7 +811,7 @@ class AddTriggerViewModel(
                     fieldType = "multipleChoice"
                     triggerSettings = IMCTrigger(
                         value = sourceSettings.value.value!!,
-                        type = sourceSettings.type.value.ordinal,
+                        type = sourceSettings.type.value,
                     )
                 }
                 is RGBTriggerSourceViewState -> {
@@ -819,8 +819,8 @@ class AddTriggerViewModel(
                     triggerSettings = IRGBTrigger(
                         value = sourceSettings.value.value!!,
                         second_value = sourceSettings.second_value.value,
-                        type = sourceSettings.type.value.ordinal,
-                        contextType = sourceSettings.contextType.value.ordinal,
+                        type = sourceSettings.type.value,
+                        contextType = sourceSettings.contextType.value,
                     )
                 }
                 null -> return
@@ -830,6 +830,7 @@ class AddTriggerViewModel(
         Log.i("addTriggerHTTP_triggerSettings", Gson().toJson(triggerSettings))
 
         var value: Any? = null
+        var rgb_context: ERGBTriggerType_context? = null
         if (viewState.value.responseType.value == ETriggerResponseType.SettingValue_fieldInGroup ||
             viewState.value.responseType.value == ETriggerResponseType.SettingValue_fieldInComplexGroup
         ) {
@@ -849,6 +850,7 @@ class AddTriggerViewModel(
                 is RGBTriggerResponseViewState -> {
                     if(responseSettings.value.value == null) return
                     value = responseSettings.value.value!!
+                    rgb_context = responseSettings.contextType.value
                 }
                 is TextTriggerResponseViewState -> {
                     value = responseSettings.value.value
@@ -876,7 +878,8 @@ class AddTriggerViewModel(
                     deviceId = viewState.value.responseAddress.value.selectedDevice.value!!.id,
                     groupId = viewState.value.responseAddress.value.selectedGroup.value!!.id,
                     fieldId = viewState.value.responseAddress.value.selectedField.value!!.id,
-                    value = value!!
+                    value = value!!,
+                    rgbContext = rgb_context,
                 )
             }
             ETriggerResponseType.SettingValue_fieldInComplexGroup -> {
@@ -885,7 +888,8 @@ class AddTriggerViewModel(
                     complexGroupId = viewState.value.responseAddress.value.selectedGroup.value!!.id,
                     complexGroupState = viewState.value.responseAddress.value.selectedState.value!!.id,
                     fieldId = viewState.value.responseAddress.value.selectedField.value!!.id,
-                    value = value!!
+                    value = value!!,
+                    rgbContext = rgb_context
                 )
             }
         }

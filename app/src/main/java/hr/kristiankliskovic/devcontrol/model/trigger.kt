@@ -2,13 +2,14 @@ package hr.kristiankliskovic.devcontrol.model
 
 import android.util.Log
 import com.google.gson.Gson
+import kotlinx.serialization.Serializable
 
 enum class ENumericTriggerType {
     Bigger,
     Smaller,
     Equal,
-    Inbetween,
-    NotInBetween,
+    Between,
+    NotBetween,
 }
 
 enum class ETextTriggerType {
@@ -38,42 +39,35 @@ enum class ERGBTriggerType_context {
     B,
 }
 
+@Serializable
 sealed class TriggerSettings()
 
 data class INumericTrigger(
     val value: Float,
     val second_value: Float? = null,
-    val type: Int,
+    val type: ENumericTriggerType,
 ) : TriggerSettings()
 
 data class ITextTrigger(
     val value: String,
-    val type: Int,
+    val type: ETextTriggerType,
 ) : TriggerSettings()
 
 data class IMCTrigger(
     val value: Int,
-    val type: Int,
+    val type: EMCTriggerType,
 ) : TriggerSettings()
 
 data class IRGBTrigger(
     val value: Int,
     val second_value: Int?,
-    val type: Int,
-    val contextType: Int,
+    val type: ERGBTriggerType_numeric,
+    val contextType: ERGBTriggerType_context,
 ) : TriggerSettings()
 
 data class IBooleanTrigger(
     val value: Boolean,
-) : TriggerSettings() {
-    companion object {
-        fun empty(): IBooleanTrigger {
-            return IBooleanTrigger(
-                value = false,
-            )
-        }
-    }
-}
+) : TriggerSettings()
 
 enum class ETriggerSourceType {
     FieldInGroup,
@@ -81,23 +75,14 @@ enum class ETriggerSourceType {
     TimeTrigger,
 }
 
+@Serializable
 sealed class TriggerSourceData()
 
 data class ITriggerSourceAdress_fieldInGroup(
     val deviceId: Int,
     val groupId: Int,
     val fieldId: Int,
-) : TriggerSourceData() {
-    companion object {
-        fun empty(): ITriggerSourceAdress_fieldInGroup {
-            return ITriggerSourceAdress_fieldInGroup(
-                deviceId = -1,
-                groupId = -1,
-                fieldId = -1,
-            )
-        }
-    }
-}
+) : TriggerSourceData()
 
 data class ITriggerSourceAdress_fieldInComplexGroup(
     val deviceId: Int,
@@ -116,11 +101,12 @@ enum class ETriggerTimeType {
 }
 
 data class ITriggerTimeSourceData(
-    val type: Int,
+    val type: ETriggerTimeType,
     val firstTimeStamp: String,
     val lastRunTimestamp: String,
 ) : TriggerSourceData()
 
+@Serializable
 sealed class TriggerResponse()
 
 data class ITriggerEmailResponse(
@@ -131,33 +117,15 @@ data class ITriggerEmailResponse(
 data class ITriggerMobileNotificationResponse(
     val notificationTitle: String,
     val notificationText: String,
-) : TriggerResponse() {
-    companion object {
-        fun empty(): ITriggerMobileNotificationResponse {
-            return ITriggerMobileNotificationResponse(
-                notificationTitle = "",
-                notificationText = "",
-            )
-        }
-    }
-}
+) : TriggerResponse()
 
 data class ITriggerSettingValueResponse_fieldInGroup(
     val deviceId: Int,
     val groupId: Int,
     val fieldId: Int,
     val value: Any,
-) : TriggerResponse() {
-    companion object {
-        fun empty(): ITriggerSourceAdress_fieldInGroup {
-            return ITriggerSourceAdress_fieldInGroup(
-                deviceId = -1,
-                groupId = -1,
-                fieldId = -1,
-            )
-        }
-    }
-}
+    val rgbContext: ERGBTriggerType_context?,
+) : TriggerResponse()
 
 data class ITriggerSettingsValueResponse_fieldInComplexGroup(
     val deviceId: Int,
@@ -165,8 +133,11 @@ data class ITriggerSettingsValueResponse_fieldInComplexGroup(
     val complexGroupState: Int,
     val fieldId: Int,
     val value: Any,
-) : TriggerResponse()
+    val rgbContext: ERGBTriggerType_context?,
 
+    ) : TriggerResponse()
+
+@Serializable
 enum class ETriggerResponseType {
     Email,
     MobileNotification,
@@ -174,33 +145,21 @@ enum class ETriggerResponseType {
     SettingValue_fieldInComplexGroup,
 }
 
+@Serializable
 data class ITrigger(
     var id: Int,
     var name: String,
     var userId: Int,
-    var sourceType: Int,
+    var sourceType: ETriggerSourceType,
     var sourceData: TriggerSourceData,
     var fieldType: String, // Replace this with a sealed class hierarchy in Kotlin
     var settings: TriggerSettings,
-    var responseType: Int,
+    var responseType: ETriggerResponseType,
     var responseSettings: TriggerResponse,
 ) {
     companion object {
-        fun empty(): ITrigger {
-            return ITrigger(
-                id = -1,
-                name = "",
-                userId = -1,
-                sourceType = ETriggerSourceType.FieldInGroup.ordinal,
-                sourceData = ITriggerSourceAdress_fieldInGroup.empty(),
-                fieldType = "",
-                settings = IBooleanTrigger.empty(),
-                responseType = ETriggerResponseType.Email.ordinal,
-                responseSettings = ITriggerMobileNotificationResponse.empty()
-            )
+        fun print() {
+            Log.i("triggerDataPrint_sourceData", Gson().toJson(this))
         }
-    }
-    fun print(){
-        Log.i("triggerDataPrint_sourceData", Gson().toJson(this))
     }
 }

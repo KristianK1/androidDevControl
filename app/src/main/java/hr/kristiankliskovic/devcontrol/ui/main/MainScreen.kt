@@ -334,7 +334,9 @@ fun MainScreen() {
                     )
                 }
                 composable(SEE_ALL_TRIGGERS_ROUTE) {
-                    SeeAllTriggersRoute()
+                    SeeAllTriggersRoute(
+                        viewModel = getViewModel(),
+                    )
                 }
             }
         }

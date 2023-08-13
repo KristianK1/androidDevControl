@@ -1,5 +1,6 @@
 package hr.kristiankliskovic.devcontrol.data.network.deviceService
 
+import hr.kristiankliskovic.devcontrol.data.network.model.GetAllUserTriggersResponse
 import hr.kristiankliskovic.devcontrol.data.network.model.UserPermissionsForDeviceResponse
 import hr.kristiankliskovic.devcontrol.model.*
 
@@ -202,5 +203,5 @@ interface DeviceService {
 
     suspend fun seeAllTriggers(
         authToken: String,
-    ): List<ITrigger>
+    ): GetAllUserTriggersResponse?
 }

@@ -3,6 +3,7 @@ package hr.kristiankliskovic.devcontrol.utils
 import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.abs
 
 fun valuesToCalendar(
     year: Int,
@@ -106,21 +107,21 @@ fun localCalendarToGMTISO(
 }
 
 fun addTimeToCalendar(
-    calendarIn: Calendar,
-    years: Int,
-    months: Int,
-    days: Int,
-    hours: Int,
-    mins: Int,
-    seconds: Int,
+    calendar: Calendar,
+    years: Int = 0,
+    months: Int = 0,
+    days: Int = 0,
+    hours: Int = 0,
+    mins: Int = 0,
+    seconds: Int = 0,
 ): Calendar {
     val calOut = Calendar.getInstance().apply {
-        set(Calendar.YEAR, calendarIn.get(Calendar.YEAR) + years)
-        set(Calendar.MONTH, calendarIn.get(Calendar.MONTH) + months)
-        set(Calendar.DAY_OF_MONTH, calendarIn.get(Calendar.DAY_OF_MONTH) + days)
-        set(Calendar.HOUR_OF_DAY, calendarIn.get(Calendar.HOUR_OF_DAY) + hours)
-        set(Calendar.MINUTE, calendarIn.get(Calendar.MINUTE) + mins)
-        set(Calendar.SECOND, calendarIn.get(Calendar.SECOND) + seconds)
+        set(Calendar.YEAR, calendar.get(Calendar.YEAR) + years)
+        set(Calendar.MONTH, calendar.get(Calendar.MONTH) + months)
+        set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + days)
+        set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + hours)
+        set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + mins)
+        set(Calendar.SECOND, calendar.get(Calendar.SECOND) + seconds)
     }
     return calOut
 }
@@ -129,4 +130,24 @@ fun getTimeZoneOffsetInMinutes(calendar: Calendar): Int {
     val timeZone = TimeZone.getDefault()
     val offsetInMilliseconds = timeZone.getOffset(calendar.timeInMillis)
     return offsetInMilliseconds / (1000 * 60) // Convert to minutes
+}
+
+fun getLocalTimeForDisplayFromISO(iso: String): String {
+    val calendar = ISOtoCalendar(iso)
+    val timeZoneOffset = getTimeZoneOffsetInMinutes(calendar)
+    val shiftedTime = addTimeToCalendar(
+        calendar = calendar,
+        mins = timeZoneOffset,
+    )
+    val sign = if (timeZoneOffset >= 0) "+" else "-"
+    return String.format(
+        "%02d/%02d/%04d %02d:%02d (GMT${sign}%d:%02d)",
+        shiftedTime.get(Calendar.DAY_OF_MONTH),
+        shiftedTime.get(Calendar.MONTH) + 1,
+        shiftedTime.get(Calendar.YEAR),
+        shiftedTime.get(Calendar.HOUR_OF_DAY),
+        shiftedTime.get(Calendar.MINUTE),
+        abs(timeZoneOffset / 60),
+        abs(timeZoneOffset % 60)
+    )
 }

@@ -277,3 +277,8 @@ data class DeleteTriggerRequest(
 data class GetAllUserTriggersRequest(
     val authToken: String,
 )
+
+@Serializable
+data class GetAllUserTriggersResponse(
+    val triggers: List<ITrigger>,
+)

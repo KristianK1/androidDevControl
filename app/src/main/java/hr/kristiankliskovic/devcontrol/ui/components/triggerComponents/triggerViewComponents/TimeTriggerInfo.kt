@@ -9,7 +9,8 @@ import java.util.Calendar
 
 data class TimeTriggerInfoViewState(
     val timeStamp: String,
-    val type: Int,
+    val type: ETriggerTimeType,
+    val lastFired: String,
 )
 
 @Composable
@@ -18,10 +19,14 @@ fun TimeTriggerInfo(
 ){
     TriggerItemLine(
         propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerTimeSourceType_propertyName),
-        propertyValue = stringResource(id = if(viewState.type == ETriggerTimeType.Once.ordinal) R.string.triggerSource_TimeType_once else if(viewState.type == ETriggerTimeType.Daily.ordinal) R.string.triggerSource_TimeType_daily else R.string.triggerSource_TimeType_weekly)
+        propertyValue = stringResource(id = if(viewState.type == ETriggerTimeType.Once) R.string.triggerSource_TimeType_once else if(viewState.type == ETriggerTimeType.Daily) R.string.triggerSource_TimeType_daily else R.string.triggerSource_TimeType_weekly)
     )
     TriggerItemLine(
         propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerTimeSourceFirstTimeStamp_propertyName),
         propertyValue = viewState.timeStamp
+    )
+    TriggerItemLine(
+        propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerTimeSourceLastTimeFired_propertyName),
+        propertyValue = viewState.lastFired
     )
 }

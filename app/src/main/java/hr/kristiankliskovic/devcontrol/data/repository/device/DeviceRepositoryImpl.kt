@@ -3,6 +3,7 @@ package hr.kristiankliskovic.devcontrol.data.repository.device
 import android.util.Log
 import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.data.network.deviceService.DeviceService
+import hr.kristiankliskovic.devcontrol.data.network.model.GetAllUserTriggersResponse
 import hr.kristiankliskovic.devcontrol.data.network.model.UserPermissionsForDeviceResponse
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
@@ -400,6 +401,11 @@ class DeviceRepositoryImpl(
         allPermissionsForDeviceResponseInternal.value = null
     }
 
+    private val allTriggersForUserResponseInternal: MutableStateFlow<GetAllUserTriggersResponse?> =
+        MutableStateFlow(null)
+    override val allTriggersForUserResponse: StateFlow<GetAllUserTriggersResponse?> =
+        allTriggersForUserResponseInternal.asStateFlow()
+
     override suspend fun addTrigger(
         triggerName: String,
         sourceType: ETriggerSourceType,
@@ -430,9 +436,15 @@ class DeviceRepositoryImpl(
         )
     }
 
-    override suspend fun seeAllTriggers(): List<ITrigger> {
-        return deviceService.seeAllTriggers(
+    override suspend fun seeAllTriggers() {
+        val response = deviceService.seeAllTriggers(
             authToken = authTokenRepository.getAuthToken()!!,
         )
+        Log.i("ALLT", Gson().toJson(response))
+        allTriggersForUserResponseInternal.emit(response)
+    }
+
+    override fun clearAllTriggersResponse(){
+        allTriggersForUserResponseInternal.value = null
     }
 }

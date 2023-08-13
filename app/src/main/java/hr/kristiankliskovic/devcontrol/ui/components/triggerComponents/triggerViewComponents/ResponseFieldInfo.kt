@@ -29,7 +29,7 @@ data class ResponseMCFieldInfoViewState(
 
 data class ResponseRGBFieldInfoViewState(
     val fieldValue: Int,
-    val context: Int,
+    val context: ERGBTriggerType_context,
 ) : ResponseFieldInfoViewState()
 
 @Composable
@@ -80,7 +80,7 @@ fun ResponseFieldInfo(
             )
             TriggerItemLine(
                 propertyName = stringResource(id = R.string.getAllTriggersScreen_rgbTriggerType_equalPropertyName),
-                propertyValue = stringResource(id = if (viewState.context == ERGBTriggerType_context.R.ordinal) R.string.rgbTriggerContext_R else if (viewState.context == ERGBTriggerType_context.G.ordinal) R.string.rgbTriggerContext_G else R.string.rgbTriggerContext_B)
+                propertyValue = stringResource(id = if (viewState.context == ERGBTriggerType_context.R) R.string.rgbTriggerContext_R else if (viewState.context == ERGBTriggerType_context.G) R.string.rgbTriggerContext_G else R.string.rgbTriggerContext_B)
             )
             TriggerItemLine(
                 propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerResponseFieldValue_propertyName),

@@ -12,8 +12,8 @@ data class TriggerView_AddressViewState(
     val sourceGroupId: Int,
     val sourceGroupName: String,
 
-    val sourceStateId: Int?,
-    val sourceStateName: String?,
+    val sourceStateId: Int? = null,
+    val sourceStateName: String? = null,
 
     val sourceFieldId: Int,
     val sourceFieldName: String,

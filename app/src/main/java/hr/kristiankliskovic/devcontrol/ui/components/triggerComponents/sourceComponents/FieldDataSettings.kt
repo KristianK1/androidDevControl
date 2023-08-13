@@ -80,17 +80,17 @@ fun TriggerFieldSourceDataSettings(
                         }
                     )
                     RadioButtonRow(
-                        selected = viewState.type.value == ENumericTriggerType.Inbetween,
+                        selected = viewState.type.value == ENumericTriggerType.Between,
                         text = stringResource(id = R.string.numericTriggerType_between),
                         onClick = {
-                            setNumericTriggerType(ENumericTriggerType.Inbetween)
+                            setNumericTriggerType(ENumericTriggerType.Between)
                         }
                     )
                     RadioButtonRow(
-                        selected = viewState.type.value == ENumericTriggerType.NotInBetween,
+                        selected = viewState.type.value == ENumericTriggerType.NotBetween,
                         text = stringResource(id = R.string.numericTriggerType_NotBetween),
                         onClick = {
-                            setNumericTriggerType(ENumericTriggerType.NotInBetween)
+                            setNumericTriggerType(ENumericTriggerType.NotBetween)
                         }
                     )
                 }
@@ -106,7 +106,7 @@ fun TriggerFieldSourceDataSettings(
                             setNumericFirstValue(it)
                         }
                     )
-                    if (viewState.type.value == ENumericTriggerType.Inbetween || viewState.type.value == ENumericTriggerType.NotInBetween) {
+                    if (viewState.type.value == ENumericTriggerType.Between || viewState.type.value == ENumericTriggerType.NotBetween) {
                         ChooseNumericValuePopup(
                             minValue = viewState.minimum,
                             maxValue = viewState.maximum,

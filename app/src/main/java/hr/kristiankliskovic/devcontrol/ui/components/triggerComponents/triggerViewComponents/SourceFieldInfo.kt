@@ -9,14 +9,14 @@ import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceCom
 sealed class SourceFieldInfoViewState
 
 data class SourceNumericFieldInfoViewState(
-    val fieldNumericType: Int,
+    val fieldNumericType: ENumericTriggerType,
     val sourceFieldNumericValue: Float,
     val sourceFieldNumericSecondValue: Float?,
 ) : SourceFieldInfoViewState()
 
 data class SourceTextFieldInfoViewState(
     val sourceTextValue: String,
-    val fieldTextType: Int,
+    val fieldTextType: ETextTriggerType,
 ) : SourceFieldInfoViewState()
 
 data class SourceButtonFieldInfoViewState(
@@ -24,15 +24,15 @@ data class SourceButtonFieldInfoViewState(
 ) : SourceFieldInfoViewState()
 
 data class SourceMCFieldInfoViewState(
-    val fieldMCType: Int?,
-    val sourceFieldMCStateId: Int?,
-    val sourceFieldMCStateName: String?,
+    val fieldMCType: EMCTriggerType,
+    val sourceFieldMCStateId: Int,
+    val sourceFieldMCStateName: String,
 ) : SourceFieldInfoViewState()
 
 data class SourceRGBFieldInfoViewState(
-    val fieldRGBType: Int,
-    val fieldRGBContext: Int,
-    val sourceFieldRGBValue: Int?,
+    val fieldRGBType: ERGBTriggerType_numeric,
+    val fieldRGBContext: ERGBTriggerType_context,
+    val sourceFieldRGBValue: Int,
     val sourceFieldRGBSecondValue: Int?,
 ) : SourceFieldInfoViewState()
 
@@ -47,35 +47,35 @@ fun SourceFieldInfo(
                 propertyValue = stringResource(id = R.string.getAllTriggersScreen_triggerFieldType_numeric)
             )
             when (viewState.fieldNumericType) {
-                ENumericTriggerType.Bigger.ordinal -> {
+                ENumericTriggerType.Bigger -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_numericTriggerType_biggerPropertyName),
                         propertyValue = "${viewState.sourceFieldNumericValue}"
                     )
 
                 }
-                ENumericTriggerType.Smaller.ordinal -> {
+                ENumericTriggerType.Smaller -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_numericTriggerType_smallerPropertyName),
                         propertyValue = "${viewState.sourceFieldNumericValue}"
                     )
 
                 }
-                ENumericTriggerType.Equal.ordinal -> {
+                ENumericTriggerType.Equal -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_numericTriggerType_equalPropertyName),
                         propertyValue = "${viewState.sourceFieldNumericValue}"
                     )
 
                 }
-                ENumericTriggerType.Inbetween.ordinal -> {
+                ENumericTriggerType.Between -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_numericTriggerType_betweenPropertyName),
                         propertyValue = "[${viewState.sourceFieldNumericValue}, ${viewState.sourceFieldNumericSecondValue}]"
                     )
 
                 }
-                ENumericTriggerType.NotInBetween.ordinal -> {
+                ENumericTriggerType.NotBetween -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_numericTriggerType_notBetweenPropertyName),
                         propertyValue = "[${viewState.sourceFieldNumericValue}, ${viewState.sourceFieldNumericSecondValue}]"
@@ -89,31 +89,31 @@ fun SourceFieldInfo(
                 propertyValue = stringResource(id = R.string.getAllTriggersScreen_triggerFieldType_text)
             )
             when (viewState.fieldTextType) {
-                ETextTriggerType.StartsWith.ordinal -> {
+                ETextTriggerType.StartsWith -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_textTriggerType_startWithPropertyName),
                         propertyValue = "\"${viewState.sourceTextValue}\""
                     )
                 }
-                ETextTriggerType.EndsWith.ordinal -> {
+                ETextTriggerType.EndsWith -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_textTriggerType_endWithPropertyName),
                         propertyValue = "\"${viewState.sourceTextValue}\""
                     )
                 }
-                ETextTriggerType.Contains.ordinal -> {
+                ETextTriggerType.Contains -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_textTriggerType_containsPropertyName),
                         propertyValue = "\"${viewState.sourceTextValue}\""
                     )
                 }
-                ETextTriggerType.IsEqualTo.ordinal -> {
+                ETextTriggerType.IsEqualTo -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_textTriggerType_equalPropertyName),
                         propertyValue = "\"${viewState.sourceTextValue}\""
                     )
                 }
-                ETextTriggerType.IsNotEqualTo.ordinal -> {
+                ETextTriggerType.IsNotEqualTo -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_textTriggerType_notEqualPropertyName),
                         propertyValue = "\"${viewState.sourceTextValue}\""
@@ -150,38 +150,38 @@ fun SourceFieldInfo(
             )
             TriggerItemLine(
                 propertyName = stringResource(id = R.string.getAllTriggersScreen_rgbTriggerType_equalPropertyName),
-                propertyValue = stringResource(id = if (viewState.fieldRGBContext == ERGBTriggerType_context.R.ordinal) R.string.rgbTriggerContext_R else if (viewState.fieldRGBContext == ERGBTriggerType_context.G.ordinal) R.string.rgbTriggerContext_G else R.string.rgbTriggerContext_B)
+                propertyValue = stringResource(id = if (viewState.fieldRGBContext == ERGBTriggerType_context.R) R.string.rgbTriggerContext_R else if (viewState.fieldRGBContext == ERGBTriggerType_context.G) R.string.rgbTriggerContext_G else R.string.rgbTriggerContext_B)
             )
             when (viewState.fieldRGBType) {
-                ERGBTriggerType_numeric.Bigger.ordinal -> {
+                ERGBTriggerType_numeric.Bigger -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_numericTriggerType_biggerPropertyName),
                         propertyValue = "${viewState.sourceFieldRGBValue}"
                     )
 
                 }
-                ERGBTriggerType_numeric.Smaller.ordinal -> {
+                ERGBTriggerType_numeric.Smaller -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_numericTriggerType_smallerPropertyName),
                         propertyValue = "${viewState.sourceFieldRGBValue}"
                     )
 
                 }
-                ERGBTriggerType_numeric.Equal.ordinal -> {
+                ERGBTriggerType_numeric.Equal -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_numericTriggerType_equalPropertyName),
                         propertyValue = "${viewState.sourceFieldRGBValue}"
                     )
 
                 }
-                ERGBTriggerType_numeric.Inbetween.ordinal -> {
+                ERGBTriggerType_numeric.Inbetween -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_numericTriggerType_betweenPropertyName),
                         propertyValue = "[${viewState.sourceFieldRGBValue}, ${viewState.sourceFieldRGBSecondValue}]"
                     )
 
                 }
-                ERGBTriggerType_numeric.NotInBetween.ordinal -> {
+                ERGBTriggerType_numeric.NotInBetween -> {
                     TriggerItemLine(
                         propertyName = stringResource(id = R.string.getAllTriggersScreen_numericTriggerType_notBetweenPropertyName),
                         propertyValue = "[${viewState.sourceFieldRGBValue}, ${viewState.sourceFieldRGBSecondValue}]"

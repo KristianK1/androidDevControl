@@ -1,5 +1,6 @@
 package hr.kristiankliskovic.devcontrol.data.repository.device
 
+import hr.kristiankliskovic.devcontrol.data.network.model.GetAllUserTriggersResponse
 import hr.kristiankliskovic.devcontrol.data.network.model.UserPermissionsForDeviceResponse
 import hr.kristiankliskovic.devcontrol.model.*
 import kotlinx.coroutines.flow.Flow
@@ -176,5 +177,7 @@ interface DeviceRepository {
 
     suspend fun deleteTrigger(triggerId: Int): Boolean
 
-    suspend fun seeAllTriggers(): List<ITrigger>
+    suspend fun seeAllTriggers()
+    val allTriggersForUserResponse: StateFlow<GetAllUserTriggersResponse?>
+    fun clearAllTriggersResponse()
 }
