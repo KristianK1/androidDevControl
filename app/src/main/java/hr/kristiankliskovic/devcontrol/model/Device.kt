@@ -33,6 +33,14 @@ data class DeviceComplexGroupState(
 
 sealed class BasicDeviceField
 
+enum class TypesOfFields {
+    Numeric,
+    Text,
+    Boolean,
+    MultipleChoice,
+    RGB
+}
+
 data class NumericDeviceField(
     val fieldId: Int,
     val fieldName: String,

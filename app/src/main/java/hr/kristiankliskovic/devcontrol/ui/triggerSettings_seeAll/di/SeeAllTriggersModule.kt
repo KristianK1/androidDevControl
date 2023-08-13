@@ -1,14 +1,19 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_seeAll.di
 
-import androidx.compose.runtime.Composable
-import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.AddTriggerViewModel
+import hr.kristiankliskovic.devcontrol.ui.triggerSettings_seeAll.SeeAllTriggersViewModel
+import hr.kristiankliskovic.devcontrol.ui.triggerSettings_seeAll.mapper.SeeAllTriggersMapper
+import hr.kristiankliskovic.devcontrol.ui.triggerSettings_seeAll.mapper.SeeAllTriggersMapperImpl
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Composable
-fun SeeAllTriggersRoute(){
-    SeeAllTriggersScreen()
-}
-
-@Composable
-fun SeeAllTriggersScreen(){
-
+val getAllTriggersModule = module {
+    viewModel{
+        SeeAllTriggersViewModel(
+            deviceRepository = get(),
+            mapper = get(),
+        )
+    }
+    single<SeeAllTriggersMapper>{
+        SeeAllTriggersMapperImpl()
+    }
 }

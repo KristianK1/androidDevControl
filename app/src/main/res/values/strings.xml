@@ -259,4 +259,57 @@
     <string name="addTriggerScreen_valueType_title_RGB_response">Numeric value will be set to</string>
 
 
+
+    <string name="getAllTriggersScreen_triggerName_propertyName">Trigger name:</string>
+    <string name="getAllTriggersScreen_triggerId_propertyName">Trigger name:</string>
+    <string name="getAllTriggersScreen_triggerSourceType_propertyName">Trigger source type:</string>
+    <string name="getAllTriggersScreen_triggerSourceType_fieldValue_propertyName">Field value</string>
+    <string name="getAllTriggersScreen_triggerSourceType_timeTrigger_propertyName">Time trigger</string>
+
+    <string name="getAllTriggersScreen_triggerSourceFieldAddress_device_propertyName">Trigger source device:</string>
+    <string name="getAllTriggersScreen_triggerSourceFieldAddress_group_propertyName">Trigger source group:</string>
+    <string name="getAllTriggersScreen_triggerSourceFieldAddress_field_propertyName">Trigger source field:</string>
+    <string name="getAllTriggersScreen_triggerSourceFieldAddress_complexGroup_propertyName">Trigger source complex group:</string>
+    <string name="getAllTriggersScreen_triggerSourceFieldAddress_state_propertyName">Trigger source complex group state:</string>
+
+    <string name="getAllTriggersScreen_triggerTimeSourceFirstTimeStamp_propertyName">Trigger source timestamp:</string>
+    <string name="getAllTriggersScreen_triggerTimeSourceLastTimeFired_propertyName">Trigger source last time fired:</string>
+    <string name="getAllTriggersScreen_triggerTimeSourceType_propertyName">Trigger time source type:</string>
+    <string name="getAllTriggersScreen_triggerSourceFieldType_propertyName">Trigger source field type:</string>
+    <string name="getAllTriggersScreen_triggerSourceFieldValue_propertyName">Trigger source field value:</string>
+    <string name="getAllTriggersScreen_triggerSourceFieldValue_RGBcontext_propertyName">Trigger source field RGB context:</string>
+
+    <string name="getAllTriggersScreen_triggerFieldType_numeric">Numeric field</string>
+    <string name="getAllTriggersScreen_triggerFieldType_text">Text field</string>
+    <string name="getAllTriggersScreen_triggerFieldType_button">Boolean field</string>
+    <string name="getAllTriggersScreen_triggerFieldType_MC">Multiple choice field</string>
+    <string name="getAllTriggersScreen_triggerFieldType_RGB">RGB field</string>
+
+    <string name="getAllTriggersScreen_numericTriggerType_biggerPropertyName">Value needs to be bigger then:</string>
+    <string name="getAllTriggersScreen_numericTriggerType_smallerPropertyName">Value needs to be smaller then:</string>
+    <string name="getAllTriggersScreen_numericTriggerType_equalPropertyName">Value needs to be equal to:</string>
+    <string name="getAllTriggersScreen_numericTriggerType_betweenPropertyName">Value needs to be in the interval:</string>
+    <string name="getAllTriggersScreen_numericTriggerType_notBetweenPropertyName">Value needs to be not in the interval:</string>
+
+    <string name="getAllTriggersScreen_textTriggerType_startWithPropertyName">Value needs to be start with:</string>
+    <string name="getAllTriggersScreen_textTriggerType_endWithPropertyName">Value needs to be end with:</string>
+    <string name="getAllTriggersScreen_textTriggerType_containsPropertyName">Value needs to be end with:</string>
+    <string name="getAllTriggersScreen_textTriggerType_equalPropertyName">Value needs to be equal to:</string>
+    <string name="getAllTriggersScreen_textTriggerType_notEqualPropertyName">Value needs to be not equal to:</string>
+
+    <string name="getAllTriggersScreen_MCTriggerType_equalPropertyName">Value needs to be:</string>
+    <string name="getAllTriggersScreen_MCTriggerType_notEqualPropertyName">Value needs to not be:</string>
+
+    <string name="getAllTriggersScreen_rgbTriggerType_equalPropertyName">Value in question:</string>
+
+    <string name="getAllTriggersScreen_ButtonTriggerType_equalPropertyName">Value needs to be:</string>
+
+    <string name="getAllTriggersScreen_triggerResponseType_propertyName">Trigger response type:</string>
+    <string name="getAllTriggersScreen_triggerResponseType_settingValue_propertyName">Setting value</string>
+    <string name="getAllTriggersScreen_triggerResponseType_email_propertyName">Email</string>
+    <string name="getAllTriggersScreen_triggerResponseType_mobileNotification_propertyName">Mobile notification</string>
+
+    <string name="getAllTriggersScreen_triggerResponseFieldType_propertyName">Trigger response field type:</string>
+    <string name="getAllTriggersScreen_triggerResponseFieldValue_propertyName">Trigger response field value:</string>
+
 </resources>

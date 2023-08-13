@@ -18,6 +18,7 @@ import hr.kristiankliskovic.devcontrol.ui.main.di.mainScreenModule
 import hr.kristiankliskovic.devcontrol.ui.myDevices.di.myDevicesModule
 import hr.kristiankliskovic.devcontrol.ui.register.di.registerModule
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.di.addTriggerModule
+import hr.kristiankliskovic.devcontrol.ui.triggerSettings_seeAll.di.getAllTriggersModule
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.di.userProfileSettingsModule
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsAddEmail.di.emailModule
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword.di.changePasswordModule
@@ -51,6 +52,7 @@ class DevControlApp: Application() {
                 seeAllPermissionsModule,
                 emailModule,
                 addTriggerModule,
+                getAllTriggersModule,
             )
         }
     }
