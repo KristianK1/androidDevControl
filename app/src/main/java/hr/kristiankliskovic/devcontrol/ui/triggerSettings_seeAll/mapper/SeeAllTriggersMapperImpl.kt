@@ -34,18 +34,11 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
 
                 when (trigger.sourceType) {
                     ETriggerSourceType.FieldInGroup -> {
-                        var sourceAddressViewState: TriggerView_AddressViewState
-
-                        val sourceData = trigger.sourceData;
-                        Log.i("triggerMap_printSourceData", Gson().toJson(sourceData))
-                        Log.i("triggerMap_printSourceData_type", "" + sourceData::class)
-
                         if (sourceData is ITriggerSourceAdress_fieldInGroup) {
                             Log.i("triggerMap", "source data is FG")
                             val device = devices.find { it.deviceId == sourceData.deviceId }
                             if (device != null) {
                                 Log.i("triggerMap", "source_FG_foundDevice")
-
                                 val group = device.groups.find { it.groupId == sourceData.groupId }
                                 if (group != null) {
                                     Log.i("triggerMap", "source_FG_foundGroup")
@@ -336,23 +329,28 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                 var responseFieldInfoViewState: ResponseFieldInfoViewState? = null
                 var emailInfoViewState: EmailInfoViewState? = null
                 var mobileNotificationInfoViewState: MobileNotificationInfoViewState? = null
+                Log.i("triggerMap", "start response data")
 
                 val responseData = trigger.responseSettings
 
                 when (trigger.responseType) {
                     ETriggerResponseType.SettingValue_fieldInGroup -> {
-
                         if (responseData is ITriggerSettingValueResponse_fieldInGroup) {
+                            Log.i("triggerMap", "response data is FG")
                             val device = devices.find { it.deviceId == responseData.deviceId }
                             if (device != null) {
+                                Log.i("triggerMap", "response_FG_foundDevice")
                                 val group =
                                     device.groups.find { it.groupId == responseData.groupId }
                                 if (group != null) {
+                                    Log.i("triggerMap", "response_FG_foundGroup")
                                     val fields = group.fields
                                     for (field in fields) {
                                         when (field) {
                                             is NumericDeviceField -> {
                                                 if (field.fieldId == responseData.fieldId) {
+                                                    Log.i("triggerMap",
+                                                        "response_FG_foundNumericField")
                                                     responseAddressViewState =
                                                         TriggerView_AddressViewState(
                                                             sourceDeviceId = device.deviceId,
@@ -362,9 +360,17 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                                                             sourceFieldId = field.fieldId,
                                                             sourceFieldName = field.fieldName,
                                                         )
+                                                    var value: Float? = 0f
+                                                    if (responseData.value is Float) {
+                                                        value = responseData.value
+                                                    } else if (responseData.value is Double) {
+                                                        value = responseData.value.toFloat()
+                                                    } else {
+                                                        return@mapNotNull null
+                                                    }
                                                     responseFieldInfoViewState =
                                                         ResponseNumericFieldInfoViewState(
-                                                            fieldValue = responseData.value as Float,
+                                                            fieldValue = value,
                                                             prefix = field.prefix,
                                                             sufix = field.sufix,
                                                         )
@@ -372,6 +378,8 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                                             }
                                             is TextDeviceField -> {
                                                 if (field.fieldId == responseData.fieldId) {
+                                                    Log.i("triggerMap",
+                                                        "response_FG_foundTextField")
                                                     responseAddressViewState =
                                                         TriggerView_AddressViewState(
                                                             sourceDeviceId = device.deviceId,
@@ -389,6 +397,8 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                                             }
                                             is ButtonDeviceField -> {
                                                 if (field.fieldId == responseData.fieldId) {
+                                                    Log.i("triggerMap",
+                                                        "response_FG_foundButtonField")
                                                     responseAddressViewState =
                                                         TriggerView_AddressViewState(
                                                             sourceDeviceId = device.deviceId,
@@ -406,6 +416,7 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                                             }
                                             is MultipleChoiceDeviceField -> {
                                                 if (field.fieldId == responseData.fieldId) {
+                                                    Log.i("triggerMap", "response_FG_foundMCField")
                                                     responseAddressViewState =
                                                         TriggerView_AddressViewState(
                                                             sourceDeviceId = device.deviceId,
@@ -426,6 +437,7 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                                             }
                                             is RGBDeviceField -> {
                                                 if (field.fieldId == responseData.fieldId) {
+                                                    Log.i("triggerMap", "response_FG_foundRGBField")
                                                     responseAddressViewState =
                                                         TriggerView_AddressViewState(
                                                             sourceDeviceId = device.deviceId,
@@ -451,6 +463,7 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                     }
                     ETriggerResponseType.SettingValue_fieldInComplexGroup -> {
                         if (responseData is ITriggerSettingsValueResponse_fieldInComplexGroup) {
+                            Log.i("triggerMap", "response data is FCG")
                             val device = devices.find { it.deviceId == responseData.deviceId }
                             if (device != null) {
                                 val complexGroup =
@@ -475,9 +488,18 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                                                                 sourceFieldId = field.fieldId,
                                                                 sourceFieldName = field.fieldName,
                                                             )
+                                                        var value: Float? = 0f
+                                                        if (responseData.value is Float) {
+                                                            value = responseData.value
+                                                        } else if (responseData.value is Double) {
+                                                            value = responseData.value.toFloat()
+                                                        } else {
+                                                            return@mapNotNull null
+                                                        }
+
                                                         responseFieldInfoViewState =
                                                             ResponseNumericFieldInfoViewState(
-                                                                fieldValue = responseData.value as Float,
+                                                                fieldValue = value,
                                                                 prefix = field.prefix,
                                                                 sufix = field.sufix,
                                                             )
@@ -573,6 +595,7 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                     }
                     ETriggerResponseType.Email -> {
                         if (responseData is ITriggerEmailResponse) {
+                            Log.i("triggerMap", "response data is email")
                             emailInfoViewState = EmailInfoViewState(
                                 subject = responseData.emailSubject,
                                 content = responseData.emailText,
@@ -581,6 +604,7 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                     }
                     ETriggerResponseType.MobileNotification -> {
                         if (responseData is ITriggerMobileNotificationResponse) {
+                            Log.i("triggerMap", "response data is mobile")
                             mobileNotificationInfoViewState = MobileNotificationInfoViewState(
                                 title = responseData.notificationTitle,
                                 content = responseData.notificationText,

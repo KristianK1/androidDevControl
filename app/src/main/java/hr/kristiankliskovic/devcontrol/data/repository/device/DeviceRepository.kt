@@ -180,6 +180,6 @@ interface DeviceRepository {
     suspend fun seeAllTriggers()
 
     val allTriggersForUserResponse: StateFlow<GetAllUserTriggersResponse?>
-    
+
     fun clearAllTriggersResponse()
 }

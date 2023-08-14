@@ -58,6 +58,8 @@
     <color name="addTrigger_chooseValueButton_background">#FFB0B0B0</color>
 
     <color name="addTrigger_saveTrigger_button">#FFB0B0B0</color>
+    <color name="TriggerItem_rights_borders">#FF303030</color>
+    <color name="triggerItem_background">#FFF0F0F0</color>
 
 
 </resources>

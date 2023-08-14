@@ -581,7 +581,7 @@ class DeviceServiceImpl(
 
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$triggers_routerPath$addTrigger_routerPath",
-            body = Gson().toJson(body)
+            body = getBasicGson().create().toJson(body)
         )
 
         return (httpResponse != null && httpResponse.status.value in 200..299)

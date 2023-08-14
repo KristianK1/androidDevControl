@@ -123,4 +123,10 @@
 
     <dimen name="addTrigger_saveButton_margin">25.dp</dimen>
     <dimen name="addTrigger_saveButton_padding">25.dp</dimen>
+
+    <dimen name="triggerItem_margin">3.dp</dimen>
+    <dimen name="triggerItem_border_width">2.dp</dimen>
+    <dimen name="triggerItem_padding_betweenLines">3.dp</dimen>
+    <dimen name="triggerItem_padding">3.dp</dimen>
+
 </resources>

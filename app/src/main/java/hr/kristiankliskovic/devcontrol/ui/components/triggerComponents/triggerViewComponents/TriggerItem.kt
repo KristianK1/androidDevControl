@@ -1,17 +1,23 @@
 package hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.triggerViewComponents
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents.TriggerItemLine
+import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 
 data class TriggerItemViewState(
     val id: Int,
@@ -35,20 +41,30 @@ fun TriggerItem(
     viewState: TriggerItemViewState,
     deleteTrigger: (Int) -> Unit,
 ) {
-    Column {
-        Row {
-            Column {
-                TriggerItemLine(
-                    propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerName_propertyName),
-                    propertyValue = viewState.name,
-                    increasedFont = true,
-                )
-                TriggerItemLine(
-                    propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerId_propertyName),
-                    propertyValue = "${viewState.id}",
-                )
-            }
-
+    Column(
+        Modifier
+            .padding(dimensionResource(id = R.dimen.triggerItem_margin))
+            .clip(Shapes.small)
+            .border(
+                color = colorResource(id = R.color.TriggerItem_rights_borders),
+                width = dimensionResource(id = R.dimen.triggerItem_border_width)
+            )
+            .background(
+                color = colorResource(id = R.color.triggerItem_background)
+            )
+            .padding(dimensionResource(id = R.dimen.triggerItem_padding))
+            .fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            ) {
+            TriggerItemLine(
+                propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerName_propertyName),
+                propertyValue = viewState.name,
+                increasedFont = true,
+            )
             Icon(
                 imageVector = Icons.Filled.Delete,
                 contentDescription = null,
@@ -58,6 +74,11 @@ fun TriggerItem(
                     }
             )
         }
+
+        TriggerItemLine(
+            propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerId_propertyName),
+            propertyValue = "${viewState.id}",
+        )
 
         if (viewState.sourceType == ETriggerSourceType.FieldInGroup || viewState.sourceType == ETriggerSourceType.FieldInComplexGroup) {
             TriggerItemLine(
@@ -71,6 +92,9 @@ fun TriggerItem(
             )
         }
 
+        if (viewState.sourceAddressViewState != null) {
+            TriggerView_Address(viewState = viewState.sourceAddressViewState)
+        }
         if (viewState.sourceFieldInfo != null) {
             SourceFieldInfo(viewState = viewState.sourceFieldInfo)
         }
@@ -86,6 +110,9 @@ fun TriggerItem(
                     propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerResponseType_propertyName),
                     propertyValue = stringResource(id = R.string.getAllTriggersScreen_triggerResponseType_settingValue_propertyName)
                 )
+                if (viewState.responseAddressViewState != null) {
+                    TriggerView_Address(viewState = viewState.responseAddressViewState)
+                }
                 if (viewState.responseFieldInfoViewState != null)
                     ResponseFieldInfo(viewState.responseFieldInfoViewState)
             }

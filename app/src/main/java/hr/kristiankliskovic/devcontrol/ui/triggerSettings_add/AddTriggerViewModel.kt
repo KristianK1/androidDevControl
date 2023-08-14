@@ -9,6 +9,8 @@ import hr.kristiankliskovic.devcontrol.data.repository.device.DeviceRepository
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.mapper.AddTriggerMapper
 import hr.kristiankliskovic.devcontrol.utils.CalendarToIso
+import hr.kristiankliskovic.devcontrol.utils.addTimeToCalendar
+import hr.kristiankliskovic.devcontrol.utils.getTimeZoneOffsetInMinutes
 import hr.kristiankliskovic.devcontrol.utils.valuesToCalendar
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -722,7 +724,7 @@ class AddTriggerViewModel(
     }
 
     fun saveTrigger() {
-        if(viewState.value.triggerName.length < 5) return
+        if (viewState.value.triggerName.length < 5) return
 
         Log.i("addTriggerHTTP_name", Gson().toJson(viewState.value.triggerName))
 
@@ -757,14 +759,16 @@ class AddTriggerViewModel(
                 val time = viewState.value.timeSourceTime.value ?: return
 
                 val date = viewState.value.timeSourceDate.value ?: return
+                val calendar = valuesToCalendar(
+                    year = date.get(Calendar.YEAR),
+                    month = date.get(Calendar.MONTH) + 1,
+                    day = date.get(Calendar.DAY_OF_MONTH),
+                    hour = time / 60,
+                    minute = time % 60
+                )
+                val offset = getTimeZoneOffsetInMinutes(calendar)
                 val ISO = CalendarToIso(
-                    valuesToCalendar(
-                        year = date.get(Calendar.YEAR),
-                        month = date.get(Calendar.MONTH) + 1,
-                        day = date.get(Calendar.DAY_OF_MONTH),
-                        hour = time / 60,
-                        minute = time % 60
-                    )
+                    addTimeToCalendar(calendar = calendar, mins = -1 * offset)
                 )
                 Log.i("addTriggerHTTP", ISO)
 
@@ -840,15 +844,15 @@ class AddTriggerViewModel(
                     value = responseSettings.value.value
                 }
                 is MCTriggerResponseViewState -> {
-                    if(responseSettings.value.value == null) return
+                    if (responseSettings.value.value == null) return
                     value = responseSettings.value.value!!
                 }
                 is NumericTriggerResponseViewState -> {
-                    if(responseSettings.value.value == null) return
+                    if (responseSettings.value.value == null) return
                     value = responseSettings.value.value!!
                 }
                 is RGBTriggerResponseViewState -> {
-                    if(responseSettings.value.value == null) return
+                    if (responseSettings.value.value == null) return
                     value = responseSettings.value.value!!
                     rgb_context = responseSettings.contextType.value
                 }
