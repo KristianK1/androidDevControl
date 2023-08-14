@@ -1,10 +1,12 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_add
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import hr.kristiankliskovic.devcontrol.DevControlApp
 import hr.kristiankliskovic.devcontrol.data.repository.device.DeviceRepository
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.mapper.AddTriggerMapper
@@ -724,192 +726,203 @@ class AddTriggerViewModel(
     }
 
     fun saveTrigger() {
-        if (viewState.value.triggerName.length < 5) return
+        try {
+            if (viewState.value.triggerName.length < 5) throw(Throwable("Trigger name needs to be at least 5 letters"))
 
-        Log.i("addTriggerHTTP_name", Gson().toJson(viewState.value.triggerName))
+            Log.i("addTriggerHTTP_name", Gson().toJson(viewState.value.triggerName))
 
 
-        val sourceData: TriggerSourceData
-        when (viewState.value.sourceType.value) {
-            ETriggerSourceType.FieldInGroup -> {
-                val deviceId = viewState.value.sourceAddress.value.selectedDevice.value?.id
-                val groupId = viewState.value.sourceAddress.value.selectedGroup.value?.id
-                val fieldId = viewState.value.sourceAddress.value.selectedField.value?.id
-                if (deviceId == null || groupId == null || fieldId == null) return
-                sourceData = ITriggerSourceAdress_fieldInGroup(
-                    deviceId = deviceId,
-                    groupId = groupId,
-                    fieldId = fieldId
-                )
-            }
-            ETriggerSourceType.FieldInComplexGroup -> {
-                val deviceId = viewState.value.sourceAddress.value.selectedDevice.value?.id
-                val groupId = viewState.value.sourceAddress.value.selectedGroup.value?.id
-                val stateId = viewState.value.sourceAddress.value.selectedState.value?.id
-                val fieldId = viewState.value.sourceAddress.value.selectedField.value?.id
-                if (deviceId == null || groupId == null || stateId == null || fieldId == null) return
-                sourceData = ITriggerSourceAdress_fieldInComplexGroup(
-                    deviceId = deviceId,
-                    complexGroupId = groupId,
-                    stateId = stateId,
-                    fieldId = fieldId
-                )
-            }
-            ETriggerSourceType.TimeTrigger -> {
-                val time = viewState.value.timeSourceTime.value ?: return
-
-                val date = viewState.value.timeSourceDate.value ?: return
-                val calendar = valuesToCalendar(
-                    year = date.get(Calendar.YEAR),
-                    month = date.get(Calendar.MONTH) + 1,
-                    day = date.get(Calendar.DAY_OF_MONTH),
-                    hour = time / 60,
-                    minute = time % 60
-                )
-                val offset = getTimeZoneOffsetInMinutes(calendar)
-                val ISO = CalendarToIso(
-                    addTimeToCalendar(calendar = calendar, mins = -1 * offset)
-                )
-                Log.i("addTriggerHTTP", ISO)
-
-                sourceData = ITriggerTimeSourceData(
-                    type = viewState.value.timeTriggerType.value,
-                    firstTimeStamp = ISO,
-                    lastRunTimestamp = "",
-                )
-            }
-        }
-        ETriggerSourceType.TimeTrigger
-        Log.i("addTriggerHTTP_sourceData", Gson().toJson(sourceData))
-
-        var fieldType: String? = null
-        var triggerSettings: TriggerSettings? = null
-
-        if (viewState.value.sourceType.value == ETriggerSourceType.FieldInGroup ||
-            viewState.value.sourceType.value == ETriggerSourceType.FieldInComplexGroup
-        ) {
-            val sourceSettings = viewState.value.sourceSettings.value
-            when (sourceSettings) {
-                is NumericTriggerSourceViewState -> {
-                    fieldType = "numeric"
-                    triggerSettings = INumericTrigger(
-                        value = sourceSettings.value.value!!,
-                        second_value = sourceSettings.second_value.value,
-                        type = sourceSettings.type.value,
+            val sourceData: TriggerSourceData
+            when (viewState.value.sourceType.value) {
+                ETriggerSourceType.FieldInGroup -> {
+                    val deviceId = viewState.value.sourceAddress.value.selectedDevice.value?.id
+                    val groupId = viewState.value.sourceAddress.value.selectedGroup.value?.id
+                    val fieldId = viewState.value.sourceAddress.value.selectedField.value?.id
+                    if (deviceId == null || groupId == null || fieldId == null) throw(Throwable("Source address isn't correct"))
+                    sourceData = ITriggerSourceAdress_fieldInGroup(
+                        deviceId = deviceId,
+                        groupId = groupId,
+                        fieldId = fieldId
                     )
                 }
-                is TextTriggerSourceViewState -> {
-                    fieldType = "text"
-                    triggerSettings = ITextTrigger(
-                        value = sourceSettings.value.value,
-                        type = sourceSettings.type.value,
+                ETriggerSourceType.FieldInComplexGroup -> {
+                    val deviceId = viewState.value.sourceAddress.value.selectedDevice.value?.id
+                    val groupId = viewState.value.sourceAddress.value.selectedGroup.value?.id
+                    val stateId = viewState.value.sourceAddress.value.selectedState.value?.id
+                    val fieldId = viewState.value.sourceAddress.value.selectedField.value?.id
+                    if (deviceId == null || groupId == null || stateId == null || fieldId == null) throw(Throwable(
+                        "Source address isn't correct"))
+                    sourceData = ITriggerSourceAdress_fieldInComplexGroup(
+                        deviceId = deviceId,
+                        complexGroupId = groupId,
+                        stateId = stateId,
+                        fieldId = fieldId
                     )
                 }
-                is BooleanTriggerSourceViewState -> {
-                    fieldType = "button"
-                    triggerSettings = IBooleanTrigger(
-                        value = sourceSettings.value.value,
+                ETriggerSourceType.TimeTrigger -> {
+                    val time = viewState.value.timeSourceTime.value
+                        ?: throw(Throwable("Time value isn't set"))
+
+                    val date = viewState.value.timeSourceDate.value
+                        ?: throw(Throwable("Date value isn't set"))
+                    val calendar = valuesToCalendar(
+                        year = date.get(Calendar.YEAR),
+                        month = date.get(Calendar.MONTH) + 1,
+                        day = date.get(Calendar.DAY_OF_MONTH),
+                        hour = time / 60,
+                        minute = time % 60
+                    )
+                    val offset = getTimeZoneOffsetInMinutes(calendar)
+                    val ISO = CalendarToIso(
+                        addTimeToCalendar(calendar = calendar, mins = -1 * offset)
+                    )
+                    Log.i("addTriggerHTTP", ISO)
+
+                    sourceData = ITriggerTimeSourceData(
+                        type = viewState.value.timeTriggerType.value,
+                        firstTimeStamp = ISO,
+                        lastRunTimestamp = "",
                     )
                 }
-                is MCTriggerSourceViewState -> {
-                    fieldType = "multipleChoice"
-                    triggerSettings = IMCTrigger(
-                        value = sourceSettings.value.value!!,
-                        type = sourceSettings.type.value,
+            }
+            ETriggerSourceType.TimeTrigger
+            Log.i("addTriggerHTTP_sourceData", Gson().toJson(sourceData))
+
+            var fieldType: String? = null
+            var triggerSettings: TriggerSettings? = null
+
+            if (viewState.value.sourceType.value == ETriggerSourceType.FieldInGroup ||
+                viewState.value.sourceType.value == ETriggerSourceType.FieldInComplexGroup
+            ) {
+                val sourceSettings = viewState.value.sourceSettings.value
+                when (sourceSettings) {
+                    is NumericTriggerSourceViewState -> {
+                        fieldType = "numeric"
+                        triggerSettings = INumericTrigger(
+                            value = sourceSettings.value.value!!,
+                            second_value = sourceSettings.second_value.value,
+                            type = sourceSettings.type.value,
+                        )
+                    }
+                    is TextTriggerSourceViewState -> {
+                        fieldType = "text"
+                        triggerSettings = ITextTrigger(
+                            value = sourceSettings.value.value,
+                            type = sourceSettings.type.value,
+                        )
+                    }
+                    is BooleanTriggerSourceViewState -> {
+                        fieldType = "button"
+                        triggerSettings = IBooleanTrigger(
+                            value = sourceSettings.value.value,
+                        )
+                    }
+                    is MCTriggerSourceViewState -> {
+                        fieldType = "multipleChoice"
+                        triggerSettings = IMCTrigger(
+                            value = sourceSettings.value.value!!,
+                            type = sourceSettings.type.value,
+                        )
+                    }
+                    is RGBTriggerSourceViewState -> {
+                        fieldType = "RGB"
+                        triggerSettings = IRGBTrigger(
+                            value = sourceSettings.value.value!!,
+                            second_value = sourceSettings.second_value.value,
+                            type = sourceSettings.type.value,
+                            contextType = sourceSettings.contextType.value,
+                        )
+                    }
+                    null -> throw(Throwable("Source settings unvalid"))
+                }
+            }
+            Log.i("addTriggerHTTP_fieldType", Gson().toJson(fieldType))
+            Log.i("addTriggerHTTP_triggerSettings", Gson().toJson(triggerSettings))
+
+            var value: Any? = null
+            var rgb_context: ERGBTriggerType_context? = null
+            if (viewState.value.responseType.value == ETriggerResponseType.SettingValue_fieldInGroup ||
+                viewState.value.responseType.value == ETriggerResponseType.SettingValue_fieldInComplexGroup
+            ) {
+                val responseSettings = viewState.value.responseSettings.value
+                    ?: throw(Throwable("Response settings unvalid"))
+                when (responseSettings) {
+                    is BooleanTriggerResponseViewState -> {
+                        value = responseSettings.value.value
+                    }
+                    is MCTriggerResponseViewState -> {
+                        if (responseSettings.value.value == null) throw(Throwable("Response multiple choice value isn't set"))
+                        value = responseSettings.value.value!!
+                    }
+                    is NumericTriggerResponseViewState -> {
+                        if (responseSettings.value.value == null) throw(Throwable("Numeric response value response isn't set"))
+                        value = responseSettings.value.value!!
+                    }
+                    is RGBTriggerResponseViewState -> {
+                        if (responseSettings.value.value == null) throw(Throwable("RGB response value response isn't set"))
+                        value = responseSettings.value.value!!
+                        rgb_context = responseSettings.contextType.value
+                    }
+                    is TextTriggerResponseViewState -> {
+                        if (responseSettings.value.value.isEmpty()) throw(Throwable("Text response was empty"))
+                        value = responseSettings.value.value
+                    }
+                }
+            }
+            Log.i("addTriggerHTTP_value", Gson().toJson(value))
+
+            val responseSettings: TriggerResponse
+            when (viewState.value.responseType.value) {
+                ETriggerResponseType.Email -> {
+                    responseSettings = ITriggerEmailResponse(
+                        emailSubject = viewState.value.notificationEmailViewState.value.title.value,
+                        emailText = viewState.value.notificationEmailViewState.value.text.value
                     )
                 }
-                is RGBTriggerSourceViewState -> {
-                    fieldType = "RGB"
-                    triggerSettings = IRGBTrigger(
-                        value = sourceSettings.value.value!!,
-                        second_value = sourceSettings.second_value.value,
-                        type = sourceSettings.type.value,
-                        contextType = sourceSettings.contextType.value,
+                ETriggerResponseType.MobileNotification -> {
+                    responseSettings = ITriggerMobileNotificationResponse(
+                        notificationTitle = viewState.value.notificationEmailViewState.value.title.value,
+                        notificationText = viewState.value.notificationEmailViewState.value.text.value
                     )
                 }
-                null -> return
-            }
-        }
-        Log.i("addTriggerHTTP_fieldType", Gson().toJson(fieldType))
-        Log.i("addTriggerHTTP_triggerSettings", Gson().toJson(triggerSettings))
-
-        var value: Any? = null
-        var rgb_context: ERGBTriggerType_context? = null
-        if (viewState.value.responseType.value == ETriggerResponseType.SettingValue_fieldInGroup ||
-            viewState.value.responseType.value == ETriggerResponseType.SettingValue_fieldInComplexGroup
-        ) {
-            val responseSettings = viewState.value.responseSettings.value ?: return
-            when (responseSettings) {
-                is BooleanTriggerResponseViewState -> {
-                    value = responseSettings.value.value
+                ETriggerResponseType.SettingValue_fieldInGroup -> {
+                    responseSettings = ITriggerSettingValueResponse_fieldInGroup(
+                        deviceId = viewState.value.responseAddress.value.selectedDevice.value!!.id,
+                        groupId = viewState.value.responseAddress.value.selectedGroup.value!!.id,
+                        fieldId = viewState.value.responseAddress.value.selectedField.value!!.id,
+                        value = value!!,
+                        rgbContext = rgb_context,
+                    )
                 }
-                is MCTriggerResponseViewState -> {
-                    if (responseSettings.value.value == null) return
-                    value = responseSettings.value.value!!
-                }
-                is NumericTriggerResponseViewState -> {
-                    if (responseSettings.value.value == null) return
-                    value = responseSettings.value.value!!
-                }
-                is RGBTriggerResponseViewState -> {
-                    if (responseSettings.value.value == null) return
-                    value = responseSettings.value.value!!
-                    rgb_context = responseSettings.contextType.value
-                }
-                is TextTriggerResponseViewState -> {
-                    value = responseSettings.value.value
+                ETriggerResponseType.SettingValue_fieldInComplexGroup -> {
+                    responseSettings = ITriggerSettingsValueResponse_fieldInComplexGroup(
+                        deviceId = viewState.value.responseAddress.value.selectedDevice.value!!.id,
+                        complexGroupId = viewState.value.responseAddress.value.selectedGroup.value!!.id,
+                        complexGroupState = viewState.value.responseAddress.value.selectedState.value!!.id,
+                        fieldId = viewState.value.responseAddress.value.selectedField.value!!.id,
+                        value = value!!,
+                        rgbContext = rgb_context
+                    )
                 }
             }
-        }
-        Log.i("addTriggerHTTP_value", Gson().toJson(value))
+            Log.i("addTriggerHTTP_responseSettings", Gson().toJson(responseSettings))
 
-        val responseSettings: TriggerResponse
-        when (viewState.value.responseType.value) {
-            ETriggerResponseType.Email -> {
-                responseSettings = ITriggerEmailResponse(
-                    emailSubject = viewState.value.notificationEmailViewState.value.title.value,
-                    emailText = viewState.value.notificationEmailViewState.value.text.value
+            viewModelScope.launch {
+                deviceRepository.addTrigger(
+                    triggerName = viewState.value.triggerName,
+                    sourceType = viewState.value.sourceType.value,
+                    sourceData = sourceData,
+                    fieldType = fieldType,
+                    settings = triggerSettings,
+                    responseType = viewState.value.responseType.value,
+                    responseSettings = responseSettings,
                 )
             }
-            ETriggerResponseType.MobileNotification -> {
-                responseSettings = ITriggerMobileNotificationResponse(
-                    notificationTitle = viewState.value.notificationEmailViewState.value.title.value,
-                    notificationText = viewState.value.notificationEmailViewState.value.text.value
-                )
-            }
-            ETriggerResponseType.SettingValue_fieldInGroup -> {
-                responseSettings = ITriggerSettingValueResponse_fieldInGroup(
-                    deviceId = viewState.value.responseAddress.value.selectedDevice.value!!.id,
-                    groupId = viewState.value.responseAddress.value.selectedGroup.value!!.id,
-                    fieldId = viewState.value.responseAddress.value.selectedField.value!!.id,
-                    value = value!!,
-                    rgbContext = rgb_context,
-                )
-            }
-            ETriggerResponseType.SettingValue_fieldInComplexGroup -> {
-                responseSettings = ITriggerSettingsValueResponse_fieldInComplexGroup(
-                    deviceId = viewState.value.responseAddress.value.selectedDevice.value!!.id,
-                    complexGroupId = viewState.value.responseAddress.value.selectedGroup.value!!.id,
-                    complexGroupState = viewState.value.responseAddress.value.selectedState.value!!.id,
-                    fieldId = viewState.value.responseAddress.value.selectedField.value!!.id,
-                    value = value!!,
-                    rgbContext = rgb_context
-                )
-            }
-        }
-        Log.i("addTriggerHTTP_responseSettings", Gson().toJson(responseSettings))
 
-
-        viewModelScope.launch {
-            deviceRepository.addTrigger(
-                triggerName = viewState.value.triggerName,
-                sourceType = viewState.value.sourceType.value,
-                sourceData = sourceData,
-                fieldType = fieldType,
-                settings = triggerSettings,
-                responseType = viewState.value.responseType.value,
-                responseSettings = responseSettings,
-            )
+        } catch (e: Throwable) {
+            Toast.makeText(DevControlApp.application.applicationContext,
+                e.message,
+                Toast.LENGTH_SHORT).show()
         }
     }
 }

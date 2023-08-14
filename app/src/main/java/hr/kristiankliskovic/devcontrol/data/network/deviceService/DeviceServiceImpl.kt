@@ -584,7 +584,11 @@ class DeviceServiceImpl(
             body = getBasicGson().create().toJson(body)
         )
 
-        return (httpResponse != null && httpResponse.status.value in 200..299)
+        val result = (httpResponse != null && httpResponse.status.value in 200..299)
+        Toast.makeText(DevControlApp.application.applicationContext,
+            if (result) "Trigger added" else "Trigger NOT added",
+            Toast.LENGTH_SHORT).show()
+        return result
     }
 
     override suspend fun deleteTrigger(
