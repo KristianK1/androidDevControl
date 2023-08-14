@@ -178,6 +178,8 @@ interface DeviceRepository {
     suspend fun deleteTrigger(triggerId: Int): Boolean
 
     suspend fun seeAllTriggers()
+
     val allTriggersForUserResponse: StateFlow<GetAllUserTriggersResponse?>
+    
     fun clearAllTriggersResponse()
 }

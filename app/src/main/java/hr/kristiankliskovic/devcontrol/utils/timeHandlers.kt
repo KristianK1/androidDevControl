@@ -28,11 +28,19 @@ fun CalendarToIso(c: Calendar): String {
 }
 
 fun ISOtoCalendar(iso: String): Calendar {
-    val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-    val date = sdf.parse(iso)
-    val cal = Calendar.getInstance()
-    cal.time = date
-    return cal
+    try{
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        val date = sdf.parse(iso)
+        val cal = Calendar.getInstance()
+        cal.time = date
+        return cal
+    }catch(_: Throwable){
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        val date = sdf.parse(iso)
+        val cal = Calendar.getInstance()
+        cal.time = date
+        return cal
+    }
 }
 
 
@@ -133,13 +141,17 @@ fun getTimeZoneOffsetInMinutes(calendar: Calendar): Int {
 }
 
 fun getLocalTimeForDisplayFromISO(iso: String): String {
+    Log.i("triggerMap", "time0")
     val calendar = ISOtoCalendar(iso)
+    Log.i("triggerMap", "time1")
     val timeZoneOffset = getTimeZoneOffsetInMinutes(calendar)
+    Log.i("triggerMap", "time2")
     val shiftedTime = addTimeToCalendar(
         calendar = calendar,
         mins = timeZoneOffset,
     )
     val sign = if (timeZoneOffset >= 0) "+" else "-"
+    Log.i("triggerMap", "time3")
     return String.format(
         "%02d/%02d/%04d %02d:%02d (GMT${sign}%d:%02d)",
         shiftedTime.get(Calendar.DAY_OF_MONTH),

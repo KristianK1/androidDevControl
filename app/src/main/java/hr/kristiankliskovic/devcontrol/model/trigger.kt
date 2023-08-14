@@ -2,6 +2,7 @@ package hr.kristiankliskovic.devcontrol.model
 
 import android.util.Log
 import com.google.gson.Gson
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 enum class ENumericTriggerType {
@@ -39,7 +40,6 @@ enum class ERGBTriggerType_context {
     B,
 }
 
-@Serializable
 sealed class TriggerSettings()
 
 data class INumericTrigger(
@@ -100,7 +100,7 @@ enum class ETriggerTimeType {
 data class ITriggerTimeSourceData(
     val type: ETriggerTimeType,
     val firstTimeStamp: String,
-    val lastRunTimestamp: String,
+    val lastRunTimestamp: String?,
 ) : TriggerSourceData()
 
 @Serializable
@@ -149,6 +149,7 @@ data class ITrigger(
     var sourceType: ETriggerSourceType,
     var sourceData: TriggerSourceData,
     var fieldType: String? = null, // Replace this with a sealed class hierarchy in Kotlin
+    @Contextual
     var settings: TriggerSettings? = null,
     var responseType: ETriggerResponseType,
     var responseSettings: TriggerResponse,

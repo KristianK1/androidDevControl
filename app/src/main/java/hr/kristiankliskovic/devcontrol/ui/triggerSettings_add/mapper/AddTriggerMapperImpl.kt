@@ -5,40 +5,6 @@ import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings_add.*
 
 class AddTriggerMapperImpl : AddTriggerMapper {
-//    override fun toTriggerSourceDeviceViewState(devices: List<Device>): List<TriggerSourceDeviceViewState> {
-//        val devices = devices.map { device ->
-//            TriggerSourceDeviceViewState(
-//                id = device.deviceId,
-//                name = device.deviceName,
-//                groups = device.groups.map { group ->
-//                    TriggerSourceGroupViewState(
-//                        groupId = group.groupId,
-//                        groupName = group.groupName,
-//                        fields = group.fields.map { field ->
-//                            fieldToFieldViewState(field)
-//                        }
-//                    )
-//                },
-//                complexGroups = device.complexGroups.map { complexGroup ->
-//                    TriggerSourceComplexGroupViewState(
-//                        complexGroupId = complexGroup.complexGroupId,
-//                        complexGroupName = complexGroup.groupName,
-//                        states = complexGroup.states.map { complexGroupState ->
-//                            TriggerSourceComplexGroupStateViewState(
-//                                stateId = complexGroupState.stateId,
-//                                stateName = complexGroupState.stateName,
-//                                fields = complexGroupState.fields.map { field ->
-//                                    fieldToFieldViewState(field)
-//                                }
-//                            )
-//                        }
-//                    )
-//                }
-//            )
-//        }
-//        return devices
-//    }
-
     override fun devicesToEntityViewState(
         devices: List<Device>,
     ): List<DeviceEntityViewState> {

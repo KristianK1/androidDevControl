@@ -492,7 +492,7 @@ class AddTriggerViewModel(
                 )
 
                 viewState.value.responseAddress.value.fieldChoices =
-                    addTriggerMapper.fieldsToEntityViewState(group.fields, false).toMutableList()
+                    addTriggerMapper.fieldsToEntityViewState(group.fields, true).toMutableList()
             }
             ETriggerResponseType.SettingValue_fieldInComplexGroup -> {
                 val device = devices.value.find {

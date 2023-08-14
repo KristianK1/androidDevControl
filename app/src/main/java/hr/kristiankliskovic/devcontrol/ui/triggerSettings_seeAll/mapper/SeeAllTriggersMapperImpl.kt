@@ -1,5 +1,7 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_seeAll.mapper
 
+import android.util.Log
+import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.triggerViewComponents.*
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings_seeAll.SeeAllTriggersViewState
@@ -15,30 +17,45 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
         triggers: List<ITrigger>,
         devices: List<Device>,
     ): SeeAllTriggersViewState {
+        Log.i("triggerMap", "start mapper F")
+        Log.i("triggerMap_devices", "" + devices.size)
         return SeeAllTriggersViewState(
             triggers = triggers.mapNotNull { trigger ->
+                Log.i("triggerMap", "start mapper F2")
+                Log.i("triggerMap", "triggerName: ${trigger.id}")
+
                 var sourceAddressViewState: TriggerView_AddressViewState? = null
                 var sourceFieldInfo: SourceFieldInfoViewState? = null
                 var timeTriggerInfo: TimeTriggerInfoViewState? = null
 
                 val sourceData = trigger.sourceData
                 val sourceSettings = trigger.settings
+                Log.i("triggerMap", "start source data")
 
                 when (trigger.sourceType) {
                     ETriggerSourceType.FieldInGroup -> {
                         var sourceAddressViewState: TriggerView_AddressViewState
 
                         val sourceData = trigger.sourceData;
+                        Log.i("triggerMap_printSourceData", Gson().toJson(sourceData))
+                        Log.i("triggerMap_printSourceData_type", "" + sourceData::class)
+
                         if (sourceData is ITriggerSourceAdress_fieldInGroup) {
+                            Log.i("triggerMap", "source data is FG")
                             val device = devices.find { it.deviceId == sourceData.deviceId }
                             if (device != null) {
+                                Log.i("triggerMap", "source_FG_foundDevice")
+
                                 val group = device.groups.find { it.groupId == sourceData.groupId }
                                 if (group != null) {
+                                    Log.i("triggerMap", "source_FG_foundGroup")
                                     val fields = group.fields
                                     for (field in fields) {
                                         when (field) {
                                             is NumericDeviceField -> {
                                                 if (field.fieldId == sourceData.fieldId) {
+                                                    Log.i("triggerMap",
+                                                        "source_FG_foundNumericField")
                                                     sourceAddressViewState =
                                                         TriggerView_AddressViewState(
                                                             sourceDeviceId = device.deviceId,
@@ -60,6 +77,7 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                                             }
                                             is TextDeviceField -> {
                                                 if (field.fieldId == sourceData.fieldId) {
+                                                    Log.i("triggerMap", "source_FG_foundTextField")
                                                     sourceAddressViewState =
                                                         TriggerView_AddressViewState(
                                                             sourceDeviceId = device.deviceId,
@@ -80,6 +98,8 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                                             }
                                             is ButtonDeviceField -> {
                                                 if (field.fieldId == sourceData.fieldId) {
+                                                    Log.i("triggerMap",
+                                                        "source_FG_foundButtonField")
                                                     sourceAddressViewState =
                                                         TriggerView_AddressViewState(
                                                             sourceDeviceId = device.deviceId,
@@ -99,6 +119,7 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                                             }
                                             is MultipleChoiceDeviceField -> {
                                                 if (field.fieldId == sourceData.fieldId) {
+                                                    Log.i("triggerMap", "source_FG_foundMCField")
                                                     sourceAddressViewState =
                                                         TriggerView_AddressViewState(
                                                             sourceDeviceId = device.deviceId,
@@ -122,6 +143,7 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                                             }
                                             is RGBDeviceField -> {
                                                 if (field.fieldId == sourceData.fieldId) {
+                                                    Log.i("triggerMap", "source_FG_foundRGBField")
                                                     sourceAddressViewState =
                                                         TriggerView_AddressViewState(
                                                             sourceDeviceId = device.deviceId,
@@ -151,6 +173,7 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                     }
                     ETriggerSourceType.FieldInComplexGroup -> {
                         if (sourceData is ITriggerSourceAdress_fieldInComplexGroup) {
+                            Log.i("triggerMap", "source data is FCG")
                             val device = devices.find { it.deviceId == sourceData.deviceId }
                             if (device != null) {
                                 val complexGroup =
@@ -287,16 +310,27 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                     }
                     ETriggerSourceType.TimeTrigger -> {
                         if (sourceData is ITriggerTimeSourceData) {
+                            Log.i("triggerMap", "source data is time")
+                            var lastFired = ""
+                            if (sourceData.lastRunTimestamp != null) {
+                                try {
+                                    lastFired =
+                                        getLocalTimeForDisplayFromISO(sourceData.lastRunTimestamp)
+                                } catch (_: Throwable) {
 
+                                }
+                            }
                             timeTriggerInfo = TimeTriggerInfoViewState(
                                 type = sourceData.type,
                                 timeStamp = getLocalTimeForDisplayFromISO(sourceData.firstTimeStamp),
-                                lastFired = getLocalTimeForDisplayFromISO(sourceData.lastRunTimestamp)
+                                lastFired = lastFired
                             )
+                            Log.i("triggerMap", "end time data")
 
                         }
                     }
                 }
+                Log.i("triggerMap", "end source data")
 
                 var responseAddressViewState: TriggerView_AddressViewState? = null
                 var responseFieldInfoViewState: ResponseFieldInfoViewState? = null
