@@ -25,12 +25,12 @@ enum class EMCTriggerType {
     IsNotEqualTo,
 }
 
-enum class ERGBTriggerType_numeric {
+enum class ERGBTriggerType_numeric{
     Bigger,
     Smaller,
     Equal,
     Inbetween,
-    NotInBetween,
+    NotInBetween
 }
 
 enum class ERGBTriggerType_context {
@@ -72,11 +72,11 @@ data class IBooleanTrigger(
 enum class ETriggerSourceType {
     FieldInGroup,
     FieldInComplexGroup,
-    TimeTrigger,
+    TimeTrigger
 }
 
 @Serializable
-sealed class TriggerSourceData()
+sealed class TriggerSourceData
 
 data class ITriggerSourceAdress_fieldInGroup(
     val deviceId: Int,
@@ -95,9 +95,6 @@ enum class ETriggerTimeType {
     Once,
     Daily,
     Weekly,
-    // ChooseDaysInWeek,
-    // Monthly,
-    // Wearly,
 }
 
 data class ITriggerTimeSourceData(
@@ -137,7 +134,6 @@ data class ITriggerSettingsValueResponse_fieldInComplexGroup(
 
     ) : TriggerResponse()
 
-@Serializable
 enum class ETriggerResponseType {
     Email,
     MobileNotification,
@@ -152,8 +148,8 @@ data class ITrigger(
     var userId: Int,
     var sourceType: ETriggerSourceType,
     var sourceData: TriggerSourceData,
-    var fieldType: String, // Replace this with a sealed class hierarchy in Kotlin
-    var settings: TriggerSettings,
+    var fieldType: String? = null, // Replace this with a sealed class hierarchy in Kotlin
+    var settings: TriggerSettings? = null,
     var responseType: ETriggerResponseType,
     var responseSettings: TriggerResponse,
 ) {

@@ -3,9 +3,12 @@ package hr.kristiankliskovic.devcontrol.data.network.deviceService
 import android.util.Log
 import android.widget.Toast
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 import hr.kristiankliskovic.devcontrol.DevControlApp
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.data.network.HTTPSERVER
+import hr.kristiankliskovic.devcontrol.data.network.customDeserializers.triggers.*
 import hr.kristiankliskovic.devcontrol.data.network.model.*
 import hr.kristiankliskovic.devcontrol.model.*
 import io.ktor.client.*
@@ -601,17 +604,69 @@ class DeviceServiceImpl(
     override suspend fun seeAllTriggers(
         authToken: String,
     ): GetAllUserTriggersResponse? {
+        Log.i("ALLT_1", "BEFORE HTTP GET ALL")
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$triggers_routerPath$getAllTriggersTrigger_routerPath",
             body = GetAllUserTriggersRequest(
                 authToken = authToken,
             )
         )
+        Log.i("ALLT_1", "AFTER HTTP GET ALL")
+
         return if (httpResponse != null && httpResponse.status.value in 200..299) {
-            val x = httpResponse.body<GetAllUserTriggersResponse>()
-            Log.i("ALLT_1", Gson().toJson(x))
-            x
+            val body: String = httpResponse.body()
+
+            var fromJson: List<ITrigger> = listOf()
+            try {
+                val jsonObject = JsonParser.parseString(body).asJsonObject
+
+                val triggersArray = jsonObject.getAsJsonArray("triggers")
+
+                val triggers: List<ITrigger> = triggersArray.map { triggerElement ->
+                    val triggerObject = triggerElement.asJsonObject
+
+                    val sourceTypeOrdinal = triggerObject.get("sourceType").asInt
+                    val sourceType = ETriggerSourceType.values()[sourceTypeOrdinal]
+                    Log.i("ALLT_sourceType", sourceType.name)
+
+                    val fieldType = triggerObject.get("fieldType")?.asString
+                    Log.i("ALLT_fieldType", fieldType ?: "no field type")
+
+                    val responseTypeOrdinal = triggerObject.get("responseType").asInt
+                    val responseType = ETriggerResponseType.values()[responseTypeOrdinal]
+                    Log.i("ALLT_responseType", responseType.name)
+
+                    val newGson = getBasicGson()
+                        .registerTypeAdapter(TriggerSourceData::class.java,
+                            TriggerSourceDataDeserializer(sourceType))
+                        .registerTypeAdapter(TriggerSettings::class.java,
+                            TriggerSettingsDeserializer(fieldType))
+                        .registerTypeAdapter(TriggerResponse::class.java,
+                            TriggerResponseSettingsDeserializer(responseType))
+                        .create()
+                    Log.i("ALLT", "after new GSON")
+
+                    val triggerJson = triggerElement.toString()
+                    Log.i("ALLT", "after triggerElement to string")
+                    Log.i("ALLT", triggerJson)
+
+                    val triggerParsed = newGson.fromJson(triggerJson, ITrigger::class.java)
+                    Log.i("ALLT_triggerParsed", Gson().toJson(triggerParsed))
+                    triggerParsed
+                }
+                fromJson = triggers
+            } catch (E: Throwable) {
+                Log.i("ALLT_error", E.message ?: "")
+            }
+
+//          Log.i("ALLT", "after from JSON")
+
+            Log.i("ALLT", Gson().toJson(fromJson))
+            GetAllUserTriggersResponse(
+                triggers = fromJson
+            )
         } else {
+            Log.i("ALLT_1", "NULL RESPONSE")
             null
         }
     }

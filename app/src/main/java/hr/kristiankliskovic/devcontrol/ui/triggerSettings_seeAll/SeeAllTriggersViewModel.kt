@@ -15,7 +15,7 @@ class SeeAllTriggersViewModel(
     init {
         Log.i("ALLT", "init ViewModel")
         deviceRepository.clearAllTriggersResponse()
-        Log.i("ALLT", "init ViewModel")
+        Log.i("ALLT", "init ViewModel2")
         viewModelScope.launch {
             deviceRepository.seeAllTriggers()
         }

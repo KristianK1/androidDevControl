@@ -440,7 +440,7 @@ class DeviceRepositoryImpl(
         val response = deviceService.seeAllTriggers(
             authToken = authTokenRepository.getAuthToken()!!,
         )
-        Log.i("ALLT", Gson().toJson(response))
+        Log.i("ALLT_DONEALL", Gson().toJson(response))
         allTriggersForUserResponseInternal.emit(response)
     }
 
