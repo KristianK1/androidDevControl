@@ -11,6 +11,7 @@ val userRepositoryModule = module {
             userService = get(),
             authTokenRepository = get(),
             ioDispatcher = Dispatchers.IO,
+            firebaseNotificationTokenRepository = get(),
             websocketService = get(),
         )
     }

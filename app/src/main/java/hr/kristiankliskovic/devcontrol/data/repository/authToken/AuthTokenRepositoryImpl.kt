@@ -1,6 +1,5 @@
 package hr.kristiankliskovic.devcontrol.data.repository.authToken
 
-import android.util.Log
 import hr.kristiankliskovic.devcontrol.data.encrpytedPreferences.PreferencesManager
 
 private const val PREFS_KEY_AUTH_TOKEN = "authToken"
@@ -10,8 +9,7 @@ class AuthTokenRepositoryImpl(
 ): AuthTokenRepository {
 
     override fun getAuthToken(): String? {
-        val x = preferencesManager.getString(PREFS_KEY_AUTH_TOKEN)
-        return x
+        return preferencesManager.getString(PREFS_KEY_AUTH_TOKEN)
     }
 
     override fun saveAuthToken(token: String) {

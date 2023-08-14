@@ -6,11 +6,13 @@ import kotlinx.serialization.Serializable
 data class LoginByCredsRequest(
     val username: String,
     val password: String,
+    val firebaseToken: String?,
 )
 
 @Serializable
 data class LoginByTokenRequest(
-    val authToken: String
+    val authToken: String,
+    val firebaseToken: String?,
 )
 
 @Serializable
@@ -19,6 +21,7 @@ data class LoginResponse(
     val authToken: String,
     val username: String,
     val email: String,
+    val firebaseToken: String?,
 )
 
 @Serializable
@@ -29,7 +32,7 @@ data class LogoutRequest(
 
 @Serializable
 data class DeleteUserRequest(
-    val authToken: String
+    val authToken: String,
 )
 
 @Serializable
@@ -52,6 +55,7 @@ data class RegisterRequest(
     val username: String,
     val email: String,
     val password: String,
+    val firebaseToken: String?,
 )
 
 @Serializable

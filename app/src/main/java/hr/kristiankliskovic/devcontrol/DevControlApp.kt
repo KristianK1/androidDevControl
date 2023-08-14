@@ -3,6 +3,7 @@ package hr.kristiankliskovic.devcontrol
 import android.app.Application
 import hr.kristiankliskovic.devcontrol.data.di.authTokenRepositoryModule
 import hr.kristiankliskovic.devcontrol.data.di.deviceRepositoryModule
+import hr.kristiankliskovic.devcontrol.data.di.firebaseNotificationTokenModule
 import hr.kristiankliskovic.devcontrol.data.encrpytedPreferences.di.preferencesModule
 import hr.kristiankliskovic.devcontrol.data.network.di.networkModule
 import hr.kristiankliskovic.devcontrol.data.di.userRepositoryModule
@@ -53,6 +54,7 @@ class DevControlApp: Application() {
                 emailModule,
                 addTriggerModule,
                 getAllTriggersModule,
+                firebaseNotificationTokenModule,
             )
         }
     }

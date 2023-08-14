@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.gson.Gson
 import hr.kristiankliskovic.devcontrol.data.network.deviceService.DeviceService
 import hr.kristiankliskovic.devcontrol.data.network.deviceService.DeviceServiceImpl
+import hr.kristiankliskovic.devcontrol.data.network.pushNotifications.PushNotificationService
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserService
 import hr.kristiankliskovic.devcontrol.data.network.userService.UserServiceImpl
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
@@ -61,6 +62,11 @@ val networkModule = module {
     single<WSDataParser> {
         WSDataParserImpl(
             gson = get()
+        )
+    }
+    single {
+        PushNotificationService(
+            firebaseNotificationTokenRepository = get(),
         )
     }
 }

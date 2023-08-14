@@ -28,12 +28,13 @@ class UserServiceImpl(
     private val client: HttpClient,
 ) : UserService {
 
-    override suspend fun loginUserByCreds(username: String, password: String): LoginResponse? {
+    override suspend fun loginUserByCreds(username: String, password: String, firebaseToken: String?): LoginResponse? {
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$userAuth_routerPath$loginByCreds_routerPath",
             body = LoginByCredsRequest(
                 username = username,
                 password = password,
+                firebaseToken = firebaseToken,
             )
         )
         if (httpResponse != null && httpResponse.status.value in 200..299) {
@@ -48,11 +49,12 @@ class UserServiceImpl(
         }
     }
 
-    override suspend fun loginUserByToken(token: String): LoginResponse? {
+    override suspend fun loginUserByToken(token: String, firebaseToken: String?): LoginResponse? {
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$userAuth_routerPath$loginByToken_routerPath",
             body = LoginByTokenRequest(
                 authToken = token,
+                firebaseToken = firebaseToken,
             ),
         )
         return if (httpResponse != null && httpResponse.status.value in 200..299) {
@@ -158,13 +160,14 @@ class UserServiceImpl(
         return success
     }
 
-    override suspend fun registerUser(username: String, password: String, email: String): LoginResponse? {
+    override suspend fun registerUser(username: String, password: String, email: String, firebaseToken: String?): LoginResponse? {
         val httpResponse = httpPostRequest(
             url = "${HTTPSERVER.httpServer}$userAuth_routerPath$register_routerPath",
             body = RegisterRequest(
                 username = username,
                 password = password,
                 email = email,
+                firebaseToken = firebaseToken,
             )
         )
         if (httpResponse != null && httpResponse.status.value in 200..299) {

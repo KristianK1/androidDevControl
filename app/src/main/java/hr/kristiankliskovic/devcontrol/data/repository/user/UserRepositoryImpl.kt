@@ -7,6 +7,7 @@ import hr.kristiankliskovic.devcontrol.data.network.model.LoginResponse
 import hr.kristiankliskovic.devcontrol.data.network.model.WssLogoutReason
 import hr.kristiankliskovic.devcontrol.data.network.wsService.WebSocketService
 import hr.kristiankliskovic.devcontrol.data.repository.authToken.AuthTokenRepository
+import hr.kristiankliskovic.devcontrol.data.repository.firebaseNotificationToken.FirebaseNotificationTokenRepository
 import hr.kristiankliskovic.devcontrol.model.LoggedInUser
 import hr.kristiankliskovic.devcontrol.model.User
 import kotlinx.coroutines.*
@@ -16,6 +17,7 @@ import kotlinx.serialization.descriptors.PrimitiveKind
 class UserRepositoryImpl(
     private val userService: UserService,
     private val authTokenRepository: AuthTokenRepository,
+    private val firebaseNotificationTokenRepository: FirebaseNotificationTokenRepository,
     private val websocketService: WebSocketService,
     ioDispatcher: CoroutineDispatcher,
 ) : UserRepository {
@@ -76,16 +78,18 @@ class UserRepositoryImpl(
     }
 
     override suspend fun loginByCreds(username: String, password: String) {
-        val loginResponse = userService.loginUserByCreds(username, password)
+        val firebaseToken = firebaseNotificationTokenRepository.getToken()
+        val loginResponse = userService.loginUserByCreds(username, password, firebaseToken)
         if (loginResponse != null) {
             addUser(loginResponse)
         }
     }
 
     override suspend fun loginByToken() {
+        val firebaseToken = firebaseNotificationTokenRepository.getToken()
         val token = authTokenRepository.getAuthToken()
         if (token != null) {
-            val loginResponse = userService.loginUserByToken(token)
+            val loginResponse = userService.loginUserByToken(token, firebaseToken)
             if (loginResponse != null) {
                 addUser(loginResponse)
             }
@@ -101,7 +105,8 @@ class UserRepositoryImpl(
     }
 
     override suspend fun registerUser(username: String, password: String, email: String) {
-        val loginResponse = userService.registerUser(username, password, email)
+        val firebaseToken = firebaseNotificationTokenRepository.getToken()
+        val loginResponse = userService.registerUser(username, password, email, firebaseToken)
         if (loginResponse != null) {
             addUser(loginResponse)
         }
