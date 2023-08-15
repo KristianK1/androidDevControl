@@ -7,6 +7,7 @@ import hr.kristiankliskovic.devcontrol.data.di.firebaseNotificationTokenModule
 import hr.kristiankliskovic.devcontrol.data.encrpytedPreferences.di.preferencesModule
 import hr.kristiankliskovic.devcontrol.data.network.di.networkModule
 import hr.kristiankliskovic.devcontrol.data.di.userRepositoryModule
+import hr.kristiankliskovic.devcontrol.data.network.pushNotifications.PushNotificationService
 import hr.kristiankliskovic.devcontrol.ui.addNewDevice.di.addNewDeviceModule
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDevice.di.adminPanelDeviceModule
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission.di.addPermissionModule
@@ -24,6 +25,7 @@ import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.di.userProfileSett
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsAddEmail.di.emailModule
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword.di.changePasswordModule
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.compose.get
 import org.koin.core.context.startKoin
 
 class DevControlApp: Application() {

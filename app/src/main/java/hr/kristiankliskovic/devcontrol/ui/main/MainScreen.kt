@@ -39,6 +39,7 @@ import hr.kristiankliskovic.devcontrol.ui.register.RegisterRoute
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.UserProfileSettingsRoute
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword.ChangePasswordRoute
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.data.network.pushNotifications.PushNotificationService
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsRoute
 import hr.kristiankliskovic.devcontrol.ui.settings.SettingsRoute
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings.TriggerSettingsRoute
@@ -51,6 +52,7 @@ import org.koin.core.parameter.parametersOf
 
 @Composable
 fun MainScreen() {
+    val f: PushNotificationService = get()
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val showIcons by remember {
