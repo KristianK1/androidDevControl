@@ -21,7 +21,6 @@ data class LoginResponse(
     val authToken: String,
     val username: String,
     val email: String,
-    val firebaseToken: String?,
 )
 
 @Serializable
