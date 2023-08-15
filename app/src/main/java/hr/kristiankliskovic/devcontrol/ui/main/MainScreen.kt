@@ -25,7 +25,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import hr.kristiankliskovic.devcontrol.DevControlApp
 import hr.kristiankliskovic.devcontrol.navigation.*
 import hr.kristiankliskovic.devcontrol.ui.addNewDevice.AddNewDeviceRoute
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDevice.AdminPanelDeviceRoute
@@ -52,7 +51,6 @@ import org.koin.core.parameter.parametersOf
 
 @Composable
 fun MainScreen() {
-    val f: PushNotificationService = get()
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val showIcons by remember {

@@ -9,10 +9,11 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import hr.kristiankliskovic.devcontrol.DevControlApp
 import hr.kristiankliskovic.devcontrol.data.repository.firebaseNotificationToken.FirebaseNotificationTokenRepository
+import org.koin.android.ext.android.inject
 
 class PushNotificationService(
-    private val firebaseNotificationTokenRepository: FirebaseNotificationTokenRepository,
 ) : FirebaseMessagingService() {
+    private val firebaseNotificationTokenRepository: FirebaseNotificationTokenRepository by inject()
 
     init {
         Log.i("tokeeen", "init class")

@@ -64,9 +64,9 @@ val networkModule = module {
             gson = get()
         )
     }
-    single {
-        PushNotificationService(
-            firebaseNotificationTokenRepository = get(),
-        )
-    }
+//    single {
+//        PushNotificationService(
+//            firebaseNotificationTokenRepository = get(),
+//        )
+//    }
 }
