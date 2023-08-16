@@ -127,7 +127,7 @@ class AddTriggerViewModel(
     ) {
         viewState.value.timeSourceDate.value = valuesToCalendar(
             year = year,
-            month = month,
+            month = month + 1,
             day = day,
         )
     }
