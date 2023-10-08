@@ -5,15 +5,21 @@ data class Server(
     val wsServer: String,
 )
 
-val SB_PC_WiFi = Server(
+val PC_WiFi = Server(
     httpServer = "http://192.168.1.150:8000",
     wsServer = "192.168.1.150"
 )
 
-val SB_PC_LAN = Server(
+val PC_LAN = Server(
     httpServer = "http://192.168.1.70:8000",
     wsServer = "192.168.1.70"
 )
+
+val laptop_WiFi = Server(
+    httpServer = "http://192.168.1.205:8000",
+    wsServer = "192.168.1.205"
+)
+
 
 val renderHosting = Server(
     httpServer = "https://devcontrol-backend.onrender.com",
@@ -24,4 +30,4 @@ val herokuHosting = Server(
     httpServer = "https://devcontrol.herokuapp.com",
     wsServer = "devcontrol.herokuapp.com"
 )
-val HTTPSERVER = SB_PC_LAN
+val HTTPSERVER = laptop_WiFi
