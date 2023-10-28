@@ -62,4 +62,65 @@
     <color name="triggerItem_background">#FFF0F0F0</color>
 
 
+    <!-- Dark Mode Colors -->
+    <color name="purple_200_dark">#FFAA70E6</color> <!-- Darker purple -->
+    <color name="purple_500_dark">#FF6D00C3</color> <!-- Darker purple -->
+    <color name="purple_700_dark">#FF450093</color> <!-- Darker purple -->
+    <color name="teal_200_dark">#FF02A49B</color> <!-- Darker teal -->
+    <color name="teal_700_dark">#FF00695C</color> <!-- Darker teal -->
+    <color name="black_dark">#FF000000</color> <!-- No change, it's already black -->
+    <color name="white_dark">#FFFFFFFF</color> <!-- No change, it's already white -->
+
+    <color name="buttonField_ON_dark">#FF00AA00</color> <!-- Darker green for ON button -->
+    <color name="buttonField_OFF_dark">#FFAA0000</color> <!-- Darker red for OFF button -->
+
+    <color name="deviceStatusOnline_dark">#7800AA00</color> <!-- Darker green for online status -->
+    <color name="deviceStatusOffline_dark">#70AA0000</color> <!-- Darker red for offline status -->
+
+    <color name="text_link_color_dark">#FF00AAFF</color> <!-- Darker blue for link color -->
+
+    <color name="myDevicesScreen_list_line_dark">#FF888888</color> <!-- Slightly darker gray for list lines -->
+
+    <color name="fieldComponent_title_dark">#FFCCCCCC</color> <!-- Darker gray for component title -->
+    <color name="fieldComponent_border_dark">#60202020</color> <!-- Darker gray for component border -->
+    <color name="fieldComponent_button_background_dark">#FF909090</color> <!-- Darker gray for button background -->
+
+    <color name="deviceGroup_border_dark">#FF404040</color> <!-- Darker gray for device group border -->
+
+    <color name="loginRegisterScreen_button_color_dark">#FF909090</color> <!-- Darker gray for buttons -->
+
+    <color name="userSettings_dividerLine_dark">#FFCCCCCC</color> <!-- Darker gray for divider lines -->
+    <color name="adminPanelHomeScreen_dividerLine_dark">#FFCCCCCC</color> <!-- Darker gray for divider lines -->
+
+    <color name="addPermissionScreen_user_button_dark">#FF909090</color> <!-- Darker gray for user buttons -->
+
+    <color name="addPermissionScreen_SelectedItem_background_dark">#FF909090</color> <!-- Darker gray for selected item background -->
+    <color name="addPermissionScreen_addPermission_button_background_dark">#FFA0A0A0</color> <!-- Slightly darker gray for add permission button background -->
+
+    <color name="seeAllPermissionScreen_rights_borders_dark">#FF303030</color> <!-- Darker gray for rights borders -->
+    <color name="seeAllPermissionScreen_userPermission_border_dark">#FFD0D0D0</color> <!-- Slightly darker gray for user permission border -->
+
+    <color name="adminPanelDevice_dividerLine_dark">#FFCCCCCC</color> <!-- Darker gray for divider lines -->
+
+    <color name="adminPanelDevice_deleteDeviceButton_background_dark">#FF909090</color> <!-- Darker gray for delete device button background -->
+
+    <color name="seeAllPermissionsScreen_groups_background_dark">#FF101010</color> <!-- Darker gray for groups background -->
+    <color name="seeAllPermissionsScreen_group_background_dark">#FF1A1A1A</color> <!-- Darker gray for group background -->
+
+    <color name="seeAllPermissionsScreen_fields_background_dark">#FF303030</color> <!-- Darker gray for fields background -->
+    <color name="seeAllPermissionsScreen_field_background_dark">#FF242424</color> <!-- Darker gray for field background -->
+
+    <color name="topBar_dividerLine_dark">#FFCCCCCC</color> <!-- Darker gray for top bar divider lines -->
+
+    <color name="WS_status_Online_dark">#7800AA00</color> <!-- Darker green for WebSocket online status -->
+    <color name="WS_status_Offline_dark">#70AA0000</color> <!-- Darker red for WebSocket offline status -->
+
+    <color name="addTrigger_setDateTime_background_dark">#FF909090</color> <!-- Darker gray for set date/time background -->
+    <color name="addTrigger_SelectedItem_background_dark">#FF909090</color> <!-- Darker gray for selected item background -->
+
+    <color name="addTrigger_chooseValueButton_background_dark">#FF909090</color> <!-- Darker gray for choose value button background -->
+
+    <color name="addTrigger_saveTrigger_button_dark">#FF909090</color> <!-- Darker gray for save trigger button -->
+    <color name="TriggerItem_rights_borders_dark">#FF303030</color> <!-- Darker gray for trigger rights borders -->
+    <color name="triggerItem_background_dark">#FF101010</color> <!-- Darker gray for trigger item background -->
 </resources>
