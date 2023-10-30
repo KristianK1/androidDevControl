@@ -17,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOption
-import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.di.userProfileSettingsModule
 
 @Composable
 fun UserProfileSettingsRoute(
@@ -62,47 +61,29 @@ fun UserProfileSettingsScreen(
                 .fillMaxWidth()
                 .padding(dimensionResource(id = R.dimen.userProfileSettingsScreen_userData_padding))
         )
-        Line()
         TextListOption(
             text = stringResource(id = R.string.userSettings_changePassword_button),
             onClick = navigateToChangePasswordScreen
         )
-        Line()
         TextListOption(
             text = stringResource(id = R.string.userSettings_logout_button),
             onClick = logout
         )
-        Line()
         TextListOption(
             text = stringResource(id = R.string.userSettings_logout_all_sessions_button),
             onClick = logoutAllSessions
         )
-        Line()
         TextListOption(
             text = stringResource(id = R.string.userSettings_deleteProfile_button),
             onClick = deleteUserProfile
         )
-        Line()
         if(viewState.email.isEmpty()){
             TextListOption(
                 text = stringResource(id = R.string.userSettings_addEmail_button),
                 onClick = navigateToAddEmailScreen
             )
-            Line()
         }
     }
-}
-
-@Composable
-fun Line(
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(dimensionResource(id = R.dimen.userSettings_dividerLine_height))
-            .background(colorResource(id = R.color.userSettings_dividerLine))
-    )
 }
 
 @Preview

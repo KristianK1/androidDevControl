@@ -56,12 +56,6 @@ fun MyDevicesScreen(
                         navigateToDevice(DeviceControlsDestination.createNavigationRoute(it))
                     }
                 )
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(dimensionResource(id = R.dimen.myDevicesScreen_list_line_thickness))
-                        .background(colorResource(id = R.color.myDevicesScreen_list_line))
-                )
             }
         }
     }

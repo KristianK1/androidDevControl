@@ -70,7 +70,6 @@ fun AdminPanelHomeScreen(
                                 device.deviceId))
                         }
                     )
-                    Line()
                 }
             }
         }
@@ -88,18 +87,6 @@ fun AdminPanelHomeScreen(
             }
         }
     }
-}
-
-@Composable
-fun Line(
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(dimensionResource(id = R.dimen.adminPanelHomeScreen_dividerLine_height))
-            .background(colorResource(id = R.color.adminPanelHomeScreen_dividerLine))
-    )
 }
 
 @Preview

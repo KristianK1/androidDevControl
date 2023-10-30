@@ -64,7 +64,6 @@ fun AdminPanelDeviceScreen(
                 )
             }
         )
-        Line()
         TextListOption(
             text = stringResource(id = R.string.adminPanelDevice_seeAllPermissions),
             onClick = {
@@ -73,7 +72,6 @@ fun AdminPanelDeviceScreen(
                 )
             }
         )
-        Line()
         TextListOption(
             text = stringResource(id = R.string.adminPanelDevice_addPermission),
             onClick = {
@@ -82,12 +80,10 @@ fun AdminPanelDeviceScreen(
                 )
             }
         )
-        Line()
         TextListOption(
             text = stringResource(id = R.string.adminPanelDevice_deleteDevice),
             onClick = deleteDevice
         )
-        Line()
     }
 }
 
@@ -157,18 +153,5 @@ fun ConfirmDialog(
     TextListOption(
         text = stringResource(id = R.string.adminPanelDevice_deleteDevice),
         onClick = onClick
-    )
-    Line()
-}
-
-@Composable
-fun Line(
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(dimensionResource(id = R.dimen.adminPanelDevice_dividerLine_height))
-            .background(colorResource(id = R.color.adminPanelDevice_dividerLine))
     )
 }

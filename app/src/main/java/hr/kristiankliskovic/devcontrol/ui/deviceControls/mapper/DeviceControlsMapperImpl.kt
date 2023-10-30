@@ -73,7 +73,7 @@ class DeviceControlsMapperImpl : DeviceControlsMapper {
                     TextFieldOutputViewState(
                         fieldId = field.fieldId,
                         name = field.fieldName,
-                        currentValue = "%.2f".format(field.currentValue)
+                        currentValue = "${field.prefix} %.2f ${field.sufix}".format(field.currentValue)
                     )
                 } else {
                     NumericFieldInputViewState(

@@ -26,7 +26,7 @@
 
     <color name="loginRegisterScreen_button_color">#FFB0B0B0</color>
 
-    <color name="userSettings_dividerLine">#FF000000</color>
+    <color name="divider_line">#FF000000</color>
     <color name="adminPanelHomeScreen_dividerLine">#FF000000</color>
 
     <color name="addPermissionScreen_user_button">#FFB0B0B0</color>

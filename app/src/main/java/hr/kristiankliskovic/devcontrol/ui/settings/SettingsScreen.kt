@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.ui.adminPanelDevice.Line
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.TextListOption
 
 @Composable
@@ -38,20 +37,17 @@ fun SettingsScreen(
                 navigateToUserSettings()
             }
         )
-        Line()
         TextListOption(
             text = stringResource(id = R.string.settingsScreen_navToAdminPanel),
             onClick = {
                 navigateToAdminPanel()
             }
         )
-        Line()
         TextListOption(
             text = stringResource(id = R.string.settingsScreen_navToTriggerSettings),
             onClick = {
                 navigateToTriggerSettings()
             }
         )
-        Line()
     }
 }
