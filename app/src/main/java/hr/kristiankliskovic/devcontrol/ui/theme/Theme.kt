@@ -7,7 +7,7 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-private val DarkColorPalette = lightColors(
+private val DarkColorPalette = darkColors(
     primary = Color(0xFF546E7A), // Steel Blue
     primaryVariant = Color(0xFF37474F), // Darker Steel Blue
     secondary = Color(0xFF8BC34A), // Lime Green
