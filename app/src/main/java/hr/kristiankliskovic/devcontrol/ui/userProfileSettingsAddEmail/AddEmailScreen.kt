@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Checkbox
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -58,10 +59,11 @@ fun AddEmailScreen(
         Text(
             text = stringResource(id = R.string.addEmailScreen_changePasswordButton),
             fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.background,
             modifier = Modifier
                 .padding(dimensionResource(id = R.dimen.addEmailScreen_button_margin))
                 .background(
-                    color = Color.LightGray,
+                    color = MaterialTheme.colorScheme.primary,
                     shape = Shapes.small,
                 )
                 .clickable {
