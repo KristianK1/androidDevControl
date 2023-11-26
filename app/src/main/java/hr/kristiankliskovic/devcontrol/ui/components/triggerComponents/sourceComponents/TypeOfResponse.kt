@@ -4,7 +4,9 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.RadioButton
+import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +36,7 @@ fun TypeOfResponse(
     ) {
         Text(
             text = stringResource(id = R.string.triggerResponse_Type_title),
+            color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
             fontSize = 20.sp
@@ -47,11 +50,19 @@ fun TypeOfResponse(
         ) {
             RadioButton(
                 selected = typeSelected == ETriggerResponseType.SettingValue_fieldInGroup,
-                onClick = null
+                onClick = null,
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.primary,
+                    unselectedColor = MaterialTheme.colorScheme.primary,
+                )
             )
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addTriggerScreen_addTrigger_radiobutton_spacer_width)))
             Text(
-                text = stringResource(id = R.string.triggerResponse_Type_fieldInGroup)
+                text = stringResource(id = R.string.triggerResponse_Type_fieldInGroup),
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 15.sp,
+                modifier = Modifier
+                    .weight(1f,true),
             )
         }
         Row(
@@ -63,11 +74,19 @@ fun TypeOfResponse(
         ) {
             RadioButton(
                 selected = typeSelected == ETriggerResponseType.SettingValue_fieldInComplexGroup,
-                onClick = null
+                onClick = null,
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.primary,
+                    unselectedColor = MaterialTheme.colorScheme.primary,
+                ),
             )
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addTriggerScreen_addTrigger_radiobutton_spacer_width)))
             Text(
-                text = stringResource(id = R.string.triggerResponse_Type_fieldInComplexGroup)
+                text = stringResource(id = R.string.triggerResponse_Type_fieldInComplexGroup),
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 15.sp,
+                modifier = Modifier
+                    .weight(1f,true)
             )
         }
         Row(
@@ -79,11 +98,19 @@ fun TypeOfResponse(
         ) {
             RadioButton(
                 selected = typeSelected == ETriggerResponseType.Email,
-                onClick = null
+                onClick = null,
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.primary,
+                    unselectedColor = MaterialTheme.colorScheme.primary,
+                ),
             )
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addTriggerScreen_addTrigger_radiobutton_spacer_width)))
             Text(
-                text = stringResource(id = R.string.triggerResponse_Type_email)
+                text = stringResource(id = R.string.triggerResponse_Type_email),
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 15.sp,
+                modifier = Modifier
+                    .weight(1f,true)
             )
         }
         Row(
@@ -95,11 +122,19 @@ fun TypeOfResponse(
         ) {
             RadioButton(
                 selected = typeSelected == ETriggerResponseType.MobileNotification,
-                onClick = null
+                onClick = null,
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.primary,
+                    unselectedColor = MaterialTheme.colorScheme.primary,
+                ),
             )
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addTriggerScreen_addTrigger_radiobutton_spacer_width)))
             Text(
-                text = stringResource(id = R.string.triggerResponse_Type_mobileNotification)
+                text = stringResource(id = R.string.triggerResponse_Type_mobileNotification),
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 15.sp,
+                modifier = Modifier
+                    .weight(1f,true)
             )
         }
     }

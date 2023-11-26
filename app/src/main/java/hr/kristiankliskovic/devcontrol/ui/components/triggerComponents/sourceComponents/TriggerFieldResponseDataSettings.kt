@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,6 +50,7 @@ fun TriggerFieldSourceDataSettings(
             is NumericTriggerResponseViewState -> {
                 Text(
                     text = stringResource(id = R.string.addTriggerScreen_valueType_title_numeric_response),
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 16.sp
                 )
                 ChooseNumericValuePopup(
@@ -66,6 +68,7 @@ fun TriggerFieldSourceDataSettings(
             is TextTriggerResponseViewState -> {
                 Text(
                     text = stringResource(id = R.string.addTriggerScreen_valueType_title_text_response),
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 16.sp
                 )
                 OutlineTextWrapper(
@@ -79,6 +82,7 @@ fun TriggerFieldSourceDataSettings(
             is BooleanTriggerResponseViewState -> {
                 Text(
                     text = stringResource(id = R.string.addTriggerScreen_valueType_title_button_response),
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 16.sp
                 )
                 RadioButtonRow(
@@ -97,6 +101,11 @@ fun TriggerFieldSourceDataSettings(
                 )
             }
             is MCTriggerResponseViewState -> {
+                Text(
+                    text = stringResource(id = R.string.addTriggerScreen_valueType_title_multipleC_response),
+                    color = MaterialTheme.colorScheme.primary,
+                    fontSize = 16.sp
+                )
                 ChooseTextValuePopup(
                     values = viewState.values,
                     valueChosen = if (viewState.value.value != null) "${viewState.value.value}: ${viewState.values[viewState.value.value!!]}" else null,
@@ -108,6 +117,7 @@ fun TriggerFieldSourceDataSettings(
             is RGBTriggerResponseViewState -> {
                 Text(
                     text = stringResource(id = R.string.addTriggerScreen_valueType_title_RGB_context),
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 16.sp
                 )
                 RadioButtonRow(
@@ -133,6 +143,7 @@ fun TriggerFieldSourceDataSettings(
                 )
                 Text(
                     text = stringResource(id = R.string.addTriggerScreen_valueType_title_RGB_response),
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 16.sp
                 )
                 ChooseNumericValuePopup(

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
@@ -50,6 +52,7 @@ fun TriggerSourceAddress(
             text = stringResource(id = R.string.addTriggerScreen_sourceAddress_selectTitle),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
+            color = MaterialTheme.colorScheme.primary,
             fontSize = 20.sp
         )
 
@@ -156,10 +159,15 @@ fun SelectedItemTriggers(
 ) {
     Text(
         text = text,
+        color = MaterialTheme.colorScheme.background,
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold,
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_margin))
             .clip(Shapes.small)
-            .background(colorResource(id = R.color.addTrigger_SelectedItem_background))
+            .background(
+                color = MaterialTheme.colorScheme.primary,
+            )
             .clickable {
                 onClick()
             }

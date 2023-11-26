@@ -55,7 +55,7 @@ fun UserProfileSettingsScreen(
     ) {
 
         Text(
-            text = "Username:  ${viewState.username}\n\nUser ID:  ${viewState.userId}\n${if(viewState.email.isNotEmpty()) "\nEmail:  ${viewState.email}" else ""}",
+            text = "Username:  ${viewState.username}\n\nUser ID:  ${viewState.userId}${if(viewState.email.isNotEmpty()) "\n\nEmail:  ${viewState.email}" else ""}",
             fontSize = 25.sp,
             textAlign = TextAlign.Left,
             color = MaterialTheme.colorScheme.inverseSurface,

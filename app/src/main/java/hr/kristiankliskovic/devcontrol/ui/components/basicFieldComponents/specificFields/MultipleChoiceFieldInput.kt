@@ -127,7 +127,7 @@ fun MultipleChoiceSelector(
                     width = 2.dp,
                     color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.6f)
                 ),
-            shape = RoundedCornerShape(5.dp),
+            shape = RoundedCornerShape(5.dp), //TODO
             backgroundColor = MaterialTheme.colorScheme.background,
             properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true)
         )

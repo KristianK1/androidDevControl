@@ -119,12 +119,11 @@
     <dimen name="addTriggerScreen_SelectedItem_text_padding">20.dp</dimen>
 
     <dimen name="radiobuttonRow_spacer_width">10.dp</dimen>
+
+    <dimen name="addTrigger_screen_padding">8.dp</dimen>
     <dimen name="addTriggerScreen_dialog_padding">25.dp</dimen>
-
-    <dimen name="addTrigger_triggerNamePadding">30.dp</dimen>
-
+    <dimen name="addTrigger_triggerNamePadding">5.dp</dimen>
     <dimen name="addTriggerBorderPadding">5.dp</dimen>
-
     <dimen name="addTrigger_saveButton_margin">25.dp</dimen>
     <dimen name="addTrigger_saveButton_padding">25.dp</dimen>
 

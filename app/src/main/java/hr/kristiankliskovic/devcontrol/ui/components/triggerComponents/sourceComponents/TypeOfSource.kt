@@ -4,7 +4,9 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.RadioButton
+import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,9 +36,10 @@ fun TypeOfSource(
     ) {
         Text(
             text = stringResource(id = R.string.triggerSource_Type_title),
+            color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
-            fontSize = 20.sp
+            fontSize = 25.sp
         )
         Row(
             modifier = Modifier
@@ -47,13 +50,19 @@ fun TypeOfSource(
         ) {
             RadioButton(
                 selected = typeSelected == ETriggerSourceType.FieldInGroup,
-                onClick = null
+                onClick = null,
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.primary,
+                    unselectedColor = MaterialTheme.colorScheme.primary,
+                )
             )
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addTriggerScreen_addTrigger_radiobutton_spacer_width)))
             Text(
                 text = stringResource(id = R.string.triggerSource_Type_fieldInGroup),
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 15.sp,
                 modifier = Modifier
-                    .weight(1f,true)
+                    .weight(1f,true),
             )
         }
         Row(
@@ -65,11 +74,17 @@ fun TypeOfSource(
         ) {
             RadioButton(
                 selected = typeSelected == ETriggerSourceType.FieldInComplexGroup,
-                onClick = null
+                onClick = null,
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.primary,
+                    unselectedColor = MaterialTheme.colorScheme.primary,
+                ),
             )
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addTriggerScreen_addTrigger_radiobutton_spacer_width)))
             Text(
                 text = stringResource(id = R.string.triggerSource_Type_fieldInComplexGroup),
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 15.sp,
                 modifier = Modifier
                     .weight(1f,true)
             )
@@ -83,11 +98,17 @@ fun TypeOfSource(
         ) {
             RadioButton(
                 selected = typeSelected == ETriggerSourceType.TimeTrigger,
-                onClick = null
+                onClick = null,
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.primary,
+                    unselectedColor = MaterialTheme.colorScheme.primary,
+                )
             )
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addTriggerScreen_addTrigger_radiobutton_spacer_width)))
             Text(
                 text = stringResource(id = R.string.triggerSource_Type_time),
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 15.sp,
                 modifier = Modifier
                     .weight(1f,true)
 

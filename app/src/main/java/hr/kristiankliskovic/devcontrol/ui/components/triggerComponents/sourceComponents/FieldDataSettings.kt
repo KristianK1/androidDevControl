@@ -3,6 +3,7 @@ package hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceCo
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,6 +55,7 @@ fun TriggerFieldSourceDataSettings(
                 Column {
                     Text(
                         text = stringResource(id = R.string.addTriggerScreen_valueType_title_numeric),
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally),
                         fontSize = 16.sp
@@ -125,6 +127,7 @@ fun TriggerFieldSourceDataSettings(
                 Column {
                     Text(
                         text = stringResource(id = R.string.addTriggerScreen_valueType_title_button),
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally),
                         fontSize = 16.sp
@@ -149,6 +152,7 @@ fun TriggerFieldSourceDataSettings(
                 Column {
                     Text(
                         text = stringResource(id = R.string.addTriggerScreen_valueType_title_multipleC),
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally),
                         fontSize = 16.sp
@@ -180,6 +184,7 @@ fun TriggerFieldSourceDataSettings(
                 Column {
                     Text(
                         text = stringResource(id = R.string.addTriggerScreen_valueType_title_RGB),
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally),
                         fontSize = 16.sp
@@ -222,6 +227,7 @@ fun TriggerFieldSourceDataSettings(
 
                     Text(
                         text = stringResource(id = R.string.addTriggerScreen_valueType_title_RGB_context),
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally),
                         fontSize = 16.sp
@@ -281,6 +287,7 @@ fun TriggerFieldSourceDataSettings(
                 Column {
                     Text(
                         text = stringResource(id = R.string.addTriggerScreen_valueType_title_text),
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally),
                         fontSize = 16.sp

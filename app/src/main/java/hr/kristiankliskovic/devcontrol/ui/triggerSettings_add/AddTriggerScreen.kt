@@ -4,6 +4,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -191,6 +192,7 @@ fun AddTriggerScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
+            .padding(dimensionResource(id = R.dimen.addTrigger_screen_padding))
             .verticalScroll(state = scrollState)
     ) {
         OutlineTextWrapper(
@@ -419,12 +421,13 @@ fun AddTriggerScreen(
         Text(
             text = stringResource(id = R.string.addTrigger_saveTrigger),
             fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.background,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .padding(dimensionResource(id = R.dimen.addTrigger_saveButton_margin))
                 .clip(Shapes.large)
                 .background(
-                    color = colorResource(id = R.color.addTrigger_saveTrigger_button),
+                    color = MaterialTheme.colorScheme.primary,
                 )
                 .clickable {
                     saveTrigger()
