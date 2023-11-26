@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -14,7 +15,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -83,7 +83,11 @@ fun AdminPanelHomeScreen(
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.fabPadding)),
             ) {
-                Icon(Icons.Filled.Add, "")
+                Icon(
+                    Icons.Filled.Add,
+                    "",
+                    tint = MaterialTheme.colorScheme.inverseSurface,
+                )
             }
         }
     }

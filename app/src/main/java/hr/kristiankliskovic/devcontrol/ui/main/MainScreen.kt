@@ -38,7 +38,6 @@ import hr.kristiankliskovic.devcontrol.ui.register.RegisterRoute
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettings.UserProfileSettingsRoute
 import hr.kristiankliskovic.devcontrol.ui.userProfileSettingsChangePassword.ChangePasswordRoute
 import hr.kristiankliskovic.devcontrol.R
-import hr.kristiankliskovic.devcontrol.data.network.pushNotifications.PushNotificationService
 import hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAllPermissions.SeeAllPermissionsRoute
 import hr.kristiankliskovic.devcontrol.ui.settings.SettingsRoute
 import hr.kristiankliskovic.devcontrol.ui.triggerSettings.TriggerSettingsRoute
@@ -388,7 +387,10 @@ fun TopBar(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(dimensionResource(id = R.dimen.topBarHeight)),
+                    .height(dimensionResource(id = R.dimen.topBarHeight))
+                    .background(
+                        color = MaterialTheme.colorScheme.background
+                    )
             ) {
                 Box(
                     contentAlignment = Alignment.CenterStart,
@@ -413,6 +415,7 @@ fun TopBar(
                     Text(
                         text = stringResource(id = screenTitleResId),
                         fontSize = 30.sp,
+                        color = MaterialTheme.colorScheme.inverseSurface
                     )
                 }
                 if (showIcons) {
@@ -433,7 +436,8 @@ fun TopBar(
                                     .width(dimensionResource(id = R.dimen.topBarHeight))
                                     .clickable {
                                         navigateToSettings()
-                                    }
+                                    },
+                                tint = MaterialTheme.colorScheme.inverseSurface
                             )
                         }
                     }

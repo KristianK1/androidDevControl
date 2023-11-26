@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -54,9 +55,10 @@ fun UserProfileSettingsScreen(
     ) {
 
         Text(
-            text = "Username:\n${viewState.username}\nUser ID: ${viewState.userId}\n${if(viewState.email.isNotEmpty()) "Email: ${viewState.email}\n" else ""}",
+            text = "Username:  ${viewState.username}\n\nUser ID:  ${viewState.userId}\n${if(viewState.email.isNotEmpty()) "\nEmail:  ${viewState.email}" else ""}",
             fontSize = 25.sp,
-            textAlign = TextAlign.Center,
+            textAlign = TextAlign.Left,
+            color = MaterialTheme.colorScheme.inverseSurface,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(dimensionResource(id = R.dimen.userProfileSettingsScreen_userData_padding))

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +26,9 @@ fun TextListOption(
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.textListOption_margin))
             .clip(Shapes.small)
-            .background(Color.LightGray)
+            .background(
+                MaterialTheme.colorScheme.primary.copy(alpha = 0.45f)
+            )
             .fillMaxWidth()
             .clickable {
                 onClick()
@@ -36,6 +39,7 @@ fun TextListOption(
         Text(
             text = text,
             fontSize = 25.sp,
+            color = MaterialTheme.colorScheme.inverseSurface,
             modifier = Modifier.fillMaxWidth()
         )
     }
