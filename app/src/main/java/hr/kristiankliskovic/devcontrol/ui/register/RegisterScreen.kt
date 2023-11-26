@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -62,6 +63,7 @@ fun RegisterScreen(
         Text(
             text = stringResource(id = R.string.registerScreen_title),
             fontSize = 40.sp,
+            color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .padding(
                     top = dimensionResource(id = R.dimen.login_register_screen_title_top_padding),
@@ -147,7 +149,7 @@ fun RegisterScreen(
                 .padding(dimensionResource(id = R.dimen.login_register_screen_padding_outside_button))
                 .clip(CircleShape)
                 .background(
-                    color = colorResource(id = R.color.loginRegisterScreen_button_color),
+                    color = MaterialTheme.colorScheme.secondary,
                 )
                 .clickable {
                     if(password != passwordAgain){
@@ -167,8 +169,9 @@ fun RegisterScreen(
 
         Text(
             text = stringResource(id = R.string.registerScreen_login_instead),
-            color = colorResource(id = R.color.text_link_color),
+            color = MaterialTheme.colorScheme.tertiary,
             fontStyle = FontStyle.Italic,
+            fontWeight = FontWeight.Bold,
             textDecoration = TextDecoration.Underline,
             modifier = Modifier
                 .padding(

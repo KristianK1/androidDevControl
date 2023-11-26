@@ -1,6 +1,8 @@
 package hr.kristiankliskovic.devcontrol.ui.components.otherComponents
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,7 +11,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import hr.kristiankliskovic.devcontrol.DevControlApp
 import hr.kristiankliskovic.devcontrol.R
+import hr.kristiankliskovic.devcontrol.ui.theme.DevControlTheme
 
 @Composable
 fun AppNameCursive(
@@ -17,6 +21,7 @@ fun AppNameCursive(
 ){
     Text(
         text = stringResource(id = R.string.login_register_screen_app_name),
+        color = MaterialTheme.colorScheme.primary,
         fontSize = 80.sp,
         fontFamily = FontFamily.Cursive,
         modifier = modifier

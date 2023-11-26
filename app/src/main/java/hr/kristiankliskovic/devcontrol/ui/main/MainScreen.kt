@@ -5,11 +5,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -139,10 +139,12 @@ fun MainScreen() {
                     navController.navigate(SETTINGS_ROUTE)
                 },
             )
-        }
+        },
+        modifier = Modifier.background(
+            color = MaterialTheme.colorScheme.background
+        )
     ) { padding ->
         Surface(
-            color = MaterialTheme.colors.background,
             modifier = Modifier.fillMaxSize()
         ) {
             NavHost(
