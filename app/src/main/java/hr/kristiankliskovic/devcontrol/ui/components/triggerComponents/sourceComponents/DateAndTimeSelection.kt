@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,7 +15,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 import java.util.*
@@ -44,11 +47,19 @@ fun TimeSelection(
         text = if (time != null) String.format("%02d:%02d",
             time / 60,
             (time % 60) / 5 * 5) else stringResource(id = R.string.addTriggerScreen_setTime),
+        color = MaterialTheme.colorScheme.background,
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold,
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_margin))
             .clip(Shapes.small)
-            .background(colorResource(id = R.color.addTrigger_setDateTime_background))
+            .background(
+                color = MaterialTheme.colorScheme.primary,
+            )
             .clickable {
+                if(showDialog){ //legit...
+                    showDialog = false
+                }
                 showDialog = true
             }
             .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_padding)),
@@ -84,11 +95,15 @@ fun DateSelection(
             date.get(Calendar.DAY_OF_MONTH),
             date.get(Calendar.MONTH) + 1,
             date.get(Calendar.YEAR)) else stringResource(id = R.string.addTriggerScreen_setDate),
+        color = MaterialTheme.colorScheme.background,
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold,
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_margin))
             .clip(Shapes.small)
-            .background(colorResource(id = R.color.addTrigger_setDateTime_background))
-            .clickable {
+            .background(
+                color = MaterialTheme.colorScheme.primary,
+            ).clickable {
                 showDialog = true
             }
             .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_padding)),

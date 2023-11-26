@@ -239,6 +239,7 @@ fun AddTriggerScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.addTriggerScreen_timeSettings_selectTitle),
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally),
                     fontSize = 20.sp
@@ -421,11 +422,11 @@ fun AddTriggerScreen(
         Text(
             text = stringResource(id = R.string.addTrigger_saveTrigger),
             fontSize = 20.sp,
-            color = MaterialTheme.colorScheme.background,
             fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.background,
             modifier = Modifier
                 .padding(dimensionResource(id = R.dimen.addTrigger_saveButton_margin))
-                .clip(Shapes.large)
+                .clip(Shapes.medium)
                 .background(
                     color = MaterialTheme.colorScheme.primary,
                 )
