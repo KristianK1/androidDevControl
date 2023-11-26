@@ -98,7 +98,6 @@ fun BasicField(
                 },
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(dimensionResource(id = R.dimen.numericFieldInputComponent_height))
             )
         }
     }

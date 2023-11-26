@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">devControl</string>
 
-    <string name="numericFieldInput_open_dialog_button">Change value</string>
+    <string name="numericFieldInput_open_dialog_button">Change</string>
     <string name="numericFieldInput_local_value">Local value: </string>
     <string name="multipleChoiceFieldInput_open_selector">Change</string>
     <string name="multipleChoiceFieldInput_choose_value_title">Choose value</string>
@@ -17,7 +17,7 @@
     <string name="RGBFieldInput_set_value_button">Select value</string>
 
     <string name="complexGroup_stateChooser_title">Current\nstate:</string>
-    <string name="complexGroup_stateChooser_button">Change\nstate</string>
+    <string name="complexGroup_stateChooser_button">Change</string>
     <string name="complexGroup_stateChooser_dialog_title">Choose state</string>
 
     <string name="login_register_screen_app_name">devControl</string>
@@ -41,7 +41,7 @@
     <string name="deviceStatusComponent_online_statusText">Online</string>
     <string name="deviceStatusComponent_offline_statusText">Offline</string>
 
-    <string name="textInputComponent_open_dialog_button">Change value</string>
+    <string name="textInputComponent_open_dialog_button">Change</string>
 
     <string name="userSettings_changePassword_button">Change password</string>
     <string name="userSettings_addEmail_button">Add Email</string>

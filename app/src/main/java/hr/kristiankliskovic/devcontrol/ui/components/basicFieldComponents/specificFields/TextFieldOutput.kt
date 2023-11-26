@@ -2,6 +2,7 @@ package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.speci
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,7 +30,7 @@ fun TextFieldOutput(
         modifier = modifier
             .border(
                 width = dimensionResource(id = R.dimen.fieldComponent_borderThickness),
-                color = colorResource(id = R.color.fieldComponent_border)
+                color = MaterialTheme.colorScheme.inverseSurface
             )
             .padding(dimensionResource(id = R.dimen.fieldComponent_padding))
             .fillMaxWidth()

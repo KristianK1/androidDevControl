@@ -22,7 +22,7 @@ private val DarkColorPalette = darkColorScheme(
 )
 
 private val LightColorPalette = lightColorScheme(
-    primary = Color(0xFF03028E), // Steel Blue
+    primary = Color(0xFF5251F0), // Steel Blue
     secondary = Color(0xFF8BC34A), // Lime Green
 
     background = Color(0xFFF0F4C3), // Greenish Beige

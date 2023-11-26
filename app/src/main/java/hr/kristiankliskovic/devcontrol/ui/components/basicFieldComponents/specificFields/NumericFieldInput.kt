@@ -6,8 +6,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Slider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -50,11 +53,13 @@ fun NumericFieldInput(
     modifier: Modifier = Modifier,
     emitValue: (Float) -> Unit,
 ) {
+    val decimals = getNumberOfDecimalsNeeded(item.valueStep);
+
     Column(
         modifier = modifier
             .border(
                 width = dimensionResource(id = R.dimen.fieldComponent_borderThickness),
-                color = colorResource(id = R.color.fieldComponent_border)
+                color = MaterialTheme.colorScheme.inverseSurface
             )
             .padding(dimensionResource(id = R.dimen.fieldComponent_padding))
             .fillMaxWidth()
@@ -63,7 +68,7 @@ fun NumericFieldInput(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(IntrinsicSize.Min),
+                .height(IntrinsicSize.Max),
         ) {
             FieldTitle(
                 item.name
@@ -74,44 +79,49 @@ fun NumericFieldInput(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "[ ${"%.1f".format(item.minValue)}, ${"%.1f".format(item.maxValue)} ]",
+                    text = "[ ${"%.${decimals}f".format(item.minValue)}, ${"%.${decimals}f".format(item.maxValue)} ]",
                     fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.inverseSurface
                 )
             }
         }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .height(IntrinsicSize.Min)
+//                .height(dimensionResource(id = R.dimen.numericFieldInputComponent_height))
         ) {
             ChangeValueButton(
-                text = "-${item.valueStep}",
+                text = "- ${"%.${decimals}f".format(item.valueStep)}",
                 onClick = {
                     emitValue(item.currentValue + it)
                 },
                 valueDiff = -1 * item.valueStep,
                 modifier = Modifier
-                    .weight(1f, true)
-            )
-            FieldValues(
-                currentValue = "${item.prefix} %.2f ${item.sufix}".format(item.currentValue),
-            )
-            ChangeValueButton(
-                text = "+${item.valueStep}",
-                onClick = {
-                    emitValue(item.currentValue + it)
-                },
-                valueDiff = item.valueStep,
-                modifier = Modifier
-                    .weight(1f, true)
+                    .heightIn(min = dimensionResource(id = R.dimen.numericFieldInputComponent_height))
             )
             DecimalInputDialog(
                 minValue = item.minValue,
                 maxValue = item.maxValue,
                 stepValue = item.valueStep,
                 startValue = item.currentValue,
+                prefix = item.prefix,
+                sufix = item.sufix,
                 emitValue = {
                     emitValue(it)
-                }
+                },
+                modifier = Modifier
+                    .weight(1f, true)
+                    .heightIn(min = dimensionResource(id = R.dimen.numericFieldInputComponent_height))
+            )
+            ChangeValueButton(
+                text = "+ ${"%.${decimals}f".format(item.valueStep)}",
+                onClick = {
+                    emitValue(item.currentValue + it)
+                },
+                valueDiff = item.valueStep,
+                modifier = Modifier
+                    .heightIn(min = dimensionResource(id = R.dimen.numericFieldInputComponent_height))
             )
         }
     }
@@ -127,61 +137,26 @@ fun ChangeValueButton(
     Box(
         modifier = modifier
             .fillMaxHeight()
-            .padding(dimensionResource(id = R.dimen.numericField_changeValueButton_padding))
+            .padding(dimensionResource(id = R.dimen.numericField_changeValueButton_margin))
             .clip(Shapes.small)
-            .background(colorResource(id = R.color.fieldComponent_button_background))
+            .background(
+                color = MaterialTheme.colorScheme.primary
+            )
             .clickable {
                 onClick(valueDiff)
-            },
+            }
+            .padding(dimensionResource(id = R.dimen.numericField_changeValueButton_padding))
+        ,
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = text,
             textAlign = TextAlign.Center,
             fontSize = 22.sp,
+            color = MaterialTheme.colorScheme.background
         )
     }
 }
-
-@Composable
-fun FieldValues(
-    currentValue: String,
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        modifier = modifier
-            .padding(dimensionResource(id = R.dimen.numericField_middleColumn_padding))
-            .width(IntrinsicSize.Max)
-            .fillMaxHeight(),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text(
-            text = currentValue,
-            textAlign = TextAlign.Center,
-            fontSize = 28.sp
-        )
-    }
-}
-
-//@Composable
-//fun LocalValue(
-//    localValue: String,
-//    modifier: Modifier = Modifier
-//        .fillMaxSize(),
-//) {
-//    Text(
-//        text = stringResource(id = R.string.numericFieldInput_local_value),
-//        textAlign = TextAlign.Center,
-//        fontSize = 8.sp,
-//        modifier = Modifier.fillMaxWidth()
-//    )
-//    Text(
-//        text = localValue,
-//        textAlign = TextAlign.Center,
-//        fontSize = 18.sp,
-//        modifier = Modifier.fillMaxWidth()
-//    )
-//}
 
 @Composable
 fun DecimalInputDialog(
@@ -189,7 +164,10 @@ fun DecimalInputDialog(
     maxValue: Float,
     stepValue: Float,
     startValue: Float,
+    prefix: String,
+    sufix: String,
     emitValue: (Float) -> Unit,
+    modifier: Modifier,
 ) {
     var dialogOpen by remember {
         mutableStateOf(false)
@@ -210,7 +188,8 @@ fun DecimalInputDialog(
 
                     Text(
                         text = "$value",
-                        fontSize = 30.sp
+                        fontSize = 30.sp,
+                        color = MaterialTheme.colorScheme.inverseSurface,
                     )
 
                     Slider(
@@ -240,46 +219,71 @@ fun DecimalInputDialog(
                                     emitValue(value)
                                     dialogOpen = false
                                 }
-                                .background(colorResource(id = R.color.fieldComponent_button_background))
+                                .background(
+                                    color = MaterialTheme.colorScheme.primary,
+                                )
                                 .padding(dimensionResource(id = R.dimen.dialog_confirm_button_padding))
                         ) {
                             Text(
                                 text = stringResource(id = R.string.textFieldInput_confirm_text_buttonText),
+                                color = MaterialTheme.colorScheme.inverseSurface,
                                 fontSize = 20.sp
                             )
                         }
                     }
                 }
             },
-            shape = Shapes.small,
-            backgroundColor = Color.White,
-            properties = DialogProperties(
-                dismissOnBackPress = true,
-                dismissOnClickOutside = true
-            )
+            modifier = Modifier // Set the width and padding
+                .fillMaxWidth()
+                .padding(32.dp)
+                .clip(Shapes.small)
+                .border(
+                    width = 2.dp,
+                    color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.6f)
+                ),
+            shape = RoundedCornerShape(5.dp),
+            backgroundColor = MaterialTheme.colorScheme.background,
+            properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true)
         )
     }
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxHeight()
             .padding(dimensionResource(id = R.dimen.fieldComponent_button_padding))
             .clip(Shapes.small)
-            .background(colorResource(id = R.color.fieldComponent_button_background))
+            .background(
+                color = MaterialTheme.colorScheme.primary
+            )
             .clickable {
                 dialogOpen = true
             }
     ) {
+        val decimals = getNumberOfDecimalsNeeded(stepValue)
         Text(
-            text = stringResource(id = R.string.numericFieldInput_open_dialog_button),
+            text = "$prefix ${"%.${decimals}f".format(startValue)} $sufix",
+            fontSize = 22.sp,
             modifier = Modifier
                 .padding(
-                    horizontal = dimensionResource(id = R.dimen.fieldComponent_button_text_padding),
+                    horizontal = dimensionResource(id = R.dimen.numericField_middleColumn_padding),
                     vertical = 0.dp
-                )
+                ),
+            softWrap = true,
+            color = MaterialTheme.colorScheme.background
         )
     }
 
+}
+
+fun getNumberOfDecimalsNeeded(stepp: Float): Int{
+    var step = stepp
+    var rez = 0
+    while(step - step.toInt() != 0f){
+        step *= 10
+        rez++;
+        if(rez >= 3) break;
+    }
+    return rez
 }
 
 @Preview

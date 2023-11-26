@@ -1,8 +1,10 @@
 package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields.common
 
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
 
@@ -13,6 +15,8 @@ fun FieldTitle(
     Text(
         text = title,
         fontSize = 30.sp,
-        color = colorResource(id = R.color.fieldComponent_title)
+        color = MaterialTheme.colorScheme.inverseSurface,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
     )
 }

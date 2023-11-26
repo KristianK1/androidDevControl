@@ -8,13 +8,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,8 +34,8 @@ fun ComplexGroupStateChooser(
     Box(
         modifier = modifier
             .border(
-                2.dp,
-                Color.Gray,
+                width = 2.dp,
+                color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.5f),
             ),
     ) {
         Box(
@@ -47,7 +47,7 @@ fun ComplexGroupStateChooser(
             Text(
                 text = stringResource(id = R.string.complexGroup_stateChooser_title),
                 fontSize = 20.sp,
-                color = Color.Gray
+                color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.5f)
             )
         }
         Box(
@@ -59,6 +59,7 @@ fun ComplexGroupStateChooser(
         ) {
             Text(
                 text = items[currentState].stateName,
+                color = MaterialTheme.colorScheme.inverseSurface,
                 fontSize = 30.sp
             )
         }
@@ -92,13 +93,15 @@ fun ComplexStateChooserDialog(
     }
 
     if (dialogOpen) {
-        AlertDialog(onDismissRequest = {
-            dialogOpen = false
-        },
+        AlertDialog(
+            onDismissRequest = {
+                dialogOpen = false
+            },
             buttons = {
                 LazyColumn(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     itemsIndexed(
                         items = items,
@@ -106,6 +109,7 @@ fun ComplexStateChooserDialog(
                         Text(
                             text = item.stateName,
                             fontSize = 20.sp,
+                            color = MaterialTheme.colorScheme.inverseSurface,
                             modifier = Modifier
                                 .padding(15.dp)
                                 .clickable {
@@ -117,13 +121,21 @@ fun ComplexStateChooserDialog(
                 }
             },
             title = {
-                Text(text = stringResource(id = R.string.complexGroup_stateChooser_dialog_title))
+                Text(
+                    text = stringResource(id = R.string.complexGroup_stateChooser_dialog_title),
+                    color = MaterialTheme.colorScheme.inverseSurface
+                )
             },
             modifier = Modifier // Set the width and padding
                 .fillMaxWidth()
-                .padding(32.dp),
+                .padding(32.dp)
+                .clip(Shapes.small)
+                .border(
+                    width = 2.dp,
+                    color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.6f)
+                ),
             shape = RoundedCornerShape(5.dp),
-            backgroundColor = Color.White,
+            backgroundColor = MaterialTheme.colorScheme.background,
             properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true))
     }
 
@@ -140,11 +152,15 @@ fun ComplexStateChooserDialog(
                 .clickable {
                     dialogOpen = true
                 }
-                .background(colorResource(id = R.color.fieldComponent_button_background))
+                .background(
+                    color = MaterialTheme.colorScheme.primary
+                )
+                .fillMaxHeight()
                 .padding(5.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.complexGroup_stateChooser_button),
+                color = MaterialTheme.colorScheme.inverseSurface,
                 modifier = Modifier.padding(
                     horizontal = 10.dp,
                     vertical = 0.dp

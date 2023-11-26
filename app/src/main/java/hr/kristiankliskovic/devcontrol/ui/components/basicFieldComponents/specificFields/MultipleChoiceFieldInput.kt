@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Text
 import androidx.compose.material.AlertDialog
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,7 +44,7 @@ fun MultipleChoiceFieldInput(
         modifier = modifier
             .border(
                 width = dimensionResource(id = R.dimen.fieldComponent_borderThickness),
-                color = colorResource(id = R.color.fieldComponent_border)
+                color = MaterialTheme.colorScheme.inverseSurface
             )
             .padding(dimensionResource(id = R.dimen.fieldComponent_padding))
             .fillMaxWidth()

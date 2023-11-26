@@ -28,9 +28,9 @@
     <dimen name="dialog_confirm_button_padding">15.dp</dimen>
     <dimen name="dialog_confirm_button_margin">20.dp</dimen>
 
-    <dimen name="numericField_changeValueButton_padding">2.dp</dimen>
-    <dimen name="numericField_middleColumn_padding">5.dp</dimen>
-    <dimen name="numericField_localValue_padding_top">2.dp</dimen>
+    <dimen name="numericField_changeValueButton_margin">2.dp</dimen>
+    <dimen name="numericField_changeValueButton_padding">10.dp</dimen>
+    <dimen name="numericField_middleColumn_padding">10.dp</dimen>
 
     <dimen name="deviceGroup_border_thickness">4.dp</dimen>
     <dimen name="deviceGroup_title_padding">10.dp</dimen>
@@ -98,7 +98,7 @@
     <dimen name="textFieldOutputComponent_height">100.dp</dimen>
     <dimen name="rgbFieldInputComponent_height">100.dp</dimen>
     <dimen name="rgbFieldOutputComponent_height">100.dp</dimen>
-    <dimen name="numericFieldInputComponent_height">130.dp</dimen>
+    <dimen name="numericFieldInputComponent_height">60.dp</dimen>
 
     <dimen name="seeAllPermissionScreen_userPermissionComponent_padding">4.dp</dimen>
     <dimen name="seeAllPermissionScreen_padding_for_border">2.dp</dimen>

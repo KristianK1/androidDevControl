@@ -2,6 +2,7 @@ package hr.kristiankliskovic.devcontrol.ui.components.fieldGroupsComponents
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -32,9 +33,9 @@ fun DeviceGroup(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.deviceGroup_fields_spaced_by)),
         modifier = modifier
             .border(
-                dimensionResource(id = R.dimen.deviceGroup_border_thickness),
-                colorResource(id = R.color.deviceGroup_border),
-                Shapes.small
+                width = dimensionResource(id = R.dimen.deviceGroup_border_thickness),
+                color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.5f),
+                shape = Shapes.small
             )
             .padding(dimensionResource(id = R.dimen.deviceGroup_padding))
     ) {
