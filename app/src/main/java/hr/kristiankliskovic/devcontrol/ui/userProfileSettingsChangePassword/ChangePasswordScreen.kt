@@ -5,7 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Checkbox
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,13 +24,7 @@ import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
 @Composable
 fun ChangePasswordRoute(
     viewModel: ChangePasswordViewModel,
-    navigateBackToUserSettings: () -> Unit,
 ) {
-//    val navigateBack = viewModel.navBack.collectAsState()
-//
-//    if(navigateBack.value){
-//    }
-
     ChangePasswordScreen(
         changePassword = viewModel::changePassword,
     )
@@ -92,7 +88,12 @@ fun ChangePasswordScreen(
         ) {
             Checkbox(
                 checked = logoutCheckboxState,
-                onCheckedChange = null
+                onCheckedChange = null,
+                colors = CheckboxDefaults.colors(
+                    checkedColor = MaterialTheme.colorScheme.primary,
+                    uncheckedColor = MaterialTheme.colorScheme.primary,
+                    checkmarkColor = MaterialTheme.colorScheme.background
+                )
             )
             Spacer(
                 modifier = Modifier
@@ -100,16 +101,18 @@ fun ChangePasswordScreen(
             )
             Text(
                 text = stringResource(id = R.string.changePasswordScreen_logout_from_other_devices_checkbox),
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 15.sp
             )
         }
         Text(
             text = stringResource(id = R.string.changePasswordScreen_changePasswordButton),
             fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.background,
             modifier = Modifier
                 .padding(dimensionResource(id = R.dimen.changePasswordScreen_button_margin))
                 .background(
-                    color = Color.LightGray,
+                    color = MaterialTheme.colorScheme.primary,
                     shape = Shapes.small,
                 )
                 .clickable {

@@ -317,11 +317,6 @@ fun MainScreen() {
                 composable(CHANGE_PASSWORD_ROUTE) {
                     ChangePasswordRoute(
                         viewModel = getViewModel(),
-                        navigateBackToUserSettings = {
-                            navController.navigate(USER_PROFILE_ROUTE) {
-                                popUpTo(USER_PROFILE_ROUTE)
-                            }
-                        }
                     )
                 }
                 composable(ADD_EMAIL_ROUTE) {
