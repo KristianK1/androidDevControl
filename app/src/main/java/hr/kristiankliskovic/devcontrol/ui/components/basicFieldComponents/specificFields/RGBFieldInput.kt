@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
@@ -55,11 +56,23 @@ fun RGBFieldInput(
             Box(
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
+                    .clip(CircleShape)
+                    .background(
+                        color = Color(
+                            red = item.currentValue.R / 255f,
+                            green = item.currentValue.G / 255f,
+                            blue = item.currentValue.B / 255f,
+                        )
+                    )
+                    .padding(
+                        vertical = 10.dp,
+                        horizontal = 50.dp
+                    )
             ) {
                 Text(
                     text = item.currentValue.displayColorString(),
-                    color = Color(item.currentValue.R, item.currentValue.G, item.currentValue.B),
-                    fontSize = 40.sp,
+                    color = if((item.currentValue.R + item.currentValue.G + item.currentValue.B) > 400) Color.Black else Color.White,
+                    fontSize = 30.sp,
                 )
             }
             RGBDialog(selectValue = emitValue)
@@ -90,37 +103,37 @@ fun RGBDialog(
                         onColorChanged = {
                             val color = it.toColor()
                             rgb = RGBValue(
-                                (color.red * 256).toInt(),
-                                (color.green * 256).toInt(),
-                                (color.blue * 256).toInt()
+                                (color.red * 255).toInt(),
+                                (color.green * 255).toInt(),
+                                (color.blue * 255).toInt()
                             )
                         },
                         modifier = Modifier
                             .weight(0.8f)
                     )
-
                     Box(
+                        contentAlignment = Alignment.Center,
                         modifier = Modifier
-                            .padding(dimensionResource(id = R.dimen.dialog_confirm_button_margin))
-                            .fillMaxWidth(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Box(
-                            contentAlignment = Alignment.Center,
-                            modifier = Modifier
-                                .clip(Shapes.small)
-                                .clickable {
-                                    selectValue(rgb)
-                                    dialogOpen = false
-                                }
-                                .background(colorResource(id = R.color.fieldComponent_button_background))
-                                .padding(dimensionResource(id = R.dimen.dialog_confirm_button_padding))
-                        ) {
-                            Text(
-                                text = "${stringResource(id = R.string.RGBFieldInput_set_value_button)} (${rgb.displayColorString()})",
-                                fontSize = 20.sp
+                            .background(
+                                color = MaterialTheme.colorScheme.background,
                             )
-                        }
+                            .padding(dimensionResource(id = R.dimen.dialog_confirm_button_margin))
+                            .fillMaxWidth()
+                            .clip(Shapes.small)
+                            .clickable {
+                                selectValue(rgb)
+                                dialogOpen = false
+                            }
+                            .background(
+                                color = MaterialTheme.colorScheme.primary,
+                            )
+                            .padding(dimensionResource(id = R.dimen.dialog_confirm_button_padding))
+                    ) {
+                        Text(
+                            text = "${stringResource(id = R.string.RGBFieldInput_set_value_button)} (${rgb.displayColorString()})",
+                            color = MaterialTheme.colorScheme.background,
+                            fontSize = 20.sp
+                        )
                     }
                 }
 
@@ -139,7 +152,9 @@ fun RGBDialog(
             .fillMaxHeight()
             .padding(dimensionResource(id = R.dimen.fieldComponent_button_padding))
             .clip(Shapes.small)
-            .background(colorResource(id = R.color.fieldComponent_button_background))
+            .background(
+                color = MaterialTheme.colorScheme.primary,
+            )
             .clickable {
                 dialogOpen = true
             }
@@ -147,6 +162,7 @@ fun RGBDialog(
         Text(
             text = stringResource(id = R.string.RGBFieldInput_open_dialog),
             fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.background,
             modifier = Modifier
                 .padding(
                     horizontal = dimensionResource(id = R.dimen.fieldComponent_button_text_padding),

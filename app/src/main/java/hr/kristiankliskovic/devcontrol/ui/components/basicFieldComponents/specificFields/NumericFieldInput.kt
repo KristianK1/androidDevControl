@@ -71,11 +71,15 @@ fun NumericFieldInput(
                 .height(IntrinsicSize.Max),
         ) {
             FieldTitle(
-                item.name
+                item.name,
+                modifier = Modifier
+                    .weight(1f, true)
             )
             Box(
                 modifier = Modifier
-                    .fillMaxHeight(),
+                    .fillMaxHeight()
+                    .weight(1f, false)
+                    .width(IntrinsicSize.Max),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -152,8 +156,8 @@ fun ChangeValueButton(
         Text(
             text = text,
             textAlign = TextAlign.Center,
-            fontSize = 22.sp,
-            color = MaterialTheme.colorScheme.background
+            fontSize = 25.sp,
+            color = MaterialTheme.colorScheme.background,
         )
     }
 }
@@ -262,7 +266,7 @@ fun DecimalInputDialog(
         val decimals = getNumberOfDecimalsNeeded(stepValue)
         Text(
             text = "$prefix ${"%.${decimals}f".format(startValue)} $sufix",
-            fontSize = 22.sp,
+            fontSize = 25.sp,
             modifier = Modifier
                 .padding(
                     horizontal = dimensionResource(id = R.dimen.numericField_middleColumn_padding),

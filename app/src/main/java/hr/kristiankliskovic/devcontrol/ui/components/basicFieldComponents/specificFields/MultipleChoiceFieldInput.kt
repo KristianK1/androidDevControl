@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.AlertDialog
 import androidx.compose.material3.MaterialTheme
@@ -62,6 +63,7 @@ fun MultipleChoiceFieldInput(
                     text = item.choices[item.currentChoice],
                     fontSize = 38.sp,
                     fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary,
                 )
             }
             MultipleChoiceSelector(
@@ -100,6 +102,7 @@ fun MultipleChoiceSelector(
                         Text(
                             text = item,
                             fontSize = 20.sp,
+                            color = MaterialTheme.colorScheme.inverseSurface,
                             modifier = Modifier
                                 .padding(dimensionResource(id = R.dimen.Multiple_choice_field_dialog_choices_padding))
                                 .clickable {
@@ -111,17 +114,22 @@ fun MultipleChoiceSelector(
                 }
             },
             title = {
-                Text(text = stringResource(id = R.string.multipleChoiceFieldInput_choose_value_title))
+                Text(
+                    text = stringResource(id = R.string.multipleChoiceFieldInput_choose_value_title),
+                    color = MaterialTheme.colorScheme.inverseSurface,
+                )
             },
-            modifier = Modifier
+            modifier = Modifier // Set the width and padding
                 .fillMaxWidth()
-                .padding(dimensionResource(id = R.dimen.fieldComponent_dialog_padding)),
-            shape = Shapes.small,
-            backgroundColor = Color.White,
-            properties = DialogProperties(
-                dismissOnBackPress = true,
-                dismissOnClickOutside = true
-            )
+                .padding(32.dp)
+                .clip(Shapes.small)
+                .border(
+                    width = 2.dp,
+                    color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.6f)
+                ),
+            shape = RoundedCornerShape(5.dp),
+            backgroundColor = MaterialTheme.colorScheme.background,
+            properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true)
         )
     }
     Box(
@@ -130,12 +138,15 @@ fun MultipleChoiceSelector(
             .fillMaxHeight()
             .padding(dimensionResource(id = R.dimen.fieldComponent_button_padding))
             .clip(Shapes.small)
-            .background(colorResource(id = R.color.fieldComponent_button_background))
+            .background(
+                color = MaterialTheme.colorScheme.primary
+            )
             .clickable { dialogOpen = true }
     ) {
         Text(
             text = stringResource(id = R.string.multipleChoiceFieldInput_open_selector),
             fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.background,
             modifier = Modifier
                 .padding(
                     horizontal = dimensionResource(id = R.dimen.fieldComponent_button_text_padding),

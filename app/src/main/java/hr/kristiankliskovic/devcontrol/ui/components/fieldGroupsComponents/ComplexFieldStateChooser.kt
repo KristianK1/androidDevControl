@@ -136,7 +136,8 @@ fun ComplexStateChooserDialog(
                 ),
             shape = RoundedCornerShape(5.dp),
             backgroundColor = MaterialTheme.colorScheme.background,
-            properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true))
+            properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true)
+        )
     }
 
 
@@ -160,7 +161,8 @@ fun ComplexStateChooserDialog(
         ) {
             Text(
                 text = stringResource(id = R.string.complexGroup_stateChooser_button),
-                color = MaterialTheme.colorScheme.inverseSurface,
+                color = MaterialTheme.colorScheme.background,
+                fontSize = 20.sp,
                 modifier = Modifier.padding(
                     horizontal = 10.dp,
                     vertical = 0.dp

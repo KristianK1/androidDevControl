@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -12,10 +13,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,19 +50,22 @@ fun TextFieldInput(
             item.name
         )
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.CenterVertically)
-            ) {
-                Text(
-                    text = item.currentValue,
-                    fontSize = 40.sp,
-                )
-            }
-            TextInputDialog(emitValue = emitValue)
+            Text(
+                text = item.currentValue,
+                fontSize = 40.sp,
+                color = MaterialTheme.colorScheme.primary,
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f, true)
+            )
+            TextInputDialog(
+                emitValue = emitValue,
+                modifier = Modifier.weight(1f, false)
+            )
         }
     }
 }
@@ -70,6 +73,7 @@ fun TextFieldInput(
 @Composable
 fun TextInputDialog(
     emitValue: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var dialogOpen by remember {
         mutableStateOf(false)
@@ -105,23 +109,31 @@ fun TextInputDialog(
                                     emitValue(value)
                                     dialogOpen = false
                                 }
-                                .background(colorResource(id = R.color.fieldComponent_button_background))
+                                .background(
+                                    color = MaterialTheme.colorScheme.primary
+                                )
                                 .padding(dimensionResource(id = R.dimen.dialog_confirm_button_padding))
                         ) {
                             Text(
                                 text = stringResource(id = R.string.textFieldInput_confirm_text_buttonText),
-                                fontSize = 20.sp
+                                fontSize = 20.sp,
+                                color = MaterialTheme.colorScheme.background
                             )
                         }
                     }
                 }
             },
-            shape = Shapes.small,
-            backgroundColor = Color.White,
-            properties = DialogProperties(
-                dismissOnBackPress = true,
-                dismissOnClickOutside = true
-            )
+            modifier = Modifier // Set the width and padding
+                .fillMaxWidth()
+                .padding(32.dp)
+                .clip(Shapes.small)
+                .border(
+                    width = 2.dp,
+                    color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.6f)
+                ),
+            shape = RoundedCornerShape(5.dp),
+            backgroundColor = MaterialTheme.colorScheme.background,
+            properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = true)
         )
     }
     Box(
@@ -130,22 +142,25 @@ fun TextInputDialog(
             .fillMaxHeight()
             .padding(dimensionResource(id = R.dimen.fieldComponent_button_padding))
             .clip(Shapes.small)
-            .background(colorResource(id = R.color.fieldComponent_button_background))
+            .background(
+                color = MaterialTheme.colorScheme.primary
+            )
             .clickable {
                 dialogOpen = true
             }
     ) {
         Text(
             text = stringResource(id = R.string.textInputComponent_open_dialog_button),
-            modifier = Modifier
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.background,
+            modifier = modifier
                 .padding(
                     horizontal = dimensionResource(id = R.dimen.fieldComponent_button_text_padding),
                     vertical = 0.dp
                 )
-        )
+            )
+        }
     }
-
-}
 
 
 @Preview

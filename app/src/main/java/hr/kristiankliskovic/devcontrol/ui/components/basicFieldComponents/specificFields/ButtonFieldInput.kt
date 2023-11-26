@@ -71,7 +71,9 @@ fun ButtonFieldInput(
                     .fillMaxHeight()
                     .padding(dimensionResource(id = R.dimen.fieldComponent_button_padding))
                     .clip(Shapes.small)
-                    .background(colorResource(id = R.color.fieldComponent_button_background))
+                    .background(
+                        color = MaterialTheme.colorScheme.primary
+                    )
                     .clickable {
                         emitValue(!item.currentValue)
                     }
@@ -81,6 +83,7 @@ fun ButtonFieldInput(
                     if (item.currentValue) stringResource(id = R.string.buttonField_change_to_OFF_text)
                     else stringResource(id = R.string.buttonField_change_to_ON_text),
                     fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.background,
                     modifier = Modifier
                         .padding(
                             horizontal = dimensionResource(id = R.dimen.fieldComponent_button_text_padding),

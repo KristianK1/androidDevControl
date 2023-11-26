@@ -4,9 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -91,11 +94,13 @@ fun DeviceControlsScreen(
             text = item.deviceName,
             modifier = Modifier
                 .fillMaxWidth()
+                .clip(CircleShape)
                 .background(
-                    color = Color.LightGray,
+                    color = (if(item.deviceOnline) Color.Green else Color.Red).copy(alpha = 0.45f),
                 ),
             textAlign = TextAlign.Center,
-            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.inverseSurface,
+            fontSize = 30.sp,
         )
         if (item.groupsViewStates.isEmpty() && item.complexGroupsViewStates.isEmpty()) {
             Text(
