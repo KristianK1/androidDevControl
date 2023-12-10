@@ -1,14 +1,13 @@
 package hr.kristiankliskovic.devcontrol.ui.adminPanelDeviceAddPermission
 
 import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +17,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import hr.kristiankliskovic.devcontrol.R
@@ -216,8 +216,8 @@ fun AddPermissionScreen(
         }
         if (permissionCategorySelected == PermissionCategory.COMPLEX_GROUP) {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth(),
+//                modifier = Modifier
+//                    .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
                 var dropDownMenuExpandedComplexGroup by remember { mutableStateOf(false) }
@@ -258,11 +258,14 @@ fun AddPermissionScreen(
 
         Text(
             text = stringResource(id = R.string.addPermissionScreen_addPermission),
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.background,
             modifier = Modifier
                 .padding(dimensionResource(id = R.dimen.addPermissionScreen_addPermission_text_margin))
                 .clip(Shapes.small)
-                .background(colorResource(id = R.color.addPermissionScreen_addPermission_button_background))
-                .clickable {
+                .background(
+                    color = MaterialTheme.colorScheme.primary
+                ).clickable {
                     if (userSelected != null) {
                         if (permissionCategorySelected == PermissionCategory.DEVICE) {
                             addDevicePermission(userSelected!!.userId, !permissionIsWrite)
@@ -291,8 +294,9 @@ fun AddPermissionScreen(
                 .padding(dimensionResource(id = R.dimen.addPermissionScreen_addPermission_text_padding))
         )
 
-        Spacer(modifier = Modifier
-            .height(dimensionResource(id = R.dimen.addPermissionScreen_top_bottom_screen_padding))
+        Spacer(
+            modifier = Modifier
+                .height(dimensionResource(id = R.dimen.addPermissionScreen_top_bottom_screen_padding))
         )
     }
 }
@@ -334,9 +338,14 @@ fun SelectUserDialog(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(dimensionResource(id = R.dimen.addPermissionScreen_dialog_padding)),
-            shape = Shapes.small,
-            backgroundColor = Color.White,
+                .padding(dimensionResource(id = R.dimen.addPermissionScreen_dialog_padding))
+                .clip(Shapes.small)
+                .border(
+                    width = 2.dp,
+                    color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.6f)
+                ),
+            shape = RoundedCornerShape(5.dp),
+            backgroundColor = MaterialTheme.colorScheme.background,
             properties = DialogProperties(
                 dismissOnBackPress = true,
                 dismissOnClickOutside = true
@@ -349,7 +358,9 @@ fun SelectUserDialog(
             .fillMaxHeight()
             .padding(dimensionResource(id = R.dimen.addPermissionScreen_user_button_margin))
             .clip(Shapes.small)
-            .background(colorResource(id = R.color.addPermissionScreen_user_button))
+            .background(
+                color = MaterialTheme.colorScheme.primary
+            )
             .clickable { dialogOpen = true }
     ) {
         Text(
@@ -357,6 +368,7 @@ fun SelectUserDialog(
             if (userSelected != null) "${userSelected.username} (id: ${userSelected.userId})"
             else stringResource(id = R.string.addPermissionScreen_UserButton_startText),
             fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.background,
             modifier = Modifier
                 .padding(
                     horizontal = dimensionResource(id = R.dimen.addPermissionScreen_user_button_padding_horizontal),
@@ -418,11 +430,17 @@ fun PermissionCategoryView(
     ) {
         RadioButton(
             selected = selected,
-            onClick = null
+            onClick = null,
+            colors = RadioButtonDefaults.colors(
+                selectedColor = MaterialTheme.colorScheme.primary,
+                unselectedColor = MaterialTheme.colorScheme.primary,
+            )
         )
         Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addPermissionScreen_radiobutton_spacer_width)))
         Text(
-            text = text
+            text = text,
+            color = MaterialTheme.colorScheme.primary,
+            fontSize = 20.sp,
         )
     }
 }
@@ -434,11 +452,14 @@ fun SelectedItem(
 ) {
     Text(
         text = text,
+        fontSize = 20.sp,
+        color = MaterialTheme.colorScheme.background,
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.addPermissionScreen_SelectedItem_text_margin))
             .clip(Shapes.small)
-            .background(colorResource(id = R.color.addPermissionScreen_SelectedItem_background))
-            .clickable {
+            .background(
+                color = MaterialTheme.colorScheme.primary
+            ).clickable {
                 onClick()
             }
             .padding(dimensionResource(id = R.dimen.addPermissionScreen_SelectedItem_text_padding))
@@ -463,11 +484,17 @@ fun ReadWriteSelector(
         ) {
             RadioButton(
                 selected = !state,
-                onClick = null
+                onClick = null,
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.primary,
+                    unselectedColor = MaterialTheme.colorScheme.primary,
+                )
             )
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addPermissionScreen_radiobutton_spacer_width)))
             Text(
-                text = stringResource(id = R.string.addPermissionScreen_read_permission_label)
+                text = stringResource(id = R.string.addPermissionScreen_read_permission_label),
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 20.sp,
             )
         }
         Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addPermissionScreen_radiobutton_spacer_width)))
@@ -480,11 +507,17 @@ fun ReadWriteSelector(
         ) {
             RadioButton(
                 selected = state,
-                onClick = null
+                onClick = null,
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.primary,
+                    unselectedColor = MaterialTheme.colorScheme.primary,
+                )
             )
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.addPermissionScreen_radiobutton_spacer_width)))
             Text(
-                text = stringResource(id = R.string.addPermissionScreen_write_permission_label)
+                text = stringResource(id = R.string.addPermissionScreen_write_permission_label),
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 20.sp,
             )
         }
     }
