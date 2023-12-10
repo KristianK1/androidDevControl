@@ -272,6 +272,12 @@
     <string name="getAllTriggersScreen_triggerSourceFieldAddress_complexGroup_propertyName">Source complex group: </string>
     <string name="getAllTriggersScreen_triggerSourceFieldAddress_state_propertyName">Source complex group state: </string>
 
+    <string name="getAllTriggersScreen_triggerResponseFieldAddress_device_propertyName">Response device: </string>
+    <string name="getAllTriggersScreen_triggerResponseFieldAddress_group_propertyName">Response group: </string>
+    <string name="getAllTriggersScreen_triggerResponseFieldAddress_field_propertyName">Response field: </string>
+    <string name="getAllTriggersScreen_triggerResponseFieldAddress_complexGroup_propertyName">Response complex group: </string>
+    <string name="getAllTriggersScreen_triggerResponseFieldAddress_state_propertyName">Response complex group state: </string>
+
     <string name="getAllTriggersScreen_triggerTimeSourceFirstTimeStamp_propertyName">Source timestamp: </string>
     <string name="getAllTriggersScreen_triggerTimeSourceLastTimeFired_propertyName">Trigger last time fired: </string>
     <string name="getAllTriggersScreen_triggerTimeSourceType_propertyName">Time source type: </string>

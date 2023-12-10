@@ -3,6 +3,7 @@ package hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceCo
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,11 +26,13 @@ fun TriggerItemLine(
         Text(
             text = propertyName,
             fontSize = if (increasedFont) 22.sp else 16.sp,
+            color = MaterialTheme.colorScheme.inverseSurface,
         )
         Text(
             text = propertyValue,
             fontSize = if (increasedFont) 22.sp else 16.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.inverseSurface,
         )
     }
 }

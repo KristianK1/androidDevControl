@@ -1,10 +1,12 @@
 package hr.kristiankliskovic.devcontrol.ui.triggerSettings_seeAll
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -43,6 +45,9 @@ fun SeeAllTriggersScreen(
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(state = scrollState)
+            .background(
+                color = MaterialTheme.colorScheme.background
+            )
     ) {
         for(trigger in viewState.triggers){
             TriggerItem(

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,11 +47,11 @@ fun TriggerItem(
             .padding(dimensionResource(id = R.dimen.triggerItem_margin))
             .clip(Shapes.small)
             .border(
-                color = colorResource(id = R.color.TriggerItem_rights_borders),
+                color = MaterialTheme.colorScheme.inverseSurface,
                 width = dimensionResource(id = R.dimen.triggerItem_border_width)
             )
             .background(
-                color = colorResource(id = R.color.triggerItem_background)
+                color = MaterialTheme.colorScheme.background.copy(alpha = 0.8f)
             )
             .padding(dimensionResource(id = R.dimen.triggerItem_padding))
             .fillMaxWidth()
@@ -71,7 +72,8 @@ fun TriggerItem(
                 modifier = Modifier
                     .clickable {
                         deleteTrigger(viewState.id)
-                    }
+                    },
+                tint = MaterialTheme.colorScheme.inverseSurface,
             )
         }
 
@@ -93,7 +95,7 @@ fun TriggerItem(
         }
 
         if (viewState.sourceAddressViewState != null) {
-            TriggerView_Address(viewState = viewState.sourceAddressViewState)
+            TriggerView_SourceAddress(viewState = viewState.sourceAddressViewState)
         }
         if (viewState.sourceFieldInfo != null) {
             SourceFieldInfo(viewState = viewState.sourceFieldInfo)
@@ -111,7 +113,7 @@ fun TriggerItem(
                     propertyValue = stringResource(id = R.string.getAllTriggersScreen_triggerResponseType_settingValue_propertyName)
                 )
                 if (viewState.responseAddressViewState != null) {
-                    TriggerView_Address(viewState = viewState.responseAddressViewState)
+                    TriggerView_ResponseAddress(viewState = viewState.responseAddressViewState)
                 }
                 if (viewState.responseFieldInfoViewState != null)
                     ResponseFieldInfo(viewState.responseFieldInfoViewState)
