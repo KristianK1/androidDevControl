@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -12,11 +13,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
@@ -72,6 +71,7 @@ fun SeeAllPermissionsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(state = scrollState)
     ) {
         Text(
@@ -125,11 +125,11 @@ fun GroupPermissions(
                 .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_for_border))
                 .clip(Shapes.small)
                 .border(
-                    color = colorResource(id = R.color.seeAllPermissionScreen_rights_borders),
+                    color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.6f),
                     width = dimensionResource(id = R.dimen.seeAllPermissionScreen_rights_borders)
                 )
                 .background(
-                    color = colorResource(id = R.color.seeAllPermissionsScreen_groups_background)
+                    color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.05f)
                 )
                 .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_between_boxes))
         ) {
@@ -138,7 +138,8 @@ fun GroupPermissions(
                 fontSize = 25.sp,
                 modifier = Modifier
                     .fillMaxWidth(),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.inverseSurface,
             )
             for (groupViewState in groupViewStates) {
                 GroupPermission(
@@ -162,23 +163,25 @@ fun GroupPermission(
             .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_for_border))
             .clip(Shapes.small)
             .border(
-                color = colorResource(id = R.color.seeAllPermissionScreen_rights_borders),
+                color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.6f),
                 width = dimensionResource(id = R.dimen.seeAllPermissionScreen_rights_borders)
             )
             .background(
-                color = colorResource(id = R.color.seeAllPermissionsScreen_group_background)
+                color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.1f)
             )
             .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_between_boxes))
             .fillMaxWidth()
     ) {
         Text(
             text = "${stringResource(id = R.string.seeAllPermissionsScreen_fieldPermission_groupName_title)}\n${groupViewState.groupName}",
-            fontSize = 25.sp
+            fontSize = 25.sp,
+            color = MaterialTheme.colorScheme.inverseSurface,
         )
         if (groupViewState.permissions.isEmpty()) {
             Text(
                 text = stringResource(id = R.string.seeAllPermissionsScreen_noPermission_group),
-                fontSize = 15.sp
+                fontSize = 15.sp,
+                color = MaterialTheme.colorScheme.inverseSurface,
             )
         } else {
             for (permission in groupViewState.permissions) {
@@ -211,11 +214,11 @@ fun ComplexGroupPermissions(
                 .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_for_border))
                 .clip(Shapes.small)
                 .border(
-                    color = colorResource(id = R.color.seeAllPermissionScreen_rights_borders),
+                    color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.6f),
                     width = dimensionResource(id = R.dimen.seeAllPermissionScreen_rights_borders)
                 )
                 .background(
-                    color = colorResource(id = R.color.seeAllPermissionsScreen_groups_background)
+                    color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.05f)
                 )
                 .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_between_boxes))
         ) {
@@ -224,7 +227,8 @@ fun ComplexGroupPermissions(
                 fontSize = 25.sp,
                 modifier = Modifier
                     .fillMaxWidth(),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.inverseSurface,
             )
             for (complexGroupViewState in complexGroupViewStates) {
                 ComplexGroupPermission(
@@ -248,23 +252,25 @@ fun ComplexGroupPermission(
             .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_for_border))
             .clip(Shapes.small)
             .border(
-                color = colorResource(id = R.color.seeAllPermissionScreen_rights_borders),
+                color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.6f),
                 width = dimensionResource(id = R.dimen.seeAllPermissionScreen_rights_borders)
             )
             .background(
-                color = colorResource(id = R.color.seeAllPermissionsScreen_group_background)
+                color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.1f)
             )
             .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_between_boxes))
             .fillMaxWidth()
     ) {
         Text(
             text = "${stringResource(id = R.string.seeAllPermissionsScreen_fieldPermission_complexGroupName_title)}\n${complexGroupViewState.complexGroupName}",
-            fontSize = 25.sp
+            fontSize = 25.sp,
+            color = MaterialTheme.colorScheme.inverseSurface,
         )
         if (complexGroupViewState.permissions.isEmpty()) {
             Text(
                 text = stringResource(id = R.string.seeAllPermissionsScreen_noPermission_complexGroup),
-                fontSize = 15.sp
+                fontSize = 15.sp,
+                color = MaterialTheme.colorScheme.inverseSurface,
             )
         } else {
             for (permission in complexGroupViewState.permissions) {
@@ -292,11 +298,11 @@ fun FieldPermissions(
                 .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_for_border))
                 .clip(Shapes.small)
                 .border(
-                    color = colorResource(id = R.color.seeAllPermissionScreen_rights_borders),
+                    color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.6f),
                     width = dimensionResource(id = R.dimen.seeAllPermissionScreen_rights_borders)
                 )
                 .background(
-                    color = colorResource(id = R.color.seeAllPermissionsScreen_fields_background)
+                    color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.2f)
                 )
                 .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_between_boxes))
         ) {
@@ -305,7 +311,8 @@ fun FieldPermissions(
                 fontSize = 25.sp,
                 modifier = Modifier
                     .fillMaxWidth(),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.inverseSurface,
             )
             for (fieldViewState in fieldViewStates) {
                 FieldPermission(
@@ -329,23 +336,25 @@ fun FieldPermission(
             .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_for_border))
             .clip(Shapes.small)
             .border(
-                color = colorResource(id = R.color.seeAllPermissionScreen_rights_borders),
+                color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.6f),
                 width = dimensionResource(id = R.dimen.seeAllPermissionScreen_rights_borders)
             )
             .background(
-                color = colorResource(id = R.color.seeAllPermissionsScreen_field_background)
+                color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.25f)
             )
             .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_between_boxes))
             .fillMaxWidth()
     ) {
         Text(
             text = "${stringResource(id = R.string.seeAllPermissionsScreen_fieldPermission_fieldName_title)} ${fieldViewState.fieldName} (${fieldViewState.fieldType})",
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.inverseSurface,
         )
         if (fieldViewState.permissions.isEmpty()) {
             Text(
                 text = stringResource(id = R.string.seeAllPermissionsScreen_noPermission_field),
-                fontSize = 15.sp
+                fontSize = 15.sp,
+                color = MaterialTheme.colorScheme.inverseSurface,
             )
         } else {
             for (permission in fieldViewState.permissions) {
@@ -373,7 +382,7 @@ fun UserPermissionLabel(
             .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_padding_between_userPermissions))
             .clip(Shapes.small)
             .border(
-                color = colorResource(id = R.color.seeAllPermissionScreen_rights_borders),
+                color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.4f),
                 width = dimensionResource(id = R.dimen.seeAllPermissionScreen_userPermission_border)
             )
             .padding(dimensionResource(id = R.dimen.seeAllPermissionScreen_userPermissionComponent_padding)),
@@ -387,6 +396,7 @@ fun UserPermissionLabel(
                     if (isWrite) stringResource(id = R.string.seeAllPermissions_write_permission_label) else stringResource(
                         id = R.string.seeAllPermissions_read_permission_label),
             fontSize = 25.sp,
+            color = MaterialTheme.colorScheme.inverseSurface,
         )
         Icon(
             imageVector = Icons.Filled.Delete,
@@ -394,7 +404,8 @@ fun UserPermissionLabel(
             modifier = Modifier
                 .clickable {
                     onClick()
-                }
+                },
+            tint = MaterialTheme.colorScheme.inverseSurface
         )
     }
 }

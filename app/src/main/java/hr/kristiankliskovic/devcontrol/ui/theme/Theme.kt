@@ -25,7 +25,7 @@ private val LightColorPalette = lightColorScheme(
     primary = Color(0xFF5251F0), // Steel Blue
     secondary = Color(0xFF8BC34A), // Lime Green
 
-    background = Color(0xFFF0F4C3), // Greenish Beige
+    background = Color(0xFFF0F0F0), // Greenish Beige
     surface = Color(0xFFD1D9CE), // Light Grayish
     onPrimary = Color(0xFF212121), // Dark Gray
     onSecondary = Color(0xFFFFFFFF), // White
