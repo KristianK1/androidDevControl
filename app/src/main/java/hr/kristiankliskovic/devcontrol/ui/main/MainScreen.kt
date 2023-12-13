@@ -144,7 +144,11 @@ fun MainScreen() {
         )
     ) { padding ->
         Surface(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    color = MaterialTheme.colorScheme.background
+                )
         ) {
             NavHost(
                 navController = navController,

@@ -145,11 +145,12 @@ fun RegisterScreen(
             text = stringResource(id = R.string.registerScreen_register_button),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.background,
             modifier = Modifier
                 .padding(dimensionResource(id = R.dimen.login_register_screen_padding_outside_button))
                 .clip(CircleShape)
                 .background(
-                    color = MaterialTheme.colorScheme.secondary,
+                    color = MaterialTheme.colorScheme.primary,
                 )
                 .clickable {
                     if(password != passwordAgain){

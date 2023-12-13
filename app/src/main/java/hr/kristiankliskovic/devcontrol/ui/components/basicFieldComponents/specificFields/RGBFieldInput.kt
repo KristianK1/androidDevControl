@@ -55,6 +55,7 @@ fun RGBFieldInput(
         ) {
             Box(
                 modifier = Modifier
+                    .height(50.dp)
                     .align(Alignment.CenterVertically)
                     .clip(CircleShape)
                     .background(
@@ -65,7 +66,7 @@ fun RGBFieldInput(
                         )
                     )
                     .padding(
-                        vertical = 10.dp,
+//                        vertical = 10.dp,
                         horizontal = 50.dp
                     )
             ) {
@@ -73,6 +74,8 @@ fun RGBFieldInput(
                     text = item.currentValue.displayColorString(),
                     color = if((item.currentValue.R + item.currentValue.G + item.currentValue.B) > 400) Color.Black else Color.White,
                     fontSize = 30.sp,
+                    modifier = Modifier
+                        .align(Alignment.Center)
                 )
             }
             RGBDialog(selectValue = emitValue)

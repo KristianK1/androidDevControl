@@ -1,12 +1,15 @@
 package hr.kristiankliskovic.devcontrol.ui.components.basicFieldComponents.specificFields
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
@@ -39,14 +42,27 @@ fun RGBFieldOutput(
     ) {
         FieldTitle(item.name)
         Box(
-            contentAlignment = Alignment.Center,
             modifier = Modifier
-                .fillMaxHeight()
+                .height(50.dp)
+                .clip(CircleShape)
+                .background(
+                    color = Color(
+                        red = item.currentValue.R / 255f,
+                        green = item.currentValue.G / 255f,
+                        blue = item.currentValue.B / 255f,
+                    )
+                )
+                .padding(
+//                    vertical = 10.dp,
+                    horizontal = 50.dp
+                )
         ) {
             Text(
                 text = item.currentValue.displayColorString(),
-                color = Color(item.currentValue.R, item.currentValue.G, item.currentValue.B),
-                fontSize = 40.sp,
+                color = if((item.currentValue.R + item.currentValue.G + item.currentValue.B) > 400) Color.Black else Color.White,
+                fontSize = 30.sp,
+                modifier = Modifier
+                    .align(Alignment.Center)
             )
         }
     }

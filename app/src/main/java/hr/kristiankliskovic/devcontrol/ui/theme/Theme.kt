@@ -8,31 +8,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColorScheme(
-    primary = Color(0xFF0C5CF7), // Steel Blue
-    secondary = Color(0xFFBB96C2), // Lime Green
+    primary = Color(0xFF0C5CF7),
+    secondary = Color(0xFFBB96C2),
 
-    background = Color(0xFF000000), // Greenish Beige
-    surface = Color(0xFF000000), // Light Grayish
-    onPrimary = Color(0xFF212121), // Dark Gray
-    onSecondary = Color(0xFFFFFFFF), // White
-    onBackground = Color(0xFF212121), // Dark Gray
-    onSurface = Color(0xFF212121), // Dark Gray
+    background = Color(0xFF000000),
+    surface = Color(0xFF000000),
+    onPrimary = Color(0xFF212121),
+    onSecondary = Color(0xFFFFFFFF),
+    onBackground = Color(0xFF212121),
+    onSurface = Color(0xFF212121),
     inverseSurface = Color(0xFFB8B8B8),
-    error = Color(0xFFE53935), // Red for error messages
+    error = Color(0xFFE53935),
 )
 
 private val LightColorPalette = lightColorScheme(
-    primary = Color(0xFF5251F0), // Steel Blue
-    secondary = Color(0xFF8BC34A), // Lime Green
+    primary = Color(0xFF5251F0),
+    secondary = Color(0xFF8BC34A),
 
-    background = Color(0xFFF0F0F0), // Greenish Beige
-    surface = Color(0xFFD1D9CE), // Light Grayish
-    onPrimary = Color(0xFF212121), // Dark Gray
-    onSecondary = Color(0xFFFFFFFF), // White
-    onBackground = Color(0xFF212121), // Dark Gray
-    onSurface = Color(0xFF212121), // Dark Gray
+    background = Color(0xFFF0F0F0),
+    surface = Color(0xFFF0F0F0),
+    onPrimary = Color(0xFF212121),
+    onSecondary = Color(0xFFFFFFFF),
+    onBackground = Color(0xFF212121),
+    onSurface = Color(0xFF212121),
     inverseSurface = Color(0xFF0E0E0E),
-    error = Color(0xFFE53935), // Red for error messages
+    error = Color(0xFFE53935),
 )
 
 
