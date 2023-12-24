@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.model.ERGBTriggerType_context
+import hr.kristiankliskovic.devcontrol.model.RGBValue
 import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents.TriggerItemLine
 
 sealed class ResponseFieldInfoViewState
@@ -28,8 +29,7 @@ data class ResponseMCFieldInfoViewState(
 ) : ResponseFieldInfoViewState()
 
 data class ResponseRGBFieldInfoViewState(
-    val fieldValue: Int,
-    val context: ERGBTriggerType_context,
+    val fieldValue: RGBValue,
 ) : ResponseFieldInfoViewState()
 
 @Composable
@@ -77,10 +77,6 @@ fun ResponseFieldInfo(
             TriggerItemLine(
                 propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerResponseFieldType_propertyName),
                 propertyValue = stringResource(id = R.string.getAllTriggersScreen_triggerFieldType_RGB)
-            )
-            TriggerItemLine(
-                propertyName = stringResource(id = R.string.getAllTriggersScreen_rgbTriggerType_equalPropertyName),
-                propertyValue = stringResource(id = if (viewState.context == ERGBTriggerType_context.R) R.string.rgbTriggerContext_R else if (viewState.context == ERGBTriggerType_context.G) R.string.rgbTriggerContext_G else R.string.rgbTriggerContext_B)
             )
             TriggerItemLine(
                 propertyName = stringResource(id = R.string.getAllTriggersScreen_triggerResponseFieldValue_propertyName),

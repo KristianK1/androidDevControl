@@ -109,9 +109,6 @@ fun AddTriggerRoute(
         setRGBResponseValue = {
             viewModel.setRGBResponseValue(it)
         },
-        setRGBResponseContext = {
-            viewModel.setRGBResponseContext(it)
-        },
         selectResponseDevice = {
             viewModel.selectResponseDevice(it)
         },
@@ -179,8 +176,7 @@ fun AddTriggerScreen(
     setTextResponseValue: (String) -> Unit,
     setButtonResponseValue: (Boolean) -> Unit,
     setMCResponseValue: (Int) -> Unit,
-    setRGBResponseValue: (Int) -> Unit,
-    setRGBResponseContext: (ERGBTriggerType_context) -> Unit,
+    setRGBResponseValue: (RGBValue) -> Unit,
 
     changeResponseTitle: (String) -> Unit,
     changeResponseText: (String) -> Unit,
@@ -339,9 +335,6 @@ fun AddTriggerScreen(
                     },
                     setRGBValue = {
                         setRGBResponseValue(it)
-                    },
-                    setRGBTriggerContext = {
-                        setRGBResponseContext(it)
                     },
                 )
 

@@ -121,7 +121,6 @@ data class ITriggerSettingValueResponse_fieldInGroup(
     val groupId: Int,
     val fieldId: Int,
     val value: Any,
-    val rgbContext: ERGBTriggerType_context?,
 ) : TriggerResponse()
 
 data class ITriggerSettingsValueResponse_fieldInComplexGroup(
@@ -130,8 +129,6 @@ data class ITriggerSettingsValueResponse_fieldInComplexGroup(
     val complexGroupState: Int,
     val fieldId: Int,
     val value: Any,
-    val rgbContext: ERGBTriggerType_context?,
-
     ) : TriggerResponse()
 
 enum class ETriggerResponseType {

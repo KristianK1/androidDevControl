@@ -665,20 +665,12 @@ class AddTriggerViewModel(
                         )
                     triggerSettings = RGBTriggerResponseViewState(
                         value = mutableStateOf(null),
-                        contextType = mutableStateOf(ERGBTriggerType_context.R),
                     )
                 }
             }
         }
         if (triggerSettings != null) {
             viewState.value.responseSettings.value = triggerSettings
-        }
-    }
-
-    fun setRGBResponseContext(context: ERGBTriggerType_context) {
-        if (viewState.value.responseSettings.value != null && viewState.value.responseSettings.value is RGBTriggerResponseViewState) {
-            (viewState.value.responseSettings.value as RGBTriggerResponseViewState).contextType.value =
-                context
         }
     }
 
@@ -710,7 +702,7 @@ class AddTriggerViewModel(
         }
     }
 
-    fun setRGBResponseValue(value: Int) {
+    fun setRGBResponseValue(value: RGBValue) {
         if (viewState.value.responseSettings.value != null && viewState.value.responseSettings.value is RGBTriggerResponseViewState) {
             (viewState.value.responseSettings.value as RGBTriggerResponseViewState).value.value =
                 value
@@ -861,7 +853,6 @@ class AddTriggerViewModel(
                     is RGBTriggerResponseViewState -> {
                         if (responseSettings.value.value == null) throw(Throwable("RGB response value response isn't set"))
                         value = responseSettings.value.value!!
-                        rgb_context = responseSettings.contextType.value
                     }
                     is TextTriggerResponseViewState -> {
                         if (responseSettings.value.value.isEmpty()) throw(Throwable("Text response was empty"))
@@ -891,7 +882,6 @@ class AddTriggerViewModel(
                         groupId = viewState.value.responseAddress.value.selectedGroup.value!!.id,
                         fieldId = viewState.value.responseAddress.value.selectedField.value!!.id,
                         value = value!!,
-                        rgbContext = rgb_context,
                     )
                 }
                 ETriggerResponseType.SettingValue_fieldInComplexGroup -> {
@@ -901,7 +891,6 @@ class AddTriggerViewModel(
                         complexGroupState = viewState.value.responseAddress.value.selectedState.value!!.id,
                         fieldId = viewState.value.responseAddress.value.selectedField.value!!.id,
                         value = value!!,
-                        rgbContext = rgb_context
                     )
                 }
             }

@@ -256,7 +256,7 @@
     <string name="addTriggerScreen_valueType_title_text_response">Text value will be set to</string>
     <string name="addTriggerScreen_valueType_title_button_response">Button value will be set to</string>
     <string name="addTriggerScreen_valueType_title_multipleC_response">Selected value will be set to</string>
-    <string name="addTriggerScreen_valueType_title_RGB_response">Numeric value will be set to</string>
+    <string name="addTriggerScreen_valueType_title_RGB_response">RGB value will be set to</string>
 
 
 

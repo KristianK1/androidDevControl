@@ -449,8 +449,7 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                                                         )
                                                     responseFieldInfoViewState =
                                                         ResponseRGBFieldInfoViewState(
-                                                            fieldValue = responseData.value as Int,
-                                                            context = responseData.rgbContext!!,
+                                                            fieldValue = responseData.value as RGBValue,
                                                         )
                                                 }
                                             }
@@ -580,8 +579,7 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                                                             )
                                                         responseFieldInfoViewState =
                                                             ResponseRGBFieldInfoViewState(
-                                                                fieldValue = responseData.value as Int,
-                                                                context = responseData.rgbContext!!,
+                                                                fieldValue = responseData.value as RGBValue,
                                                             )
                                                     }
                                                 }

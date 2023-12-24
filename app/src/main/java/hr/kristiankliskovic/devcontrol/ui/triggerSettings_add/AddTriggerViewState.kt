@@ -100,8 +100,7 @@ data class MCTriggerResponseViewState(
 ) : TriggerResponseSettingsViewState()
 
 data class RGBTriggerResponseViewState(
-    var value: MutableState<Int?> = mutableStateOf(null),
-    var contextType: MutableState<ERGBTriggerType_context>,
+    var value: MutableState<RGBValue?> = mutableStateOf(null),
 ) : TriggerResponseSettingsViewState()
 
 data class BooleanTriggerResponseViewState(
