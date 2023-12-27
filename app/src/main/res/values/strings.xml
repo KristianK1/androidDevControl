@@ -192,8 +192,8 @@
     <string name="numericTriggerType_bigger">Bigger then</string>
     <string name="numericTriggerType_smaller">Smaller then</string>
     <string name="numericTriggerType_equal">Equal to</string>
-    <string name="numericTriggerType_between">Between</string>
-    <string name="numericTriggerType_NotBetween">Not between</string>
+    <string name="numericTriggerType_between">In interval</string>
+    <string name="numericTriggerType_NotBetween">Not in interval</string>
 
     <string name="rgbTriggerContext_R">Red</string>
     <string name="rgbTriggerContext_G">Green</string>
