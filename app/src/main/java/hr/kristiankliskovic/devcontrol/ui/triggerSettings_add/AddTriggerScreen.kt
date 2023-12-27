@@ -213,6 +213,7 @@ fun AddTriggerScreen(
         )
         if (viewState.sourceType.value == ETriggerSourceType.FieldInGroup || viewState.sourceType.value == ETriggerSourceType.FieldInComplexGroup) {
             TriggerSourceAddress(
+                title = stringResource(id = R.string.addTriggerScreen_sourceAddress_selectTitle),
                 includeComplexGroups = viewState.sourceType.value == ETriggerSourceType.FieldInComplexGroup,
                 viewState = viewState.sourceAddress.value,
                 selectDevice = selectSourceDevice,
@@ -312,6 +313,7 @@ fun AddTriggerScreen(
         when (viewState.responseType.value) {
             ETriggerResponseType.SettingValue_fieldInGroup, ETriggerResponseType.SettingValue_fieldInComplexGroup -> {
                 TriggerSourceAddress(
+                    title = stringResource(id = R.string.addTriggerScreen_responseAddress_selectTitle),
                     includeComplexGroups = viewState.responseType.value == ETriggerResponseType.SettingValue_fieldInComplexGroup,
                     viewState = viewState.responseAddress.value,
                     selectDevice = selectResponseDevice,

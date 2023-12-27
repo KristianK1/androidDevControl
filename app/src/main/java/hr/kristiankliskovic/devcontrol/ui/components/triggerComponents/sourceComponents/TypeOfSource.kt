@@ -23,87 +23,103 @@ fun TypeOfSource(
     chooseType: (ETriggerSourceType) -> Unit,
     typeSelected: ETriggerSourceType,
 ) {
-    Row(
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .clip(RoundedCornerShape(25.dp))
-            .height(IntrinsicSize.Max)
-    ){
-        Box(
+    Column {
+        Text(
+            text = stringResource(id = R.string.triggerSource_Type_title),
+            fontSize = 18.sp,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
-                .weight(1f,true)
-                .fillMaxHeight()
-                .clickable {
-                    chooseType(ETriggerSourceType.FieldInGroup)
-                }
-                .background(
-                    color = if(typeSelected == ETriggerSourceType.FieldInGroup) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
-                )
-                .padding(10.dp),
-            contentAlignment = Alignment.Center,
-        ){
-            Text(
-                text = stringResource(id = R.string.triggerSource_Type_fieldInGroup),
-                fontSize = 15.sp,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.inverseSurface,
+                .padding(2.dp)
+                .fillMaxWidth()
+        )
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .clip(RoundedCornerShape(25.dp))
+                .height(IntrinsicSize.Max)
+        ) {
+            Box(
                 modifier = Modifier
-            )
-        }
-        Box(
-            modifier = Modifier
-                .width(5.dp)
-                .background(MaterialTheme.colorScheme.background)
-                .fillMaxHeight()
-        )
-        Box(
-            modifier = Modifier
-                .weight(1f,true)
-                .fillMaxHeight()
-                .clickable {
-                    chooseType(ETriggerSourceType.FieldInComplexGroup)
-                }
-                .background(
-                    color = if(typeSelected == ETriggerSourceType.FieldInComplexGroup) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
+                    .weight(1f, true)
+                    .fillMaxHeight()
+                    .clickable {
+                        chooseType(ETriggerSourceType.FieldInGroup)
+                    }
+                    .background(
+                        color = if (typeSelected == ETriggerSourceType.FieldInGroup) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primary.copy(
+                            alpha = 0.6f
+                        )
+                    )
+                    .padding(10.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = stringResource(id = R.string.triggerSource_Type_fieldInGroup),
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.background,
                 )
-                .padding(10.dp),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = stringResource(id = R.string.triggerSource_Type_fieldInComplexGroup),
-                fontSize = 15.sp,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.inverseSurface,
+            }
+            Box(
+                modifier = Modifier
+                    .width(5.dp)
+                    .background(MaterialTheme.colorScheme.background)
+                    .fillMaxHeight()
             )
-        }
-        Box(
-            modifier = Modifier
-                .width(5.dp)
-                .background(MaterialTheme.colorScheme.background)
-                .fillMaxHeight()
-        )
-        Box(
-            modifier = Modifier
-                .weight(1f,true)
-                .fillMaxHeight()
-                .clickable {
-                    chooseType(ETriggerSourceType.TimeTrigger)
-                }
-                .background(
-                    color = if(typeSelected == ETriggerSourceType.TimeTrigger) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
+            Box(
+                modifier = Modifier
+                    .weight(1f, true)
+                    .fillMaxHeight()
+                    .clickable {
+                        chooseType(ETriggerSourceType.FieldInComplexGroup)
+                    }
+                    .background(
+                        color = if (typeSelected == ETriggerSourceType.FieldInComplexGroup) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primary.copy(
+                            alpha = 0.6f
+                        )
+                    )
+                    .padding(10.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = stringResource(id = R.string.triggerSource_Type_fieldInComplexGroup),
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.background,
                 )
-                .padding(10.dp),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = stringResource(id = R.string.triggerSource_Type_time),
-                fontSize = 15.sp,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.inverseSurface,
+            }
+            Box(
+                modifier = Modifier
+                    .width(5.dp)
+                    .background(MaterialTheme.colorScheme.background)
+                    .fillMaxHeight()
             )
-        }
+            Box(
+                modifier = Modifier
+                    .weight(1f, true)
+                    .fillMaxHeight()
+                    .clickable {
+                        chooseType(ETriggerSourceType.TimeTrigger)
+                    }
+                    .background(
+                        color = if (typeSelected == ETriggerSourceType.TimeTrigger) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primary.copy(
+                            alpha = 0.6f
+                        )
+                    )
+                    .padding(10.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = stringResource(id = R.string.triggerSource_Type_time),
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.background,
+                )
+            }
 
+        }
     }
 }
 
