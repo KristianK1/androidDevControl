@@ -160,10 +160,10 @@
     <string name="permission_added">Permission added.</string>
     <string name="permission_added_error">Permission not added. </string>
 
-    <string name="triggerSource_Type_title">Select type of source</string>
-    <string name="triggerSource_Type_fieldInGroup">Field in group</string>
-    <string name="triggerSource_Type_fieldInComplexGroup">Field in complex group</string>
-    <string name="triggerSource_Type_time">Time</string>
+    <string name="triggerSource_Type_title">Select type of trigger source</string>
+    <string name="triggerSource_Type_fieldInGroup">Value of field in group</string>
+    <string name="triggerSource_Type_fieldInComplexGroup">Value of field in complex group</string>
+    <string name="triggerSource_Type_time">Specific time</string>
 
     <string name="triggerResponse_Type_title">Select type of response</string>
     <string name="triggerResponse_Type_fieldInGroup">Field in group</string>

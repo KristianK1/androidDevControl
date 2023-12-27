@@ -6,8 +6,8 @@ data class Server(
 )
 
 val PC_WiFi = Server(
-    httpServer = "http://192.168.1.150:8000",
-    wsServer = "192.168.1.150"
+    httpServer = "http://192.168.1.155:8000",
+    wsServer = "192.168.1.155"
 )
 
 val PC_LAN = Server(
@@ -30,4 +30,4 @@ val herokuHosting = Server(
     httpServer = "https://devcontrol.herokuapp.com",
     wsServer = "devcontrol.herokuapp.com"
 )
-val HTTPSERVER = renderHosting
+val HTTPSERVER = PC_LAN
