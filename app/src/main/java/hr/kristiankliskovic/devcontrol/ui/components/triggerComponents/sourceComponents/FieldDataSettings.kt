@@ -41,61 +41,18 @@ fun TriggerFieldSourceDataSettings(
     Column(
         modifier = Modifier
             .width(IntrinsicSize.Max)
-            .border(
-                width = 1.dp,
-                shape = RectangleShape,
-                color = Color.Gray,
-            )
             .padding(dimensionResource(id = R.dimen.addTriggerBorderPadding)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         when (viewState) {
             is NumericTriggerSourceViewState -> {
-                Column {
-                    Text(
-                        text = stringResource(id = R.string.addTriggerScreen_valueType_title_numeric),
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally),
-                        fontSize = 16.sp
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ENumericTriggerType.Bigger,
-                        text = stringResource(id = R.string.numericTriggerType_bigger),
-                        onClick = {
-                            setNumericTriggerType(ENumericTriggerType.Bigger)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ENumericTriggerType.Smaller,
-                        text = stringResource(id = R.string.numericTriggerType_smaller),
-                        onClick = {
-                            setNumericTriggerType(ENumericTriggerType.Smaller)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ENumericTriggerType.Equal,
-                        text = stringResource(id = R.string.numericTriggerType_equal),
-                        onClick = {
-                            setNumericTriggerType(ENumericTriggerType.Equal)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ENumericTriggerType.Between,
-                        text = stringResource(id = R.string.numericTriggerType_between),
-                        onClick = {
-                            setNumericTriggerType(ENumericTriggerType.Between)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ENumericTriggerType.NotBetween,
-                        text = stringResource(id = R.string.numericTriggerType_NotBetween),
-                        onClick = {
-                            setNumericTriggerType(ENumericTriggerType.NotBetween)
-                        }
-                    )
-                }
+                TypeOfNumericSource(
+                    typeSelected = viewState.type.value,
+                    chooseType = {
+                        setNumericTriggerType(it)
+                    }
+                )
                 Row {
                     ChooseNumericValuePopup(
                         minValue = viewState.minimum,
@@ -124,54 +81,19 @@ fun TriggerFieldSourceDataSettings(
                 }
             }
             is BooleanTriggerSourceViewState -> {
-                Column {
-                    Text(
-                        text = stringResource(id = R.string.addTriggerScreen_valueType_title_button),
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally),
-                        fontSize = 16.sp
-                    )
-                    RadioButtonRow(
-                        selected = viewState.value.value,
-                        text = stringResource(id = R.string.buttonTriggerType_true),
-                        onClick = {
-                            setButtonValue(true)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = !viewState.value.value,
-                        text = stringResource(id = R.string.buttonTriggerType_false),
-                        onClick = {
-                            setButtonValue(false)
-                        }
-                    )
-                }
+                TypeOfButtonSource(
+                    chooseType = {
+                        setButtonValue(it)
+                    },
+                    typeSelected = viewState.value.value
+                )
             }
             is MCTriggerSourceViewState -> {
-                Column {
-                    Text(
-                        text = stringResource(id = R.string.addTriggerScreen_valueType_title_multipleC),
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally),
-                        fontSize = 16.sp
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == EMCTriggerType.IsEqualTo,
-                        text = stringResource(id = R.string.MCTriggerType_equal),
-                        onClick = {
-                            setMCTriggerType(EMCTriggerType.IsEqualTo)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == EMCTriggerType.IsNotEqualTo,
-                        text = stringResource(id = R.string.MCTriggerType_notEqual),
-                        onClick = {
-                            setMCTriggerType(EMCTriggerType.IsNotEqualTo)
-                        }
-                    )
-                }
+                TypeOfMultipleChoiceSource(
+                    chooseType = {
+                        setMCTriggerType(it)
+                    },
+                    typeSelected = viewState.type.value)
                 ChooseTextValuePopup(
                     values = viewState.values,
                     valueChosen = if (viewState.value.value != null) "${viewState.value.value}: ${viewState.values[viewState.value.value!!]}" else null,
@@ -181,80 +103,16 @@ fun TriggerFieldSourceDataSettings(
                 )
             }
             is RGBTriggerSourceViewState -> {
-                Column {
-                    Text(
-                        text = stringResource(id = R.string.addTriggerScreen_valueType_title_RGB),
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally),
-                        fontSize = 16.sp
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ERGBTriggerType_numeric.Bigger,
-                        text = stringResource(id = R.string.numericTriggerType_bigger),
-                        onClick = {
-                            setRGBTriggerType(ERGBTriggerType_numeric.Bigger)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ERGBTriggerType_numeric.Smaller,
-                        text = stringResource(id = R.string.numericTriggerType_smaller),
-                        onClick = {
-                            setRGBTriggerType(ERGBTriggerType_numeric.Smaller)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ERGBTriggerType_numeric.Equal,
-                        text = stringResource(id = R.string.numericTriggerType_equal),
-                        onClick = {
-                            setRGBTriggerType(ERGBTriggerType_numeric.Equal)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ERGBTriggerType_numeric.Inbetween,
-                        text = stringResource(id = R.string.numericTriggerType_between),
-                        onClick = {
-                            setRGBTriggerType(ERGBTriggerType_numeric.Inbetween)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ERGBTriggerType_numeric.NotInBetween,
-                        text = stringResource(id = R.string.numericTriggerType_NotBetween),
-                        onClick = {
-                            setRGBTriggerType(ERGBTriggerType_numeric.NotInBetween)
-                        }
-                    )
-
-                    Text(
-                        text = stringResource(id = R.string.addTriggerScreen_valueType_title_RGB_context),
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally),
-                        fontSize = 16.sp
-                    )
-
-                    RadioButtonRow(
-                        selected = viewState.contextType.value == ERGBTriggerType_context.R,
-                        text = stringResource(id = R.string.rgbTriggerContext_R),
-                        onClick = {
-                            setRGBTriggerContext(ERGBTriggerType_context.R)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.contextType.value == ERGBTriggerType_context.G,
-                        text = stringResource(id = R.string.rgbTriggerContext_G),
-                        onClick = {
-                            setRGBTriggerContext(ERGBTriggerType_context.G)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.contextType.value == ERGBTriggerType_context.B,
-                        text = stringResource(id = R.string.rgbTriggerContext_B),
-                        onClick = {
-                            setRGBTriggerContext(ERGBTriggerType_context.B)
-                        }
-                    )
-                }
+                TypeOfRGBSource(
+                    chooseType = {
+                        setRGBTriggerType(it)
+                    },
+                    typeSelected = viewState.type.value,
+                    chooseContext = {
+                        setRGBTriggerContext(it)
+                    },
+                    contextSelected = viewState.contextType.value,
+                )
 
                 Row {
                     ChooseNumericValuePopup(
@@ -284,51 +142,12 @@ fun TriggerFieldSourceDataSettings(
                 }
             }
             is TextTriggerSourceViewState -> {
-                Column {
-                    Text(
-                        text = stringResource(id = R.string.addTriggerScreen_valueType_title_text),
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier
-                            .align(Alignment.CenterHorizontally),
-                        fontSize = 16.sp
-                    )
-
-                    RadioButtonRow(
-                        selected = viewState.type.value == ETextTriggerType.StartsWith,
-                        text = stringResource(id = R.string.textTriggerType_startsWith),
-                        onClick = {
-                            setTextTriggerType(ETextTriggerType.StartsWith)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ETextTriggerType.EndsWith,
-                        text = stringResource(id = R.string.textTriggerType_endsWith),
-                        onClick = {
-                            setTextTriggerType(ETextTriggerType.EndsWith)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ETextTriggerType.Contains,
-                        text = stringResource(id = R.string.textTriggerType_contains),
-                        onClick = {
-                            setTextTriggerType(ETextTriggerType.Contains)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ETextTriggerType.IsEqualTo,
-                        text = stringResource(id = R.string.textTriggerType_isEqual),
-                        onClick = {
-                            setTextTriggerType(ETextTriggerType.IsEqualTo)
-                        }
-                    )
-                    RadioButtonRow(
-                        selected = viewState.type.value == ETextTriggerType.IsNotEqualTo,
-                        text = stringResource(id = R.string.textTriggerType_isEqualTo),
-                        onClick = {
-                            setTextTriggerType(ETextTriggerType.IsNotEqualTo)
-                        }
-                    )
-                }
+                TypeOfTextSource(
+                    chooseType = {
+                                 setTextTriggerType(it)
+                    },
+                    typeSelected = viewState.type.value
+                )
                 OutlineTextWrapper(
                     label = stringResource(id = R.string.textTriggerValue_label),
                     placeholder = stringResource(id = R.string.textTriggerValue_placeholder),

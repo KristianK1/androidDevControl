@@ -345,11 +345,6 @@ fun AddTriggerScreen(
                 Column(
                     modifier = Modifier
                         .width(IntrinsicSize.Max)
-                        .border(
-                            width = 1.dp,
-                            shape = RectangleShape,
-                            color = Color.Gray,
-                        )
                         .padding(dimensionResource(id = R.dimen.addTriggerBorderPadding))
                         .align(Alignment.CenterHorizontally),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -358,6 +353,7 @@ fun AddTriggerScreen(
                         text = stringResource(id = R.string.addTrigger_emailSetupTitle),
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally),
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 20.sp
                     )
                     OutlineTextWrapper(
@@ -381,11 +377,6 @@ fun AddTriggerScreen(
                 Column(
                     modifier = Modifier
                         .width(IntrinsicSize.Max)
-                        .border(
-                            width = 1.dp,
-                            shape = RectangleShape,
-                            color = Color.Gray,
-                        )
                         .padding(dimensionResource(id = R.dimen.addTriggerBorderPadding))
                         .align(Alignment.CenterHorizontally),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -394,6 +385,7 @@ fun AddTriggerScreen(
                         text = stringResource(id = R.string.addTrigger_notificationSetupTitle),
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally),
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 20.sp
                     )
                     OutlineTextWrapper(

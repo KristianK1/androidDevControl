@@ -212,7 +212,7 @@
     <string name="textTriggerType_startsWith">Start with</string>
     <string name="textTriggerType_endsWith">End with</string>
     <string name="textTriggerType_isEqual">Be equal to</string>
-    <string name="textTriggerType_isEqualTo">Be not equal to</string>
+    <string name="textTriggerType_isNotEqualTo">Be not equal to</string>
 
     <string name="textTriggerValue_label">Text trigger value</string>
     <string name="textTriggerValue_placeholder">Enter text trigger value</string>
@@ -250,7 +250,7 @@
     <string name="addTriggerScreen_valueType_title_numeric">Numeric value needs to be</string>
     <string name="addTriggerScreen_valueType_title_text">Text value must</string>
     <string name="addTriggerScreen_valueType_title_button">Button value must be</string>
-    <string name="addTriggerScreen_valueType_title_multipleC">Selected value must</string>
+    <string name="addTriggerScreen_valueType_title_multipleChoice">Selected value must</string>
     <string name="addTriggerScreen_valueType_title_RGB">Numeric value needs to be</string>
     <string name="addTriggerScreen_valueType_title_RGB_context">Select RGB context</string>
 
