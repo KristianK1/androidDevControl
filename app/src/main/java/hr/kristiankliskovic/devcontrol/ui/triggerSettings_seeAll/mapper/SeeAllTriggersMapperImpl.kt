@@ -316,7 +316,8 @@ class SeeAllTriggersMapperImpl : SeeAllTriggersMapper {
                             timeTriggerInfo = TimeTriggerInfoViewState(
                                 type = sourceData.type,
                                 timeStamp = getLocalTimeForDisplayFromISO(sourceData.firstTimeStamp),
-                                lastFired = lastFired
+                                lastFired = lastFired,
+                                daysOfWeek = sourceData.daysInWeek,
                             )
                             Log.i("triggerMap", "end time data")
 

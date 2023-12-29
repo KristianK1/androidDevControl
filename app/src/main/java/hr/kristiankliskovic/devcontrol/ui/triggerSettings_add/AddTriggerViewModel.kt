@@ -765,6 +765,12 @@ class AddTriggerViewModel(
                             ?: throw(Throwable("Date value isn't set"))
                     }
 
+                    if(
+                        viewState.value.timeTriggerType.value == ETriggerTimeType.DaysInWeek &&
+                        viewState.value.daysOfTheWeek.count { it.value } == 0){
+                        throw(Throwable("No days are selected"))
+                    }
+
                     val calendar = valuesToCalendar(
                         year = date?.get(Calendar.YEAR) ?: Calendar.getInstance().get(Calendar.YEAR),
                         month = if(date != null) date.get(Calendar.MONTH) + 1 else Calendar.getInstance().get(Calendar.MONTH) + 1,
@@ -788,7 +794,6 @@ class AddTriggerViewModel(
                     )
                 }
             }
-            ETriggerSourceType.TimeTrigger
             Log.i("addTriggerHTTP_sourceData", Gson().toJson(sourceData))
 
             var fieldType: String? = null

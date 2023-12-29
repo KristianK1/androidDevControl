@@ -7,10 +7,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
@@ -52,11 +56,6 @@ fun TriggerFieldSourceDataSettings(
     Column(
         modifier = Modifier
             .width(IntrinsicSize.Max)
-            .border(
-                width = 1.dp,
-                shape = RectangleShape,
-                color = Color.Gray,
-            )
             .padding(dimensionResource(id = R.dimen.addTriggerBorderPadding)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -99,19 +98,11 @@ fun TriggerFieldSourceDataSettings(
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 16.sp
                 )
-                RadioButtonRow(
-                    selected = viewState.value.value,
-                    text = stringResource(id = R.string.buttonTriggerResponseType_true),
-                    onClick = {
-                        setButtonValue(true)
-                    }
-                )
-                RadioButtonRow(
-                    selected = !viewState.value.value,
-                    text = stringResource(id = R.string.buttonTriggerResponseType_false),
-                    onClick = {
-                        setButtonValue(false)
-                    }
+                TypeOfButtonResponse(
+                    chooseType = {
+                        setButtonValue(it)
+                    },
+                    typeSelected = viewState.value.value
                 )
             }
             is MCTriggerResponseViewState -> {
@@ -139,6 +130,74 @@ fun TriggerFieldSourceDataSettings(
                     selectValue = {
                         setRGBValue(it)
                     }
+                )
+            }
+        }
+    }
+}
+
+
+@Composable
+fun TypeOfButtonResponse(
+    chooseType: (Boolean) -> Unit,
+    typeSelected: Boolean,
+){
+    Column {
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .clip(RoundedCornerShape(25.dp))
+                .height(IntrinsicSize.Max)
+        ) {
+            Box(
+                modifier = Modifier
+                    .weight(1f, true)
+                    .fillMaxHeight()
+                    .clickable {
+                        chooseType(true)
+                    }
+                    .background(
+                        color = if (typeSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primary.copy(
+                            alpha = 0.6f
+                        )
+                    )
+                    .padding(5.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = stringResource(id = R.string.buttonTriggerType_true),
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.background,
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .width(3.dp)
+                    .background(MaterialTheme.colorScheme.background)
+                    .fillMaxHeight()
+            )
+            Box(
+                modifier = Modifier
+                    .weight(1f, true)
+                    .fillMaxHeight()
+                    .clickable {
+                        chooseType(false)
+                    }
+                    .background(
+                        color = if (!typeSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primary.copy(
+                            alpha = 0.6f
+                        )
+                    )
+                    .padding(5.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = stringResource(id = R.string.buttonTriggerType_false),
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.background,
                 )
             }
         }
@@ -234,7 +293,7 @@ fun RGBDialog(
             modifier = Modifier
                 .padding(
                     horizontal = dimensionResource(id = R.dimen.fieldComponent_button_text_padding),
-                    vertical = 0.dp
+                    vertical = dimensionResource(id = R.dimen.fieldComponent_button_text_padding)
                 )
         )
     }

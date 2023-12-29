@@ -223,7 +223,7 @@
     <string name="triggerSource_TimeType_once">Once</string>
     <string name="triggerSource_TimeType_daily">Daily</string>
     <string name="triggerSource_TimeType_weekly">Weekly</string>
-    <string name="triggerSource_TimeType_daysOfWeek">Certain days of the week</string>
+    <string name="triggerSource_TimeType_daysOfWeek">Days of the week</string>
     <string name="triggerSource_TimeType_Monday">Mon</string>
     <string name="triggerSource_TimeType_Tuesday">Tue</string>
     <string name="triggerSource_TimeType_Wednesday">Wed</string>
@@ -292,6 +292,7 @@
     <string name="getAllTriggersScreen_triggerTimeSourceFirstTimeStamp_propertyName">Source timestamp: </string>
     <string name="getAllTriggersScreen_triggerTimeSourceLastTimeFired_propertyName">Trigger last time fired: </string>
     <string name="getAllTriggersScreen_triggerTimeSourceType_propertyName">Time source type: </string>
+    <string name="getAllTriggersScreen_triggerTimeDaysOfTheWeek_propertyName">Days of the week: </string>
     <string name="getAllTriggersScreen_triggerSourceFieldType_propertyName">Source field type: </string>
     <string name="getAllTriggersScreen_triggerSourceFieldValue_propertyName">Source field value: </string>
     <string name="getAllTriggersScreen_triggerSourceFieldValue_RGBcontext_propertyName">Source RGB context: </string>
