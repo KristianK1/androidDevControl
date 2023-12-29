@@ -16,6 +16,14 @@ data class AddTriggerViewState(
     var timeTriggerType: MutableState<ETriggerTimeType> = mutableStateOf(ETriggerTimeType.Once),
     var timeSourceTime: MutableState<Int?> = mutableStateOf(null),
     var timeSourceDate: MutableState<Calendar?> = mutableStateOf(null),
+    var daysOfTheWeek: List<MutableState<Boolean>> = listOf(
+        mutableStateOf(false),
+        mutableStateOf(false),
+        mutableStateOf(false),
+        mutableStateOf(false),
+        mutableStateOf(false),
+        mutableStateOf(false),
+        mutableStateOf(false)),
 
     var sourceSettings: MutableState<TriggerSourceSettingsViewState?> = mutableStateOf(null),
 

@@ -95,12 +95,14 @@ enum class ETriggerTimeType {
     Once,
     Daily,
     Weekly,
+    DaysInWeek,
 }
 
 data class ITriggerTimeSourceData(
     val type: ETriggerTimeType,
     val firstTimeStamp: String,
     val lastRunTimestamp: String?,
+    val daysInWeek: List<Boolean>,
 ) : TriggerSourceData()
 
 @Serializable

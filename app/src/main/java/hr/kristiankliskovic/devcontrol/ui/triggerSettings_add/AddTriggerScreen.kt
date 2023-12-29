@@ -17,11 +17,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.kristiankliskovic.devcontrol.model.*
 import hr.kristiankliskovic.devcontrol.ui.components.otherComponents.OutlineTextWrapper
 import hr.kristiankliskovic.devcontrol.ui.components.triggerComponents.sourceComponents.*
 import hr.kristiankliskovic.devcontrol.R
 import hr.kristiankliskovic.devcontrol.ui.theme.Shapes
+import java.time.DayOfWeek
 
 @Composable
 fun AddTriggerRoute(
@@ -57,6 +59,9 @@ fun AddTriggerRoute(
         },
         setDate = { year, month, day ->
             viewModel.setDateTriggerDate(year, month, day)
+        },
+        selectDayOfWeek = { day, state ->
+            viewModel.selectDayOfTheWeek(day, state)
         },
         setNumericTriggerType = {
             viewModel.setNumericSourceType(it)
@@ -150,6 +155,7 @@ fun AddTriggerScreen(
     setTimeTriggerType: (ETriggerTimeType) -> Unit,
     setTime: (Int, Int) -> Unit,
     setDate: (Int, Int, Int) -> Unit,
+    selectDayOfWeek: (Int, Boolean) -> Unit,
 
     setNumericTriggerType: (ENumericTriggerType) -> Unit,
     setTextTriggerType: (ETextTriggerType) -> Unit,
@@ -222,45 +228,24 @@ fun AddTriggerScreen(
                 selectField = selectSourceField,
             )
         } else {
-            Column(
-                modifier = Modifier
-                    .width(IntrinsicSize.Max)
-                    .border(
-                        width = 1.dp,
-                        shape = RectangleShape,
-                        color = Color.Gray,
-                    )
-                    .padding(dimensionResource(id = R.dimen.addTriggerBorderPadding))
-                    .align(Alignment.CenterHorizontally),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = stringResource(id = R.string.addTriggerScreen_timeSettings_selectTitle),
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally),
-                    fontSize = 20.sp
-                )
-
-                TypeOfTimeSource(
-                    type = viewState.timeTriggerType.value,
-                    selectType = {
-                        setTimeTriggerType(it)
-                    },
-                )
-                TimeSelection(
-                    time = viewState.timeSourceTime.value,
-                    saveTime = { hour, minute ->
-                        setTime(hour, minute)
-                    }
-                )
-                DateSelection(
-                    date = viewState.timeSourceDate.value,
-                    saveDate = { year, month, day ->
-                        setDate(year, month, day)
-                    }
-                )
-            }
+            TypeOfTimeSource(
+                typeSelected = viewState.timeTriggerType.value,
+                chooseType = {
+                    setTimeTriggerType(it)
+                },
+                timeSourceTime = viewState.timeSourceTime.value,
+                timeSourceDate = viewState.timeSourceDate.value,
+                setDate = { year, month, day ->
+                    setDate(year, month, day)
+                },
+                setTime = { hour, minute ->
+                    setTime(hour, minute)
+                },
+                daysOfTheWeek = viewState.daysOfTheWeek.map{ it.value },
+                selectDayOfWeek = { day, state ->
+                    selectDayOfWeek(day, state)
+                }
+            )
         }
         if (viewState.sourceSettings.value != null) {
             TriggerFieldSourceDataSettings(

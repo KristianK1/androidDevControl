@@ -717,6 +717,10 @@ class AddTriggerViewModel(
         viewState.value.notificationEmailViewState.value.text.value = text
     }
 
+    fun selectDayOfTheWeek(day: Int, state: Boolean){
+        viewState.value.daysOfTheWeek.get(day).value = state
+    }
+
     fun saveTrigger() {
         try {
             if (viewState.value.triggerName.length < 5) throw(Throwable("Trigger name needs to be at least 5 letters"))
@@ -755,12 +759,16 @@ class AddTriggerViewModel(
                     val time = viewState.value.timeSourceTime.value
                         ?: throw(Throwable("Time value isn't set"))
 
-                    val date = viewState.value.timeSourceDate.value
-                        ?: throw(Throwable("Date value isn't set"))
+                    var date: Calendar? = null
+                    if(viewState.value.timeTriggerType.value == ETriggerTimeType.Once ||  viewState.value.timeTriggerType.value == ETriggerTimeType.Weekly){
+                        date = viewState.value.timeSourceDate.value
+                            ?: throw(Throwable("Date value isn't set"))
+                    }
+
                     val calendar = valuesToCalendar(
-                        year = date.get(Calendar.YEAR),
-                        month = date.get(Calendar.MONTH) + 1,
-                        day = date.get(Calendar.DAY_OF_MONTH),
+                        year = date?.get(Calendar.YEAR) ?: Calendar.getInstance().get(Calendar.YEAR),
+                        month = if(date != null) date.get(Calendar.MONTH) + 1 else Calendar.getInstance().get(Calendar.MONTH) + 1,
+                        day = date?.get(Calendar.DAY_OF_MONTH) ?: Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
                         hour = time / 60,
                         minute = time % 60
                     )
@@ -774,6 +782,9 @@ class AddTriggerViewModel(
                         type = viewState.value.timeTriggerType.value,
                         firstTimeStamp = ISO,
                         lastRunTimestamp = "",
+                        daysInWeek = viewState.value.daysOfTheWeek.map{
+                            it.value
+                        },
                     )
                 }
             }

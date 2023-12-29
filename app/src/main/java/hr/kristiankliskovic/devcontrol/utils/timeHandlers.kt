@@ -43,11 +43,9 @@ fun ISOtoCalendar(iso: String): Calendar {
     }
 }
 
-
 fun CalendarToTSinputFormat(c: Calendar): String {
     return SimpleDateFormat("yyyy-MM-dd'%20'HH:mm:ss").format(c.time)
 }
-
 
 fun ISOtoTSinputFormat(iso: String): String {
     return CalendarToTSinputFormat(ISOtoCalendar(iso))

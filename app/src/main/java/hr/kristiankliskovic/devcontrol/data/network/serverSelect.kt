@@ -20,7 +20,6 @@ val laptop_WiFi = Server(
     wsServer = "192.168.1.205"
 )
 
-
 val renderHosting = Server(
     httpServer = "https://devcontrol-backend.onrender.com",
     wsServer = "devcontrol-backend.onrender.com"

@@ -21,7 +21,6 @@ interface UserService {
     suspend fun logoutUser(token: String, logoutOtherSessions: Boolean): Boolean
     suspend fun deleteUser(token: String): Boolean
     suspend fun getOtherUsers(token: String): GetAllUsersResponse?
-
     suspend fun changePassword(
         userId: Int,
         oldPassword: String,

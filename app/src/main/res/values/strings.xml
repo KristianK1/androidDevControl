@@ -223,6 +223,15 @@
     <string name="triggerSource_TimeType_once">Once</string>
     <string name="triggerSource_TimeType_daily">Daily</string>
     <string name="triggerSource_TimeType_weekly">Weekly</string>
+    <string name="triggerSource_TimeType_daysOfWeek">Certain days of the week</string>
+    <string name="triggerSource_TimeType_Monday">Mon</string>
+    <string name="triggerSource_TimeType_Tuesday">Tue</string>
+    <string name="triggerSource_TimeType_Wednesday">Wed</string>
+    <string name="triggerSource_TimeType_Thursday">Thu</string>
+    <string name="triggerSource_TimeType_Friday">Fri</string>
+    <string name="triggerSource_TimeType_Saturday">Sat</string>
+    <string name="triggerSource_TimeType_Sunday">Sun</string>
+
 
     <string name="triggerNumericSelectValue_startText">Select value</string>
 

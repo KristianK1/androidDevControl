@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
@@ -52,6 +53,7 @@ fun TimeSelection(
         fontWeight = FontWeight.Bold,
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_margin))
+            .fillMaxWidth()
             .clip(Shapes.small)
             .background(
                 color = MaterialTheme.colorScheme.primary,
@@ -100,6 +102,7 @@ fun DateSelection(
         fontWeight = FontWeight.Bold,
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.addTriggerScreen_SelectedItem_text_margin))
+            .fillMaxWidth()
             .clip(Shapes.small)
             .background(
                 color = MaterialTheme.colorScheme.primary,
